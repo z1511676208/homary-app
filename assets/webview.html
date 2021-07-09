@@ -1,0 +1,44 @@
+<!--
+ * @Author       : JHao
+ * @Date         : 2021-06-25 16:39:55
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-07-08 15:40:52
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="web" style="width: 100px;height: 100px;background: skyblue;color: #fff;text-align: center;line-height: 100px;">
+    Wenview</div>
+</body>
+<script>
+  const btn = document.querySelector("#web");
+  // web.onclick = function () {
+  //   jhao.postMessage(window.navigator.userAgent)
+  // }
+  console.log("111111")
+
+  //callHandler里的字符串一定要和flutter端的handlerName对应的名称相同
+  var isInitedAppWebview = false;
+  window.addEventListener("flutterInAppWebViewPlatformReady", function(event) { 
+    isInitedAppWebview = true;
+    window.flutter_inappwebview.callHandler('TEST') .then(function(result) {
+      alert(result['a'])
+    })
+  });
+  btn.onclick = function(){
+    console.log(11111)
+    if(isInitedAppWebview){
+      window.flutter_inappwebview .callHandler('Get',document.cookie)
+    }
+  }
+</script>
+
+</html>

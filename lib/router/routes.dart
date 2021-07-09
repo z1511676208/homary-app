@@ -1,0 +1,90 @@
+/*
+ * @Author       : JHao
+ * @Date         : 2021-07-07 20:28:59
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-07-09 18:57:29
+ */
+import 'package:fluro/fluro.dart';
+import 'package:flutter/material.dart';
+import 'package:homary/router/handler.dart';
+import 'package:homary/main.dart';
+
+/// 路由
+class Routes {
+  static FluroRouter router;
+
+  /// 首页
+  static String index = '/';
+
+  /// 注册页
+  static String signIn = '/signIn';
+
+  /// webview
+  static String webView = '/webview';
+
+  /// 注册页
+  static String scrollList = '/scrollList';
+
+  // 配置route
+  static void configureRoutes(FluroRouter router) {
+    router.notFoundHandler = Handler(
+        handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+      print('page not found!');
+      return;
+    });
+
+    router.define(index, handler: indexPageHandler); //
+    router.define(signIn, handler: signInPageHandler); //
+    router.define(scrollList, handler: scrollListInPageHandler); // 注册登录页
+    router.define(webView, handler: webViewInPageHandler); // webview
+  }
+
+  static String formatQueryParams(Map<String, dynamic> params) {
+    int idx = 0;
+    String queryStr = '';
+    for (var key in params.keys) {
+      var value = Uri.encodeComponent(params[key]);
+      if (idx == 0) {
+        queryStr = "?";
+      } else {
+        queryStr += "\&";
+      }
+      queryStr += "$key=$value";
+      idx++;
+    }
+    return queryStr;
+  }
+
+  /// 跳转 方法
+  /// path: 路由地址
+  /// params: 参数
+  /// transition: 转场动画
+  /// replace: 代换
+  static Future push(BuildContext context, String path,
+      {Map<String, dynamic> params,
+      TransitionType transition = TransitionType.cupertino,
+      bool replace = false,
+      bool clearStack = false}) {
+    String queryStr = "";
+    // 拼接 query 参数
+    if (params != null) {
+      queryStr = formatQueryParams(params);
+    }
+    path = path + queryStr;
+    return router.navigateTo(context, path,
+        transition: transition, replace: replace, clearStack: clearStack);
+  }
+
+  /// 返回方法
+  static pop() {
+    /// 通过全局的 global key 获取到当前的路由 overlay 信息，就是用户当前打开的页面。然后调用返回
+    BuildContext context = navigatorKey.currentState.overlay.context;
+    router.pop(context);
+  }
+
+  /// 进入首页
+  static goHome(BuildContext context, {bool replace = false}) {
+    router.navigateTo(context, "/home",
+        replace: replace, transition: TransitionType.fadeIn);
+  }
+}
