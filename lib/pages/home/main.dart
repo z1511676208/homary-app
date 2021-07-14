@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-07 20:28:59
- * @LastEditors  : JHao
- * @LastEditTime : 2021-07-08 14:01:58
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-07-16 15:48:55
  */
 // import 'package:homary/common/storage/cookie.dart';
 // import 'package:homary/common/storage/webview-cookie.dart';
@@ -81,10 +81,22 @@ class _HomePageState extends State<HomePage>
 
   TabController _tabController;
 
+  var currentConfig;
   @override
   void initState() {
     super.initState();
     _tabController = TabController(vsync: this, length: _tabValues.length);
+    // GlobalConfig().addListener(printLog);
+  }
+
+  @override
+  void didChangeDependencies() {
+    var current = Provider.of<GlobalConfig>(context).currentConfig;
+    if (this.currentConfig != current) {
+      this.currentConfig = current;
+    }
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
   }
 
   @override

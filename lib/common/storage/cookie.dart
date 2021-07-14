@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-05 14:38:55
- * @LastEditors  : JHao
- * @LastEditTime : 2021-07-05 16:28:44
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-07-13 14:01:21
  * APP本地数据存储
  */
 
@@ -16,6 +16,10 @@ Future<void> setToken(String token) async {
   await Localstorage().setString('token', token);
 }
 
+Future<void> setUserInfo(dynamic data) async {
+  await Localstorage().setJSON('userInfo', data);
+}
+
 String getCurrentConfig() {
   return Localstorage().getString('currentConfig');
 }
@@ -23,4 +27,8 @@ String getCurrentConfig() {
 String getToken() {
   String token = Localstorage().getString('token');
   return token;
+}
+
+String getUserInfo() {
+  return Localstorage().getString('userInfo');
 }

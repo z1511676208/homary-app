@@ -1,5 +1,10 @@
+/*
+ * @Author       : zhhjie
+ * @Date         : 2021-07-13 10:15:30
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-07-15 17:44:13
+ */
 import 'package:homary/common/utils/main.dart';
-
 
 class TabItem extends StatelessWidget {
   final String title;
@@ -16,7 +21,9 @@ class TabItem extends StatelessWidget {
         SizedBox(height: 6.h),
         Text(this.title,
             style: TextStyle(
-                color: AppColor.primaryText,
+                color: this.curTab == this.tabNum
+                    ? AppColor.primaryText
+                    : AppColor.primaryBorderLight,
                 fontSize: 17.sp,
                 fontWeight: FontWeight.bold)),
         Offstage(

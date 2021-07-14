@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-07 20:04:36
- * @LastEditors  : JHao
- * @LastEditTime : 2021-07-16 15:24:19
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-07-16 19:21:48
  */
 import 'dart:ui';
 
@@ -41,6 +41,9 @@ class AppColor {
   /// 浅灰色 #999
   static const Color primaryLightSubTitle = Color(0xFF666666);
 
+  /// 浅灰色 #999
+  static const Color primaryBorderLight = Color(0xFF999999);
+
   /// border outline color
   static const Color primaryBorderOutline = Color(0xFFCCCCCC);
 
@@ -49,4 +52,9 @@ class AppColor {
 
   // #F5F6F7FF
   static const Color primaryNavBgColor = Color(0xFFF5F5F5);
+  //底色
+  static const Color primaryBackground = Color(0xFFF4F4F4);
+
+  //点击状态色
+  static const Color primaryPressed = Color.fromARGB(10, 0, 0, 0);
 }

@@ -2,52 +2,15 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-07 15:43:25
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-09 18:46:41
+ * @LastEditTime : 2021-07-16 15:22:15
  */
 import 'package:homary/common/utils/main.dart';
-import './noBorderExpansionTile/main.dart';
+import 'package:homary/components/drawer/components/configNav/configItem.dart';
+import 'package:homary/widget/networkImg.dart';
 import '../../controller.dart';
+import 'expansionItem.dart';
 
-class SlideNav extends StatefulWidget {
-  SlideNav({Key key}) : super(key: key);
-
-  @override
-  _SlideNavState createState() => _SlideNavState();
-}
-
-class _SlideNavState extends State<SlideNav> {
-  Widget navItemChild(value) {
-    return Container(
-      padding: EdgeInsets.fromLTRB(0, 13, 0, 13),
-      width: double.infinity,
-      decoration: BoxDecoration(
-          border: Border(
-              bottom: BorderSide(
-                  width: 0.5.w, color: AppColor.primaryBorderOutline))),
-      child: Text(
-        value?.categoryName,
-        style: TextStyle(color: AppColor.primarySubTitle),
-      ),
-    );
-  }
-
-  Widget navItem(idx) {
-    return Consumer<SlideNavCtrl>(
-        builder: (BuildContext context, SlideNavCtrl slideNavCtrl, child) =>
-            NoBorderExpansionTile(
-              expandedCrossAxisAlignment: CrossAxisAlignment.start,
-              title: Text(
-                slideNavCtrl?.subNavList[idx]?.categoryName ?? '',
-                style: TextStyle(
-                    color: AppColor.primaryText, fontWeight: FontWeight.bold),
-              ),
-              childrenPadding: EdgeInsets.only(left: 16),
-              children: slideNavCtrl?.subNavList
-                  ?.map((e) => navItemChild(e))
-                  ?.toList(),
-            ));
-  }
-
+class SlideNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<SlideNavCtrl>(
@@ -61,11 +24,84 @@ class _SlideNavState extends State<SlideNav> {
                   color: Colors.white,
                   height: MediaQuery.of(context).size.height,
                   width: MediaQuery.of(context).size.width * 0.8,
-                  child: ListView.builder(
-                    itemBuilder: (context, index) {
-                      return navItem(index);
-                    },
-                    itemCount: slideNavCtrl?.subNavList?.length,
+                  child: SafeArea(
+                    child: Column(
+                      children: [
+                        Stack(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.only(top: 13.h, bottom: 13.h),
+                              width: double.infinity,
+                              child: Text(slideNavCtrl?.subTitle ?? '',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: AppColor.primaryText,
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.bold)),
+                            ),
+                            Positioned(
+                              left: 0,
+                              top: 2.h,
+                              child: IconButton(
+                                  onPressed: () {
+                                    slideNavCtrl.subListToggle();
+                                  },
+                                  iconSize: 30,
+                                  color: AppColor.primaryText,
+                                  icon: Icon(Icons.chevron_left)),
+                            )
+                          ],
+                        ),
+                        Container(
+                          color: AppColor.primaryBackground,
+                          child: SizedBox(
+                            height: 12.h,
+                            width: double.infinity,
+                          ),
+                        ),
+                        Flexible(
+                          child: ListView.builder(
+                            itemBuilder: (context, index) {
+                              return slideNavCtrl.isConfigSecondary
+                                  ? Container(
+                                      margin: EdgeInsets.only(left: 16.w),
+                                      decoration: BoxDecoration(
+                                          border: Border(
+                                              bottom: BorderSide(
+                                                  width: 0.5.w,
+                                                  color: AppColor
+                                                      .primaryBorderOutline))),
+                                      child: ConfigItem(
+                                        trailing: slideNavCtrl.configType == 1
+                                            ? MyImage(
+                                                slideNavCtrl?.subNavList[index]
+                                                    ?.iconUrl,
+                                                height: 15.h,
+                                                width: 22.w,
+                                              )
+                                            : Text(''),
+                                        title: slideNavCtrl?.configType == 1
+                                            ? slideNavCtrl
+                                                ?.subNavList[index]?.siteName
+                                            : slideNavCtrl?.configType == 2
+                                                ? slideNavCtrl
+                                                    ?.subNavList[index]?.name
+                                                : slideNavCtrl
+                                                    ?.subNavList[index]?.enName,
+                                        configType: slideNavCtrl?.configType,
+                                        configData:
+                                            slideNavCtrl?.subNavList[index],
+                                      ))
+                                  : ExpansionItem(
+                                      list: slideNavCtrl?.subNavList,
+                                      title: slideNavCtrl
+                                          ?.subNavList[index]?.categoryName);
+                            },
+                            itemCount: slideNavCtrl?.subNavList?.length,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 )));
   }

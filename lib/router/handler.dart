@@ -11,6 +11,7 @@ import 'package:homary/pages/scroll-list/main.dart';
 import 'package:homary/pages/signIn/main.dart';
 import 'package:homary/pages/customer/main.dart';
 import 'package:homary/pages/webview/main.dart';
+import 'package:homary/pages/resetPassword/main.dart';
 
 // 登录
 Handler signInPageHandler = Handler(
@@ -43,5 +44,12 @@ Handler scrollListInPageHandler = Handler(
 Handler webViewInPageHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return WebviewPage();
+  },
+);
+
+// webview
+Handler resetPasswordPageHandler = Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return ResetPassword();
   },
 );

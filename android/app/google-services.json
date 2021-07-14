@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "1053109877152-rd62vm1sk250clf4n98i9l09sq2gnk5k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.popicorns.homary",
+            "certificate_hash": "4a5fd624e72243be391c2b04b5898d350604b798"
+          }
+        },
+        {
           "client_id": "1053109877152-ftqj3guk5l60qi0c4o04260djptaro5c.apps.googleusercontent.com",
           "client_type": 3
         }
