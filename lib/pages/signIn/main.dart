@@ -10,7 +10,9 @@ import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:twitter_login/twitter_login.dart';
 
 class SignInPage extends StatefulWidget {
-  SignInPage({Key key}) : super(key: key);
+  final String redirect;
+
+  SignInPage({this.redirect, Key key}) : super(key: key);
 
   @override
   _SignInPageState createState() => _SignInPageState();
@@ -248,7 +250,13 @@ class _SignInPageState extends State<SignInPage> {
                 TextButton(onPressed: signInFacebook, child: Text('facebook')),
                 TextButton(onPressed: signInFacebook, child: Text('twitter'))
               ],
-            )
+            ),
+            TextButton(
+                onPressed: () {
+                  String path = Routes.getCurPath();
+                  print('path ==> $path');
+                },
+                child: Text('路由'))
           ],
         ),
       ),

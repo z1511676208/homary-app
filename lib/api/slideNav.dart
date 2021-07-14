@@ -9,7 +9,8 @@ import 'package:homary/common/request/request.dart';
 
 class SlideNavApi {
   static Future<SlideNavRes> getSlideNavData() async {
-    var res = await Request().get('/home/channel/get-home-channel');
+    var res =
+        await Request().get('/home/channel/get-home-channel', cache: true);
     return SlideNavRes.fromJson(res);
   }
 }
