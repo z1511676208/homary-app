@@ -1,4 +1,11 @@
+/*
+ * @Author       : JHao
+ * @Date         : 2021-07-12 12:20:08
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-07-14 15:22:59
+ */
 import 'dart:async';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:homary/common/utils/entrance.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:fluro/fluro.dart';
@@ -12,6 +19,20 @@ import 'package:homary/common/utils/navigateWatcher.dart';
 final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 void main() {
   Global.init().then((e) => runApp(MyApp()));
+  EasyLoading.instance
+    ..displayDuration = const Duration(milliseconds: 5000)
+    ..indicatorType = EasyLoadingIndicatorType.ring
+    ..loadingStyle = EasyLoadingStyle.dark
+    ..indicatorSize = 40.0
+    ..radius = 10.0
+    ..progressColor = Colors.yellow
+    ..backgroundColor = Colors.green
+    ..indicatorColor = Colors.yellow
+    ..textColor = Colors.red
+    ..maskType = EasyLoadingMaskType.none
+    ..maskColor = Colors.blue.withOpacity(0.5)
+    ..userInteractions = true
+    ..dismissOnTap = false;
 }
 
 class MyApp extends StatefulWidget {
@@ -54,6 +75,7 @@ class _MyAppState extends State<MyApp> {
               navigateWatcher()
             ], //加入路由统计
             home: MainPage(),
+            builder: EasyLoading.init(),
           );
         }));
   }

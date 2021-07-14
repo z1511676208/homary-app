@@ -1,3 +1,9 @@
+/*
+ * @Author       : JHao
+ * @Date         : 2021-07-14 15:05:20
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-07-14 18:51:44
+ */
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/pages/category/watcher.dart';
 import 'productList.dart';
@@ -83,6 +89,7 @@ class _RightListLayoutState extends State<RightListLayout>
     return Container(
       width: 254.5.w,
       child: CustomScrollView(
+        // physics: ClampingScrollPhysics(),
         controller: _scorllCtrl,
         slivers: [
           _banner(),

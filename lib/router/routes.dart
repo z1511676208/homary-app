@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-07 20:28:59
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-09 18:57:29
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-07-13 15:01:58
  */
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
@@ -76,6 +76,22 @@ class Routes {
         transition: transition, replace: replace, clearStack: clearStack);
   }
 
+  // 替换路由
+  static Future replace(BuildContext context, String path,
+      {Map<String, dynamic> params,
+      TransitionType transition = TransitionType.cupertino,
+      bool replace = true,
+      bool clearStack = false}) {
+    String queryStr = "";
+    // 拼接 query 参数
+    if (params != null) {
+      queryStr = formatQueryParams(params);
+    }
+    path = path + queryStr;
+    return router.navigateTo(context, path,
+        transition: transition, replace: replace, clearStack: clearStack);
+  }
+
   /// 返回方法
   static pop() {
     /// 通过全局的 global key 获取到当前的路由 overlay 信息，就是用户当前打开的页面。然后调用返回
@@ -84,8 +100,9 @@ class Routes {
   }
 
   /// 进入首页
-  static goHome(BuildContext context, {bool replace = false}) {
-    router.navigateTo(context, "/home",
+  static goHome({bool replace = true}) {
+    BuildContext context = navigatorKey.currentState.overlay.context;
+    router.navigateTo(context, "/",
         replace: replace, transition: TransitionType.fadeIn);
   }
 

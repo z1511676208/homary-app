@@ -2,10 +2,13 @@
  * @Author       : JHao
  * @Date         : 2021-06-21 18:40:47
  * @LastEditors  : JHao
- * @LastEditTime : 2021-06-29 19:20:32
+ * @LastEditTime : 2021-07-13 10:24:05
  */
 /// 是否开启代理
-const OPEN_PROXY = true;
+/// 判断当前环境是否 release (生产环境)
+bool isRelease = bool.fromEnvironment("dart.vm.product");
+
+final bool openProxy = !isRelease;
 
 /// 代理服务IP
 const PROXY_IP = '0.0.0.0';

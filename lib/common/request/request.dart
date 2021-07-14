@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:dio/adapter.dart';
 import 'package:dio_log/dio_log.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:homary/common/request/handler.dart';
 // import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
@@ -9,6 +10,8 @@ import 'package:homary/common/utils/main.dart';
 // import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:homary/common/request/cache.dart';
 import 'package:homary/common/config/proxyConfig.dart';
+import 'package:homary/common/utils/analytics.dart';
+import 'package:homary/common/utils/main.dart';
 
 class Request {
   static Request _instance = Request._internal();
@@ -41,15 +44,42 @@ class Request {
       // do something before request is sent
       return handler.next(options);
     }, onResponse: (Response res, ResponseInterceptorHandler handler) {
-      // do someting before response
-      return handler.next(res);
+      if (res.statusCode == 200) {
+        if (res.data['code'] == 200) {
+          bool isSendGTM = res.data['data'] != null &&
+              res.data['data'] is Map &&
+              res.data['data']['__ga'] != null &&
+              res.data['data']['__ga']['is_auto_send'] == 1;
+          if (isSendGTM) {
+            Map<String, dynamic> gaData = res.data['data']['__ga'];
+            // if(){ 判断是否有用户信息
+            // GA.addAll({'user_propertys': user_propertys});
+            // }
+            sendGTMData(gaData);
+          }
+          return handler.next(res);
+        } else if (res.data['code'] == 70011) {
+          //重置密码过期
+          return handler.reject(res.data);
+        } else if (res.data['code'] == 10011) {
+          Routes.goHome();
+          // 请求的用户信息如果不属于当前单号的用户信息，则返回10011错误码指定前端跳转官网首页
+          return handler.reject(res.data);
+        } else if (res.data['code'] == 401) {
+          if (res.requestOptions.path == '/user/user/info') {
+            return handler.reject(res.data);
+          }
+          String redirect_url = "";
+          return handler.reject(res.data);
+        }
+      }
     }, onError: (DioError err, ErrorInterceptorHandler handler) {
       return handler.next(err);
     }));
     dio.interceptors.add(DioLogInterceptor());
 
     /// 开启抓包 proxy 代理，禁用 https 证书
-    if (OPEN_PROXY) {
+    if (openProxy) {
       (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
           (client) {
         client.findProxy = (uri) {

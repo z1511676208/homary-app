@@ -2,9 +2,10 @@
  * @Author       : JHao
  * @Date         : 2021-06-21 18:40:47
  * @LastEditors  : JHao
- * @LastEditTime : 2021-06-29 19:27:59
+ * @LastEditTime : 2021-07-14 14:34:49
  */
 import 'dart:io';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:homary/common/request/request.dart';
 import 'package:homary/common/utils/localstorage.dart';
