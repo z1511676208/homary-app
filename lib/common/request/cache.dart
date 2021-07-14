@@ -1,6 +1,8 @@
 import 'dart:collection';
 import 'package:dio/dio.dart';
 import 'package:homary/common/config/cacheConfig.dart';
+import 'package:homary/common/utils/localstorage.dart';
+// import 'package:homary/common/utils/main.dart';
 
 class CacheObject {
   // 返回值的时间戳
@@ -62,7 +64,12 @@ class CacheGet extends Interceptor {
         }
       } else
         return handler.next(options);
-    } else
+    }
+    // else if (options.extra["diskCache"] != false &&
+    //     options.method.toLowerCase() == 'get') {
+    //   如果有直接点用磁盘数据的情况，可以在这里补充
+    // }
+    else
       return handler.next(options);
   }
 
@@ -73,7 +80,8 @@ class CacheGet extends Interceptor {
         options.method.toLowerCase() != "get" ||
         !CACHE_ENABLE)
       return;
-    else if (!_handleReslut())
+    // 判断返回结果是没有问题的才存到内存
+    else if (!_handleReslut(resOption.data))
       return;
     else {
       // 如果缓存数量超过最大数量限制，则先移除最早的一条记录
@@ -81,8 +89,23 @@ class CacheGet extends Interceptor {
         cache.remove(cache[cache.keys.first]);
       }
       String key = options.extra["cacheKey"] ?? options.uri.toString();
-      print('keykeykey ===> $key');
       cache[key] = CacheObject(resOption);
+    }
+  }
+
+  // 保存返回结果到磁盘
+  _saveDiskCache(Response resOption) async {
+    RequestOptions options = resOption.requestOptions;
+    if (options.extra["diskCache"] == false ||
+        options.method.toLowerCase() != "get" ||
+        !CACHE_ENABLE)
+      return;
+    // 判断返回结果是没有问题的才存到磁盘
+    else if (!_handleReslut(resOption.data))
+      return;
+    else {
+      String key = options.uri.toString();
+      await Localstorage().setJSON(key, resOption.data);
     }
   }
 
@@ -91,16 +114,34 @@ class CacheGet extends Interceptor {
       Response response, ResponseInterceptorHandler handler) async {
     // 如果启用缓存，将返回结果保存到缓存
     _saveCache(response);
+    await _saveDiskCache(response);
+    if (response.extra["diskCache"] == true && !_handleReslut(response.data)) {
+      String key = response.requestOptions.uri.toString();
+      var res = Response(
+          requestOptions: response.requestOptions,
+          data: Localstorage().getJSON(key));
+      handler.resolve(res);
+    }
     handler.next(response);
   }
 
   @override
   Future onError(DioError err, ErrorInterceptorHandler handler) async {
-    // 错误状态不缓存
+    if (err.requestOptions.extra["diskCache"] == true ||
+        err.requestOptions.method.toLowerCase() == "get" ||
+        CACHE_ENABLE) {
+      String key = err.requestOptions.uri.toString();
+      var data = Localstorage().getJSON(key);
+      if (data != null) {
+        var res = Response(requestOptions: err.requestOptions, data: data);
+        handler.resolve(res);
+      } else
+        handler.next(err);
+    }
   }
 
   /// 判断返回结果是否符合预期
-  bool _handleReslut() {
+  bool _handleReslut(data) {
     // ...
     return true;
   }

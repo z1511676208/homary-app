@@ -6,7 +6,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:homary/common/request/handler.dart';
 // import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
-import 'package:homary/common/utils/main.dart';
+// import 'package:homary/common/utils/main.dart';
 // import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:homary/common/request/cache.dart';
 import 'package:homary/common/config/proxyConfig.dart';
@@ -22,7 +22,7 @@ class Request {
     BaseOptions options = BaseOptions(
         baseUrl: 'https://frontapi.homary.com',
         // 连接服务器超时时间
-        connectTimeout: 30000,
+        connectTimeout: 30,
         // 响应流前后两次接收数据间隔
         receiveTimeout: 5000,
         // 请求头
