@@ -6,7 +6,7 @@ class ProductApi {
   static Future<dynamic> getProduct() async {
     var url = getRequsetUrl('getProductUrl');
     var res = await Request()
-        .get(url, params: {"test": 2313, "name": 'huanjie'}, cache: false);
+        .get(url, params: {"test": 2313, "name": 'huanjie'}, diskCache: false);
     return HomeProductsRes.fromJson(res);
   }
 }
