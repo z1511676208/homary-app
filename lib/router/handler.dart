@@ -15,7 +15,8 @@ import 'package:homary/pages/webview/main.dart';
 // 登录
 Handler signInPageHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    return SignInPage();
+    String redirect = params['redirect']?.first ?? null;
+    return SignInPage(redirect: redirect);
   },
 );
 

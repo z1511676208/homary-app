@@ -29,6 +29,8 @@ class CacheGet extends Interceptor {
     // 缓存拦截 flag
     if (!CACHE_ENABLE) return handler.next(options);
     bool refresh = options.extra["refresh"] == true;
+    // // 是否需要磁盘缓存
+    // bool diskCache = options.extra["diskCache"];
     // 先判断是否refresh操作，如果是，就删除内存的数据，强行刷新缓存
     if (refresh) {
       if (options.extra["list"] == true) {
@@ -79,6 +81,7 @@ class CacheGet extends Interceptor {
         cache.remove(cache[cache.keys.first]);
       }
       String key = options.extra["cacheKey"] ?? options.uri.toString();
+      print('keykeykey ===> $key');
       cache[key] = CacheObject(resOption);
     }
   }

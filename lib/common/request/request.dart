@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:dio/adapter.dart';
+import 'package:dio_log/dio_log.dart';
 import 'package:homary/common/request/handler.dart';
 // import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
+import 'package:homary/common/utils/main.dart';
 // import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:homary/common/request/cache.dart';
 import 'package:homary/common/config/proxyConfig.dart';
@@ -32,8 +34,8 @@ class Request {
     // CookieJar cookieJar = CookieJar();
     // 设置自定携带 cookies
     // dio.interceptors.add(CookieManager(cookieJar));
-    dio.interceptors.add(CacheGet());
     dio.interceptors.add(RrequsetHandler());
+    dio.interceptors.add(CacheGet());
     dio.interceptors.add(InterceptorsWrapper(
         onRequest: (RequestOptions options, RequestInterceptorHandler handler) {
       // do something before request is sent
@@ -44,6 +46,7 @@ class Request {
     }, onError: (DioError err, ErrorInterceptorHandler handler) {
       return handler.next(err);
     }));
+    dio.interceptors.add(DioLogInterceptor());
 
     /// 开启抓包 proxy 代理，禁用 https 证书
     if (OPEN_PROXY) {
@@ -62,6 +65,8 @@ class Request {
   /// cache 是否缓存 默认 false
   /// list 是否列表 默认 false
   /// cacheKey 缓存key
+  /// diskCache 磁盘缓存
+  /// cacheTime 缓存时间 (默认)
   Future get(
     String path, {
     dynamic params,
@@ -69,16 +74,20 @@ class Request {
     CancelToken cancelToken,
     bool refresh = false,
     bool cache = false,
+    bool diskCache = false,
     bool list = false,
     String cacheKey,
+    int cacheTime = 600,
   }) async {
     try {
       Options requestOptions = options ?? Options();
       Map<String, dynamic> cacheOption = {
         "refresh": refresh,
         "cache": cache,
+        "diskCache": diskCache,
         "list": list,
-        "cacheKey": cacheKey
+        "cacheKey": cacheKey,
+        "cacheTime": cacheTime,
       };
       if (requestOptions.extra == null) {
         requestOptions.extra = cacheOption;

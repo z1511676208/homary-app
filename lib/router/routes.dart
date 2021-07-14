@@ -8,6 +8,7 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:homary/router/handler.dart';
 import 'package:homary/main.dart';
+import 'package:homary/common/utils/navigateWatcher.dart';
 
 /// 路由
 class Routes {
@@ -86,5 +87,9 @@ class Routes {
   static goHome(BuildContext context, {bool replace = false}) {
     router.navigateTo(context, "/home",
         replace: replace, transition: TransitionType.fadeIn);
+  }
+
+  static getCurPath() {
+    return navigateWatcher.currentPath;
   }
 }

@@ -61,8 +61,7 @@ class GlobalAppbar extends StatelessWidget {
                         IconButton(
                             color: Colors.black,
                             icon: Icon(Icons.favorite_border),
-                            onPressed: () => Routes.push(
-                                context, '/favorite/p123?name=shean&price=31')),
+                            onPressed: () => Routes.push(context, '/signIn')),
                         IconButton(
                             color: Colors.black,
                             icon: Icon(Icons.shopping_cart_outlined),

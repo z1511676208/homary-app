@@ -1,43 +1,72 @@
 import 'package:homary/common/utils/main.dart';
+import 'package:homary/pages/category/watcher.dart';
 
-class TopNav extends StatelessWidget {
-  TopNav({Key key}) : super(key: key);
+class TopNav extends StatefulWidget {
+  final ScrollController _scrollCtrl;
+  final TabController _topNavScorllCtrl;
+
+  TopNav(this._scrollCtrl, this._topNavScorllCtrl, {Key key}) : super(key: key);
+
+  @override
+  _TopNavState createState() => _TopNavState();
+}
+
+class _TopNavState extends State<TopNav> {
+  int curTab = 0;
+
+  changeCurTab(idx) {
+    this.setState(() => curTab = idx);
+  }
 
   @override
   Widget build(BuildContext context) {
     return SliverPersistentHeader(
-        pinned: true, floating: true, delegate: _SliverAppBarDelegate());
+        pinned: true,
+        floating: true,
+        delegate: _SliverAppBarDelegate(
+            widget._scrollCtrl, widget._topNavScorllCtrl, changeCurTab));
   }
 }
 
 class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
-  final List<String> _topNavList = [
-    'Ceiling Lights',
-    'Wall Lights',
-    'Table & Floor Lamps',
-    'Semi Flush Lights',
-    'Pendant Lights',
-    'Ceiling Fans',
-  ];
+  final ScrollController _scrollCtrl; // 商品列表 scroll controller
+  final TabController _topNavScorllCtrl; // 顶部导航 scroll controller
+  final Function changeCurTab; // 修改当前页签视图方法
 
-  Widget _topNavItem(idx) {
-    return Container(
-      height: 32.w,
-      padding: EdgeInsets.only(right: 12.w),
-      child: OutlinedButton(
-          onPressed: () {},
-          style: ButtonStyle(
-            padding: MaterialStateProperty.all(
-                EdgeInsets.symmetric(horizontal: 16.w, vertical: 6.w)),
-            side: MaterialStateProperty.all(
-                BorderSide(color: AppColor.primaryBorderOutline)),
-            shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(50)))),
-          ),
-          child: Text(_topNavList[idx],
-              style:
-                  TextStyle(fontSize: 12.sp, color: AppColor.primarySubTitle))),
-    );
+  _SliverAppBarDelegate(
+      this._scrollCtrl, this._topNavScorllCtrl, this.changeCurTab)
+      : super();
+
+  // 获取 product list 滚动距离
+  void productListScrollTo(idx) {
+    Watcher.isTap = true;
+    _scrollCtrl
+        .animateTo(Watcher.productListItemHeight[idx].w,
+            duration: Duration(milliseconds: 500), curve: Curves.linear)
+        .then((value) => Watcher.isTap = false);
+  }
+
+  List<Widget> tabItemsWidget() {
+    List<Widget> tabs = [];
+    for (var i = 0; i < Watcher.productList.length; i++) {
+      tabs.add(Container(
+        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.w),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30),
+            border: Border.all(
+                color: _topNavScorllCtrl.index == i
+                    ? AppColor.primaryColor
+                    : AppColor.primaryBorderOutline,
+                width: 2)),
+        child: Text(Watcher.productList[i]['title'],
+            style: TextStyle(
+                fontSize: 14.sp,
+                color: _topNavScorllCtrl.index == i
+                    ? AppColor.primaryColor
+                    : AppColor.primaryLightSubTitle)),
+      ));
+    }
+    return tabs;
   }
 
   @override
@@ -47,13 +76,19 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
         color: Colors.white,
         height: 32.w,
         width: 254.5.w,
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) {
-            return _topNavItem(index);
-          },
-          itemCount: _topNavList.length,
-        ));
+        child: TabBar(
+            controller: _topNavScorllCtrl,
+            tabs: tabItemsWidget(),
+            isScrollable: true,
+            onTap: (int idx) {
+              changeCurTab(idx);
+              productListScrollTo(idx);
+            },
+            labelPadding: EdgeInsets.symmetric(horizontal: 4.w),
+            indicatorWeight: 0.01,
+            indicatorColor: Colors.transparent,
+            labelStyle: TextStyle(fontWeight: FontWeight.bold),
+            indicatorSize: TabBarIndicatorSize.label));
   }
 
   @override
@@ -63,5 +98,5 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   double get minExtent => 32.w;
 
   @override
-  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => false;
+  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
 }

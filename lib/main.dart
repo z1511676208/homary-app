@@ -7,6 +7,7 @@ import 'package:homary/generated/l10n.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/analytics.dart' as Analytics;
 import 'package:homary/pages/index/main.dart';
+import 'package:homary/common/utils/navigateWatcher.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 void main() {
@@ -49,7 +50,8 @@ class _MyAppState extends State<MyApp> {
             onGenerateRoute: Routes.router.generator,
             navigatorKey: navigatorKey,
             navigatorObservers: <NavigatorObserver>[
-              Analytics.observer
+              Analytics.observer,
+              navigateWatcher()
             ], //加入路由统计
             home: MainPage(),
           );
