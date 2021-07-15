@@ -2,8 +2,9 @@
  * @Author       : JHao
  * @Date         : 2021-07-14 15:05:20
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-14 18:51:44
+ * @LastEditTime : 2021-07-15 18:46:25
  */
+import 'package:flutter/rendering.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/pages/category/watcher.dart';
 import 'productList.dart';
@@ -27,22 +28,28 @@ class _RightListLayoutState extends State<RightListLayout>
   void initState() {
     _topNavScorllCtrl =
         TabController(vsync: this, length: Watcher.productList.length);
-    Watcher.productListItemHeight =
-        getPorductListItemHeight(Watcher.productList);
+    // Watcher.productListItemHeight =
+    //     getPorductListItemHeight(Watcher.productList);
     _scorllCtrl.addListener(() {
       if (Watcher.isTap) return;
+      // print("upDirection  ${_scorllCtrl.offset}");
       if (_timer == false) {
         _timer = true;
         Future.delayed(Duration(milliseconds: 200), () {
           _timer = false;
           for (var i = 0; i < Watcher.productListItemHeight.length; i++) {
-            if (Watcher.productListItemHeight[i] <= _scorllCtrl.offset) {
-              if (_curTopNavItem != i) {
-                this.setState(() {
-                  _curTopNavItem = i;
-                });
-                _topNavScorllCtrl.animateTo(i);
-              }
+            if (Watcher.itemOffsetList[i] - Watcher.productListItemHeight[i] <=
+                    _scorllCtrl.offset &&
+                _scorllCtrl.offset <= Watcher.itemOffsetList[i]) {
+              // if (_curTopNavItem == i) {
+              //   return;
+              // }
+              this.setState(() {
+                _curTopNavItem = i;
+              });
+              // print(
+              //     "_topNavScorllCtrl  ${Watcher.productListItemHeight.length} $i");
+              _topNavScorllCtrl.animateTo(i);
             }
           }
         });
@@ -75,9 +82,9 @@ class _RightListLayoutState extends State<RightListLayout>
   Widget _banner() {
     return SliverToBoxAdapter(
       child: Container(
-        width: 246.5.w,
-        height: 100.h,
-        margin: EdgeInsets.only(right: 15.w, bottom: 15.h, top: 15.h),
+        width: 248.w,
+        height: 86.w,
+        margin: EdgeInsets.only(bottom: 12.w, top: 12.w),
         decoration: BoxDecoration(borderRadius: AppStyle.primaryBorderRaduis),
         child: Placeholder(),
       ),
@@ -88,14 +95,16 @@ class _RightListLayoutState extends State<RightListLayout>
   Widget build(BuildContext context) {
     return Container(
       width: 254.5.w,
+      color: Colors.white,
       child: CustomScrollView(
-        // physics: ClampingScrollPhysics(),
+        physics: ClampingScrollPhysics(),
+        // cacheExtent: 1000,
         controller: _scorllCtrl,
         slivers: [
           _banner(),
           TopNav(_scorllCtrl, _topNavScorllCtrl),
           ProductList(),
-          SliverToBoxAdapter(child: SizedBox(height: 30.h))
+          // SliverToBoxAdapter(child: SizedBox(height: 30.h))
         ],
       ),
     );

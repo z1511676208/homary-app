@@ -1,3 +1,10 @@
+/*
+ * @Author       : JHao
+ * @Date         : 2021-07-08 10:21:44
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-07-15 16:40:46
+ */
+import 'package:hexcolor/hexcolor.dart';
 import 'package:homary/common/utils/main.dart';
 
 class LeftNav extends StatelessWidget {
@@ -40,7 +47,8 @@ class LeftNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 105.5.w,
+      width: 103.w,
+      color: AppColor.primaryNavBgColor,
       child: ListView.builder(
         itemBuilder: (context, index) {
           return navItem(index);

@@ -1,3 +1,9 @@
+/*
+ * @Author       : JHao
+ * @Date         : 2021-07-07 20:04:36
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-07-15 16:53:54
+ */
 import 'package:homary/common/utils/main.dart';
 
 class AppbarSearch extends StatefulWidget {
@@ -11,9 +17,9 @@ class _AppbarSearchState extends State<AppbarSearch> {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-        constraints: BoxConstraints(minHeight: 34.h),
+        constraints: BoxConstraints(minHeight: 34.w),
         child: Container(
-          height: 34.h,
+          height: 34.w,
           width: MediaQuery.of(context).size.width - 24.w,
           decoration: BoxDecoration(color: Colors.white),
           child: GestureDetector(
@@ -25,7 +31,7 @@ class _AppbarSearchState extends State<AppbarSearch> {
                     color: AppColor.primaryBorderHard, fontSize: 14.sp),
                 decoration: InputDecoration(
                     isCollapsed: true,
-                    contentPadding: EdgeInsets.symmetric(vertical: 10.h),
+                    contentPadding: EdgeInsets.symmetric(vertical: 10.w),
                     prefixIcon: Icon(Icons.search),
                     border: OutlineInputBorder(
                       borderSide: BorderSide(

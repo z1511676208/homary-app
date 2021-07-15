@@ -38,12 +38,42 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
       : super();
 
   // 获取 product list 滚动距离
+  // void productListScrollTo(idx) {
+  //   Watcher.isTap = true;
+  //   double top = Watcher.itemOffsetList[idx] -
+  //       Watcher.productListItemHeight[idx]; // tabbar点击滚动在item头部
+  //   _scrollCtrl
+  //       .animateTo(top,
+  //           duration: Duration(milliseconds: 500), curve: Curves.linear)
+  //       .then((value) => Watcher.isTap = false);
+  // }
+  // 获取 product list 滚动距离
   void productListScrollTo(idx) {
     Watcher.isTap = true;
-    _scrollCtrl
-        .animateTo(Watcher.productListItemHeight[idx].w,
-            duration: Duration(milliseconds: 500), curve: Curves.linear)
-        .then((value) => Watcher.isTap = false);
+    // 如果点击的 tab 大于当前首屏商品列表的高度先移动到首屏最后商品的位置
+    print("productListItemHeight   ${Watcher.productListItemHeight}");
+
+    if (Watcher.productListItemHeight.length - 1 < idx) {
+      print("idx $idx");
+
+      int lastIdx = Watcher.productListItemHeight.length - 1;
+      print("lastIdx $lastIdx");
+      print("productListItemHeight   ${Watcher.productListItemHeight}");
+
+      double top = Watcher.itemOffsetList[lastIdx] -
+          Watcher.productListItemHeight[lastIdx]; // tabbar点击滚动在item头部
+      _scrollCtrl
+          .animateTo(top,
+              duration: Duration(milliseconds: 100), curve: Curves.linear)
+          .then((value) => productListScrollTo(idx)); // 移动结束后，递归执行，直到缓存列表有对应的高度
+    } else {
+      double top = Watcher.itemOffsetList[idx] -
+          Watcher.productListItemHeight[idx]; // tabbar点击滚动在item头部
+      _scrollCtrl
+          .animateTo(top,
+              duration: Duration(milliseconds: 500), curve: Curves.linear)
+          .then((value) => Watcher.isTap = false);
+    }
   }
 
   List<Widget> tabItemsWidget() {
@@ -52,6 +82,9 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
       tabs.add(Container(
         padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.w),
         decoration: BoxDecoration(
+            color: _topNavScorllCtrl.index == i
+                ? AppColor.activeColor
+                : Colors.white,
             borderRadius: BorderRadius.circular(30),
             border: Border.all(
                 color: _topNavScorllCtrl.index == i
@@ -74,8 +107,8 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
         color: Colors.white,
-        height: 32.w,
-        width: 254.5.w,
+        height: 40.w,
+        width: 260.w,
         child: TabBar(
             controller: _topNavScorllCtrl,
             tabs: tabItemsWidget(),
@@ -92,10 +125,10 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  double get maxExtent => 32.w;
+  double get maxExtent => 40.w;
 
   @override
-  double get minExtent => 32.w;
+  double get minExtent => 40.w;
 
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;

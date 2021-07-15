@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-06 10:11:04
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-08 17:43:41
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-07-15 16:47:44
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/components/drawer/main.dart';
@@ -41,7 +41,7 @@ class _IndexPageState extends State<IndexPage> {
     return Scaffold(
       appBar: PreferredSize(
         child: GlobalAppbar(),
-        preferredSize: Size.fromHeight(95.h),
+        preferredSize: Size.fromHeight(96.5.w),
       ),
       drawer: GlobalDrawer(),
       body: this._pageList[this._currentIndex],

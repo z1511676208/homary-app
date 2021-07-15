@@ -1,3 +1,9 @@
+/*
+ * @Author       : JHao
+ * @Date         : 2021-07-12 17:38:02
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-07-15 16:35:00
+ */
 import 'package:homary/common/utils/main.dart';
 import 'controller.dart';
 import 'components/leftNav.dart';
@@ -35,8 +41,9 @@ class _ProductListViewState extends State<ProductListView> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.white,
       child: Row(
-        children: [LeftNav(), SizedBox(width: 15.w), RightListLayout()],
+        children: [LeftNav(), SizedBox(width: 12.w), RightListLayout()],
       ),
     );
   }
