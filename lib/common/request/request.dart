@@ -11,7 +11,9 @@ import 'package:dio/dio.dart';
 import 'package:homary/common/request/cache.dart';
 import 'package:homary/common/config/proxyConfig.dart';
 import 'package:homary/common/utils/analytics.dart';
+import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
+import 'package:homary/main.dart';
 
 class Request {
   static Request _instance = Request._internal();
@@ -22,7 +24,7 @@ class Request {
     BaseOptions options = BaseOptions(
         baseUrl: 'https://frontapi.homary.com',
         // 连接服务器超时时间
-        connectTimeout: 30,
+        connectTimeout: 30 * 1000,
         // 响应流前后两次接收数据间隔
         receiveTimeout: 5000,
         // 请求头
@@ -52,12 +54,14 @@ class Request {
               res.data['data']['__ga']['is_auto_send'] == 1;
           if (isSendGTM) {
             Map<String, dynamic> gaData = res.data['data']['__ga'];
-            // if(){ 判断是否有用户信息
-            // GA.addAll({'user_propertys': user_propertys});
-            // }
+            // 判断是否有用户信息
+            Map<String, dynamic> userInfo = Localstorage().getJSON('userInfo');
+            if (userInfo != null) {
+              gaData.addAll({'user_propertys': userInfo});
+            }
             sendGTMData(gaData);
           }
-          return handler.next(res);
+          return handler.next(res.data);
         } else if (res.data['code'] == 70011) {
           //重置密码过期
           return handler.reject(res.data);
@@ -66,14 +70,23 @@ class Request {
           // 请求的用户信息如果不属于当前单号的用户信息，则返回10011错误码指定前端跳转官网首页
           return handler.reject(res.data);
         } else if (res.data['code'] == 401) {
+          Localstorage().remove('token');
           if (res.requestOptions.path == '/user/user/info') {
             return handler.reject(res.data);
           }
-          String redirect_url = "";
+          String redirectUrl = Routes.getCurPath();
+          BuildContext context = navigatorKey.currentState.overlay.context;
+          Routes.replace(context, '/signIn',
+              params: {'redirectUrl': redirectUrl});
           return handler.reject(res.data);
+        } else {
+          DioError errData =
+              DioError(requestOptions: res.requestOptions, error: res.data);
+          return handler.reject(errData);
         }
       }
     }, onError: (DioError err, ErrorInterceptorHandler handler) {
+      print("666666");
       return handler.next(err);
     }));
     dio.interceptors.add(DioLogInterceptor());
@@ -128,9 +141,9 @@ class Request {
           queryParameters: params,
           options: requestOptions,
           cancelToken: cancelToken);
-      return res.data;
+      return DioResult(null, res.data);
     } on DioError catch (err) {
-      throw err;
+      return DioResult(err.error, null);
     }
   }
 
@@ -139,22 +152,32 @@ class Request {
     try {
       var res = await dio.post(path,
           data: params, options: options, cancelToken: cancelToken);
-      return res.data;
+      return DioResult(null, res.data);
     } on DioError catch (err) {
-      throw err;
+      return DioResult(err.error, null);
     }
   }
 
   Future upload(String path,
-      {dynamic params, Options options, CancelToken cancelToken}) {
+      {dynamic params, Options options, CancelToken cancelToken}) async {
     try {
-      var res = dio.post(path,
+      var res = await dio.post(path,
           data: FormData.fromMap(params),
           options: options,
           cancelToken: cancelToken);
-      return res;
+      return DioResult(null, res.data);
     } on DioError catch (err) {
-      throw err;
+      return DioResult(err.error, null);
     }
+  }
+}
+
+class DioResult {
+  dynamic error;
+  dynamic result;
+
+  DioResult(error, result) {
+    this.error = error;
+    this.result = result;
   }
 }

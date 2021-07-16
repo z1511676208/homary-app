@@ -1,11 +1,12 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-09 13:41:42
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-09 15:42:15
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-07-16 18:28:14
  */
 import 'package:flutter/material.dart';
 import 'package:homary/api/main.dart';
+import 'package:homary/common/request/request.dart';
 
 class SlideNavCtrl with ChangeNotifier {
   List navList = [];
@@ -13,8 +14,11 @@ class SlideNavCtrl with ChangeNotifier {
   List subNavList = [];
 
   void getNavList() async {
-    SlideNavRes res = await SlideNavApi.getSlideNavData();
-    this.navList = res.data;
+    DioResult res = await SlideNavApi.getSlideNavData();
+    if (res.result != null) {
+      SlideNavRes result = SlideNavRes.fromJson(res.result);
+      this.navList = result.data;
+    }
     notifyListeners();
   }
 

@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-06 10:11:04
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-09 19:09:05
+ * @LastEditTime : 2021-07-16 16:58:39
  */
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
@@ -15,7 +15,7 @@ import 'package:homary/pages/webview/main.dart';
 // 登录
 Handler signInPageHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    String redirect = params['redirect']?.first ?? null;
+    String redirect = params['redirectUrl'].first ?? null;
     return SignInPage(redirect: redirect);
   },
 );

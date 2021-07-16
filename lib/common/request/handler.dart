@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-07 20:04:36
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-13 16:45:03
+ * @LastEditTime : 2021-07-16 17:16:25
  */
 import 'package:dio/dio.dart';
 import 'package:homary/common/utils/requsetUrl.dart';
@@ -38,7 +38,6 @@ class RrequsetHandler extends Interceptor {
     Map<String, String> params = urlNparams['params'];
     options.path = url;
     if (options.method.toLowerCase() == 'post') {
-      print("PPP => ${options.data}");
       Map<String, dynamic> finalParams =
           formatParams(params, options.data.toJson());
       options.data = finalParams;

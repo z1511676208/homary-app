@@ -2,11 +2,30 @@
  * @Author       : JHao
  * @Date         : 2021-07-07 20:04:36
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-15 17:26:21
+ * @LastEditTime : 2021-07-16 15:24:19
  */
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
+
 class AppColor {
+  /// 主题橙色
+  static const MaterialColor primaryMaterialColor = MaterialColor(
+    0xFFFF9800,
+    const <int, Color>{
+      50: const Color(0xFFFF9800),
+      100: const Color(0xFFFF9800),
+      200: const Color(0xFFFF9800),
+      300: const Color(0xFFFF9800),
+      400: const Color(0xFFFF9800),
+      500: const Color(0xFFFF9800),
+      600: const Color(0xFFFF9800),
+      700: const Color(0xFFFF9800),
+      800: const Color(0xFFFF9800),
+      900: const Color(0xFFFF9800),
+    },
+  );
+
   /// 主题橙色
   static const Color primaryColor = Color(0xFFFF9800);
 

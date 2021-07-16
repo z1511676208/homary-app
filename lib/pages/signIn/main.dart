@@ -1,3 +1,4 @@
+import 'package:homary/common/request/request.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/api/main.dart';
 import 'package:homary/components/goBackAppBar/main.dart';
@@ -27,8 +28,13 @@ class _SignInPageState extends State<SignInPage> {
   // methods
   _userLogin() async {
     UserEmailLoginReq params = UserEmailLoginReq(email: _email, password: _pwd);
-    UserEmailLoginRes res = await UserApi.emailLogin(params: params);
-    print('res--- ${res.toJson()}');
+    DioResult res = await UserApi.emailLogin(params: params);
+    if (res.result != null) {
+      UserEmailLoginRes result = UserEmailLoginRes.fromJson(res.result);
+      print('res--- ${result.toJson()}');
+    } else {
+      print('err--- ${res.error}');
+    }
   }
 
   _switchTab(ctx, int idx) {

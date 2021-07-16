@@ -1,16 +1,15 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-08 16:11:59
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-08 17:38:07
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-07-16 18:25:53
  */
-import 'package:homary/entity/main.dart';
 import 'package:homary/common/request/request.dart';
 
 class SlideNavApi {
-  static Future<SlideNavRes> getSlideNavData() async {
-    var res =
+  static Future<DioResult> getSlideNavData() async {
+    DioResult res =
         await Request().get('/home/channel/get-home-channel', diskCache: true);
-    return SlideNavRes.fromJson(res);
+    return res;
   }
 }

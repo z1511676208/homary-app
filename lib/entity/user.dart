@@ -31,7 +31,7 @@ class UserEmailLoginRes {
     this.message,
   });
 
-  int code;
+  dynamic code;
   Data data;
   String message;
 

@@ -2,13 +2,14 @@
  * @Author       : JHao
  * @Date         : 2021-07-09 19:31:26
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-14 15:43:11
+ * @LastEditTime : 2021-07-16 19:06:07
  */
 import 'dart:async';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:homary/common/utils/device.dart';
 import 'package:homary/common/utils/main.dart';
+import 'package:homary/common/utils/toast.dart';
 
 class TabViewBox extends StatelessWidget {
   final TabController _tabController;
@@ -29,7 +30,10 @@ class TabViewBox extends StatelessWidget {
                   child: TextButton(
                     child: Text(e),
                     onPressed: () async {
-                      Routes.push(context, '/signIn');
+                      Toast.success();
+                      // EasyLoading.show(status: 'loading...');
+                      // Routes.push(context, '/signIn',
+                      //     params: {'redirectUrl': '/home?v=1.0.0'});
                       // _progress = 0;
                       // _timer?.cancel();
                       // _timer = Timer.periodic(const Duration(milliseconds: 100),

@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-12 12:20:08
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-14 15:22:59
+ * @LastEditTime : 2021-07-16 18:49:34
  */
 import 'dart:async';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -20,18 +20,14 @@ final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 void main() {
   Global.init().then((e) => runApp(MyApp()));
   EasyLoading.instance
-    ..displayDuration = const Duration(milliseconds: 5000)
+    ..displayDuration = const Duration(milliseconds: 3000)
     ..indicatorType = EasyLoadingIndicatorType.ring
     ..loadingStyle = EasyLoadingStyle.dark
     ..indicatorSize = 40.0
     ..radius = 10.0
-    ..progressColor = Colors.yellow
-    ..backgroundColor = Colors.green
-    ..indicatorColor = Colors.yellow
-    ..textColor = Colors.red
     ..maskType = EasyLoadingMaskType.none
-    ..maskColor = Colors.blue.withOpacity(0.5)
-    ..userInteractions = true
+    ..maskColor = Colors.blue.withOpacity(0.3)
+    ..userInteractions = false
     ..dismissOnTap = false;
 }
 
@@ -66,7 +62,11 @@ class _MyAppState extends State<MyApp> {
               const Locale('zh', 'CN'),
               const Locale('en', 'US'),
             ],
-            theme: ThemeData(primarySwatch: Colors.orange),
+            theme: ThemeData(
+              primarySwatch: AppColor.primaryMaterialColor,
+              primaryColor: AppColor.primaryColor,
+              accentColor: AppColor.primaryColor,
+            ),
             // 配置路由
             onGenerateRoute: Routes.router.generator,
             navigatorKey: navigatorKey,
