@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-07 20:28:59
- * @LastEditors  : JHao
- * @LastEditTime : 2021-07-16 16:14:04
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-07-16 19:24:30
  */
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +26,8 @@ class Routes {
   /// 注册页
   static String scrollList = '/scrollList';
 
+  /// 重置密码
+  static String resetPassword = '/resetPassword';
   // 配置route
   static void configureRoutes(FluroRouter router) {
     router.notFoundHandler = Handler(
@@ -38,6 +40,7 @@ class Routes {
     router.define(signIn, handler: signInPageHandler); //
     router.define(scrollList, handler: scrollListInPageHandler); // 注册登录页
     router.define(webView, handler: webViewInPageHandler); // webview
+    router.define(resetPassword, handler: resetPasswordPageHandler);
   }
 
   static String formatQueryParams(Map<String, dynamic> params) {

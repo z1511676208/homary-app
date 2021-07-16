@@ -74,6 +74,9 @@ flutter:
   assets:
     - assets/baseImage.png
     - assets/logo.png
+    - assets/images/signIn/gg.png
+    - assets/images/signIn/fb.png
+    - assets/images/signIn/tt.png
     - assets/webview.html
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see

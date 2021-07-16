@@ -22,6 +22,57 @@ class UserEmailLoginReq {
       };
 }
 
+//第三方登录
+class UserThirdLoginReq {
+  UserThirdLoginReq({this.idToken}) : super();
+  String idToken;
+
+  factory UserThirdLoginReq.fromJson(Map<String, dynamic> json) {
+    return UserThirdLoginReq(
+      idToken: json["id_token"],
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        "id_token": idToken,
+      };
+}
+
+class UserSendEmailReq {
+  UserSendEmailReq({this.email, this.type}) : super();
+  String email;
+  int type;
+  factory UserSendEmailReq.fromJson(Map<String, dynamic> json) {
+    return UserSendEmailReq(
+      email: json["email"],
+      type: json["type"],
+    );
+  }
+
+  Map<String, dynamic> toJson() => {"email": email, "type": type};
+}
+
+//用户注册
+class UserRegisterReq {
+  UserRegisterReq({this.email, this.password, this.subscribe}) : super();
+  int subscribe;
+  String email;
+  String password;
+  factory UserRegisterReq.fromJson(Map<String, dynamic> json) {
+    return UserRegisterReq(
+      email: json["email"],
+      password: json["password"],
+      subscribe: json["subscribe"],
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        "email": email,
+        "password": password,
+        "subscribe": subscribe,
+      };
+}
+
 /// 用户登录响应
 
 class UserEmailLoginRes {

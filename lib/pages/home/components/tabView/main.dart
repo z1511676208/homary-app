@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-09 19:31:26
- * @LastEditors  : JHao
- * @LastEditTime : 2021-07-16 19:06:07
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-07-16 19:22:32
  */
 import 'dart:async';
 
@@ -10,6 +10,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:homary/common/utils/device.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/toast.dart';
+import 'package:homary/generated/l10n.dart';
 
 class TabViewBox extends StatelessWidget {
   final TabController _tabController;
@@ -28,7 +29,7 @@ class TabViewBox extends StatelessWidget {
         children: _tabValues
             .map((e) => Center(
                   child: TextButton(
-                    child: Text(e),
+                    child: Text('${S.of(context).title}'),
                     onPressed: () async {
                       Toast.success();
                       // EasyLoading.show(status: 'loading...');

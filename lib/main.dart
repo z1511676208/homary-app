@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-12 12:20:08
- * @LastEditors  : JHao
- * @LastEditTime : 2021-07-16 18:49:34
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-07-16 19:20:18
  */
 import 'dart:async';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -44,12 +44,20 @@ class _MyAppState extends State<MyApp> {
     Routes.configureRoutes(router);
     Routes.router = router;
   }
+  @override
+  void didUpdateWidget(covariant MyApp oldWidget) {
+    print('update');
+    print('main');
+    // TODO: implement didUpdateWidget
+    super.didUpdateWidget(oldWidget);
+  }
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: [ChangeNotifierProvider.value(value: Lang())],
-        child: Consumer<Lang>(builder: (context, Lang value, child) {
+        providers: [ChangeNotifierProvider.value(value: GlobalConfig())],
+        child: Consumer<GlobalConfig>(
+            builder: (context, GlobalConfig value, child) {
           return MaterialApp(
             localizationsDelegates: [
               GlobalMaterialLocalizations.delegate,
@@ -61,6 +69,7 @@ class _MyAppState extends State<MyApp> {
             supportedLocales: [
               const Locale('zh', 'CN'),
               const Locale('en', 'US'),
+              const Locale('de', ''),
             ],
             theme: ThemeData(
               primarySwatch: AppColor.primaryMaterialColor,
@@ -95,6 +104,9 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
     initPlatformState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Provider.of<GlobalConfig>(context, listen: false).getCommonConfig();
+    });
   }
 
   Future<void> initPlatformState() async {

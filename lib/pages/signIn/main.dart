@@ -1,14 +1,11 @@
+import 'package:homary/api/main.dart';
 import 'package:homary/common/request/request.dart';
 import 'package:homary/common/utils/main.dart';
-import 'package:homary/api/main.dart';
 import 'package:homary/components/goBackAppBar/main.dart';
 import 'package:homary/common/utils/validator.dart';
 import 'package:homary/components/formInput/main.dart';
 import 'tabItem/main.dart'; // TabBar 部件
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_facebook_login/flutter_facebook_login.dart';
-import 'package:twitter_login/twitter_login.dart';
+import 'controller.dart';
 
 class SignInPage extends StatefulWidget {
   final String redirect;
@@ -24,7 +21,8 @@ class _SignInPageState extends State<SignInPage> {
   String _email;
   String _pwd;
   bool _markState = false;
-
+  bool subscribe = true;
+  SignInCtrl signInCtrl = new SignInCtrl();
   // methods
   _userLogin() async {
     UserEmailLoginReq params = UserEmailLoginReq(email: _email, password: _pwd);
@@ -43,93 +41,6 @@ class _SignInPageState extends State<SignInPage> {
     this.setState(() {
       this._currentTab = idx;
     });
-  }
-
-  FirebaseAuth _auth = FirebaseAuth.instance;
-  static final FacebookLogin facebookSignIn = new FacebookLogin();
-  //google登陆
-  void signInWithGoogle() async {
-    try {
-      GoogleSignIn _googleSignIn = GoogleSignIn(scopes: <String>[
-        'email',
-        'https://www.googleapis.com/auth/contacts.readonly',
-      ]);
-      final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
-      print('googleUser---$googleUser');
-      if (googleUser != null) {
-        final GoogleSignInAuthentication googleAuth =
-            await googleUser.authentication;
-        final AuthCredential credential = GoogleAuthProvider.credential(
-          accessToken: googleAuth.accessToken,
-          idToken: googleAuth.idToken,
-        );
-        final User user = (await _auth.signInWithCredential(credential)).user;
-        print(user);
-        assert(user.email != null);
-        assert(user.displayName != null);
-        assert(!user.isAnonymous);
-        assert(await user.getIdToken() != null);
-        IdTokenResult idTokenResult = await user.getIdTokenResult(true);
-        print(idTokenResult);
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  //Facebook登陆
-  Future<Null> signInFacebook() async {
-    try {
-      final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
-      print('facebook-----$result');
-      switch (result.status) {
-        case FacebookLoginStatus.loggedIn:
-          final FacebookAccessToken accessToken = result.accessToken;
-          final AuthCredential credential =
-              FacebookAuthProvider.credential(accessToken.token);
-          final User user = (await _auth.signInWithCredential(credential)).user;
-          IdTokenResult idTokenResult = await user.getIdTokenResult(true);
-          print(idTokenResult);
-          break;
-        case FacebookLoginStatus.cancelledByUser:
-          print('Login cancelled by the user.');
-          break;
-        case FacebookLoginStatus.error:
-          print('Something went wrong with the login process.\n'
-              'Here\'s the error Facebook gave us: ${result.errorMessage}');
-          break;
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  //Twitter登录
-  Future signWithTwitter() async {
-    final TwitterLogin twitterLogin = new TwitterLogin(
-        apiKey: 'twmeqdH1DOZJxRFUDpjaSj9iP',
-        apiSecretKey: '8Zu6Sxup0f0KRvYiNiIhhT8Zo36tnxrR9jnERXmjGlY7WaAYKJ',
-        redirectURI: 'homary://');
-    print('twitterLogin-----$twitterLogin');
-    final authResult = await twitterLogin.login();
-    // final TwitterLoginResult result = await twitterLogin.authorize();
-    print('result------${authResult.toString()}');
-    switch (authResult.status) {
-      case TwitterLoginStatus.loggedIn:
-        AuthCredential credential = TwitterAuthProvider.credential(
-            accessToken: authResult.authToken ?? '',
-            secret: authResult.authTokenSecret ?? '');
-        final User user = (await _auth.signInWithCredential(credential)).user;
-
-        print('twitter----$user');
-        break;
-      case TwitterLoginStatus.cancelledByUser:
-        print('twitter----cancel');
-        break;
-      case TwitterLoginStatus.error:
-        print('twitter----error${authResult.errorMessage}');
-        break;
-    }
   }
 
   // widget
@@ -181,19 +92,28 @@ class _SignInPageState extends State<SignInPage> {
                 child: Column(
               children: [
                 _tabBar(),
+                Offstage(
+                  offstage: this._currentTab != 1,
+                  child: Container(
+                      // decoration: BoxDecoration(
+                      //   border:Border.all(color: ),
+                      //   )
+                      // ),
+                      ),
+                ),
                 Input(
                   innerText: 'Email Address',
                   validator: (val) => checkEmail(val),
-                  onSaved: (val) => _email = val,
+                  onSaved: (val) => signInCtrl.setEmail(val),
                 ),
-                SizedBox(height: 28.h),
+                SizedBox(height: 28.w),
                 Input(
                   innerText: 'password',
                   isPwd: true,
                   validator: (val) => checkPassWord(val),
-                  onSaved: (val) => _pwd = val,
+                  onSaved: (val) => signInCtrl.setPassword(val),
                 ),
-                SizedBox(height: 24.h),
+                SizedBox(height: 24.w),
                 Offstage(
                     offstage: this._currentTab != 1,
                     child: Row(children: [
@@ -202,9 +122,10 @@ class _SignInPageState extends State<SignInPage> {
                         height: 15.h,
                         margin: EdgeInsets.only(right: 10.w, left: 10.w),
                         child: Checkbox(
-                            value: _markState,
+                            value: subscribe,
                             onChanged: (val) => this.setState(() {
-                                  this._markState = val;
+                                  subscribe = val;
+                                  signInCtrl.setSubscribe(val);
                                 })),
                       ),
                       Container(
@@ -222,14 +143,21 @@ class _SignInPageState extends State<SignInPage> {
                     child: Builder(builder: (ctx) {
                       return ElevatedButton.icon(
                         style: ButtonStyle(
-                          foregroundColor:
-                              MaterialStateProperty.all(Colors.white),
-                        ),
+                            overlayColor: MaterialStateProperty.all(
+                                AppColor.primaryPressed),
+                            foregroundColor:
+                                MaterialStateProperty.all(Colors.white),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(36.0.w),
+                            ))),
                         onPressed: () {
                           var _form = Form.of(ctx);
                           if (_form.validate()) {
                             _form.save();
-                            _userLogin();
+                            _currentTab == 0
+                                ? signInCtrl.signIn(context)
+                                : signInCtrl.userRegister(context);
                           }
                         },
                         icon: Icon(Icons.lock_sharp),
@@ -247,22 +175,74 @@ class _SignInPageState extends State<SignInPage> {
                         maxLines: 2,
                         textAlign: TextAlign.center,
                       ),
+                    )),
+                Container(
+                    margin: EdgeInsets.only(top: 32.w),
+                    child: Column(
+                      children: [
+                        Offstage(
+                          offstage: this._currentTab == 1,
+                          child: TextButton(
+                              onPressed: () {
+                                Routes.push(context, '/resetPassword');
+                              },
+                              child: Container(
+                                child: Text(
+                                  'Forgot Your Password?',
+                                  style: TextStyle(
+                                      color: AppColor.primaryText,
+                                      fontSize: 15.sp,
+                                      decoration: TextDecoration.underline),
+                                ),
+                              )),
+                        ),
+                        Offstage(
+                          offstage: this._currentTab == 1,
+                          child: SizedBox(
+                            height: 28.w,
+                          ),
+                        ),
+                        Text('Quick Access With',
+                            style: TextStyle(color: AppColor.primaryText)),
+                        SizedBox(
+                          height: 16.5.h,
+                        ),
+                        Wrap(
+                          spacing: 21.5.w,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                signInCtrl.signInWithGoogle();
+                              },
+                              child: Image.asset(
+                                'assets/images/signIn/gg.png',
+                                width: 38.w,
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                signInCtrl.signInFacebook();
+                              },
+                              child: Image.asset(
+                                'assets/images/signIn/fb.png',
+                                width: 38.w,
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                signInCtrl.signWithTwitter();
+                              },
+                              child: Image.asset(
+                                'assets/images/signIn/tt.png',
+                                width: 38.w,
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
                     ))
               ],
             )),
-            Row(
-              children: [
-                TextButton(onPressed: signInWithGoogle, child: Text('google')),
-                TextButton(onPressed: signInFacebook, child: Text('facebook')),
-                TextButton(onPressed: signInFacebook, child: Text('twitter'))
-              ],
-            ),
-            TextButton(
-                onPressed: () {
-                  String path = Routes.getCurPath();
-                  print('path ==> $path');
-                },
-                child: Text('路由'))
           ],
         ),
       ),

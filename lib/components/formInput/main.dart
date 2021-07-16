@@ -1,3 +1,9 @@
+/*
+ * @Author       : zhhjie
+ * @Date         : 2021-07-13 10:15:30
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-07-15 19:51:17
+ */
 import 'package:homary/common/style/main.dart';
 import 'package:flutter/material.dart';
 
@@ -6,6 +12,7 @@ class Input extends StatelessWidget {
   final bool isPwd;
   final Function onSaved;
   final Function validator;
+  final Function onChange;
   final bool enable;
 
   const Input(
@@ -13,6 +20,7 @@ class Input extends StatelessWidget {
       @required this.innerText,
       this.onSaved,
       this.validator,
+      this.onChange,
       this.enable = true,
       this.isPwd = false})
       : super(key: key);
@@ -22,6 +30,7 @@ class Input extends StatelessWidget {
     return TextFormField(
         obscureText: this.isPwd,
         enabled: this.enable,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         decoration: InputDecoration(
             labelText: this.innerText,
             hintText: this.innerText,

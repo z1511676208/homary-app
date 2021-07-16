@@ -28,7 +28,7 @@ class Localstorage {
   /// 获取 String 值
   String getString(String key) {
     String val = _prefs.getString(key);
-    return val == null ? false : val;
+    return val == null ? '' : val;
   }
 
   /// 设置 boolean 值

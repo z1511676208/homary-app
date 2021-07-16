@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-08 09:53:28
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-09 18:35:42
+ * @LastEditTime : 2021-07-12 17:41:24
  */
 // Copyright 2014 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
@@ -253,16 +253,17 @@ class _NoBorderExpansionTileState extends State<NoBorderExpansionTile>
                         bottom: BorderSide(
                             width: 0.5.w,
                             color: AppColor.primaryBorderOutline))),
-                padding: EdgeInsets.fromLTRB(0, 13, 13, 10),
+                padding: EdgeInsets.fromLTRB(0, 14.h, 12.w, 14.h),
                 margin: EdgeInsets.only(left: 16),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(child: widget.title),
-                    RotationTransition(
-                      turns: _iconTurns,
-                      child: const Icon(Icons.expand_more),
-                    ),
+                    widget.trailing ??
+                        RotationTransition(
+                          turns: _iconTurns,
+                          child: const Icon(Icons.expand_more),
+                        ),
                   ],
                 ),
               )),
