@@ -13,6 +13,7 @@ import 'package:homary/common/config/proxyConfig.dart';
 import 'package:homary/common/utils/analytics.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
+import 'package:homary/common/utils/toast.dart';
 import 'package:homary/main.dart';
 
 class Request {
@@ -81,12 +82,14 @@ class Request {
           if (res.requestOptions.path == '/user/user/info') {
             return handler.reject(errData);
           }
+          Toast.error(res.data['message'] ?? '');
           String redirectUrl = Routes.getCurPath();
           BuildContext context = navigatorKey.currentState.overlay.context;
           Routes.replace(context, '/signIn',
               params: {'redirectUrl': redirectUrl});
           return handler.reject(errData);
         } else {
+          Toast.error(res.data['message'] ?? '');
           DioError errData =
               DioError(requestOptions: res.requestOptions, error: res.data);
           return handler.reject(errData);

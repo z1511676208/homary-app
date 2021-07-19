@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-06 13:52:46
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-08 16:52:51
+ * @LastEditTime : 2021-07-19 13:50:43
  */
 import 'package:flutter/material.dart';
 // import 'package:flutter_demo/common/storage/cookie.dart';
@@ -70,8 +70,7 @@ class _TestWebviewState extends State<TestWebview> {
         // _controller = controller;
         // value.addContorller(controller);
         busEvent.subWebViewCtrl('switchSite', ctrlName, () {
-          setCurrentConfigCookie(); // 模拟存储站点信息到cookie
-          setTokenCookie(); // 模拟存储token到cookie
+          setWebviewCookies();
           controller.reload();
         });
         //传值给webview

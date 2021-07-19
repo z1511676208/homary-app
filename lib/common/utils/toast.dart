@@ -2,33 +2,33 @@
  * @Author       : JHao
  * @Date         : 2021-07-16 18:39:18
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-16 19:06:19
+ * @LastEditTime : 2021-07-19 11:33:44
  */
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class Toast {
-  static void loading({String text = 'loading...'}) {
-    EasyLoading.show(status: text);
+  static void loading(String text) {
+    EasyLoading.show(status: text ?? 'loading...');
   }
 
-  static void showProgress(double value, {String text = 'downloading...'}) {
-    EasyLoading.showProgress(0.3, status: text);
+  static void showProgress(double value, String text) {
+    EasyLoading.showProgress(0.3, status: text ?? 'downloading...');
   }
 
-  static void success({String text = 'Success'}) {
-    EasyLoading.showSuccess(text);
+  static void success(String text) {
+    EasyLoading.showSuccess(text ?? 'Success');
   }
 
-  static void error({String text = 'Error'}) {
-    EasyLoading.showError(text);
+  static void error(String text) {
+    EasyLoading.showError(text ?? 'Error');
   }
 
-  static void warn({String text = 'Message'}) {
-    EasyLoading.showInfo(text);
+  static void warn(String text) {
+    EasyLoading.showInfo(text ?? 'Warning');
   }
 
-  static void message({String text = 'Message'}) {
-    EasyLoading.showToast(text);
+  static void message(String text) {
+    EasyLoading.showToast(text ?? 'Message');
   }
 
   static void clear() {

@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-09 19:31:26
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-16 19:22:32
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-07-19 11:46:04
  */
 import 'dart:async';
 
@@ -31,7 +31,7 @@ class TabViewBox extends StatelessWidget {
                   child: TextButton(
                     child: Text('${S.of(context).title}'),
                     onPressed: () async {
-                      Toast.success();
+                      // Toast.success();
                       // EasyLoading.show(status: 'loading...');
                       // Routes.push(context, '/signIn',
                       //     params: {'redirectUrl': '/home?v=1.0.0'});

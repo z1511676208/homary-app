@@ -2,13 +2,14 @@
  * @Author       : JHao
  * @Date         : 2021-07-16 19:35:41
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-19 11:10:01
+ * @LastEditTime : 2021-07-19 12:50:01
  */
 import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/requsetUrl.dart';
+import 'package:homary/common/utils/utils.dart';
 
 class RrequsetHandler extends Interceptor {
   // 公参
@@ -17,9 +18,10 @@ class RrequsetHandler extends Interceptor {
     "language": 'en',
     "currency": 'usd',
     "token": '',
+    "version": "1.0.0",
+    "eid": '',
     "pf": Platform.isIOS ? 'ios' : 'android',
   };
-
   // 替换动态 url 目标参数
   Map<String, dynamic> formatParams(
       Map<String, dynamic> params, Map<String, dynamic> replaceParams) {
@@ -27,6 +29,7 @@ class RrequsetHandler extends Interceptor {
     finalParams.addAll(replaceParams);
     var currentConfig = Localstorage().getJSON('currentConfig') ?? {};
     _publicParams['token'] = Localstorage().getString('token') ?? '';
+    _publicParams['eid'] = getEquipmentIdentification();
     _publicParams['site'] = currentConfig['site'] ?? 'us';
     _publicParams['language'] = currentConfig['language'] ?? 'en';
     _publicParams['currency'] = currentConfig['currency'] ?? 'usd';
@@ -35,6 +38,7 @@ class RrequsetHandler extends Interceptor {
       finalParams.addAll({key: replaceParams[key] ?? _publicParams[key]});
     });
     // finalParams.addEntries(_publicParams.entries);
+    print("finalParams  $finalParams");
     return finalParams;
   }
 

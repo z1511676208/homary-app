@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-05 14:38:55
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-13 14:01:21
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-07-19 13:41:50
  * APP本地数据存储
  */
 
@@ -31,4 +31,8 @@ String getToken() {
 
 String getUserInfo() {
   return Localstorage().getString('userInfo');
+}
+
+String getEid() {
+  return Localstorage().getString('EID');
 }
