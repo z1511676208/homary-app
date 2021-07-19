@@ -61,24 +61,31 @@ class Request {
             }
             sendGTMData(gaData);
           }
-          return handler.next(res.data);
+          return handler.next(res);
         } else if (res.data['code'] == 70011) {
           //重置密码过期
-          return handler.reject(res.data);
+          DioError errData =
+              DioError(requestOptions: res.requestOptions, error: res.data);
+          return handler.reject(errData);
         } else if (res.data['code'] == 10011) {
           Routes.goHome();
           // 请求的用户信息如果不属于当前单号的用户信息，则返回10011错误码指定前端跳转官网首页
-          return handler.reject(res.data);
+          DioError errData =
+              DioError(requestOptions: res.requestOptions, error: res.data);
+          return handler.reject(errData);
         } else if (res.data['code'] == 401) {
           Localstorage().remove('token');
+          DioError errData =
+              DioError(requestOptions: res.requestOptions, error: res.data);
+
           if (res.requestOptions.path == '/user/user/info') {
-            return handler.reject(res.data);
+            return handler.reject(errData);
           }
           String redirectUrl = Routes.getCurPath();
           BuildContext context = navigatorKey.currentState.overlay.context;
           Routes.replace(context, '/signIn',
               params: {'redirectUrl': redirectUrl});
-          return handler.reject(res.data);
+          return handler.reject(errData);
         } else {
           DioError errData =
               DioError(requestOptions: res.requestOptions, error: res.data);
@@ -86,7 +93,6 @@ class Request {
         }
       }
     }, onError: (DioError err, ErrorInterceptorHandler handler) {
-      print("666666");
       return handler.next(err);
     }));
     dio.interceptors.add(DioLogInterceptor());
@@ -109,6 +115,7 @@ class Request {
   /// list 是否列表 默认 false
   /// cacheKey 缓存key
   /// diskCache 磁盘缓存
+  /// isRequire 是否需要登陆token
   /// cacheTime 缓存时间 (默认)
   Future get(
     String path, {
@@ -118,6 +125,7 @@ class Request {
     bool refresh = false,
     bool cache = false,
     bool diskCache = false,
+    bool isRequire = false,
     bool list = false,
     String cacheKey,
     int cacheTime = 600,
@@ -128,6 +136,7 @@ class Request {
         "refresh": refresh,
         "cache": cache,
         "diskCache": diskCache,
+        "isRequire": isRequire,
         "list": list,
         "cacheKey": cacheKey,
         "cacheTime": cacheTime,
@@ -148,10 +157,22 @@ class Request {
   }
 
   Future post(String path,
-      {dynamic params, Options options, CancelToken cancelToken}) async {
+      {dynamic params,
+      Options options,
+      bool isRequire = false,
+      CancelToken cancelToken}) async {
     try {
+      Options requestOptions = options ?? Options();
+      Map<String, dynamic> cacheOption = {
+        "isRequire": isRequire,
+      };
+      if (requestOptions.extra == null) {
+        requestOptions.extra = cacheOption;
+      } else {
+        requestOptions.extra.addEntries(cacheOption.entries);
+      }
       var res = await dio.post(path,
-          data: params, options: options, cancelToken: cancelToken);
+          data: params, options: requestOptions, cancelToken: cancelToken);
       return DioResult(null, res.data);
     } on DioError catch (err) {
       return DioResult(err.error, null);
@@ -159,11 +180,22 @@ class Request {
   }
 
   Future upload(String path,
-      {dynamic params, Options options, CancelToken cancelToken}) async {
+      {dynamic params,
+      Options options,
+      bool isRequire = false,
+      CancelToken cancelToken}) async {
     try {
+      Options requestOptions = options ?? Options();
+      Map<String, dynamic> cacheOption = {
+        "isRequire": isRequire,
+      };
+      if (requestOptions.extra == null) {
+        requestOptions.extra = cacheOption;
+        requestOptions.extra.addEntries(cacheOption.entries);
+      }
       var res = await dio.post(path,
           data: FormData.fromMap(params),
-          options: options,
+          options: requestOptions,
           cancelToken: cancelToken);
       return DioResult(null, res.data);
     } on DioError catch (err) {

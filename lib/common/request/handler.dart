@@ -1,21 +1,11 @@
 /*
-<<<<<<< HEAD
  * @Author       : JHao
- * @Date         : 2021-07-07 20:04:36
-<<<<<<< HEAD
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-16 19:21:03
-=======
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-16 15:46:11
-=======
- * @Author       : zhhjie
- * @Date         : 2021-07-13 10:15:30
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-14 17:23:24
->>>>>>> 0660c16 (feat：注册登录接口调试，忘记密码页面)
->>>>>>> acd5203 (feat：注册登录接口调试，忘记密码页面)
+ * @Date         : 2021-07-16 19:35:41
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-07-19 11:10:01
  */
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/requsetUrl.dart';
@@ -27,7 +17,7 @@ class RrequsetHandler extends Interceptor {
     "language": 'en',
     "currency": 'usd',
     "token": '',
-    "pf": 'm',
+    "pf": Platform.isIOS ? 'ios' : 'android',
   };
 
   // 替换动态 url 目标参数
@@ -35,16 +25,16 @@ class RrequsetHandler extends Interceptor {
       Map<String, dynamic> params, Map<String, dynamic> replaceParams) {
     Map<String, dynamic> finalParams = {};
     finalParams.addAll(replaceParams);
-    var currentConfig = Localstorage().getJSON('currentConfig');
+    var currentConfig = Localstorage().getJSON('currentConfig') ?? {};
     _publicParams['token'] = Localstorage().getString('token') ?? '';
     _publicParams['site'] = currentConfig['site'] ?? 'us';
     _publicParams['language'] = currentConfig['language'] ?? 'en';
     _publicParams['currency'] = currentConfig['currency'] ?? 'usd';
-    print(_publicParams);
+    finalParams.addAll(_publicParams);
     params.forEach((key, value) {
       finalParams.addAll({key: replaceParams[key] ?? _publicParams[key]});
     });
-    finalParams.addEntries(_publicParams.entries);
+    // finalParams.addEntries(_publicParams.entries);
     return finalParams;
   }
 
@@ -58,11 +48,19 @@ class RrequsetHandler extends Interceptor {
     if (options.method.toLowerCase() == 'post') {
       Map<String, dynamic> finalParams = formatParams(
           params, options.data != null ? options.data.toJson() : {});
+      if (options.extra['isRequire'] == false) {
+        // 如果接口不需要登陆token  则从参数中移除
+        finalParams.remove('token');
+      }
       options.data = finalParams;
     }
     if (options.method.toLowerCase() == 'get') {
       Map<String, dynamic> finalParams =
           formatParams(params, options.queryParameters);
+      if (options.extra['isRequire'] == false) {
+        // 如果接口不需要登陆token  则从参数中移除
+        finalParams.remove('token');
+      }
       options.queryParameters = finalParams;
     }
     handler.next(options);

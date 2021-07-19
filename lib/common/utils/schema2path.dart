@@ -1,3 +1,9 @@
+/*
+ * @Author       : JHao
+ * @Date         : 2021-07-07 20:04:36
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-07-19 10:52:36
+ */
 import 'package:homary/router/routes.dart';
 
 void handleSchema(context, String link) {
