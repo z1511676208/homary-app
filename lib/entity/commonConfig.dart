@@ -175,6 +175,10 @@ class CurrentConfig {
     this.currency,
     this.language,
     this.timeZoneCode,
+    this.siteName,
+    this.siteNameEn,
+    this.currencyName,
+    this.languageName,
   });
 
   String site;
@@ -182,6 +186,10 @@ class CurrentConfig {
   String currency;
   String language;
   String timeZoneCode;
+  String siteName;
+  String siteNameEn;
+  String currencyName;
+  String languageName;
 
   factory CurrentConfig.fromRawJson(String str) =>
       CurrentConfig.fromJson(json.decode(str));
@@ -196,6 +204,12 @@ class CurrentConfig {
         language: json["language"] == null ? null : json["language"],
         timeZoneCode:
             json["time_zone_code"] == null ? null : json["time_zone_code"],
+        siteName: json["site_name"] == null ? null : json["site_name"],
+        siteNameEn: json["site_name_en"] == null ? null : json["site_name_en"],
+        currencyName:
+            json["currency_name"] == null ? null : json["currency_name"],
+        languageName:
+            json["language_name"] == null ? null : json["language_name"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -204,6 +218,10 @@ class CurrentConfig {
         "currency": currency == null ? null : currency,
         "language": language == null ? null : language,
         "time_zone_code": timeZoneCode == null ? null : timeZoneCode,
+        "site_name": siteName == null ? null : siteName,
+        "site_name_en": siteNameEn == null ? null : siteNameEn,
+        "currency_name": currencyName == null ? null : currencyName,
+        "language_name": languageName == null ? null : languageName,
       };
 }
 
@@ -241,6 +259,8 @@ class SiteList {
     this.languageCode,
     this.jumpUrl,
     this.mJumpUrl,
+    this.siteNameEn,
+    this.showCountryCode,
   });
 
   String siteName;
@@ -250,6 +270,8 @@ class SiteList {
   String languageCode;
   String jumpUrl;
   String mJumpUrl;
+  String siteNameEn;
+  String showCountryCode;
 
   factory SiteList.fromRawJson(String str) =>
       SiteList.fromJson(json.decode(str));
@@ -266,6 +288,10 @@ class SiteList {
             json["language_code"] == null ? null : json["language_code"],
         jumpUrl: json["jump_url"] == null ? null : json["jump_url"],
         mJumpUrl: json["m_jump_url"] == null ? null : json["m_jump_url"],
+        siteNameEn: json["site_name_en"] == null ? null : json["site_name_en"],
+        showCountryCode: json["show_country_code"] == null
+            ? null
+            : json["show_country_code"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -276,5 +302,7 @@ class SiteList {
         "language_code": languageCode == null ? null : languageCode,
         "jump_url": jumpUrl == null ? null : jumpUrl,
         "m_jump_url": mJumpUrl == null ? null : mJumpUrl,
+        "site_name_en": siteNameEn == null ? null : siteNameEn,
+        "show_country_code": showCountryCode == null ? null : showCountryCode,
       };
 }

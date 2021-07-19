@@ -42,21 +42,21 @@ class ConfigItem extends StatelessWidget {
                 style: TextStyle(color: AppColor.primaryText),
               ),
             ),
-            Consumer<GlobalConfig>(
-                builder:
-                    (BuildContext context, GlobalConfig globalConfig, child) =>
-                        Offstage(
-                          offstage: (configType == 1 &&
-                                  configData?.siteCode !=
-                                      globalConfig?.currentConfig?.site) ||
-                              (configType == 2 &&
-                                  configData?.code !=
-                                      globalConfig?.currentConfig?.language) ||
-                              (configType == 3 &&
-                                  configData?.code !=
-                                      globalConfig?.currentConfig?.currency),
-                          child: Icon(Icons.check),
-                        ))
+            Consumer<GlobalConfig>(builder:
+                (BuildContext context, GlobalConfig globalConfig, child) {
+              return Offstage(
+                offstage: (configType == 1 &&
+                        configData?.siteCode !=
+                            globalConfig?.currentConfig?.site) ||
+                    (configType == 2 &&
+                        configData?.code !=
+                            globalConfig?.currentConfig?.language) ||
+                    (configType == 3 &&
+                        configData?.code !=
+                            globalConfig?.currentConfig?.currency),
+                child: Icon(Icons.check),
+              );
+            })
           ],
         ),
       ),

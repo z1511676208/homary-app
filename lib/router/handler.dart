@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-06 10:11:04
- * @LastEditors  : JHao
- * @LastEditTime : 2021-07-28 11:04:58
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-07-28 16:22:02
  */
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
@@ -13,6 +13,7 @@ import 'package:homary/pages/signIn/main.dart';
 import 'package:homary/pages/customer/main.dart';
 import 'package:homary/pages/webview/main.dart';
 import 'package:homary/pages/resetPassword/main.dart';
+import 'package:homary/pages/search/main.dart';
 
 // 登录
 Handler signInPageHandler = Handler(
@@ -62,5 +63,10 @@ Handler reviewDetailPageHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     String index = params['index']?.first ?? 0;
     return ReviewsDetail(index: index);
+  },
+);
+Handler searchPageHandler = Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return Search();
   },
 );

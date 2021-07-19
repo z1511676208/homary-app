@@ -11,3 +11,5 @@ export 'user.dart' hide Data;
 export 'product.dart' hide Data;
 export 'slideNav.dart' hide Datum;
 export 'commonConfig.dart' hide Data;
+export 'search.dart' hide Data;
+export 'analyzeData.dart' hide Data;

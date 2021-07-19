@@ -1,17 +1,26 @@
-String checkEmail(String val) {
-  if (val == null || val.isEmpty) return ' Please type your email';
+/*
+ * @Author       : zhhjie
+ * @Date         : 2021-07-28 09:38:56
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-07-28 11:17:40
+ */
+String checkEmail(String val, String errorText) {
+  if (val == null || val.isEmpty) return errorText;
   String reg =
-      "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}\$";
+      "^[A-Za-z0-9_\-`.\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+\$";
   if (!RegExp(reg).hasMatch(val))
-    return 'Please enter a valid email address';
+    return errorText;
   else
     return null;
 }
 
-String checkPassWord(String val) {
-  if (val == null || val.isEmpty) return 'Please type you password';
-  if (val.length < 3)
-    return 'please type a usefully password';
+String checkPassWord(String val, String errorText) {
+  if (val == null || val.isEmpty) return errorText;
+  RegExp reg = new RegExp(
+      r'^(?![0-9]+$)(?![a-zA-Z]+$)[(?=(?:.?[`·~!@#$%^&()_+}{:;’",<.>/?=\-\]))*0-9A-Za-z]{8,}$');
+
+  if (!reg.hasMatch(val))
+    return errorText;
   else
     return null;
 }

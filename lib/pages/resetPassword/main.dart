@@ -2,11 +2,11 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-14 10:42:03
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-15 13:42:06
+ * @LastEditTime : 2021-07-27 16:37:43
  */
 import 'package:homary/common/utils/main.dart';
+import 'package:homary/components/goBackAppBar/main.dart';
 import 'controller.dart';
-import 'package:homary/components/header/main.dart';
 
 class ResetPasswordView extends StatefulWidget {
   ResetPasswordView({Key key}) : super(key: key);
@@ -21,12 +21,8 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
     return Consumer<ResetPasswordCtrl>(
         builder: (BuildContext context, ResetPasswordCtrl data, child) =>
             Scaffold(
-              appBar: PreferredSize(
-                child: Header(
-                  'Reset Password',
-                  backEvent: data.previousView,
-                ),
-                preferredSize: Size.fromHeight(95.h),
+              appBar: GoBackAppBar(
+                title: 'Reset Password',
               ),
               body: Container(
                 padding: EdgeInsets.fromLTRB(20.w, 24.h, 20.w, 0),

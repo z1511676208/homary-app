@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-14 18:32:36
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-14 18:38:20
+ * @LastEditTime : 2021-07-28 11:21:36
  */
 /*
  * @Author       : zhhjie
@@ -33,7 +33,7 @@ class InputNewPassword extends StatelessWidget {
         Input(
           innerText: 'New Password',
           isPwd: true,
-          validator: (val) => checkPassWord(val),
+          // validator: (val) => checkPassWord(val),
           onSaved: (val) => {},
         ),
         SizedBox(
@@ -43,7 +43,7 @@ class InputNewPassword extends StatelessWidget {
         Input(
           innerText: 'Confirm New Password',
           isPwd: true,
-          validator: (val) => checkPassWord(val),
+          // validator: (val) => checkPassWord(val),
           onSaved: (val) => {},
         ),
         SizedBox(

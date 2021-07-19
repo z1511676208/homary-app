@@ -2,13 +2,16 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-14 18:12:08
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-15 19:52:33
+ * @LastEditTime : 2021-07-28 13:51:46
  */
 import 'package:homary/api/user.dart';
+import 'package:homary/common/request/request.dart';
 import 'package:homary/common/utils/main.dart';
+import 'package:homary/common/utils/toast.dart';
 import 'package:homary/common/utils/validator.dart';
 import 'package:homary/components/formInput/main.dart';
 import 'package:homary/entity/user.dart';
+import 'package:homary/generated/l10n.dart';
 
 import '../controller.dart';
 
@@ -25,7 +28,7 @@ class InputEmail extends StatelessWidget {
                 Container(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    'Forgot Password',
+                    S.of(context).resetpassword_forget,
                     style:
                         TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
                   ),
@@ -34,16 +37,22 @@ class InputEmail extends StatelessWidget {
                   height: 8.h,
                   width: double.infinity,
                 ),
-                Text('Enter your email address and we will send you a link.'),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text(S.of(context).resetpassword_tip),
+                ),
                 SizedBox(
                   height: 24.h,
                   width: double.infinity,
                 ),
                 Input(
-                  innerText: 'Email',
-                  validator: (val) => checkEmail(val),
-                  onSaved: (val) {
-                    data.setEmail(val);
+                  innerText: S.of(context).login_email,
+                  autoValidator: true,
+                  validator: (val) =>
+                      checkEmail(val, S.of(context).login_emailError),
+                  onSaved: (val, error) {
+                    String value = error == null ? val : null;
+                    data.setEmail(value);
                   },
                 ),
                 SizedBox(
@@ -54,7 +63,7 @@ class InputEmail extends StatelessWidget {
                     height: 48.h,
                     width: double.infinity,
                     child: Builder(
-                      builder: (context) => ElevatedButton(
+                      builder: (ctx) => ElevatedButton(
                         style: ButtonStyle(
                             overlayColor: MaterialStateProperty.all(
                                 AppColor.primaryPressed),
@@ -64,18 +73,23 @@ class InputEmail extends StatelessWidget {
                                 RoundedRectangleBorder>(RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(36.0),
                             ))),
-                        onPressed: () {
-                          var _form = Form.of(context);
-                          if (_form.validate()) {
-                            _form.save();
+                        onPressed: () async {
+                          var _form = Form.of(ctx);
+                          _form.save();
+
+                          if (data.email != null) {
+                            Toast.loading();
                             UserSendEmailReq params =
                                 UserSendEmailReq(type: 2, email: data.email);
-                            UserApi.userSendEmail(params);
-                            data.nextView();
+                            DioResult res = await UserApi.userSendEmail(params);
+                            if (res.error == null) {
+                              Toast.clear();
+                              data.nextView();
+                            }
                           }
                         },
-                        child:
-                            Text('Continue', style: TextStyle(fontSize: 16.sp)),
+                        child: Text(S.of(context).resetpassword_continue,
+                            style: TextStyle(fontSize: 16.sp)),
                       ),
                     )),
               ],

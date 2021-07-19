@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-07 20:28:59
- * @LastEditors  : JHao
- * @LastEditTime : 2021-07-26 15:15:21
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-07-28 16:22:12
  */
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +32,8 @@ class Routes {
   /// 评论详情
   static String reviewDetail = '/reviewDetail';
 
+  /// 搜索页
+  static String search = '/search';
   // 配置route
   static void configureRoutes(FluroRouter router) {
     router.notFoundHandler = Handler(
@@ -46,6 +48,7 @@ class Routes {
     router.define(webView, handler: webViewInPageHandler); // webview
     router.define(resetPassword, handler: resetPasswordPageHandler);
     router.define(reviewDetail, handler: reviewDetailPageHandler);
+    router.define(search, handler: searchPageHandler);
   }
 
   static String formatQueryParams(Map<String, dynamic> params) {

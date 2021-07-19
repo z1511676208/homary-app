@@ -2,65 +2,120 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-13 11:36:43
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-16 19:29:48
+ * @LastEditTime : 2021-07-27 17:11:52
  */
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:homary/common/request/request.dart';
 import 'package:homary/common/storage/cookie.dart';
 import 'package:homary/api/main.dart';
+import 'package:homary/common/storage/webview-cookie.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
-import 'package:twitter_login/twitter_login.dart';
+import 'package:homary/common/utils/toast.dart';
+import 'package:flutter_twitter_login/flutter_twitter_login.dart';
+// import 'package:twitter_login/twitter_login.dart';
 
-class SignInCtrl {
+class SignInCtrl with ChangeNotifier {
+  bool showEmailTip = false;
+  String loginInEmailErr;
+  String loginInPassErr;
+  List emailPatterns = [
+    '@gmail.com',
+    '@hotmail.com',
+    '@yahoo.com',
+    '@aol.com',
+    '@live.com',
+    '@bigpond.com',
+    '@outlook.com',
+    '@icloud.com',
+    '@mac.com',
+    '@msn.com'
+  ];
+  List emailPatternList = [];
+  void reseteEailPatterns(String val) {
+    if (val == '' || (val.indexOf('@') != -1 && val[val.length - 1] != '@')) {
+      this.emailPatternList = [];
+      this.showEmailTip = false;
+    } else {
+      this.emailPatternList = emailPatterns.map((e) {
+        if (val.indexOf('@') != -1) {
+          return '${val.substring(0, val.length - 1)}$e';
+        }
+        return '$val$e';
+      }).toList();
+      this.showEmailTip = true;
+    }
+    notifyListeners();
+  }
+
+  void setLoginInEmailErrNull() {
+    this.loginInEmailErr = null;
+    notifyListeners();
+  }
+
+  void setloginInPassErrNull() {
+    this.loginInPassErr = null;
+    notifyListeners();
+  }
+
+  void closeEmailTipPopup() {
+    this.showEmailTip = false;
+    notifyListeners();
+  }
+
   FirebaseAuth _auth = FirebaseAuth.instance;
-  static final FacebookLogin facebookSignIn = new FacebookLogin();
-  String password;
-  String email;
-  int subscribe = 1;
-
-  void setEmail(val) {
-    this.email = val;
-  }
-
-  void setPassword(val) {
-    this.password = val;
-  }
-
-  void setSubscribe(val) {
-    this.subscribe = val ? 1 : 0;
-  }
+  final FacebookLogin facebookSignIn = new FacebookLogin();
 
   //登录
-  void signIn(ctx) async {
+  Future signIn(email, password) async {
+    Toast.loading();
     UserEmailLoginReq params =
-        UserEmailLoginReq(email: this.email, password: this.password);
+        UserEmailLoginReq(email: email, password: password);
     DioResult res = await UserApi.emailLogin(params: params);
+    Toast.clear();
     if (res.error == null) {
       UserEmailLoginRes result = UserEmailLoginRes.fromJson(res.result);
       this.successCb(result);
+    } else {
+      if (res.error['code'] == 30011) {
+        this.loginInEmailErr = res.error['message'];
+        print(loginInEmailErr);
+      } else if (res.error['code'] == 30012) {
+        this.loginInPassErr = res.error['message'];
+      } else {
+        Toast.error(res.error['message']);
+      }
+      notifyListeners();
     }
   }
 
   //注册
-  void userRegister(ctx) async {
-    UserRegisterReq params = UserRegisterReq(
-        email: this.email, password: this.password, subscribe: this.subscribe);
-    UserEmailLoginRes res = await UserApi.userRegister(params: params);
-    this.successCb(res);
+  Future userRegister(email, password, subscribeParam) async {
+    Toast.loading();
+    int subscribe = subscribeParam ? 1 : 0;
+    UserRegisterReq params =
+        UserRegisterReq(email: email, password: password, subscribe: subscribe);
+    DioResult res = await UserApi.userRegister(params: params);
+    Toast.clear();
+    if (res.error == null) {
+      UserEmailLoginRes result = UserEmailLoginRes.fromJson(res.result);
+
+      this.successCb(result);
+    } else {
+      if (res.error['code'] == 70018) {
+        this.loginInEmailErr = res.error['message'];
+      }
+      notifyListeners();
+    }
   }
 
   //谷歌登录
   void signInWithGoogle() async {
     try {
-      GoogleSignIn _googleSignIn = GoogleSignIn(scopes: <String>[
-        'email',
-        'https://www.googleapis.com/auth/contacts.readonly',
-      ]);
+      GoogleSignIn _googleSignIn = GoogleSignIn();
       final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
       if (googleUser != null) {
         final GoogleSignInAuthentication googleAuth =
@@ -70,11 +125,11 @@ class SignInCtrl {
           idToken: googleAuth.idToken,
         );
         final User user = (await _auth.signInWithCredential(credential)).user;
-        IdTokenResult idTokenResult = await user.getIdTokenResult(true);
-        print('google res ===>  ${idTokenResult.token}');
+        String idTokenResult = await user.getIdToken();
+        print('google res ===>  $idTokenResult');
         UserThirdLoginReq params =
-            UserThirdLoginReq(idToken: idTokenResult.token);
-        UserEmailLoginRes res = await UserApi.googleLogin(params: params);
+            UserThirdLoginReq(idToken: idTokenResult, oauthVerifier: 'google');
+        UserEmailLoginRes res = await UserApi.thirdLogin(params: params);
         this.successCb(res);
       }
     } catch (e) {
@@ -92,11 +147,11 @@ class SignInCtrl {
           final AuthCredential credential =
               FacebookAuthProvider.credential(accessToken.token);
           final User user = (await _auth.signInWithCredential(credential)).user;
-          IdTokenResult idTokenResult = await user.getIdTokenResult(true);
-          print('fb-----${idTokenResult.token}');
-          UserThirdLoginReq params =
-              UserThirdLoginReq(idToken: idTokenResult.token);
-          UserEmailLoginRes res = await UserApi.fbLogin(params);
+          String idTokenResult = await user.getIdToken(true);
+          print('fb-----$idTokenResult');
+          UserThirdLoginReq params = UserThirdLoginReq(
+              idToken: idTokenResult, oauthVerifier: 'facebook');
+          UserEmailLoginRes res = await UserApi.thirdLogin(params: params);
           this.successCb(res);
           break;
         case FacebookLoginStatus.cancelledByUser:
@@ -114,28 +169,39 @@ class SignInCtrl {
 
   //Twitter登录
   Future signWithTwitter() async {
+    // final TwitterLogin twitterLogin = new TwitterLogin(
+    //     apiKey: 'twmeqdH1DOZJxRFUDpjaSj9iP',
+    //     apiSecretKey: '8Zu6Sxup0f0KRvYiNiIhhT8Zo36tnxrR9jnERXmjGlY7WaAYKJ',
+    //     redirectURI: 'homary://');
     final TwitterLogin twitterLogin = new TwitterLogin(
-        apiKey: 'twmeqdH1DOZJxRFUDpjaSj9iP',
-        apiSecretKey: '8Zu6Sxup0f0KRvYiNiIhhT8Zo36tnxrR9jnERXmjGlY7WaAYKJ',
-        redirectURI: 'homary://');
+      consumerKey: 'twmeqdH1DOZJxRFUDpjaSj9iP',
+      consumerSecret: '8Zu6Sxup0f0KRvYiNiIhhT8Zo36tnxrR9jnERXmjGlY7WaAYKJ',
+    );
     print('twitterLogin-----$twitterLogin');
-    final authResult = await twitterLogin.login();
-    // final TwitterLoginResult result = await twitterLogin.authorize();
-    print('result------${authResult.toString()}');
-    switch (authResult.status) {
+    // final authResult = await twitterLogin.login();
+    final TwitterLoginResult result = await twitterLogin.authorize();
+    print('status------${result.status}');
+    print('errorMessage------${result.errorMessage}');
+    print('result------${result.session}');
+    switch (result.status) {
       case TwitterLoginStatus.loggedIn:
         AuthCredential credential = TwitterAuthProvider.credential(
-            accessToken: authResult.authToken ?? '',
-            secret: authResult.authTokenSecret ?? '');
+            accessToken: result.session.token ?? '',
+            secret: result.session.secret ?? '');
         final User user = (await _auth.signInWithCredential(credential)).user;
-
+        String idTokenResult = await user.getIdToken(true);
+        print('fb-----$idTokenResult');
+        UserThirdLoginReq params =
+            UserThirdLoginReq(idToken: idTokenResult, oauthVerifier: 'twitter');
+        UserEmailLoginRes res = await UserApi.thirdLogin(params: params);
+        this.successCb(res);
         print('twitter----$user');
         break;
       case TwitterLoginStatus.cancelledByUser:
         print('twitter----cancel');
         break;
       case TwitterLoginStatus.error:
-        print('twitter----error${authResult.errorMessage}');
+        // print('twitter----error${authResult.errorMessage}');
         break;
     }
   }
@@ -148,6 +214,7 @@ class SignInCtrl {
     Localstorage().setBool('isLogin', true);
     userInfo.token = null;
     setUserInfo(userInfo.toJson());
+    setWebviewCookies();
     Routes.goHome();
   }
 }

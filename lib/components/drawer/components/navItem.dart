@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-09 16:22:36
- * @LastEditors  : JHao
- * @LastEditTime : 2021-07-27 15:16:01
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-07-28 16:20:22
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -69,19 +69,19 @@ class NavItem extends StatelessWidget {
                       ),
                       Consumer<GlobalConfig>(
                         builder:
-                            (BuildContext context, GlobalConfig data, child) =>
-                                Text(
-                          index != null
-                              ? data?.navList[index]?.categoryName
-                              : title,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: HexColor(index != null &&
-                                    data?.navList[index]?.fontColor != null
-                                ? data?.navList[index]?.fontColor
-                                : '#222222'),
-                          ),
-                        ),
+                            (BuildContext context, GlobalConfig data, child) {
+                          return Text(
+                            index != null
+                                ? data?.navList[index]?.categoryName
+                                : title,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: index != null &&
+                                        data?.navList[index]?.fontColor != null
+                                    ? HexColor(data?.navList[index]?.fontColor)
+                                    : AppColor.primaryText),
+                          );
+                        },
                       )
                     ],
                   ),

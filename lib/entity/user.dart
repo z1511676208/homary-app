@@ -24,17 +24,20 @@ class UserEmailLoginReq {
 
 //第三方登录
 class UserThirdLoginReq {
-  UserThirdLoginReq({this.idToken}) : super();
+  UserThirdLoginReq({this.idToken, this.oauthVerifier}) : super();
   String idToken;
+  String oauthVerifier;
 
   factory UserThirdLoginReq.fromJson(Map<String, dynamic> json) {
     return UserThirdLoginReq(
       idToken: json["id_token"],
+      oauthVerifier: json["oauth_verifier"],
     );
   }
 
   Map<String, dynamic> toJson() => {
         "id_token": idToken,
+        "oauth_verifier": oauthVerifier,
       };
 }
 

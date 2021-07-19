@@ -1,0 +1,136 @@
+/*
+ * @Author       : zhhjie
+ * @Date         : 2021-07-19 16:33:28
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-07-28 15:15:43
+ */
+import 'dart:async';
+
+import 'package:homary/api/search.dart';
+import 'package:homary/common/request/request.dart';
+import 'package:homary/common/utils/localstorage.dart';
+import 'package:homary/common/utils/main.dart';
+import 'package:homary/common/utils/utils.dart';
+import 'package:homary/entity/main.dart';
+
+class SearchCtrl with ChangeNotifier {
+  List filterList = []; //模糊查询列表
+  List recentSearchs = []; //最近搜索缓存列表
+  List popularSearchs = []; //热搜列表
+  List channelList = []; //频道列表
+  bool showFilter = false; //输入框输入搜索显示过滤列表
+  String keyword = '';
+
+  Future getSearchHotKeywords() async {
+    DioResult res = await SearchApi.getSearchHotKeywords();
+    if (res.error == null) {
+      HotKeywordRes result = HotKeywordRes.fromJson(res.result);
+      this.popularSearchs = result.data.hotKeywords;
+      this.channelList = result.data.channelList;
+      notifyListeners();
+    }
+  }
+
+  Future getAnalyze(String value) async {
+    String keyword = value.trim();
+    if (keyword == '') {
+      return false;
+    }
+    Map<String, dynamic> params = {'keyword': keyword};
+    DioResult res = await SearchApi.getAnalyze(params);
+    if (res.error == null) {
+      AnalyzeRes result = AnalyzeRes.fromJson(res.result);
+      this.toProductList(result.data.keyWord, result.data.jumpUrl, 'event');
+      notifyListeners();
+    }
+  }
+
+  void cancel() {
+    Routes.pop();
+  }
+
+  void clearAll() {
+    this.recentSearchs = [];
+    Localstorage().remove('recent_list');
+    notifyListeners();
+  }
+
+  void removeItem(index) {
+    this.recentSearchs.removeAt(index);
+    Localstorage().setJSON('recent_list', this.recentSearchs);
+    notifyListeners();
+  }
+
+  void showFilterToggle() {
+    this.showFilter = !this.showFilter;
+    notifyListeners();
+  }
+
+  void inputChange(String val) {
+    if (val != '') {
+      this.showFilter = true;
+      debounce(this.getFliterList(val.trim()), Duration(milliseconds: 30));
+    } else {
+      this.showFilterToggle();
+    }
+  }
+
+  getFliterList(val) {
+    this.keyword = val;
+    this.filterList = this
+        .channelList
+        .where((element) =>
+            element.channelName.toLowerCase().contains(val.toLowerCase()))
+        .toList();
+    notifyListeners();
+  }
+
+  // 存储有效数据localStorage
+  toProductList(String keyword, String url, String event) {
+    String keyName = keyword;
+    int i =
+        this.recentSearchs.indexWhere((element) => element['name'] == keyName);
+    if (i >= 0 && keyName != null) {
+      this.recentSearchs.removeAt(i);
+      this.recentSearchs.insert(0, {
+        'name': keyName,
+        'url': url,
+        'searchTime': DateTime.now().toString()
+      });
+      Localstorage().setJSON('recent_list', this.recentSearchs);
+      if (url != null) {
+      } else {}
+      notifyListeners();
+      return;
+    }
+    this.setStore(keyName, url, event);
+  }
+
+  //获取缓存中最近搜索的词汇
+  getStore() {
+    List list = Localstorage().getJSON('recent_list');
+    DateTime now = DateTime.now();
+    if (list != null && list.isNotEmpty) {
+      list
+          .where((element) =>
+              now.difference(DateTime.parse(element['searchTime'])).inDays > 7)
+          .toList();
+      this.recentSearchs = list;
+      Localstorage().setJSON('recent_list', this.recentSearchs);
+    }
+  }
+
+  setStore(String name, String url, event) {
+    Map<String, dynamic> map = {
+      'name': name.trim(),
+      'url': url,
+      'searchTime': DateTime.now().toString()
+    };
+    if (this.recentSearchs.length >= 5) {
+      this.recentSearchs.removeLast();
+    }
+    this.recentSearchs.insert(0, map);
+    Localstorage().setJSON('recent_list', this.recentSearchs);
+    notifyListeners();
+  }
+}

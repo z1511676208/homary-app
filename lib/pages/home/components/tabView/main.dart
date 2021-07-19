@@ -1,10 +1,9 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-09 19:31:26
- * @LastEditors  : JHao
- * @LastEditTime : 2021-07-27 19:59:20
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-07-28 16:21:38
  */
-import 'dart:async';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/pages/home/components/homeItem/main.dart';
 
@@ -18,8 +17,6 @@ class TabViewBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Timer _timer;
-    double _progress;
     return Container(
       child: TabBarView(
         controller: _tabController,

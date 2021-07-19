@@ -52,7 +52,7 @@ class _AppbarSearchState extends State<AppbarSearch> {
                     hintStyle: TextStyle(color: AppColor.primaryLightSubTitle),
                     hintText: 'Find anything home...'),
               ),
-              onTap: () => print('do some thing')),
+              onTap: () => Routes.push(context, '/search')),
         ));
   }
 }
