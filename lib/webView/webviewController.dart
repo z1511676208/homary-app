@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-06 13:52:46
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-19 13:50:43
+ * @LastEditTime : 2021-07-28 10:45:34
  */
 import 'package:flutter/material.dart';
 // import 'package:flutter_demo/common/storage/cookie.dart';
@@ -13,14 +13,14 @@ import 'package:homary/common/utils/bus.dart';
 // import 'package:homary/common/storage/cookie.dart';
 import 'package:homary/common/storage/webview-cookie.dart';
 
-class TestWebview extends StatefulWidget {
-  TestWebview({Key key}) : super(key: key);
+class WebviewCtrl extends StatefulWidget {
+  WebviewCtrl({Key key}) : super(key: key);
 
   @override
-  _TestWebviewState createState() => _TestWebviewState();
+  _WebviewCtrlState createState() => _WebviewCtrlState();
 }
 
-class _TestWebviewState extends State<TestWebview> {
+class _WebviewCtrlState extends State<WebviewCtrl> {
   InAppWebViewGroupOptions options = InAppWebViewGroupOptions(
       crossPlatform: InAppWebViewOptions(
         useShouldOverrideUrlLoading: true,

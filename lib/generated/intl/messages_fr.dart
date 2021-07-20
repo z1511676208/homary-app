@@ -1,5 +1,5 @@
 // DO NOT EDIT. This is code generated via package:intl/generate_localized.dart
-// This is a library that provides messages for a zh locale. All the
+// This is a library that provides messages for a fr locale. All the
 // messages from the main program should be duplicated here with the same
 // function name.
 
@@ -17,13 +17,17 @@ final messages = new MessageLookup();
 typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 
 class MessageLookup extends MessageLookupByLibrary {
-  String get localeName => 'zh';
+  String get localeName => 'fr';
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
-    "button" : MessageLookupByLibrary.simpleMessage("按钮"),
-    "close_drawer" : MessageLookupByLibrary.simpleMessage("关闭抽屉"),
-    "drawer_tip" : MessageLookupByLibrary.simpleMessage("这是抽屉"),
-    "title" : MessageLookupByLibrary.simpleMessage("国际化案例")
+    "HomePage_ServiceIcon1" : MessageLookupByLibrary.simpleMessage("Bénéficiez de"),
+    "HomePage_ServiceIcon2" : MessageLookupByLibrary.simpleMessage("Livraison Gratuite"),
+    "HomePage_ServiceIcon3" : MessageLookupByLibrary.simpleMessage("Retour et Échange"),
+    "HomePage_recommendTitle" : MessageLookupByLibrary.simpleMessage("Recommander pour vous"),
+    "button" : MessageLookupByLibrary.simpleMessage("Button"),
+    "close_drawer" : MessageLookupByLibrary.simpleMessage("Close Drawer 123"),
+    "drawer_tip" : MessageLookupByLibrary.simpleMessage("This is the Drawer"),
+    "title" : MessageLookupByLibrary.simpleMessage("Localization Demo")
   };
 }

@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 import 'package:dio/adapter.dart';
 import 'package:dio_log/dio_log.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:homary/common/request/handler.dart';
 // import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
@@ -86,7 +85,7 @@ class Request {
           String redirectUrl = Routes.getCurPath();
           BuildContext context = navigatorKey.currentState.overlay.context;
           Routes.replace(context, '/signIn',
-              params: {'redirectUrl': redirectUrl});
+              params: {'redirectUrl': Uri.encodeComponent(redirectUrl)});
           return handler.reject(errData);
         } else {
           Toast.error(res.data['message'] ?? '');

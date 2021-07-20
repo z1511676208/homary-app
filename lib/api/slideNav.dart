@@ -2,19 +2,17 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-08 16:11:59
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-19 11:10:38
+ * @LastEditTime : 2021-07-27 20:12:41
  */
 import 'package:homary/common/request/request.dart';
-import 'package:homary/entity/commonConfig.dart';
 
 class SlideNavApi {
   static Future<DioResult> getSlideNavData() async {
-    DioResult res =
-        await Request().get('/home/channel/get-home-channel', isRequire: true);
+    DioResult res = await Request().get('/home/channel/get-home-channel');
     return res;
   }
 
-  static Future<DioResult> getCommonConfig() async {
+  static Future<DioResult> getGlobalConfig() async {
     var res = await Request().get('/common/site/getinitconfig');
     return res;
   }

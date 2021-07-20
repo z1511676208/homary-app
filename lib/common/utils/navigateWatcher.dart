@@ -1,13 +1,13 @@
 import 'main.dart';
 
-class navigateWatcher extends NavigatorObserver {
-  static navigateWatcher _instance;
+class NavigateWatcher extends NavigatorObserver {
+  static NavigateWatcher _instance;
 
   static String currentPath;
 
-  static navigateWatcher getInstance() {
+  static NavigateWatcher getInstance() {
     if (_instance == null) {
-      _instance = navigateWatcher();
+      _instance = NavigateWatcher();
     }
     return _instance;
   }

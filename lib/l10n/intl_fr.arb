@@ -1,0 +1,10 @@
+{
+  "title": "Localization Demo",
+  "button": "Button",
+  "drawer_tip": "This is the Drawer",
+  "close_drawer": "Close Drawer 123",
+  "HomePage_ServiceIcon1": "Bénéficiez de",
+  "HomePage_ServiceIcon2": "Livraison Gratuite",
+  "HomePage_ServiceIcon3": "Retour et Échange",
+  "HomePage_recommendTitle": "Recommander pour vous"
+}

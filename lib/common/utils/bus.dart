@@ -1,3 +1,9 @@
+/*
+ * @Author       : JHao
+ * @Date         : 2021-07-21 10:31:45
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-07-28 14:56:33
+ */
 class BusProvider {
   static BusProvider _instance = BusProvider._internal();
   factory BusProvider() => _instance;
@@ -28,7 +34,6 @@ class BusProvider {
   }
 
   pubWebViewCtrl(String name) {
-    print('run hererrer ---- $webViewEvent');
     if (webViewEvent[name] != null) {
       webViewEvent[name].forEach((key, value) {
         value();

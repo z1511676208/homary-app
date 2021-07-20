@@ -3,7 +3,6 @@
 //     final slideNavRes = slideNavResFromJson(jsonString);
 
 import 'dart:convert';
-import 'product.dart';
 
 class SlideNavRes {
   SlideNavRes({

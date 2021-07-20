@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-06 10:11:04
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-16 17:18:16
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-07-19 16:12:14
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/components/drawer/main.dart';
@@ -30,10 +30,22 @@ class _IndexPageState extends State<IndexPage> {
   };
 
   List<BottomNavigationBarItem> _barItem = [
-    BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-    BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Category'),
-    BottomNavigationBarItem(icon: Icon(Icons.people), label: 'Sale'),
-    BottomNavigationBarItem(icon: Icon(Icons.people), label: 'Me'),
+    BottomNavigationBarItem(
+        icon: Icon(Iconfont.HomeBarItem),
+        activeIcon: Icon(Iconfont.ActiveHomeBarItem),
+        label: 'Home'),
+    BottomNavigationBarItem(
+        icon: Icon(Iconfont.CategoryBarItem),
+        activeIcon: Icon(Iconfont.ActiveCategoryBarItem),
+        label: 'Category'),
+    BottomNavigationBarItem(
+        icon: Icon(Iconfont.SaleBarItem),
+        activeIcon: Icon(Iconfont.ActiveSaleBarItem),
+        label: 'Sale'),
+    BottomNavigationBarItem(
+        icon: Icon(Iconfont.MeBarItem),
+        activeIcon: Icon(Iconfont.ActiveMeBarItem),
+        label: 'Me'),
   ];
 
   @override
@@ -55,8 +67,12 @@ class _IndexPageState extends State<IndexPage> {
         },
         currentIndex: this._currentIndex,
         items: _barItem,
-        fixedColor: Colors.orange,
-        selectedFontSize: 12,
+        fixedColor: AppColor.primaryColor,
+        unselectedFontSize: 12.sp,
+        selectedFontSize: 12.sp,
+        unselectedItemColor: AppColor.primaryText,
+        iconSize: 22.sp,
+        unselectedLabelStyle: TextStyle(height: 1.2.w),
         type: BottomNavigationBarType.fixed,
       ),
     );

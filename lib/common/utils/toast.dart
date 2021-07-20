@@ -2,12 +2,12 @@
  * @Author       : JHao
  * @Date         : 2021-07-16 18:39:18
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-19 11:33:44
+ * @LastEditTime : 2021-07-23 17:58:44
  */
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class Toast {
-  static void loading(String text) {
+  static void loading({String text}) {
     EasyLoading.show(status: text ?? 'loading...');
   }
 

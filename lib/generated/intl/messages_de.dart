@@ -21,9 +21,13 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
-    "button" : MessageLookupByLibrary.simpleMessage("按钮"),
-    "close_drawer" : MessageLookupByLibrary.simpleMessage("关闭抽屉"),
-    "drawer_tip" : MessageLookupByLibrary.simpleMessage("这是抽屉"),
-    "title" : MessageLookupByLibrary.simpleMessage("国际化案例")
+    "HomePage_ServiceIcon1" : MessageLookupByLibrary.simpleMessage("Holen Sie sich"),
+    "HomePage_ServiceIcon2" : MessageLookupByLibrary.simpleMessage("Kostenloser Versand"),
+    "HomePage_ServiceIcon3" : MessageLookupByLibrary.simpleMessage("Rückgabe & Umtausch"),
+    "HomePage_recommendTitle" : MessageLookupByLibrary.simpleMessage("Für Sie empfehlen"),
+    "button" : MessageLookupByLibrary.simpleMessage("Button"),
+    "close_drawer" : MessageLookupByLibrary.simpleMessage("Close Drawer 123"),
+    "drawer_tip" : MessageLookupByLibrary.simpleMessage("This is the Drawer"),
+    "title" : MessageLookupByLibrary.simpleMessage("Localization Demo")
   };
 }

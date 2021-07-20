@@ -1,14 +1,16 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-12 12:20:08
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-16 19:20:18
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-07-27 15:17:28
  */
 import 'dart:async';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:homary/common/utils/entrance.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:fluro/fluro.dart';
+import 'package:homary/pages/home/contorller.dart';
+
 import 'package:homary/router/routes.dart';
 import 'package:homary/generated/l10n.dart';
 import 'package:homary/common/utils/main.dart';
@@ -44,18 +46,18 @@ class _MyAppState extends State<MyApp> {
     Routes.configureRoutes(router);
     Routes.router = router;
   }
-  @override
-  void didUpdateWidget(covariant MyApp oldWidget) {
-    print('update');
-    print('main');
-    // TODO: implement didUpdateWidget
-    super.didUpdateWidget(oldWidget);
-  }
+  // @override
+  // void didUpdateWidget(covariant MyApp oldWidget) {
+  //   super.didUpdateWidget(oldWidget);
+  // }
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: [ChangeNotifierProvider.value(value: GlobalConfig())],
+        providers: [
+          ChangeNotifierProvider.value(value: GlobalConfig()),
+          ChangeNotifierProvider.value(value: HomeCtrl()),
+        ],
         child: Consumer<GlobalConfig>(
             builder: (context, GlobalConfig value, child) {
           return MaterialApp(
@@ -67,11 +69,13 @@ class _MyAppState extends State<MyApp> {
             ],
             locale: value.curLocale,
             supportedLocales: [
-              const Locale('zh', 'CN'),
-              const Locale('en', 'US'),
-              const Locale('de', ''),
+              const Locale('en', 'UK'),
+              const Locale('de', 'DE'),
+              const Locale('fr', 'FR'),
+              const Locale('es', 'ES'),
             ],
             theme: ThemeData(
+              scaffoldBackgroundColor: Colors.white,
               primarySwatch: AppColor.primaryMaterialColor,
               primaryColor: AppColor.primaryColor,
               accentColor: AppColor.primaryColor,
@@ -81,7 +85,7 @@ class _MyAppState extends State<MyApp> {
             navigatorKey: navigatorKey,
             navigatorObservers: <NavigatorObserver>[
               Analytics.observer,
-              navigateWatcher()
+              NavigateWatcher()
             ], //加入路由统计
             home: MainPage(),
             builder: EasyLoading.init(),
@@ -105,7 +109,7 @@ class _MainPageState extends State<MainPage> {
     super.initState();
     initPlatformState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Provider.of<GlobalConfig>(context, listen: false).getCommonConfig();
+      Provider.of<GlobalConfig>(context, listen: false).getGlobalConfig();
     });
   }
 

@@ -1,3 +1,9 @@
+/*
+ * @Author       : JHao
+ * @Date         : 2021-07-14 15:05:20
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-07-20 11:10:37
+ */
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/widget/networkImg.dart';
 import 'package:dio_log/dio_log.dart';
@@ -9,9 +15,13 @@ class SalePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        MyImage(
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAG8Fmhxr42POEUjJ_d-1qSvRDmkuvkWz7fw&usqp=CAU',
-          width: 260.w,
+        Container(
+          height: 260.w,
+          child: CustomNetworkImage(
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAG8Fmhxr42POEUjJ_d-1qSvRDmkuvkWz7fw&usqp=CAU',
+            fit: BoxFit.cover,
+            width: 1.sw,
+          ),
         ),
         TextButton(
             onPressed: () {

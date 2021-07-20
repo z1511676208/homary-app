@@ -65,11 +65,51 @@ class S {
     );
   }
 
-  /// `Close Drawer`
+  /// `Close Drawer 123`
   String get close_drawer {
     return Intl.message(
-      'Close Drawer',
+      'Close Drawer 123',
       name: 'close_drawer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Get`
+  String get HomePage_ServiceIcon1 {
+    return Intl.message(
+      'Get',
+      name: 'HomePage_ServiceIcon1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Free Shipping`
+  String get HomePage_ServiceIcon2 {
+    return Intl.message(
+      'Free Shipping',
+      name: 'HomePage_ServiceIcon2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `30-Day Return`
+  String get HomePage_ServiceIcon3 {
+    return Intl.message(
+      '30-Day Return',
+      name: 'HomePage_ServiceIcon3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recommend For You`
+  String get HomePage_recommendTitle {
+    return Intl.message(
+      'Recommend For You',
+      name: 'HomePage_recommendTitle',
       desc: '',
       args: [],
     );
@@ -83,7 +123,8 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
       Locale.fromSubtags(languageCode: 'de'),
-      Locale.fromSubtags(languageCode: 'zh'),
+      Locale.fromSubtags(languageCode: 'es'),
+      Locale.fromSubtags(languageCode: 'fr'),
     ];
   }
 

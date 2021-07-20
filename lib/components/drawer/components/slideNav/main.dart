@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-07 15:43:25
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-16 15:22:15
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-07-19 18:47:22
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/components/drawer/components/configNav/configItem.dart';
@@ -73,7 +73,7 @@ class SlideNav extends StatelessWidget {
                                                       .primaryBorderOutline))),
                                       child: ConfigItem(
                                         trailing: slideNavCtrl.configType == 1
-                                            ? MyImage(
+                                            ? CustomNetworkImage(
                                                 slideNavCtrl?.subNavList[index]
                                                     ?.iconUrl,
                                                 height: 15.h,
