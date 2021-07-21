@@ -85,11 +85,11 @@ class UserPage extends StatelessWidget {
                     Flex(
                       direction: Axis.horizontal,
                       children: [
-                        FlexItem('Unpaid', Icon(Iconfont.Unpaid, size: 24.0)),
+                        FlexItem('Unpaid', Icon(Iconfont.Unpaid, size: 30.0)),
                         FlexItem('Processing',
-                            Icon(Iconfont.Processing, size: 24.0)),
-                        FlexItem('Shipped', Icon(Iconfont.Shipped, size: 24.0)),
-                        FlexItem('Returns', Icon(Iconfont.Returns, size: 24.0)),
+                            Icon(Iconfont.Processing, size: 30.0)),
+                        FlexItem('Shipped', Icon(Iconfont.Shipped, size: 30.0)),
+                        FlexItem('Returns', Icon(Iconfont.Returns, size: 30.0)),
                       ],
                     )
                   ],
@@ -116,11 +116,11 @@ class UserPage extends StatelessWidget {
                       direction: Axis.horizontal,
                       children: [
                         FlexItem(
-                            'Customer', Icon(Iconfont.Customer, size: 24.0)),
-                        FlexItem('About', Icon(Iconfont.About, size: 24.0)),
-                        FlexItem('Address', Icon(Iconfont.Address, size: 24.0)),
+                            'Customer', Icon(Iconfont.Customer, size: 30.0)),
+                        FlexItem('About', Icon(Iconfont.About, size: 30.0)),
+                        FlexItem('Address', Icon(Iconfont.Address, size: 30.0)),
                         FlexItem(
-                            'Personal', Icon(Iconfont.Personal, size: 24.0)),
+                            'Personal', Icon(Iconfont.Personal, size: 30.0)),
                       ],
                     )
                   ],
