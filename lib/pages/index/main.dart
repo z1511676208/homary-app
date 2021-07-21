@@ -22,12 +22,12 @@ class IndexPage extends StatefulWidget {
 class _IndexPageState extends State<IndexPage> {
   int _currentIndex = 0;
 
-  List<Widget> _pageList = [
-    HomePage(),
-    CategoryPage(),
-    SalePage(),
-    UserPage(),
-  ];
+  Map _pageList = {
+    0: {'is_show_app_bar': true, 'component': HomePage()},
+    1: {'is_show_app_bar': true, 'component': CategoryPage()},
+    2: {'is_show_app_bar': true, 'component': SalePage()},
+    3: {'is_show_app_bar': false, 'component': UserPage()}
+  };
 
   List<BottomNavigationBarItem> _barItem = [
     BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
@@ -39,12 +39,14 @@ class _IndexPageState extends State<IndexPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        child: GlobalAppbar(),
-        preferredSize: Size.fromHeight(96.5.w),
-      ),
+      appBar: this._pageList[this._currentIndex]['is_show_app_bar']
+          ? PreferredSize(
+              child: GlobalAppbar(),
+              preferredSize: Size.fromHeight(96.5.w),
+            )
+          : null,
       drawer: GlobalDrawer(),
-      body: this._pageList[this._currentIndex],
+      body: this._pageList[this._currentIndex]['component'],
       bottomNavigationBar: BottomNavigationBar(
         onTap: (int index) {
           setState(() {
