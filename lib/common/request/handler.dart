@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-16 19:35:41
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-19 12:50:01
+ * @LastEditTime : 2021-07-28 10:41:29
  */
 import 'dart:io';
 
@@ -20,7 +20,7 @@ class RrequsetHandler extends Interceptor {
     "token": '',
     "version": "1.0.0",
     "eid": '',
-    "pf": Platform.isIOS ? 'ios' : 'android',
+    "pf": Platform.isIOS ? 'm' : 'android',
   };
   // 替换动态 url 目标参数
   Map<String, dynamic> formatParams(
@@ -38,7 +38,7 @@ class RrequsetHandler extends Interceptor {
       finalParams.addAll({key: replaceParams[key] ?? _publicParams[key]});
     });
     // finalParams.addEntries(_publicParams.entries);
-    print("finalParams  $finalParams");
+    // print("finalParams  $finalParams");
     return finalParams;
   }
 

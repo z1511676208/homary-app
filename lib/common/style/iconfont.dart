@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-13 10:15:30
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-16 16:28:56
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-07-28 15:38:15
  */
 import 'package:flutter/material.dart';
 
@@ -54,6 +54,66 @@ class Iconfont {
     fontFamily: 'Iconfont',
     matchTextDirection: true,
   );
+  static const search = IconData(
+    0xe633,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
+  static const homeNav = IconData(
+    0xe6c0,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
+  static const HomeBarItem = IconData(
+    0xe6bf,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
+  static const ActiveHomeBarItem = IconData(
+    0xe6b8,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
+  static const CategoryBarItem = IconData(
+    0xe6b7,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
+  static const ActiveCategoryBarItem = IconData(
+    0xe6b6,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
+  static const SaleBarItem = IconData(
+    0xe6bd,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
+  static const ActiveSaleBarItem = IconData(
+    0xe6bc,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
+  static const MeBarItem = IconData(
+    0xe6b9,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
+  static const ActiveMeBarItem = IconData(
+    0xe6be,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
+  static const ArrowRight = IconData(
+    0xe637,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
+  static const ArrowLeft = IconData(
+    0xe644,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
   static const home_collect = IconData(
     0xe636,
     fontFamily: 'Iconfont',
@@ -67,7 +127,7 @@ class Iconfont {
   );
 
   static const Unpaid = IconData(
-    0xe64c,
+    0xee64c,
     fontFamily: 'Iconfont',
     matchTextDirection: true,
   );

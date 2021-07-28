@@ -1,6 +1,10 @@
 {
-    "title": "Localization Demo",
-    "button": "Button",
-    "drawer_tip": "This is the Drawer",
-    "close_drawer": "Close Drawer"
+  "title": "Localization Demo",
+  "button": "Button",
+  "drawer_tip": "This is the Drawer",
+  "close_drawer": "Close Drawer 123",
+  "HomePage_ServiceIcon1": "Get",
+  "HomePage_ServiceIcon2": "Free Shipping",
+  "HomePage_ServiceIcon3": "30-Day Return",
+  "HomePage_recommendTitle": "Recommend For You"
 }

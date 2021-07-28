@@ -1,17 +1,23 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-13 10:15:30
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-16 19:31:42
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-07-28 15:04:55
  */
 // import 'package:localization_demo/i18n/app_localization_delegate.dart';
 // import 'package:localization_demo/i18n/app_localizations.dart';
 
 import 'package:flutter/material.dart';
+import 'package:homary/api/common.dart';
 import 'package:homary/api/main.dart';
 import 'package:homary/common/request/request.dart';
 import 'package:homary/common/storage/cookie.dart';
+import 'package:homary/common/storage/webview-cookie.dart';
+import 'package:homary/common/utils/bus.dart';
 import 'package:homary/common/utils/localstorage.dart';
+import 'package:homary/entity/serviceTimeRes.dart';
+
+var busEvent = BusProvider();
 
 class GlobalConfig with ChangeNotifier {
   Locale _locale = Locale('en', '');
@@ -19,16 +25,23 @@ class GlobalConfig with ChangeNotifier {
   List currentConfigList = []; //配置信息列表
   get curLocale => _locale;
   List navList = []; //侧边栏菜单列表
+  CommonAmountList commonAmountList = new CommonAmountList();
+
+  // 服务器时间
+  int serviceTime;
+
   //获取公共配置
-  void getCommonConfig() async {
-    DioResult res = await SlideNavApi.getCommonConfig();
+  void getGlobalConfig() async {
+    DioResult res = await SlideNavApi.getGlobalConfig();
     if (res.error == null) {
-      CommonConfigRes result = CommonConfigRes.fromJson(res.result);
+      GlobalConfigRes result = GlobalConfigRes.fromJson(res.result);
       List siteList = result?.data?.siteList;
       List languageList = result?.data?.languagesList;
       List currencyList = result?.data?.currencyList;
+      this.commonAmountList = result?.data?.commonAmountList;
       var config = result?.data?.currentConfig;
       this.currentConfig = config;
+      // print("commonAmountList $commonAmountList");
       setCurrentConfig(config.toJson());
       var site = siteList
           .where((item) => item.siteCode == config.site)
@@ -93,9 +106,10 @@ class GlobalConfig with ChangeNotifier {
         this.currentConfigList[2]['subTitle'] = configData.enName;
     }
     setCurrentConfig(this.currentConfig.toJson());
+    setCurrentConfigCookie();
+    busEvent.pubWebViewCtrl('switchSite'); // 通知webview刷新页面
     this.navList = [];
     this.getNavList();
-    notifyListeners();
   }
 
   //登出
@@ -103,5 +117,15 @@ class GlobalConfig with ChangeNotifier {
     await UserApi.signOut();
     Localstorage().remove('token');
     Localstorage().setBool('isLogin', false);
+  }
+
+  Future<void> getServiceTime() async {
+    DioResult res = await CommonApi.getServiceTime();
+    if (res.error == null) {
+      ServiceTimeRes result = ServiceTimeRes.fromJson(res.result);
+      this.serviceTime =
+          result?.data?.timeStamp ?? new DateTime.now().millisecondsSinceEpoch;
+    }
+    notifyListeners();
   }
 }

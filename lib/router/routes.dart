@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-07 20:28:59
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-16 19:24:30
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-07-26 15:15:21
  */
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +28,10 @@ class Routes {
 
   /// 重置密码
   static String resetPassword = '/resetPassword';
+
+  /// 评论详情
+  static String reviewDetail = '/reviewDetail';
+
   // 配置route
   static void configureRoutes(FluroRouter router) {
     router.notFoundHandler = Handler(
@@ -41,13 +45,14 @@ class Routes {
     router.define(scrollList, handler: scrollListInPageHandler); // 注册登录页
     router.define(webView, handler: webViewInPageHandler); // webview
     router.define(resetPassword, handler: resetPasswordPageHandler);
+    router.define(reviewDetail, handler: reviewDetailPageHandler);
   }
 
   static String formatQueryParams(Map<String, dynamic> params) {
     int idx = 0;
     String queryStr = '';
     for (var key in params.keys) {
-      var value = Uri.encodeComponent(params[key]);
+      var value = Uri.encodeComponent(params[key].toString());
       if (idx == 0) {
         queryStr = "?";
       } else {
@@ -110,6 +115,6 @@ class Routes {
   }
 
   static getCurPath() {
-    return navigateWatcher.currentPath;
+    return NavigateWatcher.currentPath;
   }
 }

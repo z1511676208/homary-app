@@ -1,6 +1,10 @@
 {
-  "title": "国际化案例",
-  "button": "按钮",
-  "drawer_tip": "这是抽屉",
-  "close_drawer": "关闭抽屉"
+  "title": "Localization Demo",
+  "button": "Button",
+  "drawer_tip": "This is the Drawer",
+  "close_drawer": "Close Drawer 123",
+  "HomePage_ServiceIcon1": "Holen Sie sich",
+  "HomePage_ServiceIcon2": "Kostenloser Versand",
+  "HomePage_ServiceIcon3": "Rückgabe & Umtausch",
+  "HomePage_recommendTitle": "Für Sie empfehlen"
 }

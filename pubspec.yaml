@@ -47,12 +47,15 @@ dependencies:
   flutter_facebook_login: ^3.0.0
   twitter_login: ^4.0.1
   flutter_inappwebview: ^5.3.2
-  extended_image: ^4.1.0
   hexcolor: ^2.0.4
   tuple: ^2.0.0
   flutter_easyloading: ^3.0.0
   device_info_plus: ^2.1.0
   uuid: ^3.0.4
+  flutter_swiper: ^1.1.6
+  cached_network_image: ^3.1.0
+  exposure: ^1.0.3
+  flutter_rating_bar: ^4.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -79,7 +82,11 @@ flutter:
     - assets/images/signIn/fb.png
     - assets/images/signIn/tt.png
     - assets/webview.html
-  #   - images/a_dot_ham.jpeg
+    - assets/images/home/head_serve_off.png
+    - assets/images/home/head_serve_free.png
+    - assets/images/home/head_serve_return.png
+    - assets/images/common/goods_card_bg.png
+  # - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see

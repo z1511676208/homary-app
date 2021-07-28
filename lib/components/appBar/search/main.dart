@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-07 20:04:36
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-15 16:53:54
+ * @LastEditTime : 2021-07-19 14:36:02
  */
 import 'package:homary/common/utils/main.dart';
 
@@ -20,19 +20,23 @@ class _AppbarSearchState extends State<AppbarSearch> {
         constraints: BoxConstraints(minHeight: 34.w),
         child: Container(
           height: 34.w,
+          margin: EdgeInsets.only(top: 6.w),
           width: MediaQuery.of(context).size.width - 24.w,
           decoration: BoxDecoration(color: Colors.white),
           child: GestureDetector(
               child: TextField(
                 enabled: false,
                 maxLines: 1,
-                cursorColor: Colors.orange,
+                cursorColor: AppColor.primaryColor,
                 style: TextStyle(
                     color: AppColor.primaryBorderHard, fontSize: 14.sp),
                 decoration: InputDecoration(
                     isCollapsed: true,
-                    contentPadding: EdgeInsets.symmetric(vertical: 10.w),
-                    prefixIcon: Icon(Icons.search),
+                    contentPadding: EdgeInsets.only(top: 9.w),
+                    prefixIcon: Icon(
+                      Iconfont.search,
+                      size: 18.sp,
+                    ),
                     border: OutlineInputBorder(
                       borderSide: BorderSide(
                         width: 2.w,
@@ -45,7 +49,7 @@ class _AppbarSearchState extends State<AppbarSearch> {
                     ),
                     filled: true,
                     fillColor: Colors.white,
-                    hintStyle: TextStyle(color: AppColor.primarySubTitle),
+                    hintStyle: TextStyle(color: AppColor.primaryLightSubTitle),
                     hintText: 'Find anything home...'),
               ),
               onTap: () => print('do some thing')),

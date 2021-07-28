@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-07 20:04:36
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-16 19:21:48
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-07-22 16:32:29
  */
 import 'dart:ui';
 
@@ -39,16 +39,19 @@ class AppColor {
   static const Color primarySubTitle = Color(0xFF666666);
 
   /// 浅灰色 #999
-  static const Color primaryLightSubTitle = Color(0xFF666666);
+  static const Color primaryLightSubTitle = Color(0xFF999999);
 
   /// 浅灰色 #999
   static const Color primaryBorderLight = Color(0xFF999999);
+
+  /// 卡片阴影 #17000000
+  static const Color primaryBorderShadow = Color(0x17000000);
 
   /// border outline color
   static const Color primaryBorderOutline = Color(0xFFCCCCCC);
 
   /// hard border
-  static const Color primaryBorderHard = Color(0x999999FF);
+  static const Color primaryBorderHard = Color(0xFF999999);
 
   // #F5F6F7FF
   static const Color primaryNavBgColor = Color(0xFFF5F5F5);
@@ -57,4 +60,7 @@ class AppColor {
 
   //点击状态色
   static const Color primaryPressed = Color.fromARGB(10, 0, 0, 0);
+
+  static const Color offPriceColor = Color(0xFFCE2226); //打折后的价格
+
 }

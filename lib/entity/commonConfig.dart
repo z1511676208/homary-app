@@ -4,8 +4,8 @@
 
 import 'dart:convert';
 
-class CommonConfigRes {
-  CommonConfigRes({
+class GlobalConfigRes {
+  GlobalConfigRes({
     this.code,
     this.data,
     this.message,
@@ -15,13 +15,13 @@ class CommonConfigRes {
   Data data;
   String message;
 
-  factory CommonConfigRes.fromRawJson(String str) =>
-      CommonConfigRes.fromJson(json.decode(str));
+  factory GlobalConfigRes.fromRawJson(String str) =>
+      GlobalConfigRes.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory CommonConfigRes.fromJson(Map<String, dynamic> json) =>
-      CommonConfigRes(
+  factory GlobalConfigRes.fromJson(Map<String, dynamic> json) =>
+      GlobalConfigRes(
         code: json["code"] == null ? null : json["code"],
         data: json["data"] == null ? null : Data.fromJson(json["data"]),
         message: json["message"] == null ? null : json["message"],

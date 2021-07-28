@@ -2,9 +2,8 @@
  * @Author       : JHao
  * @Date         : 2021-07-08 10:21:44
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-15 16:40:46
+ * @LastEditTime : 2021-07-20 15:07:02
  */
-import 'package:hexcolor/hexcolor.dart';
 import 'package:homary/common/utils/main.dart';
 
 class LeftNav extends StatelessWidget {

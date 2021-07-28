@@ -21,8 +21,12 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "HomePage_ServiceIcon1" : MessageLookupByLibrary.simpleMessage("Get"),
+    "HomePage_ServiceIcon2" : MessageLookupByLibrary.simpleMessage("Free Shipping"),
+    "HomePage_ServiceIcon3" : MessageLookupByLibrary.simpleMessage("30-Day Return"),
+    "HomePage_recommendTitle" : MessageLookupByLibrary.simpleMessage("Recommend For You"),
     "button" : MessageLookupByLibrary.simpleMessage("Button"),
-    "close_drawer" : MessageLookupByLibrary.simpleMessage("Close Drawer"),
+    "close_drawer" : MessageLookupByLibrary.simpleMessage("Close Drawer 123"),
     "drawer_tip" : MessageLookupByLibrary.simpleMessage("This is the Drawer"),
     "title" : MessageLookupByLibrary.simpleMessage("Localization Demo")
   };
