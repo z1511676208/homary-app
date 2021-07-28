@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-12 19:28:58
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-15 10:10:33
+ * @LastEditTime : 2021-07-28 15:29:23
  */
 import 'package:homary/common/utils/main.dart';
 
@@ -11,7 +11,7 @@ import 'noBorderExpansionTile/main.dart';
 class ExpansionItem extends StatelessWidget {
   final List list;
   final String title;
-  const ExpansionItem({Key key, this.list, this.title}) : super(key: key);
+  const ExpansionItem({Key key, this.list, this.title = ''}) : super(key: key);
 
   Widget navItemChild(value, context) {
     return InkWell(
@@ -34,15 +34,19 @@ class ExpansionItem extends StatelessWidget {
 
   Widget navItem(context) {
     return NoBorderExpansionTile(
-      expandedCrossAxisAlignment: CrossAxisAlignment.start,
-      title: Text(
-        title ?? '',
-        style:
-            TextStyle(color: AppColor.primaryText, fontWeight: FontWeight.bold),
-      ),
-      childrenPadding: EdgeInsets.only(left: 16),
-      children: list?.map((e) => navItemChild(e, context))?.toList(),
-    );
+        showArrow: list.isNotEmpty,
+        expandedCrossAxisAlignment: CrossAxisAlignment.start,
+        title: Text(
+          title,
+          style: TextStyle(
+              color: AppColor.primaryText, fontWeight: FontWeight.bold),
+        ),
+        childrenPadding: EdgeInsets.only(left: 16),
+        children: list.map((e) => navItemChild(e, context))?.toList(),
+        onExpansionChanged: (e) {
+          //没有第三级菜单点击直接跳转
+          if (list.isEmpty) {}
+        });
   }
 
   @override

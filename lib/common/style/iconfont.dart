@@ -1,8 +1,13 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-13 10:15:30
- * @LastEditors  : JHao
- * @LastEditTime : 2021-07-28 15:38:15
+<<<<<<< HEAD
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-07-28 16:15:32
+=======
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-07-27 18:15:21
+>>>>>>> 3c370ed (feat：搜索结果页，登录注册页还原设计稿，国际化)
  */
 import 'package:flutter/material.dart';
 
@@ -39,17 +44,17 @@ class Iconfont {
     fontFamily: 'Iconfont',
     matchTextDirection: true,
   );
-  static const site = IconData(
+  static const Site = IconData(
     0xe63e,
     fontFamily: 'Iconfont',
     matchTextDirection: true,
   );
-  static const language = IconData(
+  static const Language = IconData(
     0xe640,
     fontFamily: 'Iconfont',
     matchTextDirection: true,
   );
-  static const currency = IconData(
+  static const Currency = IconData(
     0xe63f,
     fontFamily: 'Iconfont',
     matchTextDirection: true,
@@ -125,15 +130,30 @@ class Iconfont {
     fontFamily: 'Iconfont',
     matchTextDirection: true,
   );
+  static const PwdOpen = IconData(
+    0xe60d,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
 
   static const Unpaid = IconData(
     0xee64c,
     fontFamily: 'Iconfont',
     matchTextDirection: true,
   );
+  static const PwdClose = IconData(
+    0xe60e,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
 
   static const Processing = IconData(
     0xe648,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
+  static const Home = IconData(
+    0xe6bf,
     fontFamily: 'Iconfont',
     matchTextDirection: true,
   );
@@ -170,6 +190,31 @@ class Iconfont {
 
   static const Personal = IconData(
     0xe64a,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
+  static const Collect = IconData(
+    0xe636,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
+  static const Recent = IconData(
+    0xe6ba,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
+  static const HomeCustomer = IconData(
+    0xe63d,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
+  static const More = IconData(
+    0xe632,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
+  static const Cart = IconData(
+    0xe635,
     fontFamily: 'Iconfont',
     matchTextDirection: true,
   );

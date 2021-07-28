@@ -2,8 +2,9 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-13 10:15:30
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-16 19:20:39
+ * @LastEditTime : 2021-07-23 13:56:49
  */
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:homary/entity/main.dart';
 import 'package:homary/common/request/request.dart';
 
@@ -14,16 +15,16 @@ class UserApi {
   }
 
   //注册
-  static Future<UserEmailLoginRes> userRegister(
-      {UserRegisterReq params}) async {
-    var res = await Request().post('/user/user/register', params: params);
-    return UserEmailLoginRes.fromJson(res);
+  static Future<DioResult> userRegister({UserRegisterReq params}) async {
+    DioResult res = await Request().post('/user/user/register', params: params);
+    return res;
   }
 
   //谷歌登录
-  static Future<UserEmailLoginRes> googleLogin(
+  static Future<UserEmailLoginRes> thirdLogin(
       {UserThirdLoginReq params}) async {
-    var res = await Request().post('/user/login/google-login', params: params);
+    var res =
+        await Request().post('/user/login/fire-base-login', params: params);
     return UserEmailLoginRes.fromJson(res);
   }
 
@@ -47,8 +48,9 @@ class UserApi {
   }
 
   //给用户发送邮件
-  static Future<EmptyListRes> userSendEmail(UserSendEmailReq params) async {
-    var res = await Request().post('/user/login/send-email', params: params);
-    return EmptyListRes.fromJson(res);
+  static Future<DioResult> userSendEmail(UserSendEmailReq params) async {
+    DioResult res =
+        await Request().post('/user/login/send-email', params: params);
+    return res;
   }
 }

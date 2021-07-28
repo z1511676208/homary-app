@@ -1,9 +1,3 @@
-/*
- * @Author       : JHao
- * @Date         : 2021-07-12 12:20:08
- * @LastEditors  : JHao
- * @LastEditTime : 2021-07-27 15:17:28
- */
 import 'dart:async';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:homary/common/utils/entrance.dart';
@@ -109,7 +103,7 @@ class _MainPageState extends State<MainPage> {
     super.initState();
     initPlatformState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Provider.of<GlobalConfig>(context, listen: false).getGlobalConfig();
+      Provider.of<GlobalConfig>(context, listen: false).getCommonConfig();
     });
   }
 

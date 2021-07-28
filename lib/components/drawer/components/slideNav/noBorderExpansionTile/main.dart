@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-08 09:53:28
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-12 17:41:24
+ * @LastEditTime : 2021-07-28 15:26:09
  */
 // Copyright 2014 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
@@ -58,6 +58,7 @@ class NoBorderExpansionTile extends StatefulWidget {
     this.collapsedTextColor,
     this.iconColor,
     this.collapsedIconColor,
+    this.showArrow = true,
   })  : assert(initiallyExpanded != null),
         assert(maintainState != null),
         assert(
@@ -181,6 +182,7 @@ class NoBorderExpansionTile extends StatefulWidget {
   /// Used to override to the [ListTileTheme.textColor].
   final Color collapsedTextColor;
 
+  final bool showArrow;
   @override
   _NoBorderExpansionTileState createState() => _NoBorderExpansionTileState();
 }
@@ -259,11 +261,13 @@ class _NoBorderExpansionTileState extends State<NoBorderExpansionTile>
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(child: widget.title),
-                    widget.trailing ??
-                        RotationTransition(
-                          turns: _iconTurns,
-                          child: const Icon(Icons.expand_more),
-                        ),
+                    Offstage(
+                      offstage: !widget.showArrow,
+                      child: RotationTransition(
+                        turns: _iconTurns,
+                        child: const Icon(Icons.expand_more),
+                      ),
+                    ),
                   ],
                 ),
               )),

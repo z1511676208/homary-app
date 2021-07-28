@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-07 20:04:36
- * @LastEditors  : JHao
- * @LastEditTime : 2021-07-22 16:32:29
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-07-28 16:13:50
  */
 import 'dart:ui';
 
@@ -50,6 +50,9 @@ class AppColor {
   /// border outline color
   static const Color primaryBorderOutline = Color(0xFFCCCCCC);
 
+  /// border BorderBottomLine color
+  static const Color primaryBorderBottomLine = Color(0xFFE8E8E8);
+
   /// hard border
   static const Color primaryBorderHard = Color(0xFF999999);
 
@@ -63,4 +66,12 @@ class AppColor {
 
   static const Color offPriceColor = Color(0xFFCE2226); //打折后的价格
 
+  //删除x颜色
+  static const Color primaryDelete = Color(0xFFCCCCCC);
+
+  //错误提示颜色
+  static const Color primaryErrorTip = Color(0xFFE8554F);
+
+  //提示阴影
+  static const Color primaryShadowTipShadow = Color(0x17000000);
 }

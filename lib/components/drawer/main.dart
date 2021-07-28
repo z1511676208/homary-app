@@ -1,30 +1,20 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-06 10:11:04
- * @LastEditors  : JHao
- * @LastEditTime : 2021-07-27 15:15:50
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-07-28 16:22:43
  */
 
 import 'package:flutter/material.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
-
+import 'package:homary/generated/l10n.dart';
 import 'package:tuple/tuple.dart';
+import 'components/contactUs.dart';
 import 'components/slideNav/main.dart';
 import 'components/navItem.dart';
 import 'controller.dart';
 import 'components/slideNav/expansionItem.dart';
-
-class Child {
-  String categoryName;
-  Child({this.categoryName});
-}
-
-class BottomLink {
-  String title;
-  List<Child> data;
-  BottomLink({this.title, this.data});
-}
 
 class GlobalDrawerView extends StatefulWidget {
   GlobalDrawerView({Key key}) : super(key: key);
@@ -34,15 +24,41 @@ class GlobalDrawerView extends StatefulWidget {
 }
 
 class _GlobalDrawerViewState extends State<GlobalDrawerView> {
-  List<BottomLink> arr;
+  List<BottomLink> bottomLinkList;
+  var currentConfig;
+  void setBbottomLinkList(List<String> titleList, List<String> childList) {
+    List<BottomLink> bottomList = [];
+    for (var i = 0; i < titleList.length; i++) {
+      bottomList.add(BottomLink(
+          title: titleList[i],
+          data: childList[i]
+              .split(',')
+              .map((e) => Child(categoryName: e))
+              .toList()));
+    }
+    setState(() {
+      bottomLinkList = bottomList;
+    });
+  }
+
+  void initBottomLink() {
+    setBbottomLinkList([
+      S.of(context).bottom_information_title,
+      S.of(context).bottom_customer_title,
+      S.of(context).bottom_b2b_title,
+    ], [
+      S.of(context).bottom_information_list,
+      S.of(context).bottom_customer_list,
+      S.of(context).bottom_b2b_list,
+    ]);
+  }
+
   @override
   void initState() {
     super.initState();
-    arr = [
-      BottomLink(title: 'test', data: [Child(categoryName: 'test')])
-    ];
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Provider.of<GlobalConfig>(context, listen: false).getNavList();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      this.initBottomLink();
+      await Provider.of<GlobalConfig>(context, listen: false).getNavList();
     });
   }
 
@@ -68,6 +84,7 @@ class _GlobalDrawerViewState extends State<GlobalDrawerView> {
                       SliverList(
                           delegate: SliverChildBuilderDelegate((contex, index) {
                         return NavItem(
+                            index: index,
                             title: data?.item1[index]?.categoryName,
                             subList: data?.item1[index]?.subList,
                             isConfig: false);
@@ -85,12 +102,12 @@ class _GlobalDrawerViewState extends State<GlobalDrawerView> {
                           delegate: SliverChildBuilderDelegate((contex, index) {
                         return NavItem(
                           trailing: index == 0
-                              ? Icon(Iconfont.site)
+                              ? Icon(Iconfont.Site)
                               : index == 1
-                                  ? Icon(Iconfont.language)
-                                  : Icon(Iconfont.currency),
+                                  ? Icon(Iconfont.Language)
+                                  : Icon(Iconfont.Currency),
                           title: data?.item2[index]['title'],
-                          subTitle: Text(data?.item2[index]['subTitle'],
+                          subTitle: Text(data?.item2[index]['subTitle'] ?? '',
                               style: TextStyle(
                                   color: AppColor.primaryLightSubTitle)),
                           subList: data?.item2[index]['subList'],
@@ -98,6 +115,32 @@ class _GlobalDrawerViewState extends State<GlobalDrawerView> {
                           configType: data?.item2[index]['type'],
                         );
                       }, childCount: data?.item2?.length)),
+                      SliverToBoxAdapter(
+                        child: Container(
+                          decoration: BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(
+                                      width: 0.5.w,
+                                      color: AppColor.primaryBorderOutline))),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 16.w, vertical: 14.w),
+                          child: Row(
+                            children: [
+                              Icon(Iconfont.Customer),
+                              SizedBox(width: 17.5.w),
+                              Expanded(
+                                  child: Text(
+                                'Customer Service',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              )),
+                              Icon(
+                                Icons.chevron_right,
+                                color: AppColor.primaryBorderLight,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                       SliverToBoxAdapter(
                         child: Offstage(
                             offstage: !Localstorage().getBool('isLogin'),
@@ -124,9 +167,10 @@ class _GlobalDrawerViewState extends State<GlobalDrawerView> {
                         return Container(
                             color: AppColor.primaryBackground,
                             child: ExpansionItem(
-                                list: arr[index].data,
-                                title: arr[index].title));
-                      }, childCount: arr.length)),
+                                list: bottomLinkList[index].data,
+                                title: bottomLinkList[index].title));
+                      }, childCount: bottomLinkList?.length ?? 0)),
+                      ContactUs()
                     ],
                   ));
                 },
@@ -162,4 +206,15 @@ class GlobalDrawer extends StatelessWidget {
       child: GlobalDrawerView(),
     );
   }
+}
+
+class Child {
+  String categoryName;
+  Child({this.categoryName});
+}
+
+class BottomLink {
+  String title;
+  List<Child> data;
+  BottomLink({this.title, this.data});
 }

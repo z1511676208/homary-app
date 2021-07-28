@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-07 15:43:25
- * @LastEditors  : JHao
- * @LastEditTime : 2021-07-19 18:47:22
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-07-28 16:20:30
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/components/drawer/components/configNav/configItem.dart';
@@ -93,7 +93,8 @@ class SlideNav extends StatelessWidget {
                                             slideNavCtrl?.subNavList[index],
                                       ))
                                   : ExpansionItem(
-                                      list: slideNavCtrl?.subNavList,
+                                      list: slideNavCtrl
+                                          ?.subNavList[index]?.subList,
                                       title: slideNavCtrl
                                           ?.subNavList[index]?.categoryName);
                             },

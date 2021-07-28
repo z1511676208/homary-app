@@ -1,3 +1,9 @@
+/*
+ * @Author       : zhhjie
+ * @Date         : 2021-07-15 13:48:37
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-07-27 18:17:18
+ */
 import 'package:homary/common/utils/main.dart';
 import 'search/main.dart';
 
@@ -13,28 +19,6 @@ class GlobalAppbar extends StatelessWidget {
           bottom: false,
           child: Column(
             children: [
-              // AppBar(
-              //   backgroundColor: Colors.white,
-              //   shadowColor: Colors.transparent,
-              //   leading: IconButton(
-              //     onPressed: () {},
-              //     icon: Icon(Icons.menu),
-              //   ),
-              //   title: Center(
-              //     child: Image.asset('assets/logo.png', width: 100),
-              //   ),
-              //   actions: [
-              //     IconButton(
-              //         color: Colors.black,
-              //         icon: Icon(Icons.favorite_border),
-              //         onPressed: () => Routes.push(
-              //             context, '/favorite/p123?name=shean&price=31')),
-              //     IconButton(
-              //         color: Colors.black,
-              //         icon: Icon(Icons.shopping_cart_outlined),
-              //         onPressed: () {})
-              //   ],
-              // ),
               Row(
                 children: [
                   Container(
@@ -44,7 +28,7 @@ class GlobalAppbar extends StatelessWidget {
                         IconButton(
                             color: Colors.black,
                             icon: Icon(
-                              Icons.menu,
+                              Iconfont.More,
                             ),
                             onPressed: () => Scaffold.of(context).openDrawer())
                       ],
@@ -64,7 +48,7 @@ class GlobalAppbar extends StatelessWidget {
                             onPressed: () => Routes.push(context, '/signIn')),
                         IconButton(
                             color: Colors.black,
-                            icon: Icon(Icons.shopping_cart_outlined),
+                            icon: Icon(Iconfont.Cart),
                             onPressed: () {})
                       ],
                     ),
