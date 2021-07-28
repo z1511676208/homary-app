@@ -1,20 +1,19 @@
-/*
- * @Author       : JHao
- * @Date         : 2021-07-06 13:52:46
- * @LastEditors  : JHao
- * @LastEditTime : 2021-07-28 10:45:34
- */
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-// import 'package:flutter_demo/common/storage/cookie.dart';
-// import 'package:flutter_demo/common/storage/webview-cookie.dart';
-import 'package:homary/common/utils/main.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:homary/common/utils/bus.dart';
-// import 'package:homary/common/storage/cookie.dart';
 import 'package:homary/common/storage/webview-cookie.dart';
+import 'package:homary/common/utils/bus.dart';
+import 'package:homary/common/utils/localstorage.dart';
+import 'package:homary/common/utils/requsetUrl.dart';
+import 'package:homary/common/utils/toast.dart';
 
 class WebviewCtrl extends StatefulWidget {
-  WebviewCtrl({Key key}) : super(key: key);
+  final String needLogin;
+  final String source;
+  final String content;
+  WebviewCtrl({Key key, this.needLogin, this.content, this.source})
+      : super(key: key);
 
   @override
   _WebviewCtrlState createState() => _WebviewCtrlState();
@@ -34,28 +33,55 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
         applePayAPIEnabled: true,
         allowsInlineMediaPlayback: true,
       ));
-  // bool _flag = true; // 在 Android 上，shouldOverrideUrlLoading不会在第一页加载时调用,但IOS会，因此需要处理第一页时不掉用CANCEL
-
-  // InAppWebViewController _controller;
-  // @override
-  // void initState() {
-  //   super.initState();
-
-  // }
-  var _flag = false;
-
   var busEvent = BusProvider();
-
   var ctrlName = DateTime.now().microsecond.toString();
-
-  var url = 'https://mpre-m.homary.com/';
-
   final GlobalKey webViewKey = GlobalKey();
+  // 路由参数
+  String needLogin = '0';
+  String source = '';
+  dynamic content;
+  String url;
+
+  @override
+  void initState() {
+    needLogin = widget.needLogin;
+    source = widget.source;
+    content = jsonDecode(widget.content) ?? {};
+    url = _formatParams();
+    print(url);
+    super.initState();
+  }
 
   @override
   void dispose() {
     busEvent.removeControllers('switchSite', ctrlName);
     super.dispose();
+  }
+
+  // 替换 url 目标参数
+  String _formatParams() {
+    String finalStringParams = "";
+    String url = content['url'] ?? 'https://m.homary.com';
+    Map<String, dynamic> urlData = getRealUrlNParams(url);
+    Map<String, dynamic> finalParams = {};
+    var currentConfig = Localstorage().getJSON('currentConfig') ?? {};
+    var dynamicData = Localstorage().getJSON('dynamicData') ?? {};
+    urlData['params'].forEach((key, value) {
+      finalParams
+          .addAll({key: dynamicData[key] ?? currentConfig[key] ?? value ?? ''});
+    });
+    for (int i = 0; i < finalParams.keys.toList().length; i++) {
+      if (i != finalParams.keys.length - 1) {
+        finalStringParams +=
+            "${finalParams.keys.toList()[i]}=${finalParams.values.toList()[i]}&";
+      } else {
+        finalStringParams +=
+            "${finalParams.keys.toList()[i]}=${finalParams.values.toList()[i]}";
+      }
+    }
+    return finalStringParams == ""
+        ? urlData['url']
+        : '${urlData['url']}?$finalStringParams';
   }
 
   @override
@@ -67,8 +93,7 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
       // initialFile: "assets/webview.html",
       initialUrlRequest: URLRequest(url: Uri.parse(url)),
       onWebViewCreated: (InAppWebViewController controller) {
-        // _controller = controller;
-        // value.addContorller(controller);
+        Toast.loading();
         busEvent.subWebViewCtrl('switchSite', ctrlName, () {
           setWebviewCookies();
           controller.reload();
@@ -90,39 +115,18 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
         // print("加载进度  ===》   $progress");
       },
       onLoadStop: (InAppWebViewController controller, Uri url) async {
-        this.setState(() {
-          _flag = true;
-        });
         // print("onLoadStop => ");
-        print(await controller.evaluateJavascript(
-            source: "window.navigator.userAgent"));
-      },
-      onConsoleMessage:
-          (InAppWebViewController controller, ConsoleMessage consoleMessage) {
-        print("console  ===>   $consoleMessage");
+        Toast.clear();
+        // print(await controller.evaluateJavascript(
+        //     source: "window.navigator.userAgent"));
       },
       onUpdateVisitedHistory:
           (InAppWebViewController controller, Uri url, bool androidIsReload) {
         // print("路由跳转 ===》$url");
-        // print('===falldfe------ $_flag');
-        // controller.goBack();
       },
-      // shouldOverrideUrlLoading: (InAppWebViewController controller,
-      //     NavigationAction navigationAction) async {
-      //   // print(
-      //   //     'avigationAction.request.url ----- ${navigationAction.request.url == Uri.parse(url)}');
-      //   // print('Uri.parse(url)---- ${Uri.parse(url)}');
-      //   print(
-      //       'navigationAction.request.url---- ${navigationAction.request.url}');
-      //   // print(
-      //   //     'navigationAction.request.url---- ${navigationAction.request.url != Uri.parse("about:blank")}');
-      //   if (navigationAction.request.url != Uri.parse(url) &&
-      //       navigationAction.request.url != Uri.parse('about:blank')) {
-      //     print('run ing hre');
-      //     return NavigationActionPolicy.CANCEL;
-      //   }
-      //   return NavigationActionPolicy.ALLOW;
-      // },
+      onReceivedServerTrustAuthRequest: (controller, challenge) async =>
+          ServerTrustAuthResponse(
+              action: ServerTrustAuthResponseAction.PROCEED),
     ));
   }
 }

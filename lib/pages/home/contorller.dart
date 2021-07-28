@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-21 10:42:50
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-27 21:18:37
+ * @LastEditTime : 2021-07-29 16:54:04
  */
 /*
  * @Author       : zhhjie
@@ -10,12 +10,14 @@
  * @LastEditors  : zhhjie
  * @LastEditTime : 2021-07-15 19:28:40
  */
+import 'package:homary/api/category.dart';
 import 'package:homary/api/home.dart';
 import 'package:homary/common/request/request.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/toast.dart';
 import 'package:homary/entity/home.dart' hide ListElement;
 import 'package:homary/entity/recommend.dart';
+import 'package:homary/entity/topChannelCategory.dart';
 
 class HomeCtrl with ChangeNotifier {
   Module bannerList;
@@ -29,8 +31,11 @@ class HomeCtrl with ChangeNotifier {
   int hasMorePage = 1;
   bool recommendLoading = false;
   Map<String, int> recommendParams = {"page": 1, "page_size": 20};
+  // 一级分类列表
+  List<Datum> topChannelList = [];
+  List<String> topChannelNameList = [];
 
-  //登录
+  // 获取首页数据
   Future<void> getIndexData({params}) async {
     Toast.loading();
     DioResult res = await HomeApi.getIndexData(params: params);
@@ -59,6 +64,7 @@ class HomeCtrl with ChangeNotifier {
     }
   }
 
+  // 获取首页推荐商品柳
   Future<void> getRecommendList({params}) async {
     recommendLoading = true;
     notifyListeners();
@@ -81,5 +87,20 @@ class HomeCtrl with ChangeNotifier {
   handleGetMoreProduct() {
     recommendParams['page'] += 1;
     getRecommendList(params: recommendParams);
+  }
+
+  // 获取一级分类列表
+  Future<Map<String, List>> getTopChannelCategory({params}) async {
+    DioResult res = await CategoryApi.getTopChannelCategory(params: params);
+    if (res.error == null) {
+      TopChannelCategoryRes result = TopChannelCategoryRes.fromJson(res.result);
+      topChannelList = result.data;
+      topChannelNameList = topChannelList.map((e) => e.categoryName).toList();
+      notifyListeners();
+    }
+    return {
+      "topChannelList": topChannelList ?? [],
+      "topChannelNameList": topChannelNameList ?? []
+    };
   }
 }

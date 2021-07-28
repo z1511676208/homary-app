@@ -1,5 +1,7 @@
 import 'package:homary/common/utils/main.dart';
-import 'package:homary/pages/category/watcher.dart';
+import 'package:homary/entity/category.dart';
+import 'package:homary/pages/category/controller.dart';
+import 'package:homary/pages/category/Watcher.dart';
 
 class TopNav extends StatefulWidget {
   final ScrollController _scrollCtrl;
@@ -23,8 +25,8 @@ class _TopNavState extends State<TopNav> {
     return SliverPersistentHeader(
         pinned: true,
         floating: true,
-        delegate: _SliverAppBarDelegate(
-            widget._scrollCtrl, widget._topNavScorllCtrl, changeCurTab));
+        delegate: _SliverAppBarDelegate(widget._scrollCtrl,
+            widget._topNavScorllCtrl, changeCurTab, curTab));
   }
 }
 
@@ -32,34 +34,19 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   final ScrollController _scrollCtrl; // 商品列表 scroll controller
   final TabController _topNavScorllCtrl; // 顶部导航 scroll controller
   final Function changeCurTab; // 修改当前页签视图方法
+  final int curTab; // 当前选中的tab
 
   _SliverAppBarDelegate(
-      this._scrollCtrl, this._topNavScorllCtrl, this.changeCurTab)
+      this._scrollCtrl, this._topNavScorllCtrl, this.changeCurTab, this.curTab)
       : super();
 
-  // 获取 product list 滚动距离
-  // void productListScrollTo(idx) {
-  //   Watcher.isTap = true;
-  //   double top = Watcher.itemOffsetList[idx] -
-  //       Watcher.productListItemHeight[idx]; // tabbar点击滚动在item头部
-  //   _scrollCtrl
-  //       .animateTo(top,
-  //           duration: Duration(milliseconds: 500), curve: Curves.linear)
-  //       .then((value) => Watcher.isTap = false);
-  // }
   // 获取 product list 滚动距离
   void productListScrollTo(idx) {
     Watcher.isTap = true;
     // 如果点击的 tab 大于当前首屏商品列表的高度先移动到首屏最后商品的位置
-    print("productListItemHeight   ${Watcher.productListItemHeight}");
-
+    print("idx $idx");
     if (Watcher.productListItemHeight.length - 1 < idx) {
-      print("idx $idx");
-
       int lastIdx = Watcher.productListItemHeight.length - 1;
-      print("lastIdx $lastIdx");
-      print("productListItemHeight   ${Watcher.productListItemHeight}");
-
       double top = Watcher.itemOffsetList[lastIdx] -
           Watcher.productListItemHeight[lastIdx]; // tabbar点击滚动在item头部
       _scrollCtrl
@@ -67,6 +54,7 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
               duration: Duration(milliseconds: 100), curve: Curves.linear)
           .then((value) => productListScrollTo(idx)); // 移动结束后，递归执行，直到缓存列表有对应的高度
     } else {
+      // print("itemOffsetList  ${Watcher.itemOffsetList}");
       double top = Watcher.itemOffsetList[idx] -
           Watcher.productListItemHeight[idx]; // tabbar点击滚动在item头部
       _scrollCtrl
@@ -76,28 +64,32 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
     }
   }
 
-  List<Widget> tabItemsWidget() {
+  List<Widget> tabItemsWidget(BuildContext context) {
+    List<Data> subList =
+        Provider.of<CategoryCtrl>(context, listen: false).subList;
     List<Widget> tabs = [];
-    for (var i = 0; i < Watcher.productList.length; i++) {
-      tabs.add(Container(
-        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.w),
-        decoration: BoxDecoration(
-            color: _topNavScorllCtrl.index == i
-                ? AppColor.activeColor
-                : Colors.white,
-            borderRadius: BorderRadius.circular(30),
-            border: Border.all(
-                color: _topNavScorllCtrl.index == i
-                    ? AppColor.primaryColor
-                    : AppColor.primaryBorderOutline,
-                width: 2)),
-        child: Text(Watcher.productList[i]['title'],
-            style: TextStyle(
-                fontSize: 14.sp,
-                color: _topNavScorllCtrl.index == i
-                    ? AppColor.primaryColor
-                    : AppColor.primaryLightSubTitle)),
-      ));
+    if (subList != null && subList.length > 0) {
+      for (var i = 0; i < subList.length; i++) {
+        tabs.add(Container(
+          padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.w),
+          decoration: BoxDecoration(
+              color: _topNavScorllCtrl.index == i
+                  ? AppColor.activeColor
+                  : Colors.white,
+              borderRadius: BorderRadius.circular(30),
+              border: Border.all(
+                  color: _topNavScorllCtrl.index == i
+                      ? AppColor.primaryColor
+                      : AppColor.primaryBorderOutline,
+                  width: 1)),
+          child: Text(subList[i].categoryName,
+              style: TextStyle(
+                  fontSize: 14.sp,
+                  color: _topNavScorllCtrl.index == i
+                      ? AppColor.primaryColor
+                      : AppColor.primaryLightSubTitle)),
+        ));
+      }
     }
     return tabs;
   }
@@ -111,7 +103,7 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
         width: 260.w,
         child: TabBar(
             controller: _topNavScorllCtrl,
-            tabs: tabItemsWidget(),
+            tabs: tabItemsWidget(context),
             isScrollable: true,
             onTap: (int idx) {
               changeCurTab(idx);

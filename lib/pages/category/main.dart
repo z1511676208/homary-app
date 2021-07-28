@@ -2,9 +2,14 @@
  * @Author       : JHao
  * @Date         : 2021-07-12 17:38:02
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-15 16:35:00
+ * @LastEditTime : 2021-07-30 17:50:31
  */
+import 'dart:convert';
+
 import 'package:homary/common/utils/main.dart';
+import 'package:homary/common/utils/toast.dart';
+import 'package:homary/entity/topChannelCategory.dart';
+import 'package:homary/pages/home/contorller.dart';
 import 'controller.dart';
 import 'components/leftNav.dart';
 import 'components/rightListLayout.dart';
@@ -21,8 +26,8 @@ class _CategoryPageState extends State<CategoryPage> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<ProductListCtrl>(
-            create: (context) => ProductListCtrl()),
+        ChangeNotifierProvider<CategoryCtrl>(
+            create: (context) => CategoryCtrl()),
         // ChangeNotifierProvider.value(value: PaymentCtrl())
       ],
       child: ProductListView(),
@@ -38,6 +43,28 @@ class ProductListView extends StatefulWidget {
 }
 
 class _ProductListViewState extends State<ProductListView> {
+  var currentConfig;
+
+  @override
+  void didChangeDependencies() async {
+    var current =
+        jsonEncode(Provider.of<GlobalConfig>(context).currentConfig?.toJson());
+    if (this.currentConfig != current) {
+      Toast.loading();
+      this.currentConfig = current;
+      Map<String, dynamic> channelMap =
+          await Provider.of<HomeCtrl>(context, listen: false)
+              .getTopChannelCategory();
+      List<Datum> topChannelList = channelMap['topChannelList'];
+      Provider.of<CategoryCtrl>(context, listen: false)
+          .setActiveCategoryId(topChannelList[0]?.categoryId);
+      await Provider.of<CategoryCtrl>(context, listen: false).getCategoryList(
+          params: {"category_id": topChannelList[0]?.categoryId ?? ""});
+      Toast.clear();
+    }
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(

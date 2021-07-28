@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-06 10:11:04
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-19 16:12:14
+ * @LastEditTime : 2021-07-30 18:16:51
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/components/drawer/main.dart';
@@ -65,6 +65,7 @@ class _IndexPageState extends State<IndexPage> {
             this._currentIndex = index;
           });
         },
+        backgroundColor: Colors.white,
         currentIndex: this._currentIndex,
         items: _barItem,
         fixedColor: AppColor.primaryColor,

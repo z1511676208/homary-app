@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-22 17:26:36
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-28 14:28:48
+ * @LastEditTime : 2021-07-29 19:56:31
  */
 import 'dart:async';
 
@@ -117,6 +117,7 @@ class _GoodsCardState extends State<GoodsCard> {
           child: Column(
             children: [
               Stack(
+                alignment: Alignment.center,
                 children: [
                   CustomNetworkImage(
                     _currentData.imgUrl,
@@ -183,6 +184,20 @@ class _GoodsCardState extends State<GoodsCard> {
                                       color: Colors.white, fontSize: 10.sp),
                                 ),
                               )))
+                      : Container(),
+                  _currentData.status != 1
+                      ? Container(
+                          width: 90.w,
+                          height: 90.w,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.black.withOpacity(0.4)),
+                          child: Text(
+                            'Sold Out',
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 14.sp),
+                          ))
                       : Container()
                 ],
               ),

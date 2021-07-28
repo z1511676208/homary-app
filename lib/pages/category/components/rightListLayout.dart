@@ -2,11 +2,14 @@
  * @Author       : JHao
  * @Date         : 2021-07-14 15:05:20
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-15 18:46:25
+ * @LastEditTime : 2021-07-30 18:51:33
  */
 import 'package:flutter/rendering.dart';
 import 'package:homary/common/utils/main.dart';
-import 'package:homary/pages/category/watcher.dart';
+import 'package:homary/entity/category.dart';
+import 'package:homary/pages/category/controller.dart';
+import 'package:homary/pages/category/Watcher.dart';
+import 'package:homary/widget/networkImg.dart';
 import 'productList.dart';
 import 'tapNav.dart';
 
@@ -18,21 +21,17 @@ class RightListLayout extends StatefulWidget {
 }
 
 class _RightListLayoutState extends State<RightListLayout>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   bool _timer = false;
   final _scorllCtrl = ScrollController();
-  TabController _topNavScorllCtrl;
+  TabController _topNavScrollCtrl;
   int _curTopNavItem = 0;
 
   @override
   void initState() {
-    _topNavScorllCtrl =
-        TabController(vsync: this, length: Watcher.productList.length);
-    // Watcher.productListItemHeight =
-    //     getPorductListItemHeight(Watcher.productList);
+    _topNavScrollCtrl = TabController(vsync: this, length: 0);
     _scorllCtrl.addListener(() {
       if (Watcher.isTap) return;
-      // print("upDirection  ${_scorllCtrl.offset}");
       if (_timer == false) {
         _timer = true;
         Future.delayed(Duration(milliseconds: 200), () {
@@ -41,15 +40,10 @@ class _RightListLayoutState extends State<RightListLayout>
             if (Watcher.itemOffsetList[i] - Watcher.productListItemHeight[i] <=
                     _scorllCtrl.offset &&
                 _scorllCtrl.offset <= Watcher.itemOffsetList[i]) {
-              // if (_curTopNavItem == i) {
-              //   return;
-              // }
               this.setState(() {
                 _curTopNavItem = i;
               });
-              // print(
-              //     "_topNavScorllCtrl  ${Watcher.productListItemHeight.length} $i");
-              _topNavScorllCtrl.animateTo(i);
+              _topNavScrollCtrl.animateTo(_curTopNavItem);
             }
           }
         });
@@ -59,24 +53,15 @@ class _RightListLayoutState extends State<RightListLayout>
   }
 
   @override
-  void dispose() {
-    _scorllCtrl.dispose();
-    super.dispose();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
   }
 
-  // 计算商品列表高度列表
-  List<double> getPorductListItemHeight(List<dynamic> list) {
-    List<double> _heightList = [];
-    double topOffset = 135.h; // 轮播图 + 顶部导航高度
-    double porductsListOffset = 0 + topOffset; // 默认加上 轮播图和顶栏的高度
-    for (var i = 0; i < list.length; i++) {
-      if (i != 0) {
-        int rowCount = (list[0]["info"].length / 3).ceil(); // 计算有几行商品
-        porductsListOffset += (rowCount * 130) + 50; // 计算行数加上标题的高度
-      }
-      _heightList.add(porductsListOffset); // 每个商品列表的高度
-    }
-    return _heightList;
+  @override
+  void dispose() {
+    _scorllCtrl.dispose();
+    _topNavScrollCtrl.dispose();
+    super.dispose();
   }
 
   Widget _banner() {
@@ -84,29 +69,67 @@ class _RightListLayoutState extends State<RightListLayout>
       child: Container(
         width: 248.w,
         height: 86.w,
-        margin: EdgeInsets.only(bottom: 12.w, top: 12.w),
+        margin: EdgeInsets.only(bottom: 12.w, top: 12.w, right: 6.5.w),
         decoration: BoxDecoration(borderRadius: AppStyle.primaryBorderRaduis),
-        child: Placeholder(),
+        child: Selector<CategoryCtrl, String>(
+          builder: (BuildContext context, String data, child) {
+            return data != ""
+                ? CustomNetworkImage(data)
+                : Image.asset(
+                    'assets/baseImage.png',
+                    width: 248.w,
+                    fit: BoxFit.cover,
+                  );
+          },
+          selector: (BuildContext context, CategoryCtrl category) {
+            return category.categoryBanner;
+          },
+          shouldRebuild: (pre, next) {
+            return pre != next;
+          },
+        ),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 254.5.w,
-      color: Colors.white,
-      child: CustomScrollView(
-        physics: ClampingScrollPhysics(),
-        // cacheExtent: 1000,
-        controller: _scorllCtrl,
-        slivers: [
-          _banner(),
-          TopNav(_scorllCtrl, _topNavScorllCtrl),
-          ProductList(),
-          // SliverToBoxAdapter(child: SizedBox(height: 30.h))
-        ],
-      ),
+    String activeCategoryId =
+        Provider.of<CategoryCtrl>(context).activeCategoryId;
+    return Selector<CategoryCtrl, List<Data>>(
+      selector: (context, CategoryCtrl controller) {
+        return controller.subList;
+      },
+      shouldRebuild: (pre, next) {
+        return pre != next;
+      },
+      builder: (context, List<Data> data, child) {
+        _topNavScrollCtrl = TabController(vsync: this, length: data.length);
+        _topNavScrollCtrl.animateTo(_curTopNavItem);
+        return Container(
+          width: 254.5.w,
+          color: Colors.white,
+          child: CustomScrollView(
+            // key: ValueKey(activeCategoryId),
+            physics: ClampingScrollPhysics(),
+            // cacheExtent: 1000,
+            controller: _scorllCtrl,
+            slivers: [
+              _banner(),
+              TopNav(
+                _scorllCtrl,
+                _topNavScrollCtrl,
+                // key: UniqueKey(),
+              ),
+              ProductList(
+                // key: UniqueKey(),
+                subList: data,
+              ),
+              SliverToBoxAdapter(child: SizedBox(height: 30.h))
+            ],
+          ),
+        );
+      },
     );
   }
 }
