@@ -2,9 +2,9 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-13 10:15:30
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-30 11:39:47
+ * @LastEditTime : 2021-08-03 10:13:37
  */
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:homary/entity/main.dart';
 import 'package:homary/common/request/request.dart';
 
@@ -20,24 +20,11 @@ class UserApi {
     return res;
   }
 
-  //谷歌登录
+  //第三方登录
   static Future<UserEmailLoginRes> thirdLogin(
       {UserThirdLoginReq params}) async {
     var res =
         await Request().post('/user/login/fire-base-login', params: params);
-    return UserEmailLoginRes.fromJson(res);
-  }
-
-  //Facebook登录
-  static Future<UserEmailLoginRes> fbLogin(UserThirdLoginReq params) async {
-    var res =
-        await Request().post('/user/login/facebook-login', params: params);
-    return UserEmailLoginRes.fromJson(res);
-  }
-
-  //Twitter登录
-  static Future<UserEmailLoginRes> twLogin(UserThirdLoginReq params) async {
-    var res = await Request().post('/user/login/twitter-login', params: params);
     return UserEmailLoginRes.fromJson(res);
   }
 

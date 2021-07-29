@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-06 13:48:25
- * @LastEditors  : JHao
- * @LastEditTime : 2021-08-02 16:18:54
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-08-03 10:16:10
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/components/drawer/main.dart';
@@ -36,43 +36,31 @@ class _WebviewPageViewState extends State<WebviewPageView> {
   var busEvent = BusProvider();
 
   @override
-  void initState() {
-    super.initState();
-
-    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-    //   Provider.of<WebviewAppBarCtrl>(context, listen: false).setAppBarStatus(
-    //       appBarType: widget.appBarType,
-    //       isShowAppBar: widget.showAppBar,
-    //       appBarTitle: widget.appBarTitle);
-    // });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Consumer<WebviewAppBarCtrl>(
-        builder: (BuildContext context, WebviewAppBarCtrl data, child) {
-      return Scaffold(
-          appBar: PreferredSize(
-            child: GoBackAppBar(
-              showBorder: data.isShowAppBar,
-              showCart: data.showCart,
-              showMore: data.showMore,
-              showCollet: data.showCollect,
-            ),
-            preferredSize:
-                data.isShowAppBar ? Size.fromHeight(44.h) : Size.zero,
-          ),
-          drawer: GlobalDrawer(),
-          body: SafeArea(
-              top: false,
-              bottom: true,
-              child: Container(
-                  child: WebviewCtrl(
-                      needLogin: widget.needLogin,
-                      source: widget.source,
-                      content: widget.content,
-                      showAppLoading: widget.showAppLoading))));
-    });
+        builder: (BuildContext context, WebviewAppBarCtrl data, child) =>
+            Scaffold(
+                appBar: PreferredSize(
+                  child: GoBackAppBar(
+                    showBorder: data.isShowAppBar,
+                    showCart: data.showCart,
+                    showMore: data.showMore,
+                    showCollet: data.showCollect,
+                    title: widget.appBarTitle ?? data.appBarTitle,
+                  ),
+                  preferredSize:
+                      data.isShowAppBar ? Size.fromHeight(44.h) : Size.zero,
+                ),
+                drawer: GlobalDrawer(),
+                body: SafeArea(
+                    top: false,
+                    bottom: true,
+                    child: Container(
+                        child: WebviewCtrl(
+                            needLogin: widget.needLogin,
+                            source: widget.source,
+                            content: widget.content,
+                            showAppLoading: widget.showAppLoading)))));
   }
 }
 

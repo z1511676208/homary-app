@@ -169,8 +169,6 @@ PODS:
     - TwitterCore (>= 3.2.0)
   - uni_links (0.0.1):
     - Flutter
-  - webview_flutter (0.0.1):
-    - Flutter
 
 DEPENDENCIES:
   - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
@@ -187,7 +185,6 @@ DEPENDENCIES:
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
   - uni_links (from `.symlinks/plugins/uni_links/ios`)
-  - webview_flutter (from `.symlinks/plugins/webview_flutter/ios`)
 
 SPEC REPOS:
   trunk:
@@ -242,8 +239,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/sqflite/ios"
   uni_links:
     :path: ".symlinks/plugins/uni_links/ios"
-  webview_flutter:
-    :path: ".symlinks/plugins/webview_flutter/ios"
 
 SPEC CHECKSUMS:
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
@@ -281,8 +276,7 @@ SPEC CHECKSUMS:
   TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
   TwitterKit: 5e4f41d70b9abdb41df5467f52d7aa2c0fd26ebb
   uni_links: d97da20c7701486ba192624d99bffaaffcfc298a
-  webview_flutter: 3603125dfd3bcbc9d8d418c3f80aeecf331c068b
 
 PODFILE CHECKSUM: a91f63e1d85ad951e61f476d149efcf794989f77
 
-COCOAPODS: 1.10.2
+COCOAPODS: 1.10.1

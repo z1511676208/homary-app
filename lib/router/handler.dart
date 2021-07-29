@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-06 10:11:04
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-30 18:49:45
+ * @LastEditTime : 2021-08-03 10:16:22
  */
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
@@ -10,7 +10,6 @@ import 'package:homary/pages/index/main.dart';
 import 'package:homary/pages/reviewDetail/main.dart';
 import 'package:homary/pages/scroll-list/main.dart';
 import 'package:homary/pages/signIn/main.dart';
-import 'package:homary/pages/customer/main.dart';
 import 'package:homary/pages/webview/main.dart';
 import 'package:homary/pages/resetPassword/main.dart';
 import 'package:homary/pages/search/main.dart';
@@ -29,11 +28,6 @@ Handler indexPageHandler = Handler(
     return IndexPage();
   },
 );
-// 客服
-Handler customerPageHandler = Handler(
-    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-  return CustomerPage();
-});
 
 // 滚动列表埋点
 Handler scrollListInPageHandler = Handler(
