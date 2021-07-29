@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-13 10:15:30
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-28 16:18:48
+ * @LastEditTime : 2021-07-30 18:01:56
  */
 // import 'package:localization_demo/i18n/app_localization_delegate.dart';
 // import 'package:localization_demo/i18n/app_localizations.dart';
@@ -33,6 +33,13 @@ class GlobalConfig with ChangeNotifier {
   // 服务器时间
   int serviceTime;
 
+  //判断当前页面是否是webview页面
+  bool isWebviewPage = false;
+
+  void setIsWebviewPage(val) {
+    this.isWebviewPage = val;
+  }
+
   //获取公共配置
   Future getCommonConfig() async {
     print('lang=>>>${_locale.toString()}');
@@ -43,6 +50,7 @@ class GlobalConfig with ChangeNotifier {
         List siteList = result?.data?.siteList;
         List languageList = result?.data?.languagesList;
         List currencyList = result?.data?.currencyList;
+        this.commonAmountList = result?.data?.commonAmountList;
         CurrentConfig config = result?.data?.currentConfig;
         this.currentConfig = config;
         var site = config.siteName;
@@ -117,9 +125,11 @@ class GlobalConfig with ChangeNotifier {
 
   //登出
   void signOut() async {
-    await UserApi.signOut();
-    Localstorage().remove('token');
-    Localstorage().setBool('isLogin', false);
+    DioResult res = await UserApi.signOut();
+    if (res.error == null) {
+      Localstorage().remove('token');
+      Localstorage().setBool('isLogin', false);
+    }
   }
 
   Future<void> getServiceTime() async {

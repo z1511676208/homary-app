@@ -1,18 +1,27 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:homary/common/storage/webview-cookie.dart';
 import 'package:homary/common/utils/bus.dart';
 import 'package:homary/common/utils/localstorage.dart';
+import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/requsetUrl.dart';
 import 'package:homary/common/utils/toast.dart';
+import 'package:homary/pages/webview/controller.dart';
 
 class WebviewCtrl extends StatefulWidget {
   final String needLogin;
   final String source;
   final String content;
-  WebviewCtrl({Key key, this.needLogin, this.content, this.source})
+  final String showAppLoading;
+  WebviewCtrl(
+      {Key key,
+      this.needLogin,
+      this.content,
+      this.source,
+      this.showAppLoading = '1'})
       : super(key: key);
 
   @override
@@ -25,6 +34,7 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
         useShouldOverrideUrlLoading: true,
         // https://github.com/pichillilorenzo/flutter_inappwebview/pull/860
         // applicationNameForUserAgent: "Homary"
+        userAgent: "Mobile,${Platform.isIOS ? 'iPhone' : 'Android'},Homary",
       ),
       android: AndroidInAppWebViewOptions(
         useHybridComposition: true,
@@ -98,6 +108,14 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
           setWebviewCookies();
           controller.reload();
         });
+        busEvent.subWebViewCtrl('goback', ctrlName, () async {
+          bool canGoBack = await controller.canGoBack();
+          if (canGoBack) {
+            controller.goBack();
+          } else {
+            Routes.pop();
+          }
+        });
         //传值给webview
         controller.addJavaScriptHandler(
             handlerName: "TEST",
@@ -110,7 +128,20 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
               // print("webview 传过来的值 => $args");
             });
       },
-      onLoadStart: (InAppWebViewController controller, Uri url) {},
+      onLoadStart: (InAppWebViewController controller, Uri url) {
+        String appBarType;
+        String isShowAppBar;
+
+        if (url.path.indexOf('/item/') > -1) {
+          appBarType = '3';
+          isShowAppBar = '1';
+        } else if (url.path.indexOf('/shoppingcart') > -1) {
+          appBarType = '2';
+          isShowAppBar = '1';
+        }
+        Provider.of<WebviewAppBarCtrl>(context, listen: false).setAppBarStatus(
+            appBarType: appBarType, isShowAppBar: isShowAppBar);
+      },
       onProgressChanged: (InAppWebViewController controller, int progress) {
         // print("加载进度  ===》   $progress");
       },

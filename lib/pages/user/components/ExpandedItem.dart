@@ -1,16 +1,17 @@
+/*
+ * @Author       : zhhjie
+ * @Date         : 2021-07-28 16:10:53
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-07-30 11:12:08
+ */
 import 'package:flutter/material.dart';
 import 'package:homary/common/utils/main.dart';
 
-class ExpandedItem extends StatefulWidget {
-  String num;
-  String title;
-  ExpandedItem(this.num, this.title, {Key key}) : super(key: key);
+class ExpandedItem extends StatelessWidget {
+  final String num;
+  final String title;
+  const ExpandedItem(this.num, this.title, {Key key}) : super(key: key);
 
-  @override
-  _ExpandedItemState createState() => _ExpandedItemState();
-}
-
-class _ExpandedItemState extends State<ExpandedItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,7 +24,7 @@ class _ExpandedItemState extends State<ExpandedItem> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                child: Text(widget.num,
+                child: Text(this.num,
                     style:
                         TextStyle(fontSize: 18.w, fontWeight: FontWeight.bold)),
               ),
@@ -31,7 +32,7 @@ class _ExpandedItemState extends State<ExpandedItem> {
                 height: 12.h,
               ),
               Container(
-                  child: Text(widget.title, style: TextStyle(fontSize: 12.w)))
+                  child: Text(this.title, style: TextStyle(fontSize: 12.w)))
             ],
           ),
         ),

@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class Iconfont {
@@ -126,7 +127,7 @@ class Iconfont {
   );
 
   static const Unpaid = IconData(
-    0xee64c,
+    0xe64c,
     fontFamily: 'Iconfont',
     matchTextDirection: true,
   );

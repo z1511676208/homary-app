@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-12 19:28:58
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-28 15:29:23
+ * @LastEditTime : 2021-07-30 14:14:46
  */
 import 'package:homary/common/utils/main.dart';
 
@@ -16,7 +16,8 @@ class ExpansionItem extends StatelessWidget {
   Widget navItemChild(value, context) {
     return InkWell(
         onTap: () {
-          Navigator.of(context).pop();
+          Routes.push(context, '/webview',
+              params: {"content": '{"url":${value.url}}'});
         },
         child: Container(
           padding: EdgeInsets.fromLTRB(0, 15.5.h, 0, 15.5.h),
