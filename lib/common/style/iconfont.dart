@@ -1,14 +1,3 @@
-/*
- * @Author       : zhhjie
- * @Date         : 2021-07-13 10:15:30
-<<<<<<< HEAD
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-28 16:15:32
-=======
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-27 18:15:21
->>>>>>> 3c370ed (feat：搜索结果页，登录注册页还原设计稿，国际化)
- */
 import 'package:flutter/material.dart';
 
 class Iconfont {
@@ -213,8 +202,11 @@ class Iconfont {
     fontFamily: 'Iconfont',
     matchTextDirection: true,
   );
-  static const Cart = IconData(
-    0xe635,
+  static const Cart =
+      IconData(0xe635, fontFamily: 'Iconfont', matchTextDirection: true);
+
+  static const ArrowUp = IconData(
+    0xe63b,
     fontFamily: 'Iconfont',
     matchTextDirection: true,
   );

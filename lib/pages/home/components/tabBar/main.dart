@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-09 19:31:26
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-19 16:47:26
+ * @LastEditTime : 2021-07-29 16:30:04
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/pages/home/components/tabBar/CustomUnderlineTabIndicator.dart';
@@ -19,7 +19,7 @@ class TabBarWidget extends StatefulWidget {
 }
 
 class _TabBarWidgetState extends State<TabBarWidget>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -48,6 +48,7 @@ class _TabBarWidgetState extends State<TabBarWidget>
                       width: 3.h,
                     ),
                     strokeCap: StrokeCap.round),
+                onTap: (int index) {},
               ))
         ])),
         Positioned(

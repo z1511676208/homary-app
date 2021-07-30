@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-19 16:50:47
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-28 15:18:44
+ * @LastEditTime : 2021-07-30 10:00:33
  */
 import 'dart:math';
 
@@ -32,13 +32,31 @@ class HomeItem extends StatefulWidget {
   _HomeItemState createState() => _HomeItemState();
 }
 
-class _HomeItemState extends State<HomeItem> {
+class _HomeItemState extends State<HomeItem>
+    with AutomaticKeepAliveClientMixin {
   final ScrollController _scrollController = ScrollController();
-  var currentConfig;
+  bool showBackTopButton = false;
+
+  _handleScroll() {
+    if (_scrollController.offset >= 250 && showBackTopButton == false) {
+      setState(() {
+        showBackTopButton = true;
+      });
+    } else if (_scrollController.offset < 250 && showBackTopButton == true) {
+      setState(() {
+        showBackTopButton = false;
+      });
+    }
+  }
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
     super.initState();
+    print("Home");
+    _scrollController.addListener(_handleScroll);
     // Future.microtask(() async {
     //   await Provider.of<GlobalConfig>(context, listen: false).getServiceTime();
     //   Provider.of<HomeCtrl>(context, listen: false).getIndexData();
@@ -52,60 +70,134 @@ class _HomeItemState extends State<HomeItem> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _scrollController.removeListener(_handleScroll);
+  }
+
+  @override
   Widget build(BuildContext context) {
     ExposureDetectorController.instance.exposureTime = 100; //设置曝光时长 (ms)
     ExposureDetectorController.instance.exposureFraction = 0.5; // 设置曝光比例
     ExposureDetectorController.instance.updateInterval =
         Duration(milliseconds: 200); // 设置延时检测时间
     return Scaffold(
-        body: Column(
+        body: Stack(
       children: [
-        Expanded(
-            child: CustomScrollView(
-          controller: _scrollController,
-          scrollDirection: Axis.vertical,
-          slivers: [
-            // SliverToBoxAdapter(
-            //   child: TextButton(
-            //       onPressed: () {
-            //         Routes.push(context, '/webview', params: {
-            //           "needLogin": '1',
-            //           "source": "facebook",
-            //           "content":
-            //               '{"url":"https://m.homary.com/category/coffee-tables-174.html"}'
-            //         });
-            //       },
-            //       child: Text("To Webview")),
-            // ),
-            SliverPadding(
-                padding: EdgeInsets.fromLTRB(12.w, 10.w, 12.w, 0),
-                sliver: BannerList()),
-            SliverPadding(
-                padding: EdgeInsets.fromLTRB(12.w, 8.w, 12.w, 0),
-                sliver: ServiceItems()),
-            KingKong(),
-            AD(),
-            GoodsList(
-              moduleName: 'favoredList',
-              showCorner: true,
-            ),
-            GoodsList(
-              moduleName: 'deaksList',
-              showCorner: false,
-            ),
-            ReviewsList(),
-            SliverPadding(
-                padding: EdgeInsets.fromLTRB(12.w, 20.w, 12.w, 0),
-                sliver: ContentTitle(
-                  title: S.of(context).HomePage_recommendTitle,
-                )),
-            SliverPadding(
-              padding: EdgeInsets.fromLTRB(12.w, 12.w, 12.w, 0),
-              sliver: RecommendList(),
-            ),
-            RecommendViewMoreButton(),
+        Column(
+          children: [
+            Expanded(
+                child: CustomScrollView(
+              controller: _scrollController,
+              scrollDirection: Axis.vertical,
+              slivers: [
+                // SliverToBoxAdapter(
+                //   child: TextButton(
+                //       onPressed: () {
+                //         Routes.push(context, '/webview', params: {
+                //           "needLogin": '1',
+                //           "source": "facebook",
+                //           "content":
+                //               '{"url":"https://m.homary.com/category/coffee-tables-174.html"}'
+                //         });
+                //       },
+                //       child: Text("To Webview")),
+                // ),
+                SliverPadding(
+                    padding: EdgeInsets.fromLTRB(12.w, 10.w, 12.w, 0),
+                    sliver: BannerList()),
+                SliverPadding(
+                    padding: EdgeInsets.fromLTRB(12.w, 8.w, 12.w, 0),
+                    sliver: ServiceItems()),
+                KingKong(),
+                AD(),
+                GoodsList(
+                  moduleName: 'favoredList',
+                  showCorner: true,
+                ),
+                GoodsList(
+                  moduleName: 'deaksList',
+                  showCorner: false,
+                ),
+                ReviewsList(),
+                SliverPadding(
+                    padding: EdgeInsets.fromLTRB(12.w, 20.w, 12.w, 0),
+                    sliver: ContentTitle(
+                      title: S.of(context).HomePage_recommendTitle,
+                    )),
+                SliverPadding(
+                  padding: EdgeInsets.fromLTRB(12.w, 12.w, 12.w, 0),
+                  sliver: RecommendList(),
+                ),
+                RecommendViewMoreButton(),
+              ],
+            ))
           ],
-        ))
+        ),
+        showBackTopButton
+            ? Positioned(
+                bottom: 100.w,
+                right: 20.w,
+                child: Column(
+                  children: [
+                    GestureDetector(
+                      onTap: () {},
+                      child: Container(
+                        width: 37.w,
+                        height: 37.w,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColor.primaryBorderShadow,
+                              blurRadius: 5.w,
+                              spreadRadius: 1.w,
+                              offset: Offset(0.w, 2.w),
+                            )
+                          ],
+                        ),
+                        child: Icon(
+                          Iconfont.Customer,
+                          color: AppColor.primaryText,
+                          size: 20.sp,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 8.w,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        _scrollController.animateTo(0,
+                            duration: Duration(milliseconds: 200),
+                            curve: Curves.easeIn);
+                      },
+                      child: Container(
+                        width: 37.w,
+                        height: 37.w,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColor.primaryBorderShadow,
+                              blurRadius: 5.w,
+                              spreadRadius: 1.w,
+                              offset: Offset(0.w, 2.w),
+                            )
+                          ],
+                        ),
+                        child: Icon(
+                          Iconfont.ArrowUp,
+                          color: AppColor.primaryText,
+                          size: 16.sp,
+                        ),
+                      ),
+                    ),
+                  ],
+                ))
+            : Container()
       ],
     ));
   }
