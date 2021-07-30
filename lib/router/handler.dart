@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-06 10:11:04
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-28 16:22:02
+ * @LastEditTime : 2021-07-30 18:49:45
  */
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
@@ -48,7 +48,14 @@ Handler webViewInPageHandler = Handler(
     String needLogin = params['needLogin']?.first ?? '0';
     String source = params['source']?.first ?? '';
     String content = params['content']?.first ?? null;
-    return WebviewPage(needLogin: needLogin, source: source, content: content);
+    String appBarTitle = params['appBarTitle']?.first ?? '';
+    String showAppLoading = params['showAppLoading']?.first ?? '1';
+    return WebviewPage(
+        needLogin: needLogin,
+        source: source,
+        content: content,
+        appBarTitle: appBarTitle,
+        showAppLoading: showAppLoading);
   },
 );
 

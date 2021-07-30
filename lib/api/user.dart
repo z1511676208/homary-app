@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-13 10:15:30
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-23 13:56:49
+ * @LastEditTime : 2021-07-30 11:39:47
  */
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:homary/entity/main.dart';
@@ -42,9 +42,10 @@ class UserApi {
   }
 
   //登出
-  static Future<EmptyListRes> signOut() async {
-    var res = await Request().post('/user/login/log-out');
-    return EmptyListRes.fromJson(res);
+  static Future<DioResult> signOut() async {
+    DioResult res =
+        await Request().post('/user/login/log-out', isRequire: true);
+    return res;
   }
 
   //给用户发送邮件

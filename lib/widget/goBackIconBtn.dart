@@ -1,4 +1,13 @@
+/*
+ * @Author       : zhhjie
+ * @Date         : 2021-07-13 10:15:30
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-07-30 17:43:26
+ */
+import 'package:homary/common/utils/bus.dart';
 import 'package:homary/common/utils/main.dart';
+
+var busEvent = BusProvider();
 
 class GobackIconBtn extends StatelessWidget {
   final Color color;
@@ -10,7 +19,9 @@ class GobackIconBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-        onPressed: () => Routes.pop(),
+        onPressed: () {
+          busEvent.pubWebViewCtrl('goback');
+        },
         icon: Icon(Icons.chevron_left, color: this.color, size: this.size.sp));
   }
 }

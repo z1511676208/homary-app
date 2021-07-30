@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-06 10:11:04
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-28 16:22:43
+ * @LastEditTime : 2021-07-30 16:32:57
  */
 
 import 'package:flutter/material.dart';
@@ -25,17 +25,39 @@ class GlobalDrawerView extends StatefulWidget {
 
 class _GlobalDrawerViewState extends State<GlobalDrawerView> {
   List<BottomLink> bottomLinkList;
+  List<Child> bottomLinkChildList;
+  List linkURL = [
+    [
+      '/help-center/article-detail/64',
+      '/reviews',
+      '/help-center/article-detail/65',
+      '/help-center/article-detail/57',
+      '/help-center/article-detail/58'
+    ],
+    [
+      '/help-center',
+      '/help-center/article-detail/61',
+      '/help-center/category/5',
+      '/help-center/article-detail/59'
+    ],
+    ['/big-customer', '/help-center/article-detail/60']
+  ];
+
   var currentConfig;
   void setBbottomLinkList(List<String> titleList, List<String> childList) {
     List<BottomLink> bottomList = [];
+
     for (var i = 0; i < titleList.length; i++) {
-      bottomList.add(BottomLink(
-          title: titleList[i],
-          data: childList[i]
-              .split(',')
-              .map((e) => Child(categoryName: e))
-              .toList()));
+      bottomLinkChildList = [];
+      List arr = childList[i].split(',');
+      for (var j = 0; j < arr.length; j++) {
+        bottomLinkChildList
+            .add(Child(categoryName: arr[j], url: linkURL[i][j]));
+      }
+      bottomList
+          .add(BottomLink(title: titleList[i], data: bottomLinkChildList));
     }
+
     setState(() {
       bottomLinkList = bottomList;
     });
@@ -117,29 +139,39 @@ class _GlobalDrawerViewState extends State<GlobalDrawerView> {
                       }, childCount: data?.item2?.length)),
                       SliverToBoxAdapter(
                         child: Container(
-                          decoration: BoxDecoration(
-                              border: Border(
-                                  bottom: BorderSide(
-                                      width: 0.5.w,
-                                      color: AppColor.primaryBorderOutline))),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 16.w, vertical: 14.w),
-                          child: Row(
-                            children: [
-                              Icon(Iconfont.Customer),
-                              SizedBox(width: 17.5.w),
-                              Expanded(
-                                  child: Text(
-                                'Customer Service',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              )),
-                              Icon(
-                                Icons.chevron_right,
-                                color: AppColor.primaryBorderLight,
+                            decoration: BoxDecoration(
+                                border: Border(
+                                    bottom: BorderSide(
+                                        width: 0.5.w,
+                                        color: AppColor.primaryBorderOutline))),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 16.w, vertical: 16.w),
+                            child: InkWell(
+                              onTap: () {
+                                Routes.push(context, '/webview', params: {
+                                  "needLogin": '1',
+                                  "source": "facebook",
+                                  "content":
+                                      '{"url":"http://localhost:3001/AppCustomerService"}'
+                                });
+                              },
+                              child: Row(
+                                children: [
+                                  Icon(Iconfont.Customer),
+                                  SizedBox(width: 17.5.w),
+                                  Expanded(
+                                      child: Text(
+                                    'Customer Service',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  )),
+                                  Icon(
+                                    Icons.chevron_right,
+                                    color: AppColor.primaryBorderLight,
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ),
+                            )),
                       ),
                       SliverToBoxAdapter(
                         child: Offstage(
@@ -210,11 +242,13 @@ class GlobalDrawer extends StatelessWidget {
 
 class Child {
   String categoryName;
-  Child({this.categoryName});
+  String url;
+  Child({this.categoryName, this.url});
 }
 
 class BottomLink {
   String title;
   List<Child> data;
+
   BottomLink({this.title, this.data});
 }

@@ -1,8 +1,8 @@
 <!--
  * @Author       : JHao
  * @Date         : 2021-06-25 16:39:55
- * @LastEditors  : JHao
- * @LastEditTime : 2021-07-08 15:40:52
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-07-29 17:21:19
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -19,6 +19,7 @@
     Wenview</div>
 </body>
 <script>
+
   const btn = document.querySelector("#web");
   // web.onclick = function () {
   //   jhao.postMessage(window.navigator.userAgent)
@@ -28,13 +29,14 @@
   //callHandler里的字符串一定要和flutter端的handlerName对应的名称相同
   var isInitedAppWebview = false;
   window.addEventListener("flutterInAppWebViewPlatformReady", function(event) { 
+    print('2222')
     isInitedAppWebview = true;
     window.flutter_inappwebview.callHandler('TEST') .then(function(result) {
       alert(result['a'])
     })
   });
   btn.onclick = function(){
-    console.log(11111)
+   alert(isInitedAppWebview);
     if(isInitedAppWebview){
       window.flutter_inappwebview .callHandler('Get',document.cookie)
     }

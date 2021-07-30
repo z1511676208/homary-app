@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
- * @Date         : 2021-07-15 13:48:37
- * @LastEditors  : JHao
- * @LastEditTime : 2021-07-30 11:22:47
+ * @Date         : 2021-07-30 19:16:48
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-07-30 19:17:53
  */
 import 'package:homary/common/utils/main.dart';
 import 'search/main.dart';
@@ -49,7 +49,13 @@ class GlobalAppbar extends StatelessWidget {
                         IconButton(
                             color: Colors.black,
                             icon: Icon(Iconfont.Cart),
-                            onPressed: () {})
+                            onPressed: () {
+                              Routes.push(context, '/webview', params: {
+                                "showAppLoading": '0',
+                                "content":
+                                    '{"url":"http://localhost:3001/shoppingcart"}'
+                              });
+                            })
                       ],
                     ),
                   )
