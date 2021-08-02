@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-08 10:21:44
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-30 18:47:13
+ * @LastEditTime : 2021-08-02 15:33:17
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/toast.dart';
@@ -14,7 +14,7 @@ import 'package:homary/pages/home/contorller.dart';
 class LeftNav extends StatelessWidget {
   LeftNav({Key key}) : super(key: key);
 
-  Widget navItem(Datum data) {
+  Widget navItem(TopChannelDatum data) {
     return Consumer<CategoryCtrl>(
       builder: (BuildContext context, CategoryCtrl categoryCtrl, child) {
         return GestureDetector(
@@ -55,14 +55,14 @@ class LeftNav extends StatelessWidget {
     return Container(
       width: 103.w,
       color: AppColor.primaryNavBgColor,
-      child: Selector<HomeCtrl, List<Datum>>(
+      child: Selector<HomeCtrl, List<TopChannelDatum>>(
         selector: (context, HomeCtrl slideNavCtrl) {
           return slideNavCtrl.topChannelList;
         },
         shouldRebuild: (pre, next) {
           return pre != next;
         },
-        builder: (context, List<Datum> data, child) {
+        builder: (context, List<TopChannelDatum> data, child) {
           return ListView.builder(
             itemBuilder: (context, index) {
               return navItem(data[index]);

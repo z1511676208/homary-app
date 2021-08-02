@@ -2,12 +2,12 @@
  * @Author       : JHao
  * @Date         : 2021-07-26 15:28:09
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-26 17:29:02
+ * @LastEditTime : 2021-08-02 20:21:23
  */
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:homary/entity/home.dart';
+import 'package:homary/common/utils/schema2path.dart';
+import 'package:homary/entity/homeReviewModule.dart';
 import 'package:homary/widget/networkImg.dart';
 import 'package:homary/common/utils/main.dart';
 
@@ -39,11 +39,18 @@ class ReviewItem extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(2.w)),
-                child: CustomNetworkImage(
-                  this.data.productImage,
-                  width: 72.w,
-                  height: 72.w,
-                ),
+                child: this.data.productImage == ""
+                    ? Image.asset(
+                        'assets/baseImage.png',
+                        width: 72.w,
+                        height: 72.w,
+                        fit: BoxFit.cover,
+                      )
+                    : CustomNetworkImage(
+                        this.data.productImage,
+                        width: 72.w,
+                        height: 72.w,
+                      ),
               ),
               SizedBox(
                 width: 8.w,
@@ -68,7 +75,9 @@ class ReviewItem extends StatelessWidget {
                       Container(
                         alignment: Alignment.centerLeft,
                         child: RatingBarIndicator(
-                          rating: this.data.score,
+                          rating: this.data.score == ""
+                              ? 0
+                              : double.parse(this.data.score.toString()),
                           itemBuilder: (context, index) => Icon(
                             Icons.star,
                             color: Color(0xFFFFB400),
@@ -83,7 +92,10 @@ class ReviewItem extends StatelessWidget {
                         width: 8.w,
                       ),
                       Text(
-                        this.data.score.toStringAsFixed(1),
+                        this.data.score == ''
+                            ? '0'
+                            : double.parse(this.data.score.toString())
+                                .toStringAsFixed(1),
                         style: TextStyle(
                             color: AppColor.primaryText,
                             fontWeight: FontWeight.w600,
@@ -106,7 +118,9 @@ class ReviewItem extends StatelessWidget {
                                   color: Colors.white,
                                   fontWeight: FontWeight.w600)),
                         ),
-                        onTap: () {},
+                        onTap: () {
+                          handleSchema(context, this.data.jumpUrl);
+                        },
                       )
                     ],
                   )

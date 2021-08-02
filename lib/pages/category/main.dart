@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-12 17:38:02
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-30 17:50:31
+ * @LastEditTime : 2021-08-02 15:33:06
  */
 import 'dart:convert';
 
@@ -55,7 +55,7 @@ class _ProductListViewState extends State<ProductListView> {
       Map<String, dynamic> channelMap =
           await Provider.of<HomeCtrl>(context, listen: false)
               .getTopChannelCategory();
-      List<Datum> topChannelList = channelMap['topChannelList'];
+      List<TopChannelDatum> topChannelList = channelMap['topChannelList'];
       Provider.of<CategoryCtrl>(context, listen: false)
           .setActiveCategoryId(topChannelList[0]?.categoryId);
       await Provider.of<CategoryCtrl>(context, listen: false).getCategoryList(

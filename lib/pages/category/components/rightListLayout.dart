@@ -1,11 +1,12 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-14 15:05:20
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-30 19:18:01
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-02 20:37:25
  */
 import 'package:flutter/rendering.dart';
 import 'package:homary/common/utils/main.dart';
+import 'package:homary/common/utils/schema2path.dart';
 import 'package:homary/entity/category.dart';
 import 'package:homary/pages/category/controller.dart';
 import 'package:homary/pages/category/Watcher.dart';
@@ -71,18 +72,23 @@ class _RightListLayoutState extends State<RightListLayout>
         height: 86.w,
         margin: EdgeInsets.only(bottom: 12.w, top: 12.w, right: 6.5.w),
         decoration: BoxDecoration(borderRadius: AppStyle.primaryBorderRaduis),
-        child: Selector<CategoryCtrl, String>(
-          builder: (BuildContext context, String data, child) {
-            return data != ""
-                ? CustomNetworkImage(data)
-                : Image.asset(
-                    'assets/baseImage.png',
-                    width: 248.w,
-                    fit: BoxFit.cover,
-                  );
+        child: Selector<CategoryCtrl, Map<String, String>>(
+          builder: (BuildContext context, Map<String, String> data, child) {
+            return GestureDetector(
+              child: data['app_category_banner'] != ""
+                  ? CustomNetworkImage(data['app_category_banner'])
+                  : Image.asset(
+                      'assets/baseImage.png',
+                      width: 248.w,
+                      fit: BoxFit.cover,
+                    ),
+              onTap: () {
+                handleSchema(context, data['jump_url']);
+              },
+            );
           },
           selector: (BuildContext context, CategoryCtrl category) {
-            return category.categoryBanner;
+            return category.categoryBannerMap;
           },
           shouldRebuild: (pre, next) {
             return pre != next;
@@ -94,8 +100,6 @@ class _RightListLayoutState extends State<RightListLayout>
 
   @override
   Widget build(BuildContext context) {
-    String activeCategoryId =
-        Provider.of<CategoryCtrl>(context).activeCategoryId;
     return Selector<CategoryCtrl, List<Data>>(
       selector: (context, CategoryCtrl controller) {
         return controller.subList;
@@ -110,7 +114,7 @@ class _RightListLayoutState extends State<RightListLayout>
           width: 254.5.w,
           color: Colors.white,
           child: CustomScrollView(
-            // key: ValueKey(activeCategoryId),
+            key: UniqueKey(),
             physics: ClampingScrollPhysics(),
             // cacheExtent: 1000,
             controller: _scorllCtrl,
@@ -119,10 +123,9 @@ class _RightListLayoutState extends State<RightListLayout>
               TopNav(
                 _scorllCtrl,
                 _topNavScrollCtrl,
-                // key: UniqueKey(),
+                key: UniqueKey(),
               ),
               ProductList(
-                // key: UniqueKey(),
                 subList: data,
               ),
               SliverToBoxAdapter(child: SizedBox(height: 30.h))

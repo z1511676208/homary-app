@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-07 20:28:59
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-30 10:30:04
+ * @LastEditTime : 2021-08-02 20:30:36
  */
 import 'dart:convert';
 import 'package:homary/common/utils/main.dart';
@@ -21,7 +21,7 @@ class HomePageView extends StatefulWidget {
 class _HomePageViewState extends State<HomePageView>
     with TickerProviderStateMixin {
   List<String> _tabValues = ["Home"];
-  List<Datum> _tabWebview = [];
+  List<TopChannelDatum> _tabWebview = [];
   TabController _tabController;
   var currentConfig;
 
@@ -38,9 +38,11 @@ class _HomePageViewState extends State<HomePageView>
     if (this.currentConfig != current) {
       this.currentConfig = current;
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-        // await Provider.of<GlobalConfig>(context, listen: false)
-        //     .getServiceTime();
-        // Provider.of<HomeCtrl>(context, listen: false).getIndexData();
+        await Provider.of<GlobalConfig>(context, listen: false)
+            .getServiceTime();
+        Provider.of<HomeCtrl>(context, listen: false).getAdvInfo();
+        Provider.of<HomeCtrl>(context, listen: false).getProductModule();
+        Provider.of<HomeCtrl>(context, listen: false).getReviewModule();
         Provider.of<HomeCtrl>(context, listen: false).getRecommendList();
         Map<String, dynamic> channelMap =
             await Provider.of<HomeCtrl>(context, listen: false)

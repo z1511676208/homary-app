@@ -2,10 +2,11 @@
  * @Author       : JHao
  * @Date         : 2021-07-15 11:35:54
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-30 18:37:59
+ * @LastEditTime : 2021-08-02 20:39:09
  */
 import 'package:flutter/material.dart';
 import 'package:homary/common/utils/main.dart';
+import 'package:homary/common/utils/schema2path.dart';
 import 'package:homary/entity/category.dart';
 import 'package:homary/pages/category/Watcher.dart';
 import 'package:homary/widget/networkImg.dart';
@@ -24,23 +25,29 @@ class _ProductItemState extends State<ProductItem> {
     /// product list
     List<Data> productInfo = widget.subList[widget.idx].subList;
     List<Widget> products = productInfo.map((element) {
-      return Container(
-          width: 65.w,
-          margin: EdgeInsets.only(bottom: 14.5.h),
-          child: Column(children: [
-            Container(
-                height: 65.w,
-                width: 65.w,
-                child: element.channelImgApp != ""
-                    ? CustomNetworkImage(element.channelImgApp)
-                    : Image.asset("assets/baseImage.png")),
-            SizedBox(height: 4.h),
-            Text(element.categoryName,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.center,
-                style: TextStyle(color: AppColor.primaryText, fontSize: 14.sp))
-          ]));
+      return GestureDetector(
+        child: Container(
+            width: 65.w,
+            margin: EdgeInsets.only(bottom: 14.5.h),
+            child: Column(children: [
+              Container(
+                  height: 65.w,
+                  width: 65.w,
+                  child: element.channelImgApp != ""
+                      ? CustomNetworkImage(element.channelImgApp)
+                      : Image.asset("assets/baseImage.png")),
+              SizedBox(height: 4.h),
+              Text(element.categoryName,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                  style:
+                      TextStyle(color: AppColor.primaryText, fontSize: 14.sp))
+            ])),
+        onTap: () {
+          handleSchema(context, element.jumpUrl);
+        },
+      );
     }).toList();
     return Container(
         padding: EdgeInsets.only(top: 16.w),

@@ -1,21 +1,13 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-06 13:48:25
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-30 19:22:56
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-02 16:18:54
  */
-import 'dart:convert';
-import 'dart:io';
-
-import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
-import 'package:homary/common/utils/requsetUrl.dart';
-import 'package:homary/common/utils/toast.dart';
 import 'package:homary/components/drawer/main.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:homary/common/utils/bus.dart';
-import 'package:homary/common/storage/webview-cookie.dart';
 import 'package:homary/components/goBackAppBar/main.dart';
 import 'package:homary/webView/webviewController.dart';
 
@@ -58,28 +50,29 @@ class _WebviewPageViewState extends State<WebviewPageView> {
   @override
   Widget build(BuildContext context) {
     return Consumer<WebviewAppBarCtrl>(
-        builder: (BuildContext context, WebviewAppBarCtrl data, child) =>
-            Scaffold(
-                appBar: PreferredSize(
-                  child: GoBackAppBar(
-                    showBorder: data.isShowAppBar,
-                    showCart: data.showCart,
-                    showMore: data.showMore,
-                    showCollet: data.showCollect,
-                  ),
-                  preferredSize:
-                      data.isShowAppBar ? Size.fromHeight(44.h) : Size.zero,
-                ),
-                drawer: GlobalDrawer(),
-                body: SafeArea(
-                    top: false,
-                    bottom: true,
-                    child: Container(
-                        child: WebviewCtrl(
-                            needLogin: widget.needLogin,
-                            source: widget.source,
-                            content: widget.content,
-                            showAppLoading: widget.showAppLoading)))));
+        builder: (BuildContext context, WebviewAppBarCtrl data, child) {
+      return Scaffold(
+          appBar: PreferredSize(
+            child: GoBackAppBar(
+              showBorder: data.isShowAppBar,
+              showCart: data.showCart,
+              showMore: data.showMore,
+              showCollet: data.showCollect,
+            ),
+            preferredSize:
+                data.isShowAppBar ? Size.fromHeight(44.h) : Size.zero,
+          ),
+          drawer: GlobalDrawer(),
+          body: SafeArea(
+              top: false,
+              bottom: true,
+              child: Container(
+                  child: WebviewCtrl(
+                      needLogin: widget.needLogin,
+                      source: widget.source,
+                      content: widget.content,
+                      showAppLoading: widget.showAppLoading))));
+    });
   }
 }
 

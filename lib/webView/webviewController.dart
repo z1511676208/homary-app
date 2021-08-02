@@ -40,7 +40,7 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
         useHybridComposition: true,
       ),
       ios: IOSInAppWebViewOptions(
-        applePayAPIEnabled: true,
+        // applePayAPIEnabled: true,
         allowsInlineMediaPlayback: true,
       ));
   var busEvent = BusProvider();
@@ -58,20 +58,20 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
     source = widget.source;
     content = jsonDecode(widget.content) ?? {};
     url = _formatParams();
-    print(url);
     super.initState();
   }
 
   @override
   void dispose() {
     busEvent.removeControllers('switchSite', ctrlName);
+    busEvent.removeControllers('goback', ctrlName);
     super.dispose();
   }
 
   // 替换 url 目标参数
   String _formatParams() {
     String finalStringParams = "";
-    String url = content['url'] ?? 'https://m.homary.com';
+    String url = Uri.decodeComponent(content['url']) ?? 'https://m.homary.com';
     Map<String, dynamic> urlData = getRealUrlNParams(url);
     Map<String, dynamic> finalParams = {};
     var currentConfig = Localstorage().getJSON('currentConfig') ?? {};
@@ -130,14 +130,12 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
       },
       onLoadStart: (InAppWebViewController controller, Uri url) {
         String appBarType;
-        String isShowAppBar;
+        String isShowAppBar = '1';
 
         if (url.path.indexOf('/item/') > -1) {
           appBarType = '3';
-          isShowAppBar = '1';
         } else if (url.path.indexOf('/shoppingcart') > -1) {
           appBarType = '2';
-          isShowAppBar = '1';
         }
         Provider.of<WebviewAppBarCtrl>(context, listen: false).setAppBarStatus(
             appBarType: appBarType, isShowAppBar: isShowAppBar);

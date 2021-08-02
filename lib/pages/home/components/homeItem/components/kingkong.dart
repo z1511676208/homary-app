@@ -2,18 +2,19 @@
  * @Author       : JHao
  * @Date         : 2021-07-20 15:12:17
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-28 15:08:10
+ * @LastEditTime : 2021-08-02 16:33:14
  */
 import 'package:flutter/material.dart';
 import 'package:homary/common/utils/main.dart';
-import 'package:homary/entity/home.dart';
+import 'package:homary/common/utils/schema2path.dart';
+import 'package:homary/entity/homeAdvInfo.dart';
 import 'package:homary/pages/home/contorller.dart';
 import 'package:homary/widget/networkImg.dart';
 
 class KingKong extends StatelessWidget {
   const KingKong({Key key}) : super(key: key);
 
-  Widget _item(ListElement item) {
+  Widget _item(BuildContext context, ModuleAdvDatum item) {
     return GestureDetector(
         child: Container(
             width: (1.sw - 24.w) * 1 / 4,
@@ -41,20 +42,21 @@ class KingKong extends StatelessWidget {
                   ))
             ])),
         onTap: () {
-          print(item);
+          handleSchema(context, item.jumpUrl);
         });
   }
 
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
-        child: Selector<HomeCtrl, Module>(
-      builder: (BuildContext context, Module data, child) {
-        return data?.moduleData != null && data?.moduleData?.list != null
+        child: Selector<HomeCtrl, AdvDatum>(
+      builder: (BuildContext context, AdvDatum data, child) {
+        return data?.moduleData != null && data?.moduleData?.length != 0
             ? Padding(
                 padding: EdgeInsets.fromLTRB(12.w, 12.w, 12.w, 0),
                 child: Wrap(
-                  children: data.moduleData.list.map((e) => _item(e)).toList(),
+                  children:
+                      data.moduleData.map((e) => _item(context, e)).toList(),
                 ))
             : Container();
       },

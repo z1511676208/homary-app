@@ -2,14 +2,15 @@
  * @Author       : JHao
  * @Date         : 2021-07-23 18:34:11
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-28 15:18:27
+ * @LastEditTime : 2021-08-02 20:05:02
  */
 
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:homary/common/utils/main.dart';
-import 'package:homary/entity/home.dart';
+import 'package:homary/common/utils/schema2path.dart';
+import 'package:homary/entity/homeReviewModule.dart';
 import 'package:homary/pages/home/contorller.dart';
 import 'package:homary/widget/networkImg.dart';
 
@@ -19,18 +20,19 @@ class ReviewsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
-        child: Selector<HomeCtrl, Module>(
-      builder: (BuildContext context, Module data, child) {
-        return data?.moduleData != null &&
-                data?.moduleData?.reviewList != null &&
-                data?.moduleData?.reviewList?.length != 0
+        child: Selector<HomeCtrl, ReviewData>(
+      builder: (BuildContext context, ReviewData data, child) {
+        return data != null
+            // &&
+            //         data?.reviewList != null &&
+            //         data.reviewList.length > 0
             ? Padding(
                 padding: EdgeInsets.fromLTRB(12.w, 20.w, 12.w, 0),
                 child: Column(
                   children: [
                     Row(
                       children: [
-                        Text(data.moduleData.title,
+                        Text(data.title,
                             style: TextStyle(
                                 fontSize: 16.sp,
                                 fontWeight: FontWeight.bold,
@@ -41,7 +43,7 @@ class ReviewsList extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () {
-                            Routes.push(context, '/signIn?');
+                            handleSchema(context, data?.moreJumpUrl);
                           },
                           child: Row(
                             children: [
@@ -87,8 +89,7 @@ class ReviewsList extends StatelessWidget {
                                   child: Column(
                                     children: [
                                       CustomNetworkImage(
-                                        data.moduleData.reviewList[index]
-                                            .imgUrl,
+                                        data.reviewList[index].imgUrl,
                                         width: 240.w,
                                         height: 240.w,
                                       ),
@@ -100,8 +101,12 @@ class ReviewsList extends StatelessWidget {
                                           Container(
                                             alignment: Alignment.centerLeft,
                                             child: RatingBarIndicator(
-                                              rating: data.moduleData
-                                                  .reviewList[index].score,
+                                              rating: data.reviewList[index]
+                                                          .score ==
+                                                      ''
+                                                  ? 0
+                                                  : double.parse(data
+                                                      .reviewList[index].score),
                                               itemBuilder: (context, index) =>
                                                   Icon(
                                                 Icons.star,
@@ -118,8 +123,7 @@ class ReviewsList extends StatelessWidget {
                                             padding: EdgeInsets.symmetric(
                                                 vertical: 8.w),
                                             child: Text(
-                                              data.moduleData.reviewList[index]
-                                                  .content,
+                                              data.reviewList[index].content,
                                               maxLines: 3,
                                               overflow: TextOverflow.ellipsis,
                                             ),
@@ -133,9 +137,7 @@ class ReviewsList extends StatelessWidget {
                                                   color: AppColor.primaryText,
                                                   alignment: Alignment.center,
                                                   child: Text(
-                                                    data
-                                                        .moduleData
-                                                        .reviewList[index]
+                                                    data.reviewList[index]
                                                         .username
                                                         .substring(0, 1),
                                                     style: TextStyle(
@@ -148,8 +150,7 @@ class ReviewsList extends StatelessWidget {
                                                 width: 4.w,
                                               ),
                                               Text(
-                                                data.moduleData
-                                                    .reviewList[index].username,
+                                                data.reviewList[index].username,
                                                 style: TextStyle(
                                                     color: AppColor
                                                         .primarySubTitle,
@@ -174,7 +175,7 @@ class ReviewsList extends StatelessWidget {
                             },
                           );
                         },
-                        itemCount: data.moduleData.reviewList.length,
+                        itemCount: data.reviewList.length,
                       ),
                     ),
                   ],

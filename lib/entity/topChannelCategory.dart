@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-29 14:41:11
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-29 14:41:11
+ * @LastEditTime : 2021-08-02 15:32:26
  */
 // To parse this JSON data, do
 //
@@ -18,7 +18,7 @@ class TopChannelCategoryRes {
   });
 
   int code;
-  List<Datum> data;
+  List<TopChannelDatum> data;
   String message;
 
   factory TopChannelCategoryRes.fromRawJson(String str) =>
@@ -29,7 +29,8 @@ class TopChannelCategoryRes {
   factory TopChannelCategoryRes.fromJson(Map<String, dynamic> json) =>
       TopChannelCategoryRes(
         code: json["code"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        data: List<TopChannelDatum>.from(
+            json["data"].map((x) => TopChannelDatum.fromJson(x))),
         message: json["message"],
       );
 
@@ -40,8 +41,8 @@ class TopChannelCategoryRes {
       };
 }
 
-class Datum {
-  Datum({
+class TopChannelDatum {
+  TopChannelDatum({
     this.categoryId,
     this.categoryName,
     this.jumpUrl,
@@ -57,11 +58,13 @@ class Datum {
   String channelImgApp;
   String appCategoryBanner;
 
-  factory Datum.fromRawJson(String str) => Datum.fromJson(json.decode(str));
+  factory TopChannelDatum.fromRawJson(String str) =>
+      TopChannelDatum.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory TopChannelDatum.fromJson(Map<String, dynamic> json) =>
+      TopChannelDatum(
         categoryId: json["category_id"],
         categoryName: json["category_name"],
         jumpUrl: json["jump_url"],
