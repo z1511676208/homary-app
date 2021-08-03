@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-06 10:11:04
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-30 16:32:57
+ * @LastEditTime : 2021-08-03 17:18:11
  */
 
 import 'package:flutter/material.dart';
@@ -51,8 +51,9 @@ class _GlobalDrawerViewState extends State<GlobalDrawerView> {
       bottomLinkChildList = [];
       List arr = childList[i].split(',');
       for (var j = 0; j < arr.length; j++) {
-        bottomLinkChildList
-            .add(Child(categoryName: arr[j], url: linkURL[i][j]));
+        bottomLinkChildList.add(Child(
+            categoryName: arr[j],
+            jumpUrl: 'https://m.homary.com${linkURL[i][j]}'));
       }
       bottomList
           .add(BottomLink(title: titleList[i], data: bottomLinkChildList));
@@ -109,6 +110,7 @@ class _GlobalDrawerViewState extends State<GlobalDrawerView> {
                             index: index,
                             title: data?.item1[index]?.categoryName,
                             subList: data?.item1[index]?.subList,
+                            jumpUrl: data?.item1[index]?.jumpUrl,
                             isConfig: false);
                       }, childCount: data?.item1?.length)),
                       SliverToBoxAdapter(
@@ -149,10 +151,8 @@ class _GlobalDrawerViewState extends State<GlobalDrawerView> {
                             child: InkWell(
                               onTap: () {
                                 Routes.push(context, '/webview', params: {
-                                  "needLogin": '1',
-                                  "source": "facebook",
                                   "content":
-                                      '{"url":"http://localhost:3001/AppCustomerService"}'
+                                      '{"url":"https://m.homary.com/AppCustomerService"}'
                                 });
                               },
                               child: Row(
@@ -242,8 +242,8 @@ class GlobalDrawer extends StatelessWidget {
 
 class Child {
   String categoryName;
-  String url;
-  Child({this.categoryName, this.url});
+  String jumpUrl;
+  Child({this.categoryName, this.jumpUrl});
 }
 
 class BottomLink {

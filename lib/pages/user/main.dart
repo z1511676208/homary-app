@@ -1,3 +1,4 @@
+import 'package:flutter_braintree/flutter_braintree.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
 import 'components/FlexItem.dart';
@@ -50,14 +51,21 @@ class _UserPageViewState extends State<UserPageView> {
                                   width: 46.w,
                                   height: 46.h,
                                   padding: EdgeInsets.only(right: 15.w),
-                                  child: Icon(
-                                    Iconfont.home_collect,
-                                  ),
+                                  child: IconButton(
+                                      color: Colors.black,
+                                      icon: Icon(Icons.favorite_border),
+                                      onPressed: () {
+                                        Routes.push(context, '/webview',
+                                            params: {
+                                              "content":
+                                                  '{"url":"http://m.homary.com/usercenter/wishlists"}'
+                                            });
+                                      }),
                                 ),
                                 IconButton(
                                     color: Colors.black,
                                     icon: Icon(Iconfont.Cart),
-                                    onPressed: () {
+                                    onPressed: () async {
                                       Routes.push(context, '/webview', params: {
                                         "showAppLoading": '0',
                                         "content":
@@ -91,20 +99,19 @@ class _UserPageViewState extends State<UserPageView> {
                               direction: Axis.horizontal,
                               children: <Widget>[
                                 ExpandedItem(
-                                    data.userCenterInfo?.couponCount ?? '-',
+                                    data.userCenterInfo?.couponCount ?? 0,
                                     'Coupons',
+                                    appBarTitle: 'My Coupons',
                                     url: '/usercenter/coupons'),
                                 ExpandedItem(
                                     data.userCenterInfo?.goodsCollectionCount ??
-                                        '-',
+                                        0,
                                     'Wishlist',
                                     url: '/usercenter/wishlists'),
                                 ExpandedItem(
-                                    data.userCenterInfo?.pointCount == null
-                                        ? '-'
-                                        : data.userCenterInfo?.pointCount
-                                            .toString(),
-                                    'Wiews',
+                                    data.userCenterInfo?.pointCount ?? 0,
+                                    'Views',
+                                    appBarTitle: 'My Viewed',
                                     url: '/usercenter/viewed')
                               ],
                             ),
@@ -129,9 +136,9 @@ class _UserPageViewState extends State<UserPageView> {
                                           onPressed: () {
                                             Routes.push(context, '/webview',
                                                 params: {
-                                                  "showAppLoading": '0',
+                                                  "appBarTitle": "My Orders",
                                                   "content":
-                                                      '{"url":"https://m.homary.com//usercenter/order}"}'
+                                                      '{"url":"https://m.homary.com/usercenter/order"}'
                                                 });
                                           },
                                           child: Text(
@@ -150,32 +157,36 @@ class _UserPageViewState extends State<UserPageView> {
                                     FlexItem(
                                       'Unpaid',
                                       Icon(Iconfont.Unpaid, size: 30.0),
-                                      count: data.userCenterInfo
-                                              ?.unpaidOrderCount ??
-                                          '',
+                                      count:
+                                          data.userCenterInfo?.unpaidOrderCount,
                                       url: '/usercenter/order?active=unpaid',
+                                      title: 'My Orders',
                                     ),
-                                    FlexItem('Processing',
-                                        Icon(Iconfont.Processing, size: 30.0),
-                                        count: data.userCenterInfo
-                                                ?.processingOrderCount ??
-                                            '',
-                                        url:
-                                            '/usercenter/order?active=undelivery'),
-                                    FlexItem('Shipped',
-                                        Icon(Iconfont.Shipped, size: 30.0),
-                                        count: data.userCenterInfo
-                                                ?.shippedOrderCount ??
-                                            '',
-                                        url:
-                                            '/usercenter/order?active=shipped'),
-                                    FlexItem('Returns',
-                                        Icon(Iconfont.Returns, size: 30.0),
-                                        count: data.userCenterInfo
-                                                ?.returnOrderCount ??
-                                            '',
-                                        url:
-                                            '/usercenter/order?active=returns'),
+                                    FlexItem(
+                                      'Processing',
+                                      Icon(Iconfont.Processing, size: 30.0),
+                                      count: data
+                                          .userCenterInfo?.processingOrderCount,
+                                      url:
+                                          '/usercenter/order?active=undelivery',
+                                      title: 'My Orders',
+                                    ),
+                                    FlexItem(
+                                      'Shipped',
+                                      Icon(Iconfont.Shipped, size: 30.0),
+                                      count: data
+                                          .userCenterInfo?.shippedOrderCount,
+                                      url: '/usercenter/order?active=shipped',
+                                      title: 'My Orders',
+                                    ),
+                                    FlexItem(
+                                      'Returns',
+                                      Icon(Iconfont.Returns, size: 30.0),
+                                      count:
+                                          data.userCenterInfo?.returnOrderCount,
+                                      url: '/usercenter/order?active=returns',
+                                      title: 'My Orders',
+                                    ),
                                   ],
                                 )
                               ],
@@ -203,12 +214,16 @@ class _UserPageViewState extends State<UserPageView> {
                                 Flex(
                                   direction: Axis.horizontal,
                                   children: [
-                                    FlexItem('Customer',
-                                        Icon(Iconfont.Customer, size: 30.0)),
+                                    FlexItem(
+                                      'Customer',
+                                      Icon(Iconfont.Customer, size: 30.0),
+                                      url: '/AppCustomerService',
+                                    ),
                                     FlexItem(
                                       'About',
                                       Icon(Iconfont.About, size: 30.0),
                                       url: '/help-center/article-detail/64',
+                                      title: "Help Center",
                                     ),
                                     FlexItem(
                                       'Address',
@@ -220,6 +235,7 @@ class _UserPageViewState extends State<UserPageView> {
                                       'Personal',
                                       Icon(Iconfont.Personal, size: 30.0),
                                       url: '/usercenter/personal',
+                                      title: 'Info',
                                     ),
                                   ],
                                 )

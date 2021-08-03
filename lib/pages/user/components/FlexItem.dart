@@ -2,19 +2,20 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-28 16:10:53
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-03 10:15:41
+ * @LastEditTime : 2021-08-04 11:38:26
  */
 import 'package:flutter/material.dart';
+import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
 
 class FlexItem extends StatelessWidget {
   final String text;
   final Widget icon;
-  final String count;
+  final int count;
   final String url;
   final String title;
   const FlexItem(this.text, this.icon,
-      {Key key, this.count = '', this.url, this.title = ''})
+      {Key key, this.count, this.url, this.title = ''})
       : super(key: key);
 
   @override
@@ -24,12 +25,14 @@ class FlexItem extends StatelessWidget {
       flex: 1,
       child: InkWell(
         onTap: () {
-          if (this.url != null) {
+          bool isLogin = Localstorage().getBool('isLogin');
+          if (this.url != null && isLogin) {
             Routes.push(context, '/webview', params: {
               "appBarTitle": this.title,
-              "showAppLoading": '0',
               "content": '{"url":"https://m.homary.com${this.url}"}'
             });
+          } else {
+            Routes.push(context, '/signIn');
           }
         },
         child: Column(
@@ -44,7 +47,7 @@ class FlexItem extends StatelessWidget {
                   top: -10.w,
                   right: -10.w,
                   child: Offstage(
-                      offstage: this.count == '',
+                      offstage: this.count == null || this.count == 0,
                       child: Container(
                         alignment: Alignment.center,
                         height: 18.w,
@@ -52,7 +55,7 @@ class FlexItem extends StatelessWidget {
                         decoration: BoxDecoration(
                             shape: BoxShape.circle, color: Colors.red),
                         child: Text(
-                          this.count,
+                          this.count.toString(),
                           style: TextStyle(color: Colors.white),
                         ),
                       )))

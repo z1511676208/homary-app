@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-27 15:53:52
- * @LastEditors  : JHao
- * @LastEditTime : 2021-08-04 14:40:10
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-08-05 14:07:57
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:popover/popover.dart';
@@ -39,10 +39,22 @@ class ListItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List list = [
-      {'title': 'Home', 'icon': Icon(Iconfont.Home)},
-      {'title': 'Wishlist', 'icon': Icon(Iconfont.Collect)},
-      {'title': 'Recently Viewed', 'icon': Icon(Iconfont.Recent)},
-      {'title': 'Support', 'icon': Icon(Iconfont.Customer)}
+      {'title': 'Home', 'icon': Icon(Iconfont.Home), 'url': '/'},
+      {
+        'title': 'Wishlist',
+        'icon': Icon(Iconfont.Collect),
+        'url': 'https://m.homary.com/usercenter/wishlists'
+      },
+      {
+        'title': 'Recently Viewed',
+        'icon': Icon(Iconfont.Recent),
+        'url': 'https://m.homary.com/usercenter/viewed'
+      },
+      {
+        'title': 'Support',
+        'icon': Icon(Iconfont.Customer),
+        'url': 'https://m.homary.com/AppCustomerService'
+      }
     ];
     return Scrollbar(
       child: Padding(
@@ -52,7 +64,17 @@ class ListItems extends StatelessWidget {
             children: list
                 .map(
                   (e) => InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        String url = e['url'];
+                        if (url.startsWith('https://')) {
+                          Routes.push(context, '/webview', params: {
+                            "showAppLoading": '0',
+                            "content": '{"url":"$url"}'
+                          });
+                        } else {
+                          Routes.goHome();
+                        }
+                      },
                       child: Container(
                           padding: EdgeInsets.only(
                               left: 13.5.w, top: 10.w, bottom: 10.w),

@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-13 10:15:30
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-03 10:16:40
+ * @LastEditTime : 2021-08-03 16:54:37
  */
 import 'package:homary/common/utils/bus.dart';
 import 'package:homary/common/utils/main.dart';
@@ -20,8 +20,9 @@ class GobackIconBtn extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
         onPressed: () {
+          print('back');
           if (Provider.of<GlobalConfig>(context, listen: false).isWebviewPage) {
-            busEvent.pubWebViewCtrl('goback');
+            busEvent.pubWebViewCtrl('goback', isLastCtrl: true);
           } else {
             Routes.pop();
           }

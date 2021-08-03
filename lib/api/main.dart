@@ -1,12 +1,12 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-06 10:11:04
- * @LastEditors  : JHao
- * @LastEditTime : 2021-08-03 10:52:21
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-08-03 11:17:49
  */
 library api;
 
 export 'user.dart';
-export 'slideNav.dart';
+export 'slideNav.dart' hide requestUrl;
 export 'usercenter.dart';
 export 'package:homary/entity/main.dart';

@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-30 19:16:48
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-30 19:17:53
+ * @LastEditTime : 2021-08-05 14:50:57
  */
 import 'package:flutter/services.dart';
 import 'package:homary/common/utils/main.dart';
@@ -48,25 +48,24 @@ class GlobalAppbar extends StatelessWidget {
                     child: Row(
                       children: [
                         IconButton(
-                          color: Colors.black,
-                          icon: Icon(Icons.favorite_border),
-                          onPressed: () => Routes.push(context, '/signIn'),
-                        ),
+                            color: Colors.black,
+                            icon: Icon(Icons.favorite_border),
+                            onPressed: () {
+                              Routes.push(context, '/webview', params: {
+                                "content":
+                                    '{"url":"http://m.homary.com/usercenter/wishlists"}'
+                              });
+                            }),
                         IconButton(
-                          color: Colors.black,
-                          icon: Icon(Iconfont.Cart),
-                          onPressed: () {
-                            Routes.push(
-                              context,
-                              '/webview',
-                              params: {
+                            color: Colors.black,
+                            icon: Icon(Iconfont.Cart),
+                            onPressed: () {
+                              Routes.push(context, '/webview', params: {
                                 "showAppLoading": '0',
                                 "content":
-                                '{"url":"http://localhost:3001/shoppingcart"}'
-                              },
-                            );
-                          },
-                        ),
+                                    '{"url":"https://m.homary.com/shoppingcart"}'
+                              });
+                            })
                       ],
                     ),
                   ),

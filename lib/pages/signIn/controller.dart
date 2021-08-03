@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-13 11:36:43
- * @LastEditors  : JHao
- * @LastEditTime : 2021-08-03 17:37:30
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-08-04 18:52:07
  */
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -102,7 +102,6 @@ class SignInCtrl with ChangeNotifier {
     Toast.clear();
     if (res.error == null) {
       UserEmailLoginRes result = UserEmailLoginRes.fromJson(res.result);
-
       this.successCb(result);
     } else {
       if (res.error['code'] == 70018) {
@@ -126,11 +125,15 @@ class SignInCtrl with ChangeNotifier {
         );
         final User user = (await _auth.signInWithCredential(credential)).user;
         String idTokenResult = await user.getIdToken();
-        print('google res ===>  $idTokenResult');
+        Toast.loading();
         UserThirdLoginReq params =
             UserThirdLoginReq(idToken: idTokenResult, oauthVerifier: 'google');
-        UserEmailLoginRes res = await UserApi.thirdLogin(params: params);
-        this.successCb(res);
+        DioResult res = await UserApi.thirdLogin(params: params);
+        if (res.error == null) {
+          Toast.clear();
+          UserEmailLoginRes result = UserEmailLoginRes.fromJson(res.result);
+          this.successCb(result);
+        }
       }
     } catch (e) {
       print(e);
@@ -148,10 +151,16 @@ class SignInCtrl with ChangeNotifier {
               FacebookAuthProvider.credential(accessToken.token);
           final User user = (await _auth.signInWithCredential(credential)).user;
           String idTokenResult = await user.getIdToken(true);
-          print('fb-----$idTokenResult');
+
+          Toast.loading();
           UserThirdLoginReq params = UserThirdLoginReq(
               idToken: idTokenResult, oauthVerifier: 'facebook');
-          UserEmailLoginRes res = await UserApi.thirdLogin(params: params);
+          DioResult res = await UserApi.thirdLogin(params: params);
+          if (res.error == null) {
+            Toast.clear();
+            UserEmailLoginRes result = UserEmailLoginRes.fromJson(res.result);
+            this.successCb(result);
+          }
           this.successCb(res);
           break;
         case FacebookLoginStatus.cancelledByUser:
@@ -169,10 +178,6 @@ class SignInCtrl with ChangeNotifier {
 
   //Twitter登录
   Future signWithTwitter() async {
-    // final TwitterLogin twitterLogin = new TwitterLogin(
-    //     apiKey: 'twmeqdH1DOZJxRFUDpjaSj9iP',
-    //     apiSecretKey: '8Zu6Sxup0f0KRvYiNiIhhT8Zo36tnxrR9jnERXmjGlY7WaAYKJ',
-    //     redirectURI: 'homary://');
     final TwitterLogin twitterLogin = new TwitterLogin(
       consumerKey: 'twmeqdH1DOZJxRFUDpjaSj9iP',
       consumerSecret: '8Zu6Sxup0f0KRvYiNiIhhT8Zo36tnxrR9jnERXmjGlY7WaAYKJ',
@@ -185,9 +190,15 @@ class SignInCtrl with ChangeNotifier {
             secret: result.session.secret ?? '');
         final User user = (await _auth.signInWithCredential(credential)).user;
         String idTokenResult = await user.getIdToken(true);
+        Toast.loading();
         UserThirdLoginReq params =
             UserThirdLoginReq(idToken: idTokenResult, oauthVerifier: 'twitter');
-        UserEmailLoginRes res = await UserApi.thirdLogin(params: params);
+        DioResult res = await UserApi.thirdLogin(params: params);
+        if (res.error == null) {
+          Toast.clear();
+          UserEmailLoginRes result = UserEmailLoginRes.fromJson(res.result);
+          this.successCb(result);
+        }
         this.successCb(res);
         break;
       case TwitterLoginStatus.cancelledByUser:

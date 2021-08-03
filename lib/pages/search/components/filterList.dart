@@ -2,9 +2,10 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-19 16:26:00
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-28 15:13:07
+ * @LastEditTime : 2021-08-03 14:17:30
  */
 import 'package:homary/common/utils/main.dart';
+import 'package:homary/common/utils/schema2path.dart';
 import 'package:tuple/tuple.dart';
 import '../controller.dart';
 import 'package:substring_highlight/substring_highlight.dart';
@@ -27,6 +28,7 @@ class FilterList extends StatelessWidget {
                     data.item1[index].channelUrl,
                     'event',
                   );
+                  handleSchema(context, data.item1[index].channelUrl);
                 },
                 child: SubstringHighlight(
                   caseSensitive: false,

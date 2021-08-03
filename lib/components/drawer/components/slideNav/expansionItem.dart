@@ -2,22 +2,32 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-12 19:28:58
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-30 14:14:46
+ * @LastEditTime : 2021-08-03 17:23:42
  */
 import 'package:homary/common/utils/main.dart';
+import 'package:homary/common/utils/schema2path.dart';
 
 import 'noBorderExpansionTile/main.dart';
 
 class ExpansionItem extends StatelessWidget {
   final List list;
   final String title;
-  const ExpansionItem({Key key, this.list, this.title = ''}) : super(key: key);
+  final String jumpUrl;
+  const ExpansionItem({Key key, this.list, this.title = '', this.jumpUrl})
+      : super(key: key);
 
   Widget navItemChild(value, context) {
     return InkWell(
         onTap: () {
-          Routes.push(context, '/webview',
-              params: {"content": '{"url":${value.url}}'});
+          if (value != null && value.jumpUrl.contains('webview')) {
+            handleSchema(context, value.jumpUrl,
+                appBarTitle: value?.categoryName);
+          } else {
+            Routes.push(context, '/webview', params: {
+              "appBarTitle": value?.categoryName,
+              "content": '{"url":"${value.jumpUrl}"}'
+            });
+          }
         },
         child: Container(
           padding: EdgeInsets.fromLTRB(0, 15.5.h, 0, 15.5.h),
@@ -45,8 +55,11 @@ class ExpansionItem extends StatelessWidget {
         childrenPadding: EdgeInsets.only(left: 16),
         children: list.map((e) => navItemChild(e, context))?.toList(),
         onExpansionChanged: (e) {
+          print(e);
           //没有第三级菜单点击直接跳转
-          if (list.isEmpty) {}
+          if (list.isEmpty) {
+            handleSchema(context, this.jumpUrl, appBarTitle: title);
+          }
         });
   }
 

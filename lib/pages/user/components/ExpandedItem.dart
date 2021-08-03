@@ -2,16 +2,19 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-28 16:10:53
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-03 10:15:24
+ * @LastEditTime : 2021-08-04 11:39:01
  */
 import 'package:flutter/material.dart';
+import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
 
 class ExpandedItem extends StatelessWidget {
-  final String num;
+  final int num;
   final String title;
   final String url;
-  const ExpandedItem(this.num, this.title, {Key key, this.url})
+  final String appBarTitle;
+  const ExpandedItem(this.num, this.title,
+      {Key key, this.url, this.appBarTitle = ''})
       : super(key: key);
 
   @override
@@ -24,18 +27,21 @@ class ExpandedItem extends StatelessWidget {
             // color: Colors.red,
             child: InkWell(
                 onTap: () {
-                  if (this.url != null) {
+                  bool isLogin = Localstorage().getBool('isLogin');
+                  if (this.url != null && isLogin) {
                     Routes.push(context, '/webview', params: {
-                      "showAppLoading": '0',
+                      "appBarTitle": this.appBarTitle,
                       "content": '{"url":"https://m.homary.com${this.url}"}'
                     });
+                  } else {
+                    Routes.push(context, '/signIn');
                   }
                 },
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      child: Text(this.num,
+                      child: Text(this.num.toString(),
                           style: TextStyle(
                               fontSize: 18.w, fontWeight: FontWeight.bold)),
                     ),
