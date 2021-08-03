@@ -58,7 +58,6 @@ class _UserPageViewState extends State<UserPageView> {
                                     icon: Icon(Iconfont.Cart),
                                     onPressed: () {
                                       Routes.push(context, '/webview', params: {
-                                        "appBarType": "2",
                                         "showAppLoading": '0',
                                         "content":
                                             '{"url":"https://m.homary.com/shoppingcart"}'
@@ -92,17 +91,20 @@ class _UserPageViewState extends State<UserPageView> {
                               children: <Widget>[
                                 ExpandedItem(
                                     data.userCenterInfo?.couponCount ?? '-',
-                                    'Coupons'),
+                                    'Coupons',
+                                    url: '/usercenter/coupons'),
                                 ExpandedItem(
                                     data.userCenterInfo?.goodsCollectionCount ??
                                         '-',
-                                    'Wishlist'),
+                                    'Wishlist',
+                                    url: '/usercenter/wishlists'),
                                 ExpandedItem(
                                     data.userCenterInfo?.pointCount == null
                                         ? '-'
                                         : data.userCenterInfo?.pointCount
                                             .toString(),
-                                    'Wiews')
+                                    'Wiews',
+                                    url: '/usercenter/viewed')
                               ],
                             ),
                             PadingItem(),
@@ -122,39 +124,57 @@ class _UserPageViewState extends State<UserPageView> {
                                             fontSize: 16.w,
                                             fontWeight: FontWeight.w600),
                                       ),
-                                      Text(
-                                        'View All >',
-                                        style: TextStyle(
-                                            fontSize: 12.w,
-                                            color: Color.fromRGBO(
-                                                153, 153, 153, 1)),
-                                      )
+                                      TextButton(
+                                          onPressed: () {
+                                            Routes.push(context, '/webview',
+                                                params: {
+                                                  "showAppLoading": '0',
+                                                  "content":
+                                                      '{"url":"https://m.homary.com//usercenter/order}"}'
+                                                });
+                                          },
+                                          child: Text(
+                                            'View All >',
+                                            style: TextStyle(
+                                                fontSize: 12.w,
+                                                color: Color.fromRGBO(
+                                                    153, 153, 153, 1)),
+                                          ))
                                     ],
                                   ),
                                 ),
                                 Flex(
                                   direction: Axis.horizontal,
                                   children: [
-                                    FlexItem('Unpaid',
-                                        Icon(Iconfont.Unpaid, size: 30.0),
-                                        count: data.userCenterInfo
-                                                ?.unpaidOrderCount ??
-                                            ''),
+                                    FlexItem(
+                                      'Unpaid',
+                                      Icon(Iconfont.Unpaid, size: 30.0),
+                                      count: data.userCenterInfo
+                                              ?.unpaidOrderCount ??
+                                          '',
+                                      url: '/usercenter/order?active=unpaid',
+                                    ),
                                     FlexItem('Processing',
                                         Icon(Iconfont.Processing, size: 30.0),
                                         count: data.userCenterInfo
                                                 ?.processingOrderCount ??
-                                            ''),
+                                            '',
+                                        url:
+                                            '/usercenter/order?active=undelivery'),
                                     FlexItem('Shipped',
                                         Icon(Iconfont.Shipped, size: 30.0),
                                         count: data.userCenterInfo
                                                 ?.shippedOrderCount ??
-                                            ''),
+                                            '',
+                                        url:
+                                            '/usercenter/order?active=shipped'),
                                     FlexItem('Returns',
                                         Icon(Iconfont.Returns, size: 30.0),
                                         count: data.userCenterInfo
                                                 ?.returnOrderCount ??
-                                            ''),
+                                            '',
+                                        url:
+                                            '/usercenter/order?active=returns'),
                                   ],
                                 )
                               ],
@@ -184,12 +204,22 @@ class _UserPageViewState extends State<UserPageView> {
                                   children: [
                                     FlexItem('Customer',
                                         Icon(Iconfont.Customer, size: 30.0)),
-                                    FlexItem('About',
-                                        Icon(Iconfont.About, size: 30.0)),
-                                    FlexItem('Address',
-                                        Icon(Iconfont.Address, size: 30.0)),
-                                    FlexItem('Personal',
-                                        Icon(Iconfont.Personal, size: 30.0)),
+                                    FlexItem(
+                                      'About',
+                                      Icon(Iconfont.About, size: 30.0),
+                                      url: '/help-center/article-detail/64',
+                                    ),
+                                    FlexItem(
+                                      'Address',
+                                      Icon(Iconfont.Address, size: 30.0),
+                                      url: '/address',
+                                      title: 'Address Book',
+                                    ),
+                                    FlexItem(
+                                      'Personal',
+                                      Icon(Iconfont.Personal, size: 30.0),
+                                      url: '/usercenter/personal',
+                                    ),
                                   ],
                                 )
                               ],

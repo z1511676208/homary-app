@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:homary/common/storage/cookie-manager.dart';
 import 'package:homary/common/storage/webview-cookie.dart';
 import 'package:homary/common/utils/bus.dart';
 import 'package:homary/common/utils/localstorage.dart';
@@ -51,6 +52,25 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
   String source = '';
   dynamic content;
   String url;
+
+  void changeHeadStatus(url) {
+    bool showMore = false;
+    bool showCollect = true;
+    bool showCart = true;
+    bool isShowAppBar = true;
+
+    if (url.path.indexOf('/item') > -1) {
+      showMore = true;
+    } else if (url.path.indexOf('/place') > -1 ||
+        url.path.indexOf('/AppCustomerService') > -1) {
+      isShowAppBar = false;
+    }
+    Provider.of<WebviewAppBarCtrl>(context, listen: false).setAppBarStatus(
+        showMore: showMore,
+        showCart: showCart,
+        showCollect: showCollect,
+        isShowAppBar: isShowAppBar);
+  }
 
   @override
   void initState() {
@@ -102,14 +122,21 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
       key: webViewKey,
       // initialFile: "assets/webview.html",
       initialUrlRequest: URLRequest(url: Uri.parse(url)),
-      onWebViewCreated: (InAppWebViewController controller) {
-        Toast.loading();
+      onWebViewCreated: (InAppWebViewController controller) async {
+        Provider.of<GlobalConfig>(context, listen: false)
+            .setIsWebviewPage(true);
+        if (widget.showAppLoading == '1') {
+          Toast.loading();
+        }
+        setPlatform();
         busEvent.subWebViewCtrl('switchSite', ctrlName, () {
           setWebviewCookies();
           controller.reload();
         });
+        Cookie cookie = await getCookie('currentConfig');
+        print('cookie=====>${cookie.value}');
         busEvent.subWebViewCtrl('goback', ctrlName, () async {
-          bool canGoBack = await controller.canGoBack();
+          bool canGoBack = await controller?.canGoBack();
           if (canGoBack) {
             controller.goBack();
           } else {
@@ -118,27 +145,19 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
         });
         //传值给webview
         controller.addJavaScriptHandler(
-            handlerName: "TEST",
+            handlerName: "webviewGoBack",
             callback: (args) {
-              return {"a": 1, "b": 2};
+              controller.goBack();
             });
         controller.addJavaScriptHandler(
-            handlerName: "Get",
+            handlerName: "AppGoBack",
             callback: (args) {
-              // print("webview 传过来的值 => $args");
+              Routes.pop();
             });
       },
       onLoadStart: (InAppWebViewController controller, Uri url) {
-        String appBarType;
-        String isShowAppBar = '1';
-
-        if (url.path.indexOf('/item/') > -1) {
-          appBarType = '3';
-        } else if (url.path.indexOf('/shoppingcart') > -1) {
-          appBarType = '2';
-        }
-        Provider.of<WebviewAppBarCtrl>(context, listen: false).setAppBarStatus(
-            appBarType: appBarType, isShowAppBar: isShowAppBar);
+        print('url===>$url');
+        changeHeadStatus(url);
       },
       onProgressChanged: (InAppWebViewController controller, int progress) {
         // print("加载进度  ===》   $progress");
@@ -151,7 +170,11 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
       },
       onUpdateVisitedHistory:
           (InAppWebViewController controller, Uri url, bool androidIsReload) {
-        // print("路由跳转 ===》$url");
+        print("路由跳转 ===》$url");
+        changeHeadStatus(url);
+      },
+      onLoadError: (context, url, i, e) {
+        print('error====> $i   $e');
       },
       onReceivedServerTrustAuthRequest: (controller, challenge) async =>
           ServerTrustAuthResponse(

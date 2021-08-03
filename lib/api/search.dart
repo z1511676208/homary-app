@@ -2,10 +2,9 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-19 16:47:26
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-20 10:20:42
+ * @LastEditTime : 2021-08-02 17:01:14
  */
 import 'package:homary/common/request/request.dart';
-import 'package:homary/entity/main.dart';
 
 class SearchApi {
   static Future<DioResult> getSearchHotKeywords() async {

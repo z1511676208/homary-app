@@ -2,10 +2,11 @@
  * @Author       : JHao
  * @Date         : 2021-07-05 14:56:41
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-30 15:16:53
+ * @LastEditTime : 2021-08-03 10:13:48
  * webview cookie设置
  */
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:homary/common/storage/cookie-manager.dart';
 import 'package:homary/common/storage/cookie.dart';
@@ -33,4 +34,8 @@ setTokenCookie() {
 setEidCookie() {
   String eid = getEid();
   setCookie('EID', eid);
+}
+
+setPlatform() {
+  setCookie('homary_app_pf', Platform.isIOS ? 'ios' : 'android');
 }

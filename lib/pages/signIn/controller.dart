@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-13 11:36:43
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-30 10:34:29
+ * @LastEditTime : 2021-08-03 10:14:15
  */
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -177,12 +177,7 @@ class SignInCtrl with ChangeNotifier {
       consumerKey: 'twmeqdH1DOZJxRFUDpjaSj9iP',
       consumerSecret: '8Zu6Sxup0f0KRvYiNiIhhT8Zo36tnxrR9jnERXmjGlY7WaAYKJ',
     );
-    print('twitterLogin-----$twitterLogin');
-    // final authResult = await twitterLogin.login();
     final TwitterLoginResult result = await twitterLogin.authorize();
-    print('status------${result.status}');
-    print('errorMessage------${result.errorMessage}');
-    print('result------${result.session}');
     switch (result.status) {
       case TwitterLoginStatus.loggedIn:
         AuthCredential credential = TwitterAuthProvider.credential(
@@ -190,18 +185,15 @@ class SignInCtrl with ChangeNotifier {
             secret: result.session.secret ?? '');
         final User user = (await _auth.signInWithCredential(credential)).user;
         String idTokenResult = await user.getIdToken(true);
-        print('fb-----$idTokenResult');
         UserThirdLoginReq params =
             UserThirdLoginReq(idToken: idTokenResult, oauthVerifier: 'twitter');
         UserEmailLoginRes res = await UserApi.thirdLogin(params: params);
         this.successCb(res);
-        print('twitter----$user');
         break;
       case TwitterLoginStatus.cancelledByUser:
         print('twitter----cancel');
         break;
       case TwitterLoginStatus.error:
-        // print('twitter----error${authResult.errorMessage}');
         break;
     }
   }

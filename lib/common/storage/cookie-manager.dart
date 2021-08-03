@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-06 16:05:52
- * @LastEditors  : JHao
- * @LastEditTime : 2021-07-28 15:00:10
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-08-02 15:57:40
  */
 // get the CookieManager instance
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';

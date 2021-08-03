@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-13 10:15:30
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-30 18:01:56
+ * @LastEditTime : 2021-08-03 10:16:18
  */
 // import 'package:localization_demo/i18n/app_localization_delegate.dart';
 // import 'package:localization_demo/i18n/app_localizations.dart';
@@ -36,7 +36,7 @@ class GlobalConfig with ChangeNotifier {
   //判断当前页面是否是webview页面
   bool isWebviewPage = false;
 
-  void setIsWebviewPage(val) {
+  void setIsWebviewPage(bool val) {
     this.isWebviewPage = val;
   }
 

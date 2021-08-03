@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-28 16:10:53
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-30 11:46:12
+ * @LastEditTime : 2021-08-03 10:15:41
  */
 import 'package:flutter/material.dart';
 import 'package:homary/common/utils/main.dart';
@@ -12,7 +12,9 @@ class FlexItem extends StatelessWidget {
   final Widget icon;
   final String count;
   final String url;
-  const FlexItem(this.text, this.icon, {Key key, this.count = '', this.url})
+  final String title;
+  const FlexItem(this.text, this.icon,
+      {Key key, this.count = '', this.url, this.title = ''})
       : super(key: key);
 
   @override
@@ -23,8 +25,11 @@ class FlexItem extends StatelessWidget {
       child: InkWell(
         onTap: () {
           if (this.url != null) {
-            Routes.push(context, '/webview',
-                params: {"content": '{"url":${this.url}}'});
+            Routes.push(context, '/webview', params: {
+              "appBarTitle": this.title,
+              "showAppLoading": '0',
+              "content": '{"url":"https://m.homary.com${this.url}"}'
+            });
           }
         },
         child: Column(
