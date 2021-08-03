@@ -2,11 +2,12 @@
  * @Author       : JHao
  * @Date         : 2021-07-16 19:35:41
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-30 10:53:56
+ * @LastEditTime : 2021-08-03 10:49:00
  */
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:homary/common/config/storage.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/requsetUrl.dart';
 import 'package:homary/common/utils/utils.dart';
@@ -27,6 +28,8 @@ class RrequsetHandler extends Interceptor {
       Map<String, dynamic> params, Map<String, dynamic> replaceParams) {
     Map<String, dynamic> finalParams = {};
     finalParams.addAll(replaceParams);
+    var dynamicData = Localstorage().getJSON(
+        DYNAMIC_DATA); // 动参 从后端接口https://frontapi.homary.com/api/app/init-config获取
     var currentConfig = Localstorage().getJSON('currentConfig') ?? {};
     _publicParams['token'] = Localstorage().getString('token') ?? '';
     _publicParams['eid'] = getEquipmentIdentification();
@@ -35,10 +38,10 @@ class RrequsetHandler extends Interceptor {
     _publicParams['currency'] = currentConfig['currency'] ?? 'usd';
     finalParams.addAll(_publicParams);
     params.forEach((key, value) {
-      finalParams.addAll({key: replaceParams[key] ?? _publicParams[key]});
+      finalParams.addAll({
+        key: replaceParams[key] ?? dynamicData[key] ?? _publicParams[key] ?? ''
+      });
     });
-    // finalParams.addEntries(_publicParams.entries);
-    // print("finalParams  $finalParams");
     return finalParams;
   }
 

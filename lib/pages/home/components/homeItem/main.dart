@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-19 16:50:47
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-03 10:14:11
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-03 10:34:04
  */
 import 'package:exposure/exposure.dart';
 import 'package:flutter/material.dart';
@@ -49,11 +49,6 @@ class _HomeItemState extends State<HomeItem>
   void initState() {
     super.initState();
     _scrollController.addListener(_handleScroll);
-    // Future.microtask(() async {
-    //   await Provider.of<GlobalConfig>(context, listen: false).getServiceTime();
-    //   Provider.of<HomeCtrl>(context, listen: false).getIndexData();
-    //   Provider.of<HomeCtrl>(context, listen: false).getRecommendList();
-    // });
   }
 
   @override
