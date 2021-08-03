@@ -2,18 +2,20 @@
  * @Author       : JHao
  * @Date         : 2021-07-20 15:12:17
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-28 15:09:11
+ * @LastEditTime : 2021-08-02 16:40:37
  */
 import 'package:flutter/material.dart';
 import 'package:homary/common/utils/main.dart';
-import 'package:homary/entity/home.dart';
+import 'package:homary/common/utils/schema2path.dart';
+import 'package:homary/entity/homeAdvInfo.dart';
 import 'package:homary/pages/home/contorller.dart';
 import 'package:homary/widget/networkImg.dart';
+import 'package:tuple/tuple.dart';
 
 class AD extends StatelessWidget {
   const AD({Key key}) : super(key: key);
 
-  Widget _item(ListElement item) {
+  Widget _item(BuildContext context, ModuleAdvDatum item) {
     return GestureDetector(
         child: Container(
           child: ClipRRect(
@@ -54,27 +56,34 @@ class AD extends StatelessWidget {
           ]),
         ),
         onTap: () {
-          print(item);
+          // print(item);
+          handleSchema(context, item.jumpUrl);
         });
   }
 
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
-        child: Selector<HomeCtrl, Module>(
-      builder: (BuildContext context, Module data, child) {
-        // print("Swiper ${data?.moduleData ?? '999'}");
-        return data?.moduleData != null && data?.moduleData?.list != null
-            ? Padding(
-                padding: EdgeInsets.fromLTRB(12.w, 12.w, 12.w, 0),
-                child: Wrap(
-                  alignment: WrapAlignment.spaceBetween,
-                  children: data.moduleData.list.map((e) => _item(e)).toList(),
-                ))
-            : Container();
+        child: Selector<HomeCtrl, Tuple2<AdvDatum, AdvDatum>>(
+      builder: (BuildContext context, Tuple2<AdvDatum, AdvDatum> data, child) {
+        return Padding(
+            padding: EdgeInsets.fromLTRB(12.w, 12.w, 12.w, 0),
+            child: Wrap(
+              alignment: WrapAlignment.spaceBetween,
+              children: [
+                data.item1?.moduleData != null &&
+                        data.item1.moduleData.length > 0
+                    ? _item(context, data.item1.moduleData[0])
+                    : Container(),
+                data.item2?.moduleData != null &&
+                        data.item2.moduleData.length > 0
+                    ? _item(context, data.item2.moduleData[0])
+                    : Container(),
+              ],
+            ));
       },
       selector: (BuildContext context, HomeCtrl homeData) {
-        return homeData.adList;
+        return Tuple2(homeData.leftAd, homeData.rightAd);
       },
       shouldRebuild: (pre, next) {
         return pre != next;

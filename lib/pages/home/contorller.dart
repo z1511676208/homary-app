@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-21 10:42:50
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-29 16:54:04
+ * @LastEditTime : 2021-08-02 18:47:13
  */
 /*
  * @Author       : zhhjie
@@ -16,55 +16,33 @@ import 'package:homary/common/request/request.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/toast.dart';
 import 'package:homary/entity/home.dart' hide ListElement;
+import 'package:homary/entity/homeAdvInfo.dart';
+import 'package:homary/entity/homeProductModule.dart';
+import 'package:homary/entity/homeReviewModule.dart';
 import 'package:homary/entity/recommend.dart';
 import 'package:homary/entity/topChannelCategory.dart';
 
 class HomeCtrl with ChangeNotifier {
-  Module bannerList;
-  Module kingKongList;
-  Module adList;
-  Module favoredList;
-  Module deaksList;
-  Module reviewList;
+  // 首页广告区
+  AdvDatum bannerList;
+  AdvDatum leftAd;
+  AdvDatum rightAd;
+  AdvDatum kingKongList;
+  // 首页热销商品区
+  HotSaleActivity favoredList;
+  HotSaleActivity deaksList;
+  // 首页评论区
+  ReviewData reviewList;
   // 推荐商品流
   List<ModuleDataProductList> recommendList = [];
   int hasMorePage = 1;
   bool recommendLoading = false;
   Map<String, int> recommendParams = {"page": 1, "page_size": 20};
   // 一级分类列表
-  List<Datum> topChannelList = [];
+  List<TopChannelDatum> topChannelList = [];
   List<String> topChannelNameList = [];
 
-  // 获取首页数据
-  Future<void> getIndexData({params}) async {
-    Toast.loading();
-    DioResult res = await HomeApi.getIndexData(params: params);
-    Toast.clear();
-    if (res.error == null) {
-      HomeDataRes result = HomeDataRes.fromJson(res.result);
-      var moduleType0 =
-          result.data.modules.where((item) => item.moduleType == 1).toList();
-      bannerList = moduleType0.length > 0 ? moduleType0[0] : new Module();
-      var moduleType7 =
-          result.data.modules.where((item) => item.moduleType == 7).toList();
-      kingKongList = moduleType7.length > 0 ? moduleType7[0] : new Module();
-      var moduleType8 =
-          result.data.modules.where((item) => item.moduleType == 8).toList();
-      adList = moduleType8.length > 0 ? moduleType8[0] : new Module();
-      var moduleType2 =
-          result.data.modules.where((item) => item.moduleType == 2).toList();
-      favoredList = moduleType2.length > 0 ? moduleType2[0] : new Module();
-      var moduleType3 =
-          result.data.modules.where((item) => item.moduleType == 3).toList();
-      deaksList = moduleType3.length > 0 ? moduleType3[0] : new Module();
-      var moduleType4 =
-          result.data.modules.where((item) => item.moduleType == 4).toList();
-      reviewList = moduleType4.length > 0 ? moduleType4[0] : new Module();
-      notifyListeners();
-    }
-  }
-
-  // 获取首页推荐商品柳
+  // 获取首页推荐商品流
   Future<void> getRecommendList({params}) async {
     recommendLoading = true;
     notifyListeners();
@@ -102,5 +80,49 @@ class HomeCtrl with ChangeNotifier {
       "topChannelList": topChannelList ?? [],
       "topChannelNameList": topChannelNameList ?? []
     };
+  }
+
+  // 获取首页广告
+  Future<void> getAdvInfo({params}) async {
+    Toast.loading();
+    DioResult res = await HomeApi.getAdvInfo(params: params);
+    Toast.clear();
+    if (res.error == null) {
+      AppAdvInfoRes result = AppAdvInfoRes.fromJson(res.result);
+      var moduleType1 =
+          result.data.where((item) => item.moduleType == 1).toList();
+      bannerList = moduleType1.length > 0 ? moduleType1[0] : new AdvDatum();
+      var moduleType2 =
+          result.data.where((item) => item.moduleType == 2).toList();
+      leftAd = moduleType2.length > 0 ? moduleType2[0] : new AdvDatum();
+      var moduleType3 =
+          result.data.where((item) => item.moduleType == 3).toList();
+      rightAd = moduleType3.length > 0 ? moduleType3[0] : new AdvDatum();
+      var moduleType4 =
+          result.data.where((item) => item.moduleType == 4).toList();
+      kingKongList = moduleType4.length > 0 ? moduleType4[0] : new AdvDatum();
+      notifyListeners();
+    }
+  }
+
+  // 获取商品模块
+  Future<void> getProductModule({params}) async {
+    DioResult res = await HomeApi.getProductModule(params: params);
+    if (res.error == null) {
+      HomeProductModuleRes result = HomeProductModuleRes.fromJson(res.result);
+      favoredList = result.data.saleFlow;
+      deaksList = result.data.hotSaleActivity;
+      notifyListeners();
+    }
+  }
+
+  // 获取首页评论模块
+  Future<void> getReviewModule({params}) async {
+    DioResult res = await HomeApi.getReviewModule(params: params);
+    if (res.error == null) {
+      HomeReviewModuleRes result = HomeReviewModuleRes.fromJson(res.result);
+      reviewList = result.data;
+      notifyListeners();
+    }
   }
 }

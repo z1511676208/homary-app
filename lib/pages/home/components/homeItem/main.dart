@@ -1,24 +1,17 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-19 16:50:47
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-30 19:18:56
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-02 19:45:59
  */
-import 'dart:math';
-
 import 'package:exposure/exposure.dart';
 import 'package:flutter/material.dart';
 import 'package:homary/common/utils/main.dart';
-import 'package:homary/entity/home.dart';
 import 'package:homary/generated/l10n.dart';
 import 'package:homary/pages/home/components/homeItem/components/RecommendList.dart';
 import 'package:homary/pages/home/components/homeItem/components/ad.dart';
 import 'package:homary/pages/home/components/homeItem/components/kingkong.dart';
 import 'package:homary/pages/home/components/homeItem/components/title.dart';
-import 'package:homary/pages/home/contorller.dart';
-
-import 'package:tuple/tuple.dart';
-
 import 'components/RecommendViewMoreButton.dart';
 import 'components/ReviewsList.dart';
 import 'components/serviveItems.dart';
@@ -55,7 +48,6 @@ class _HomeItemState extends State<HomeItem>
   @override
   void initState() {
     super.initState();
-    print("Home");
     _scrollController.addListener(_handleScroll);
     // Future.microtask(() async {
     //   await Provider.of<GlobalConfig>(context, listen: false).getServiceTime();
@@ -91,18 +83,6 @@ class _HomeItemState extends State<HomeItem>
               controller: _scrollController,
               scrollDirection: Axis.vertical,
               slivers: [
-                // SliverToBoxAdapter(
-                //   child: TextButton(
-                //       onPressed: () {
-                //         Routes.push(context, '/webview', params: {
-                //           "needLogin": '1',
-                //           "source": "facebook",
-                //           "content":
-                //               '{"url":"https://m.homary.com/category/coffee-tables-174.html"}'
-                //         });
-                //       },
-                //       child: Text("To Webview")),
-                // ),
                 SliverPadding(
                     padding: EdgeInsets.fromLTRB(12.w, 10.w, 12.w, 0),
                     sliver: BannerList()),

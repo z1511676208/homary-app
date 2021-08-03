@@ -2,16 +2,14 @@
  * @Author       : JHao
  * @Date         : 2021-07-26 10:13:01
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-26 16:28:01
+ * @LastEditTime : 2021-08-02 19:41:02
  */
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:homary/common/utils/main.dart';
-import 'package:homary/entity/home.dart';
+import 'package:homary/entity/homeReviewModule.dart';
 import 'package:homary/pages/home/contorller.dart';
 import 'package:homary/pages/reviewDetail/components/item.dart';
-import 'package:homary/widget/networkImg.dart';
 
 class ReviewsDetail extends StatelessWidget {
   final String index;
@@ -22,21 +20,22 @@ class ReviewsDetail extends StatelessWidget {
     SwiperController _controller = new SwiperController();
     return Scaffold(
         body: SafeArea(
-      child: Selector<HomeCtrl, Module>(
-        builder: (BuildContext context, Module data, child) {
+      child: Selector<HomeCtrl, ReviewData>(
+        builder: (BuildContext context, ReviewData data, child) {
           // print(data?.moduleData?.reviewList);
-          return data?.moduleData != null &&
-                  data?.moduleData?.reviewList != null
+          return data != null &&
+                  data?.reviewList != null &&
+                  data.reviewList.length > 0
               ? Stack(
                   children: [
                     Swiper(
                       itemBuilder: (BuildContext context, int index) {
                         return ReviewItem(
-                          data: data.moduleData.reviewList[index],
+                          data: data.reviewList[index],
                         );
                       },
                       index: int.parse(this.index),
-                      itemCount: data.moduleData.reviewList?.length,
+                      itemCount: data.reviewList?.length,
                       scrollDirection: Axis.horizontal,
                       autoplay: false,
                       controller: _controller,
@@ -103,7 +102,6 @@ class ReviewsDetail extends StatelessWidget {
               : Container();
         },
         selector: (BuildContext context, HomeCtrl homeData) {
-          print(homeData.reviewList);
           return homeData.reviewList;
         },
         shouldRebuild: (pre, next) {

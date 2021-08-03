@@ -2,13 +2,14 @@
  * @Author       : JHao
  * @Date         : 2021-07-20 15:12:17
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-28 15:16:45
+ * @LastEditTime : 2021-08-02 17:59:00
  */
 
 import 'package:flutter/material.dart';
 import 'package:homary/common/utils/main.dart';
+import 'package:homary/common/utils/schema2path.dart';
 import 'package:homary/components/GoodsCard/main.dart';
-import 'package:homary/entity/home.dart';
+import 'package:homary/entity/homeProductModule.dart';
 import 'package:homary/pages/home/contorller.dart';
 
 class GoodsList extends StatelessWidget {
@@ -20,16 +21,18 @@ class GoodsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
-        child: Selector<HomeCtrl, Module>(
-      builder: (BuildContext context, Module data, child) {
-        return data?.moduleData != null && data?.moduleData?.productList != null
+        child: Selector<HomeCtrl, HotSaleActivity>(
+      builder: (BuildContext context, HotSaleActivity data, child) {
+        return data != null &&
+                data?.productList != null &&
+                data.productList.length > 0
             ? Padding(
                 padding: EdgeInsets.fromLTRB(12.w, 20.w, 12.w, 0),
                 child: Column(
                   children: [
                     Row(
                       children: [
-                        Text(data.moduleData.title,
+                        Text(data.title,
                             style: TextStyle(
                                 fontSize: 16.sp,
                                 fontWeight: FontWeight.bold,
@@ -40,7 +43,7 @@ class GoodsList extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () {
-                            Routes.push(context, '/signIn?');
+                            handleSchema(context, data.moreJumpUrl);
                           },
                           child: Row(
                             children: [
@@ -74,9 +77,9 @@ class GoodsList extends StatelessWidget {
                               marginRight: 8.w,
                               moduleName: this.moduleName,
                               showCorner: this.showCorner,
-                              data: data.moduleData.productList[index]);
+                              data: data.productList[index]);
                         },
-                        itemCount: data.moduleData.productList.length,
+                        itemCount: data.productList.length,
                       ),
                     ),
                   ],

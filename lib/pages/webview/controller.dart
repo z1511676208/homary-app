@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-30 18:05:16
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-30 18:39:54
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-02 16:18:18
  */
 import 'package:homary/common/utils/main.dart';
 
@@ -14,7 +14,7 @@ class WebviewAppBarCtrl with ChangeNotifier {
   String appBarTitle = '';
 
   void setAppBarStatus(
-      {String appBarType, String isShowAppBar, String appBarTitle = ''}) {
+      {String appBarType, String isShowAppBar = '1', String appBarTitle = ''}) {
     this.showMore = appBarType != '0' && appBarType != '2';
     this.showCart = appBarType != '2';
     this.showCollect = appBarType != '1';

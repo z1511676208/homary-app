@@ -2,12 +2,13 @@
  * @Author       : JHao
  * @Date         : 2021-07-19 18:31:26
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-23 15:40:29
+ * @LastEditTime : 2021-08-02 16:02:51
  */
 import 'package:flutter/material.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:homary/entity/home.dart';
+import 'package:homary/common/utils/schema2path.dart';
+import 'package:homary/entity/homeAdvInfo.dart';
 import 'package:homary/pages/home/contorller.dart';
 import 'package:homary/widget/networkImg.dart';
 
@@ -20,17 +21,17 @@ class BannerList extends StatelessWidget {
       borderRadius: BorderRadius.circular(6.w),
       child: Container(
           height: 186.w,
-          child: Selector<HomeCtrl, Module>(
-            builder: (BuildContext context, Module data, child) {
-              return data?.moduleData != null && data?.moduleData?.list != null
+          child: Selector<HomeCtrl, AdvDatum>(
+            builder: (BuildContext context, AdvDatum data, child) {
+              return data?.moduleData != null && data?.moduleData?.length != 0
                   ? Swiper(
                       itemBuilder: (BuildContext context, int index) {
                         return CustomNetworkImage(
-                          data.moduleData.list[index]?.imgUrl,
+                          data.moduleData[index]?.imgUrl,
                           fit: BoxFit.cover,
                         );
                       },
-                      itemCount: data.moduleData.list?.length,
+                      itemCount: data.moduleData?.length,
                       pagination: new SwiperPagination(
                           builder: DotSwiperPaginationBuilder(
                         color: Color(0x99FFFFFF),
@@ -39,7 +40,9 @@ class BannerList extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       autoplay: true,
                       autoplayDelay: 5000,
-                      onTap: (index) => print('点击了第$index个'),
+                      onTap: (index) {
+                        handleSchema(context, data.moduleData[index]?.jumpUrl);
+                      },
                     )
                   : Image.asset(
                       'assets/baseImage.png',
