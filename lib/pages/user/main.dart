@@ -14,18 +14,19 @@ class UserPageView extends StatefulWidget {
 
 class _UserPageViewState extends State<UserPageView> {
   bool isLogin;
+
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
+  void didChangeDependencies() {
     setState(() {
       this.isLogin = Localstorage().getBool('isLogin') ?? false;
     });
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       if (this.isLogin) {
-        Provider.of<UserCtrl>(context, listen: false).userCenter();
+        // Provider.of<UserCtrl>(context, listen: false).userCenter();
+        Provider.of<UserCtrl>(context, listen: false).getRecentlyBrowsed();
       }
     });
+    super.didChangeDependencies();
   }
 
   @override

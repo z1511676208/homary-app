@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-16 19:35:41
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-03 10:49:00
+ * @LastEditTime : 2021-08-04 18:46:37
  */
 import 'dart:io';
 
@@ -54,7 +54,12 @@ class RrequsetHandler extends Interceptor {
     options.path = url;
     if (options.method.toLowerCase() == 'post') {
       Map<String, dynamic> finalParams = formatParams(
-          params, options.data != null ? options.data.toJson() : {});
+          params,
+          options.data != null
+              ? options.data is Map
+                  ? options.data
+                  : options.data.toJson()
+              : {});
       if (options.extra['isRequire'] == false) {
         // 如果接口不需要登陆token  则从参数中移除
         finalParams.remove('token');

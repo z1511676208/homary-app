@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-09 19:31:26
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-29 16:30:04
+ * @LastEditTime : 2021-08-04 14:35:38
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/pages/home/components/tabBar/CustomUnderlineTabIndicator.dart';
@@ -62,7 +62,9 @@ class _TabBarWidgetState extends State<TabBarWidget>
                   size: 20.sp,
                   color: AppColor.primaryBorderOutline,
                 ),
-                onTap: () {},
+                onTap: () {
+                  Routes.goHome(pageIndex: 1);
+                },
               ),
               decoration: BoxDecoration(boxShadow: [
                 BoxShadow(blurRadius: 10.0),

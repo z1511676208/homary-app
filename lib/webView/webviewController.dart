@@ -9,6 +9,7 @@ import 'package:homary/common/utils/bus.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/requsetUrl.dart';
+import 'package:homary/common/utils/schema2path.dart';
 import 'package:homary/common/utils/toast.dart';
 import 'package:homary/pages/webview/controller.dart';
 
@@ -36,6 +37,7 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
         // https://github.com/pichillilorenzo/flutter_inappwebview/pull/860
         // applicationNameForUserAgent: "Homary"
         userAgent: "Mobile,${Platform.isIOS ? 'iPhone' : 'Android'},Homary",
+        resourceCustomSchemes: ['homary'],
       ),
       android: AndroidInAppWebViewOptions(
         useHybridComposition: true,
@@ -79,6 +81,12 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
     content = jsonDecode(widget.content) ?? {};
     url = _formatParams();
     super.initState();
+  }
+
+  @override
+  void deactivate() {
+    Provider.of<GlobalConfig>(context, listen: false).setIsWebviewPage(false);
+    super.deactivate();
   }
 
   @override
@@ -128,13 +136,13 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
         if (widget.showAppLoading == '1') {
           Toast.loading();
         }
-        setPlatform();
+        setPlatform(); // 设置公参 pf 到 webview cookie
+        // 切换站点 语言 币种时，刷新webview
         busEvent.subWebViewCtrl('switchSite', ctrlName, () {
           setWebviewCookies();
           controller.reload();
         });
-        Cookie cookie = await getCookie('currentConfig');
-        print('cookie=====>${cookie.value}');
+        // webview header 返回按钮
         busEvent.subWebViewCtrl('goback', ctrlName, () async {
           bool canGoBack = await controller?.canGoBack();
           if (canGoBack) {
@@ -143,7 +151,7 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
             Routes.pop();
           }
         });
-        //传值给webview
+        // webview 与 App 通信
         controller.addJavaScriptHandler(
             handlerName: "webviewGoBack",
             callback: (args) {
@@ -156,17 +164,27 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
             });
       },
       onLoadStart: (InAppWebViewController controller, Uri url) {
-        print('url===>$url');
         changeHeadStatus(url);
       },
       onProgressChanged: (InAppWebViewController controller, int progress) {
-        // print("加载进度  ===》   $progress");
+        if (progress > 80) {
+          Toast.clear();
+        }
       },
-      onLoadStop: (InAppWebViewController controller, Uri url) async {
-        // print("onLoadStop => ");
-        Toast.clear();
-        // print(await controller.evaluateJavascript(
-        //     source: "window.navigator.userAgent"));
+      onLoadStop: (InAppWebViewController controller, Uri url) async {},
+      onLoadResourceCustomScheme: (InAppWebViewController controller, Uri url) {
+        // 拦截webview 跳转 homary协议地址
+        // print("onLoadResourceCustomScheme $url");
+        if (url.scheme == 'homary') {
+          var params = getSchemaParams(url.toString());
+          var content = jsonDecode(params['params']['content']);
+          var link = Uri.decodeComponent(content['url']);
+          controller.loadUrl(
+            urlRequest: URLRequest(url: Uri.parse(link)),
+          );
+          return null;
+        }
+        return null;
       },
       onUpdateVisitedHistory:
           (InAppWebViewController controller, Uri url, bool androidIsReload) {

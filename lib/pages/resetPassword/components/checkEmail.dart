@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-14 18:20:33
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-28 13:59:13
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-04 14:40:28
  */
 import 'package:flutter/gestures.dart';
 import 'package:homary/common/utils/main.dart';
@@ -60,7 +60,7 @@ class CheckEmail extends StatelessWidget {
                               TextStyle(decoration: TextDecoration.underline),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              print('object');
+                              // print('object');
                             }),
                       TextSpan(text: S.of(context).resetpassword_remind4)
                     ],

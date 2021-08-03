@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-19 16:50:47
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-03 10:34:04
+ * @LastEditTime : 2021-08-04 18:46:44
  */
 import 'package:exposure/exposure.dart';
 import 'package:flutter/material.dart';
@@ -118,8 +118,8 @@ class _HomeItemState extends State<HomeItem>
                     GestureDetector(
                       onTap: () {},
                       child: Container(
-                        width: 37.w,
-                        height: 37.w,
+                        width: 42.w,
+                        height: 42.w,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           shape: BoxShape.circle,
@@ -135,7 +135,7 @@ class _HomeItemState extends State<HomeItem>
                         child: Icon(
                           Iconfont.Customer,
                           color: AppColor.primaryText,
-                          size: 20.sp,
+                          size: 26.sp,
                         ),
                       ),
                     ),
@@ -149,8 +149,8 @@ class _HomeItemState extends State<HomeItem>
                             curve: Curves.easeIn);
                       },
                       child: Container(
-                        width: 37.w,
-                        height: 37.w,
+                        width: 42.w,
+                        height: 42.w,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           shape: BoxShape.circle,
@@ -166,7 +166,7 @@ class _HomeItemState extends State<HomeItem>
                         child: Icon(
                           Iconfont.ArrowUp,
                           color: AppColor.primaryText,
-                          size: 16.sp,
+                          size: 20.sp,
                         ),
                       ),
                     ),

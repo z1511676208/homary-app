@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-05 14:56:41
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-03 10:13:48
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-04 14:39:52
  * webview cookie设置
  */
 import 'dart:convert';
@@ -26,7 +26,6 @@ setCurrentConfigCookie() {
 // token
 setTokenCookie() {
   String token = getToken();
-  print('token====>$token');
   setCookie('token', token);
 }
 

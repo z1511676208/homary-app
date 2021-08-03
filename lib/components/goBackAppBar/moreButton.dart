@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-27 15:53:52
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-27 16:30:27
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-04 14:40:10
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:popover/popover.dart';
@@ -52,9 +52,7 @@ class ListItems extends StatelessWidget {
             children: list
                 .map(
                   (e) => InkWell(
-                      onTap: () {
-                        print('#########');
-                      },
+                      onTap: () {},
                       child: Container(
                           padding: EdgeInsets.only(
                               left: 13.5.w, top: 10.w, bottom: 10.w),

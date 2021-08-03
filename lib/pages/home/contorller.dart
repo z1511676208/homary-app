@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-21 10:42:50
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-02 18:47:13
+ * @LastEditTime : 2021-08-03 17:47:15
  */
 /*
  * @Author       : zhhjie
@@ -15,7 +15,7 @@ import 'package:homary/api/home.dart';
 import 'package:homary/common/request/request.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/toast.dart';
-import 'package:homary/entity/home.dart' hide ListElement;
+import 'package:homary/entity/home.dart';
 import 'package:homary/entity/homeAdvInfo.dart';
 import 'package:homary/entity/homeProductModule.dart';
 import 'package:homary/entity/homeReviewModule.dart';

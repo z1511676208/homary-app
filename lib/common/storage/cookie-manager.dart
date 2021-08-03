@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-06 16:05:52
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-02 15:57:40
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-04 14:39:48
  */
 // get the CookieManager instance
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -15,7 +15,6 @@ final expiresDate =
 final url = Uri.parse("https://m.homary.com");
 
 setCookie(String key, dynamic value) async {
-  print("======> $key   $value");
   await cookieManager.setCookie(
     url: url,
     name: key,

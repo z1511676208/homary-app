@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-21 10:31:45
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-28 14:56:33
+ * @LastEditTime : 2021-08-04 14:40:03
  */
 class BusProvider {
   static BusProvider _instance = BusProvider._internal();
@@ -13,7 +13,7 @@ class BusProvider {
   BusProvider._internal();
 
   checkControllers() {
-    print('controllerList ---- $events');
+    // print('controllerList ---- $events');
   }
 
   removeControllers(String name, String ctrlName) {
@@ -21,7 +21,7 @@ class BusProvider {
       webViewEvent[name].removeWhere((key, value) {
         return key == ctrlName;
       });
-      print('webViewEvent ---- $webViewEvent');
+      // print('webViewEvent ---- $webViewEvent');
     }
   }
 

@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-06 10:11:04
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-03 10:16:22
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-04 15:00:00
  */
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
@@ -22,13 +22,15 @@ Handler signInPageHandler = Handler(
   },
 );
 
-// 登录
-Handler indexPageHandler = Handler(
+// 首页
+Handler homePageHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    return IndexPage();
+    String pageIndex = params['pageIndex']?.first ?? '0';
+    return IndexPage(
+      pageIndex: pageIndex,
+    );
   },
 );
-
 // 滚动列表埋点
 Handler scrollListInPageHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
