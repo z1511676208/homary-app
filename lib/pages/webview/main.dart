@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-06 13:48:25
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-03 10:16:10
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-05 16:15:44
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/components/drawer/main.dart';
@@ -16,7 +16,7 @@ import 'controller.dart';
 class WebviewPageView extends StatefulWidget {
   final String needLogin;
   final String source;
-  final String content;
+  final Map<String, dynamic> content;
   final String appBarTitle;
   final String showAppLoading;
   WebviewPageView(
@@ -67,7 +67,7 @@ class _WebviewPageViewState extends State<WebviewPageView> {
 class WebviewPage extends StatelessWidget {
   final String needLogin;
   final String source;
-  final String content;
+  final Map<String, dynamic> content;
   final String appBarTitle;
   final String showAppLoading;
   const WebviewPage(

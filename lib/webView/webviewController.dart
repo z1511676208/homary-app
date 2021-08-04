@@ -16,7 +16,7 @@ import 'package:flutter_braintree/flutter_braintree.dart';
 class WebviewCtrl extends StatefulWidget {
   final String needLogin;
   final String source;
-  final String content;
+  final Map<String, dynamic> content;
   final String showAppLoading;
   WebviewCtrl(
       {Key key,
@@ -52,7 +52,7 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
   // 路由参数
   String needLogin = '0';
   String source = '';
-  dynamic content;
+  Map<String, dynamic> content;
   String url;
 
   void changeHeadStatus(Uri url) {
@@ -90,7 +90,7 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
   void initState() {
     needLogin = widget.needLogin;
     source = widget.source;
-    content = jsonDecode(widget.content) ?? {};
+    content = widget.content;
     url = _formatParams();
     super.initState();
   }
@@ -223,17 +223,28 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
         }
       },
       onLoadStop: (InAppWebViewController controller, Uri url) async {},
-      onLoadResourceCustomScheme: (InAppWebViewController controller, Uri url) {
+      onLoadResourceCustomScheme:
+          (InAppWebViewController controller, Uri url) async {
         // 拦截webview 跳转 homary协议地址
         // print("onLoadResourceCustomScheme $url");
         if (url.scheme == 'homary') {
           var params = getSchemaParams(url.toString());
           var content = jsonDecode(params['params']['content']);
           var link = Uri.decodeComponent(content['url']);
+          // int index = link.indexOf('homary.com');
+          // if (index != -1) {
+          //   link = link.substring(index + 10);
+          // }
+          // print(link);
+          // await controller.evaluateJavascript(
+          //     source:
+          //         "history.pushState('', 'Homary_App', $link);window.location.reload();");
+
           controller.loadUrl(
             urlRequest: URLRequest(url: Uri.parse(link)),
           );
-          return null;
+
+          // return null;
         }
         return null;
       },

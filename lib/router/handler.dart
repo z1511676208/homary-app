@@ -1,18 +1,24 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-06 10:11:04
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-05 18:08:44
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-05 19:25:34
  */
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
 import 'package:homary/pages/index/main.dart';
 import 'package:homary/pages/reviewDetail/main.dart';
-import 'package:homary/pages/scroll-list/main.dart';
 import 'package:homary/pages/signIn/main.dart';
 import 'package:homary/pages/webview/main.dart';
 import 'package:homary/pages/resetPassword/main.dart';
 import 'package:homary/pages/search/main.dart';
+
+Map<String, dynamic> _getContent(dynamic content) {
+  String contentString = content ?? '{}';
+  return jsonDecode(contentString);
+}
 
 // 登录
 Handler signInPageHandler = Handler(
@@ -31,25 +37,18 @@ Handler homePageHandler = Handler(
     );
   },
 );
-// 滚动列表埋点
-Handler scrollListInPageHandler = Handler(
-  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    return ScrollListExposure();
-  },
-);
 
 // webview
 Handler webViewInPageHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     String needLogin = params['needLogin']?.first ?? '0';
     String source = params['source']?.first ?? '';
-    String content = params['content']?.first ?? null;
     String appBarTitle = params['appBarTitle']?.first ?? '';
     String showAppLoading = params['showAppLoading']?.first ?? '1';
     return WebviewPage(
         needLogin: needLogin,
         source: source,
-        content: content,
+        content: _getContent(params['content']?.first),
         appBarTitle: appBarTitle,
         showAppLoading: showAppLoading);
   },
