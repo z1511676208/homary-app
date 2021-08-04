@@ -2,13 +2,12 @@
  * @Author       : JHao
  * @Date         : 2021-07-09 19:31:26
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-02 15:32:54
+ * @LastEditTime : 2021-08-03 13:44:03
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/entity/topChannelCategory.dart';
 import 'package:homary/pages/home/components/CategoryItem/main.dart';
 import 'package:homary/pages/home/components/homeItem/main.dart';
-import 'package:homary/pages/home/contorller.dart';
 
 class TabViewBox extends StatelessWidget {
   final TabController _tabController;
@@ -27,7 +26,10 @@ class TabViewBox extends StatelessWidget {
             int idx = entry.key;
             TopChannelDatum val = entry.value;
             return CategoryItem(
-                link: val.jumpUrl, idx: idx, tabController: _tabController);
+                key: ValueKey(val.categoryId),
+                link: val.jumpUrl,
+                idx: idx,
+                tabController: _tabController);
           }).toList()
         ],
       ),

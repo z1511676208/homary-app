@@ -1,8 +1,8 @@
 <!--
  * @Author       : JHao
  * @Date         : 2021-06-25 16:39:55
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-29 17:21:19
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-04 17:07:14
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -29,14 +29,19 @@
   //callHandler里的字符串一定要和flutter端的handlerName对应的名称相同
   var isInitedAppWebview = false;
   window.addEventListener("flutterInAppWebViewPlatformReady", function(event) { 
-    print('2222')
     isInitedAppWebview = true;
     window.flutter_inappwebview.callHandler('TEST') .then(function(result) {
       alert(result['a'])
     })
   });
   btn.onclick = function(){
-   alert(isInitedAppWebview);
+  //  window.location.href = 'homary://webview?needLogin=0&source=&content={\"url\":\"https:\\/\\/m.homary.com\\/item\\/47-black-gold-console-table-small-accent-table-for-entryway-foyer-solid-wood-metal-11252.html\"}'
+   const userAgent = window.navigator.userAgent
+   alert(userAgent);
+        if (userAgent.indexOf('Homary') !== -1) {
+          window.location.href = 'homary://webview?needLogin=0&source=&content={\"url\":\"https:\\/\\/m.homary.com\\/item\\/47-black-gold-console-table-small-accent-table-for-entryway-foyer-solid-wood-metal-11252.html\"}'
+            return
+        }
     if(isInitedAppWebview){
       window.flutter_inappwebview .callHandler('Get',document.cookie)
     }

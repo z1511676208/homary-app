@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-20 13:44:02
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-28 16:40:57
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-04 14:40:24
  */
 import 'package:flutter/material.dart';
 import 'package:homary/common/utils/main.dart';
@@ -57,7 +57,7 @@ class ServiceItems extends StatelessWidget {
             return pre != next;
           },
           builder: (context, CommonAmountList data, child) {
-            print(data);
+            // print(data);
             return _item('assets/images/home/head_serve_off.png',
                 '${S.of(context).HomePage_ServiceIcon1} ${data?.couponNewuserAmountStr ?? ''} Off');
           },

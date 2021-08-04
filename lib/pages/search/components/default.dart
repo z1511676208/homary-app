@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-19 16:21:04
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-20 11:03:26
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-04 14:40:43
  */
 import 'package:hexcolor/hexcolor.dart';
 import 'package:homary/common/utils/main.dart';
@@ -68,7 +68,6 @@ class DefaultView extends StatelessWidget {
                     ),
                     IconButton(
                         onPressed: () {
-                          print('clear');
                           Provider.of<SearchCtrl>(context, listen: false)
                               .removeItem(index);
                         },

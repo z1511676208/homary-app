@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-07 20:28:59
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-02 20:30:36
+ * @LastEditTime : 2021-08-04 11:34:30
  */
 import 'dart:convert';
 import 'package:homary/common/utils/main.dart';
@@ -86,11 +86,21 @@ class _HomePageViewState extends State<HomePageView>
   }
 }
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  HomePage({Key key}) : super(key: key);
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return HomePageView();
   }
 }

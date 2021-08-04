@@ -2,29 +2,29 @@
  * @Author       : JHao
  * @Date         : 2021-07-07 20:28:59
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-02 16:07:53
+ * @LastEditTime : 2021-08-04 15:00:50
  */
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:homary/provider/common.dart';
 import 'package:homary/router/handler.dart';
 import 'package:homary/main.dart';
 import 'package:homary/common/utils/navigateWatcher.dart';
+import 'package:provider/provider.dart';
 
 /// 路由
 class Routes {
   static FluroRouter router;
 
   /// 首页
-  static String index = '/';
+  static String home = '/';
+  static String index = '/index';
 
   /// 注册页
   static String signIn = '/signIn';
 
   /// webview
   static String webView = '/webview';
-
-  /// 注册页
-  static String scrollList = '/scrollList';
 
   /// 重置密码
   static String resetPassword = '/resetPassword';
@@ -42,9 +42,8 @@ class Routes {
       return;
     });
 
-    router.define(index, handler: indexPageHandler); //
-    router.define(signIn, handler: signInPageHandler); //
-    router.define(scrollList, handler: scrollListInPageHandler); // 注册登录页
+    router.define(index, handler: homePageHandler);
+    router.define(signIn, handler: signInPageHandler);
     router.define(webView, handler: webViewInPageHandler); // webview
     router.define(resetPassword, handler: resetPasswordPageHandler);
     router.define(reviewDetail, handler: reviewDetailPageHandler);
@@ -111,9 +110,18 @@ class Routes {
   }
 
   /// 进入首页
-  static goHome({bool replace = true}) {
+  static goHome(
+      {bool replace = true, int pageIndex = 0, Map<String, dynamic> params}) {
+    String queryStr = "";
+    if (params == null) {
+      params = {};
+    }
+    params.addAll({"pageIndex": pageIndex});
+    queryStr = formatQueryParams({
+      ...params,
+    });
     BuildContext context = navigatorKey.currentState.overlay.context;
-    router.navigateTo(context, "/",
+    router.navigateTo(context, "/index" + queryStr,
         replace: replace, transition: TransitionType.fadeIn);
   }
 

@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-26 10:13:01
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-02 19:41:02
+ * @LastEditTime : 2021-08-04 14:40:34
  */
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -22,7 +22,6 @@ class ReviewsDetail extends StatelessWidget {
         body: SafeArea(
       child: Selector<HomeCtrl, ReviewData>(
         builder: (BuildContext context, ReviewData data, child) {
-          // print(data?.moduleData?.reviewList);
           return data != null &&
                   data?.reviewList != null &&
                   data.reviewList.length > 0
