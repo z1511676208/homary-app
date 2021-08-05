@@ -6,6 +6,7 @@
  */
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:homary/api/common.dart';
 import 'package:homary/common/request/request.dart';
 import 'package:homary/common/utils/localstorage.dart';
@@ -44,7 +45,11 @@ class Global {
     });
 
     /// android 初始化
-    if (Platform.isAndroid) {}
+    if (Platform.isAndroid) {
+      SystemUiOverlayStyle systemUiOverlayStyle =
+          SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+      SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+    }
 
     /// IOS 初始化
     if (Platform.isIOS) {}
