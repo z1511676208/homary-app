@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-13 10:15:30
- * @LastEditors  : JHao
- * @LastEditTime : 2021-08-04 14:40:52
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-08-04 18:52:34
  */
 // import 'package:localization_demo/i18n/app_localization_delegate.dart';
 // import 'package:localization_demo/i18n/app_localizations.dart';
@@ -46,7 +46,6 @@ class GlobalConfig with ChangeNotifier {
 
   //获取公共配置
   Future getCommonConfig() async {
-    // print('lang=>>>${_locale.toString()}');
     if (this.currentConfigList.isEmpty) {
       DioResult res = await SlideNavApi.getGlobalConfig();
       if (res.error == null) {
@@ -84,7 +83,7 @@ class GlobalConfig with ChangeNotifier {
   }
 
   //获取菜单
-  Future getNavList({bool isNOtNotify = false}) async {
+  Future getNavList({bool isNotNotify = false}) async {
     if (this.navList.isEmpty) {
       Toast.loading();
       DioResult res = await SlideNavApi.getSlideNavData();
@@ -92,7 +91,7 @@ class GlobalConfig with ChangeNotifier {
       if (res.error == null) {
         this.navList = SlideNavRes.fromJson(res.result).data;
       }
-      if (!isNOtNotify) {
+      if (!isNotNotify) {
         notifyListeners();
       }
     }
@@ -100,30 +99,24 @@ class GlobalConfig with ChangeNotifier {
 
   //更新公共配置  configData->配置数据 configType->配置类型 1:站点 2：语言 3：货币
   Future updateCurrentConfig(configData, configType) async {
-    // print('configData===>$configData');
     switch (configType) {
       case 1:
         this.currentConfig.site = configData.siteCode;
         this.currentConfig.language = configData.languageCode;
         this.currentConfig.currency = configData.currencyCode;
-        // this._locale = Locale(configData.languageCode, '');
-        // this.currentConfigList[0]['subTitle'] = configData.siteName;
         break;
       case 2:
         this.currentConfig.language = configData.code;
-        // this.currentConfigList[1]['subTitle'] = configData.name;
-        // this._locale = Locale(configData.code, '');
         break;
       default:
         this.currentConfig.currency = configData.code;
-      // this.currentConfigList[2]['subTitle'] = configData.enName;
     }
     setCurrentConfig(this.currentConfig.toJson());
     setCurrentConfigCookie();
     busEvent.pubWebViewCtrl('switchSite'); // 通知webview刷新页面
     this.navList = [];
     this.currentConfigList = [];
-    await this.getNavList(isNOtNotify: true);
+    await this.getNavList(isNotNotify: true);
     await this.getCommonConfig();
   }
 

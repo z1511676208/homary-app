@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-13 10:15:30
- * @LastEditors  : JHao
- * @LastEditTime : 2021-08-03 10:31:25
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-08-03 11:18:52
  */
 Map<String, String> baseRequestUrl = {
   "homeReviewModule":
@@ -34,7 +34,7 @@ Map<String, String> baseRequestUrl = {
       "https://frontapi.homary.com/product/product/get-product-detail-recommend-list?sku_id=#",
   "skuCombineBuyRecommendList":
       "https://frontapi.homary.com/product/product/get-sku-combine-buy-recommend-list?sku_id=#",
-  "hotKeywords": "https://frontapi.homary.com/product/search/hot-keywords",
+  "hotKeywords": "https://frontapi.homary.com/product/search/hot-keywords", //热搜
   "analyzeData": "https://frontapi.homary.com/product/search/analyze-data",
   "activityInfo":
       "https://frontapi.homary.com/product/activity/get-activity-info?activity_id=#",

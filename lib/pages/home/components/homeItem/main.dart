@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-19 16:50:47
- * @LastEditors  : JHao
- * @LastEditTime : 2021-08-04 18:46:44
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-08-04 18:51:58
  */
 import 'package:exposure/exposure.dart';
 import 'package:flutter/material.dart';
@@ -116,7 +116,14 @@ class _HomeItemState extends State<HomeItem>
                 child: Column(
                   children: [
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Routes.push(context, '/webview', params: {
+                          "needLogin": '1',
+                          "source": "facebook",
+                          "content":
+                              '{"url":"https://m.homary.com/AppCustomerService"}'
+                        });
+                      },
                       child: Container(
                         width: 42.w,
                         height: 42.w,

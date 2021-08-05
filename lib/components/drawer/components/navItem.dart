@@ -2,10 +2,11 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-09 16:22:36
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-28 16:20:22
+ * @LastEditTime : 2021-08-03 17:36:10
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:homary/common/utils/schema2path.dart';
 
 import '../controller.dart';
 
@@ -17,16 +18,18 @@ class NavItem extends StatelessWidget {
   final List subList;
   final bool isConfig; //判断是是否是配置菜单点击 1是0否
   final int configType;
-  const NavItem({
-    Key key,
-    this.title,
-    this.subTitle,
-    this.index,
-    this.trailing,
-    this.subList,
-    this.isConfig,
-    this.configType,
-  }) : super(key: key);
+  final String jumpUrl;
+  const NavItem(
+      {Key key,
+      this.title,
+      this.subTitle,
+      this.index,
+      this.trailing,
+      this.subList,
+      this.isConfig,
+      this.configType,
+      this.jumpUrl})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +38,7 @@ class NavItem extends StatelessWidget {
           Provider.of<SlideNavCtrl>(context, listen: false)
               .setSubList(subList, title);
           if (subList == null || subList.isEmpty) {
-            Navigator.of(context).pop();
+            handleSchema(context, this.jumpUrl, appBarTitle: title);
           } else {
             Provider.of<SlideNavCtrl>(context, listen: false).subListToggle();
           }

@@ -1,11 +1,12 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-19 16:21:04
- * @LastEditors  : JHao
- * @LastEditTime : 2021-08-04 14:40:43
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-08-04 18:52:03
  */
 import 'package:hexcolor/hexcolor.dart';
 import 'package:homary/common/utils/main.dart';
+import 'package:homary/common/utils/schema2path.dart';
 import '../controller.dart';
 
 class DefaultView extends StatelessWidget {
@@ -60,6 +61,7 @@ class DefaultView extends StatelessWidget {
                         Provider.of<SearchCtrl>(context, listen: false)
                             .toProductList(list[index]['name'],
                                 list[index]['url'], 'event');
+                        handleSchema(context, list[index]['url']);
                       },
                       child: Text(list[index]['name'],
                           style: TextStyle(
@@ -114,6 +116,7 @@ class DefaultView extends StatelessWidget {
                       Provider.of<SearchCtrl>(context, listen: false)
                           .toProductList(list[index].hotWord,
                               list[index].activityUrl, 'event');
+                      handleSchema(context, list[index].activityUrl);
                     },
                     child: Row(
                       children: [

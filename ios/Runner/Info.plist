@@ -23,11 +23,14 @@
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>CFBundleURLName</key>
+      <string>com.your-company.your-app.braintree</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.googleusercontent.apps.1053109877152-lvg1mu0vbavjlvg70pkmmun21abuuhe9</string>
 				<string>fb323056598293129</string>
 				<string>twitterkit-twmeqdH1DOZJxRFUDpjaSj9iP</string>
+				<string>com.your-company.your-app.braintree</string>
 			</array>
 		</dict>
 		<dict>

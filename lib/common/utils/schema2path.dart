@@ -1,12 +1,12 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-07 20:04:36
- * @LastEditors  : JHao
- * @LastEditTime : 2021-08-04 15:09:12
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-08-04 18:51:48
  */
 import 'package:homary/router/routes.dart';
 
-void handleSchema(context, String link) {
+void handleSchema(context, String link, {String appBarTitle}) {
   String targetUrl = link.replaceFirst(
     'homary://',
     '/',
@@ -17,12 +17,17 @@ void handleSchema(context, String link) {
   if (targetUrl.startsWith('/?')) {
     targetUrl = "/index?" + targetUrl.substring(2);
   }
+  Map<String, String> paramsMap = {};
   Uri _paramsUri = Uri.parse(targetUrl);
   String url = targetUrl.split('?')[0];
   Map<String, String> schemaParams = _paramsUri.queryParameters;
+  paramsMap.addAll(schemaParams);
+  if (appBarTitle != null) {
+    paramsMap.addAll({"appBarTitle": appBarTitle});
+  }
   if (targetUrl != null) {
     // do something before page push
-    Routes.push(context, url, params: schemaParams);
+    Routes.push(context, url, params: paramsMap);
   }
 }
 

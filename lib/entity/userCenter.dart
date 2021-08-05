@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-30 09:55:08
- * @LastEditors  : JHao
- * @LastEditTime : 2021-08-03 17:40:18
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-08-04 18:51:54
  */
 // To parse this JSON data, do
 //
@@ -52,14 +52,14 @@ class Data {
     this.userIdentification,
   });
 
-  String couponCount;
+  int couponCount;
   int pointCount;
-  String goodsCollectionCount;
-  String userViewCount;
-  String unpaidOrderCount;
-  String processingOrderCount;
-  String shippedOrderCount;
-  String returnOrderCount;
+  int goodsCollectionCount;
+  int userViewCount;
+  int unpaidOrderCount;
+  int processingOrderCount;
+  int shippedOrderCount;
+  int returnOrderCount;
   String userIdentification;
 
   factory Data.fromRawJson(String str) => Data.fromJson(json.decode(str));
