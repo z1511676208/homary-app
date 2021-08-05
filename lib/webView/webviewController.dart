@@ -179,8 +179,18 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
             handlerName: "AppJumpUrl",
             callback: (args) {
               String url = args[0];
+              Map<String, dynamic> params = {};
+              if (url.contains('?')) {
+                List _url = url.split('?');
+                url = _url[0];
+                List<String> list = _url[1].split('&');
+                list.forEach((element) {
+                  List arr = element.split('=');
+                  params.addAll({arr[0]: arr[1]});
+                });
+              }
               if (url != null) {
-                Routes.push(context, url);
+                Routes.replace(context, url, params: params);
               }
             });
 
@@ -192,7 +202,8 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
                   currencyCode: jsonData['currency'],
                   amount: jsonData['amount'].toString());
               // Toast.loading();
-              final result = await Braintree.requestPaypalNonce(
+              BraintreePaymentMethodNonce result =
+                  await Braintree.requestPaypalNonce(
                 jsonData['token'],
                 request,
               );

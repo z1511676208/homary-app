@@ -1,4 +1,3 @@
-import 'package:flutter_braintree/flutter_braintree.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
 import 'components/FlexItem.dart';
@@ -23,7 +22,7 @@ class _UserPageViewState extends State<UserPageView> {
     });
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       if (this.isLogin) {
-        // Provider.of<UserCtrl>(context, listen: false).userCenter();
+        Provider.of<UserCtrl>(context, listen: false).userCenter();
         Provider.of<UserCtrl>(context, listen: false).getRecentlyBrowsed();
       }
     });

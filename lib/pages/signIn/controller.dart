@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-13 11:36:43
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-04 18:52:07
+ * @LastEditTime : 2021-08-05 18:19:00
  */
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -22,6 +22,7 @@ class SignInCtrl with ChangeNotifier {
   bool showEmailTip = false;
   String loginInEmailErr;
   String loginInPassErr;
+  String redirect;
   List emailPatterns = [
     '@gmail.com',
     '@hotmail.com',
@@ -35,6 +36,13 @@ class SignInCtrl with ChangeNotifier {
     '@msn.com'
   ];
   List emailPatternList = [];
+  //获取设置重定向地址
+  setRedirect(val) {
+    print(val);
+    this.redirect = val;
+  }
+
+  //邮箱填写提示
   void reseteEailPatterns(String val) {
     if (val == '' || (val.indexOf('@') != -1 && val[val.length - 1] != '@')) {
       this.emailPatternList = [];
@@ -70,7 +78,7 @@ class SignInCtrl with ChangeNotifier {
   final FacebookLogin facebookSignIn = new FacebookLogin();
 
   //登录
-  Future signIn(email, password) async {
+  Future signIn(context, email, password) async {
     Toast.loading();
     UserEmailLoginReq params =
         UserEmailLoginReq(email: email, password: password);
@@ -78,7 +86,7 @@ class SignInCtrl with ChangeNotifier {
     Toast.clear();
     if (res.error == null) {
       UserEmailLoginRes result = UserEmailLoginRes.fromJson(res.result);
-      this.successCb(result);
+      this.successCb(context, result);
     } else {
       if (res.error['code'] == 30011) {
         this.loginInEmailErr = res.error['message'];
@@ -93,7 +101,7 @@ class SignInCtrl with ChangeNotifier {
   }
 
   //注册
-  Future userRegister(email, password, subscribeParam) async {
+  Future userRegister(context, email, password, subscribeParam) async {
     Toast.loading();
     int subscribe = subscribeParam ? 1 : 0;
     UserRegisterReq params =
@@ -102,7 +110,7 @@ class SignInCtrl with ChangeNotifier {
     Toast.clear();
     if (res.error == null) {
       UserEmailLoginRes result = UserEmailLoginRes.fromJson(res.result);
-      this.successCb(result);
+      this.successCb(context, result);
     } else {
       if (res.error['code'] == 70018) {
         this.loginInEmailErr = res.error['message'];
@@ -112,7 +120,7 @@ class SignInCtrl with ChangeNotifier {
   }
 
   //谷歌登录
-  void signInWithGoogle() async {
+  void signInWithGoogle(context) async {
     try {
       GoogleSignIn _googleSignIn = GoogleSignIn();
       final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
@@ -125,15 +133,7 @@ class SignInCtrl with ChangeNotifier {
         );
         final User user = (await _auth.signInWithCredential(credential)).user;
         String idTokenResult = await user.getIdToken();
-        Toast.loading();
-        UserThirdLoginReq params =
-            UserThirdLoginReq(idToken: idTokenResult, oauthVerifier: 'google');
-        DioResult res = await UserApi.thirdLogin(params: params);
-        if (res.error == null) {
-          Toast.clear();
-          UserEmailLoginRes result = UserEmailLoginRes.fromJson(res.result);
-          this.successCb(result);
-        }
+        this.thridLogin(context, idTokenResult, 'google');
       }
     } catch (e) {
       print(e);
@@ -141,7 +141,7 @@ class SignInCtrl with ChangeNotifier {
   }
 
   //facebook 登录
-  Future<Null> signInFacebook() async {
+  Future<Null> signInFacebook(context) async {
     try {
       final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
       switch (result.status) {
@@ -151,17 +151,7 @@ class SignInCtrl with ChangeNotifier {
               FacebookAuthProvider.credential(accessToken.token);
           final User user = (await _auth.signInWithCredential(credential)).user;
           String idTokenResult = await user.getIdToken(true);
-
-          Toast.loading();
-          UserThirdLoginReq params = UserThirdLoginReq(
-              idToken: idTokenResult, oauthVerifier: 'facebook');
-          DioResult res = await UserApi.thirdLogin(params: params);
-          if (res.error == null) {
-            Toast.clear();
-            UserEmailLoginRes result = UserEmailLoginRes.fromJson(res.result);
-            this.successCb(result);
-          }
-          this.successCb(res);
+          this.thridLogin(context, idTokenResult, 'facebook');
           break;
         case FacebookLoginStatus.cancelledByUser:
           print('Login cancelled by the user.');
@@ -177,7 +167,7 @@ class SignInCtrl with ChangeNotifier {
   }
 
   //Twitter登录
-  Future signWithTwitter() async {
+  Future signWithTwitter(context) async {
     final TwitterLogin twitterLogin = new TwitterLogin(
       consumerKey: 'twmeqdH1DOZJxRFUDpjaSj9iP',
       consumerSecret: '8Zu6Sxup0f0KRvYiNiIhhT8Zo36tnxrR9jnERXmjGlY7WaAYKJ',
@@ -190,16 +180,7 @@ class SignInCtrl with ChangeNotifier {
             secret: result.session.secret ?? '');
         final User user = (await _auth.signInWithCredential(credential)).user;
         String idTokenResult = await user.getIdToken(true);
-        Toast.loading();
-        UserThirdLoginReq params =
-            UserThirdLoginReq(idToken: idTokenResult, oauthVerifier: 'twitter');
-        DioResult res = await UserApi.thirdLogin(params: params);
-        if (res.error == null) {
-          Toast.clear();
-          UserEmailLoginRes result = UserEmailLoginRes.fromJson(res.result);
-          this.successCb(result);
-        }
-        this.successCb(res);
+        this.thridLogin(context, idTokenResult, 'twitter');
         break;
       case TwitterLoginStatus.cancelledByUser:
         print('twitter----cancel');
@@ -209,15 +190,34 @@ class SignInCtrl with ChangeNotifier {
     }
   }
 
+  //第三方登录请求获取信息
+  void thridLogin(context, idTokenResult, oauthVerifier) async {
+    Toast.loading();
+    UserThirdLoginReq params =
+        UserThirdLoginReq(idToken: idTokenResult, oauthVerifier: oauthVerifier);
+    DioResult res = await UserApi.thirdLogin(params: params);
+    if (res.error == null) {
+      Toast.clear();
+      UserEmailLoginRes result = UserEmailLoginRes.fromJson(res.result);
+      this.successCb(context, result);
+    }
+  }
+
   //登录成功之后的回调
-  void successCb(res) {
-    print('res-------${res.data.toJson()}');
+  void successCb(context, res) {
     var userInfo = res.data;
     setToken(userInfo.token);
     Localstorage().setBool('isLogin', true);
     userInfo.token = null;
     setUserInfo(userInfo);
     setWebviewCookies();
-    Routes.goHome();
+    if (this.redirect != null) {
+      Routes.replace(context, '/webview', params: {
+        "showAppLoading": "0",
+        "content": '{"url":"https://m.homary.com${this.redirect}"}'
+      });
+    } else {
+      Routes.goHome();
+    }
   }
 }

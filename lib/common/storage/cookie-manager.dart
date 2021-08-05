@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-06 16:05:52
- * @LastEditors  : JHao
- * @LastEditTime : 2021-08-04 14:39:48
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-08-05 18:43:26
  */
 // get the CookieManager instance
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -34,9 +34,9 @@ Future<Cookie> getCookie(String key) async {
 }
 
 deleteCookie(String key) async {
-  await cookieManager.deleteCookie(url: url, name: "myCookie");
+  await cookieManager.deleteCookie(url: url, name: key, domain: ".homary.com");
 }
 
 deleteAllCookie() async {
-  await cookieManager.deleteCookies(url: url);
+  await cookieManager.deleteCookies(url: url, domain: ".homary.com");
 }
