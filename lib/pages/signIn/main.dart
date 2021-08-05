@@ -38,6 +38,17 @@ class _SignInViewState extends State<SignInView> {
   }
 
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      print('redirect=> ${widget.redirect}');
+      Provider.of<SignInCtrl>(context, listen: false)
+          .setRedirect(widget.redirect);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: GoBackAppBar(
@@ -195,9 +206,10 @@ class _SignInViewState extends State<SignInView> {
                                     password != '' &&
                                     password != null) {
                                   _currentTab == 0
-                                      ? await controller.signIn(email, password)
+                                      ? await controller.signIn(
+                                          ctx, email, password)
                                       : await controller.userRegister(
-                                          email, password, subscribe);
+                                          ctx, email, password, subscribe);
                                 }
                               },
                               icon: Icon(Icons.lock_sharp),
@@ -278,7 +290,7 @@ class _SignInViewState extends State<SignInView> {
                                 children: [
                                   GestureDetector(
                                     onTap: () {
-                                      controller.signInWithGoogle();
+                                      controller.signInWithGoogle(context);
                                     },
                                     child: Image.asset(
                                       'assets/images/signIn/gg.png',
@@ -287,7 +299,7 @@ class _SignInViewState extends State<SignInView> {
                                   ),
                                   GestureDetector(
                                     onTap: () {
-                                      controller.signInFacebook();
+                                      controller.signInFacebook(context);
                                     },
                                     child: Image.asset(
                                       'assets/images/signIn/fb.png',
@@ -296,7 +308,7 @@ class _SignInViewState extends State<SignInView> {
                                   ),
                                   GestureDetector(
                                     onTap: () {
-                                      controller.signWithTwitter();
+                                      controller.signWithTwitter(context);
                                     },
                                     child: Image.asset(
                                       'assets/images/signIn/tt.png',
@@ -335,10 +347,14 @@ class SignInPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(providers: [
-      ChangeNotifierProvider<SignInCtrl>(
-        create: (context) => SignInCtrl(),
-      )
-    ], child: SignInView());
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider<SignInCtrl>(
+            create: (context) => SignInCtrl(),
+          )
+        ],
+        child: SignInView(
+          redirect: redirect,
+        ));
   }
 }

@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-07 20:28:59
- * @LastEditors  : JHao
- * @LastEditTime : 2021-08-04 15:00:50
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-08-05 18:12:07
  */
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
@@ -89,7 +89,7 @@ class Routes {
   // 替换路由
   static Future replace(BuildContext context, String path,
       {Map<String, dynamic> params,
-      TransitionType transition = TransitionType.cupertino,
+      TransitionType transition = TransitionType.fadeIn,
       bool replace = true,
       bool clearStack = false}) {
     String queryStr = "";

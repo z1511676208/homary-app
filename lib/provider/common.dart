@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-13 10:15:30
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-04 18:52:34
+ * @LastEditTime : 2021-08-05 18:19:21
  */
 // import 'package:localization_demo/i18n/app_localization_delegate.dart';
 // import 'package:localization_demo/i18n/app_localizations.dart';
@@ -126,6 +126,7 @@ class GlobalConfig with ChangeNotifier {
     if (res.error == null) {
       Localstorage().remove('token');
       Localstorage().setBool('isLogin', false);
+      setWebviewCookies();
     }
   }
 

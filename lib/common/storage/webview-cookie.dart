@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-05 14:56:41
- * @LastEditors  : JHao
- * @LastEditTime : 2021-08-04 14:39:52
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-08-05 18:44:55
  * webview cookie设置
  */
 import 'dart:convert';
@@ -26,7 +26,11 @@ setCurrentConfigCookie() {
 // token
 setTokenCookie() {
   String token = getToken();
-  setCookie('token', token);
+  if (token == '' || token == null) {
+    deleteCookie('token');
+  } else {
+    setCookie('token', token);
+  }
 }
 
 // EID
