@@ -25,57 +25,58 @@ class _TabBarWidgetState extends State<TabBarWidget>
     return Stack(
       children: [
         Container(
-            child: Column(children: [
-          Container(
-              padding: EdgeInsets.fromLTRB(6.w, 0, 48.w, 0),
-              height: 30.h,
-              width: double.infinity,
-              child: TabBar(
-                controller: widget._tabController,
-                tabs: widget._tabValues
-                    .map((e) => Text(e, style: TextStyle(fontSize: 16.sp)))
-                    .toList(),
-                isScrollable: true,
-                labelPadding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 0),
-                labelColor: AppColor.primaryText,
-                unselectedLabelColor: AppColor.primarySubTitle,
-                unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
-                labelStyle: TextStyle(fontWeight: FontWeight.bold),
-                indicator: CustomUnderlineTabIndicator(
-                    width: 24.w,
-                    borderSide: BorderSide(
-                      color: AppColor.primaryColor,
-                      width: 3.h,
-                    ),
-                    strokeCap: StrokeCap.round),
-                onTap: (int index) {},
-              ))
-        ])),
-        Positioned(
-            right: 0,
-            child: Container(
-              padding: EdgeInsets.only(right: 12.w),
-              alignment: Alignment.centerRight,
-              child: GestureDetector(
-                child: Icon(
-                  Iconfont.homeNav,
-                  size: 20.sp,
-                  color: AppColor.primaryBorderOutline,
+          padding: EdgeInsets.fromLTRB(6.w, 0, 48.w, 0),
+          height: 30.h,
+          width: double.infinity,
+          child: TabBar(
+            controller: widget._tabController,
+            tabs: widget._tabValues
+                .map((e) => Text(e, style: TextStyle(fontSize: 16.sp)))
+                .toList(),
+            isScrollable: true,
+            labelPadding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 0),
+            labelColor: AppColor.primaryText,
+            unselectedLabelColor: AppColor.primarySubTitle,
+            unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
+            labelStyle: TextStyle(fontWeight: FontWeight.bold),
+            indicator: CustomUnderlineTabIndicator(
+                width: 24.w,
+                borderSide: BorderSide(
+                  color: AppColor.primaryColor,
+                  width: 3.h,
                 ),
-                onTap: () {
-                  Routes.goHome(pageIndex: 1);
-                },
+                strokeCap: StrokeCap.round),
+            onTap: (int index) {},
+          ),
+        ),
+        Positioned(
+          right: 0,
+          child: Container(
+            margin: EdgeInsets.only(right: 44.w),
+            width: 8.w,
+            height: 27.w,
+            child: Image.asset('assets/images/home/home_nav_shadow.png'),
+          ),
+        ),
+        Positioned(
+          right: 0,
+          child: Container(
+            padding: EdgeInsets.only(right: 12.w),
+            alignment: Alignment.centerRight,
+            child: GestureDetector(
+              child: Icon(
+                Iconfont.homeNav,
+                size: 20.sp,
+                color: AppColor.primaryBorderOutline,
               ),
-              decoration: BoxDecoration(boxShadow: [
-                BoxShadow(blurRadius: 10.0),
-                BoxShadow(color: Colors.white, offset: Offset(0, -16)),
-                BoxShadow(color: Colors.white, offset: Offset(0, 16)),
-                BoxShadow(color: Colors.white, offset: Offset(-6, -16)),
-                BoxShadow(color: Colors.white, offset: Offset(-6, 16)),
-              ], color: Colors.white),
-              width: 40.w,
-              height: 24.h,
-            ))
+              onTap: () {
+                Routes.goHome(pageIndex: 1);
+              },
+            ),
+            width: 40.w,
+            height: 24.h,
+          ),
+        ),
       ],
     );
   }
