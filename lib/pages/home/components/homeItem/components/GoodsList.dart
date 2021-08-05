@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-20 15:12:17
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-02 17:59:00
+ * @LastEditTime : 2021-08-05 14:36:14
  */
 
 import 'package:flutter/material.dart';
@@ -68,7 +68,7 @@ class GoodsList extends StatelessWidget {
                       margin: EdgeInsets.fromLTRB(0, 12.w, 0, 0),
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
+                        // shrinkWrap: true,
                         clipBehavior: Clip.none,
                         itemBuilder: (BuildContext ctx, int index) {
                           return GoodsCard(

@@ -54,7 +54,7 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
               duration: Duration(milliseconds: 100), curve: Curves.linear)
           .then((value) => productListScrollTo(idx)); // 移动结束后，递归执行，直到缓存列表有对应的高度
     } else {
-      // print("itemOffsetList  ${Watcher.itemOffsetList}");
+      print("itemOffsetList  ${Watcher.itemOffsetList}");
       double top = Watcher.itemOffsetList[idx] -
           Watcher.productListItemHeight[idx]; // tabbar点击滚动在item头部
       _scrollCtrl

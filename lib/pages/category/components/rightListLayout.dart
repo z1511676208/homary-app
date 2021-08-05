@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-14 15:05:20
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-03 10:13:45
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-05 18:38:21
  */
 import 'package:flutter/rendering.dart';
 import 'package:homary/common/utils/main.dart';
@@ -27,6 +27,7 @@ class _RightListLayoutState extends State<RightListLayout>
   final _scorllCtrl = ScrollController();
   TabController _topNavScrollCtrl;
   int _curTopNavItem = 0;
+  String _lastActiveCategoryId;
 
   @override
   void initState() {
@@ -110,11 +111,18 @@ class _RightListLayoutState extends State<RightListLayout>
       builder: (context, List<Data> data, child) {
         _topNavScrollCtrl = TabController(vsync: this, length: data.length);
         _topNavScrollCtrl.animateTo(_curTopNavItem);
+        print("_curTopNavItem  $_curTopNavItem");
+        String activeCategoryId =
+            Provider.of<CategoryCtrl>(context, listen: false).activeCategoryId;
+        if (activeCategoryId != _lastActiveCategoryId) {
+          _topNavScrollCtrl.animateTo(0);
+        }
+        _lastActiveCategoryId = activeCategoryId;
         return Container(
           width: 254.5.w,
           color: Colors.white,
           child: CustomScrollView(
-            key: UniqueKey(),
+            key: ValueKey(activeCategoryId),
             physics: ClampingScrollPhysics(),
             // cacheExtent: 1000,
             controller: _scorllCtrl,
@@ -123,7 +131,7 @@ class _RightListLayoutState extends State<RightListLayout>
               TopNav(
                 _scorllCtrl,
                 _topNavScrollCtrl,
-                key: UniqueKey(),
+                key: ValueKey(activeCategoryId),
               ),
               ProductList(
                 subList: data,

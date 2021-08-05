@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-12 17:38:02
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-03 16:10:40
+ * @LastEditTime : 2021-08-05 18:14:39
  */
 import 'dart:convert';
 
@@ -75,7 +75,22 @@ class _ProductListViewState extends State<ProductListView> {
     return Container(
       color: Colors.white,
       child: Row(
-        children: [LeftNav(), SizedBox(width: 12.w), RightListLayout()],
+        children: [
+          LeftNav(),
+          SizedBox(width: 12.w),
+          // Selector<CategoryCtrl, String>(
+          //   builder: (BuildContext context, String data, child) {
+          //     return RightListLayout();
+          //   },
+          //   selector: (BuildContext context, CategoryCtrl categoryCtrl) {
+          //     return categoryCtrl.activeCategoryId;
+          //   },
+          //   shouldRebuild: (pre, next) {
+          //     return pre != next;
+          //   },
+          // ),
+          RightListLayout()
+        ],
       ),
     );
   }

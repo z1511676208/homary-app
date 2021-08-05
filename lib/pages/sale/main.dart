@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-14 15:05:20
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-03 16:18:01
+ * @LastEditTime : 2021-08-05 16:52:54
  */
 
 // import 'package:homary/common/utils/main.dart';
@@ -63,8 +63,7 @@ class _SalePageState extends State<SalePage>
     return WebviewCtrl(
       needLogin: '0',
       source: '',
-      content:
-          '{\"url\":\"https:\\/\\/m.homary.com\\/channel\\/hot-sales-2.html\"}',
+      content: {"url": "https://mpre-m.homary.com/lego/fastdispatch-16.html"},
     );
   }
 }

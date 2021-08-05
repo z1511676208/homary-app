@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-06 10:11:04
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-04 15:10:45
+ * @LastEditTime : 2021-08-05 16:59:35
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/components/drawer/main.dart';
@@ -14,8 +14,9 @@ import 'package:homary/pages/sale/main.dart';
 import 'package:tuple/tuple.dart';
 
 class IndexPage extends StatefulWidget {
+  final Map<String, dynamic> content;
   final String pageIndex;
-  IndexPage({Key key, this.pageIndex = '0'}) : super(key: key);
+  IndexPage({Key key, this.pageIndex = '0', this.content}) : super(key: key);
 
   @override
   _IndexPageState createState() => _IndexPageState();

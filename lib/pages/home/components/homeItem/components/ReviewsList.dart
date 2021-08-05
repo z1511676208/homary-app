@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-23 18:34:11
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-02 20:05:02
+ * @LastEditTime : 2021-08-05 14:36:08
  */
 
 import 'package:fluro/fluro.dart';
@@ -68,7 +68,7 @@ class ReviewsList extends StatelessWidget {
                       margin: EdgeInsets.fromLTRB(0, 12.w, 0, 0),
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
+                        // shrinkWrap: true,
                         clipBehavior: Clip.none,
                         itemBuilder: (BuildContext ctx, int index) {
                           return GestureDetector(
