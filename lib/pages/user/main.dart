@@ -1,6 +1,7 @@
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/components/GoodsCard/main.dart';
+import 'package:homary/generated/l10n.dart';
 import 'components/FlexItem.dart';
 import 'components/ExpandedItem.dart';
 import 'components/PaddingItem.dart';
@@ -66,7 +67,7 @@ class _UserPageViewState extends State<UserPageView> {
                             padding: EdgeInsets.only(left: 16.w),
                             child: isLogin
                                 ? Text(
-                                    "Hi, ${data.userCenterInfo?.userIdentification}",
+                                    "Hi, ${data.userCenterInfo?.userIdentification ?? ''}",
                                     style: TextStyle(
                                         fontSize: 20.w,
                                         fontWeight: FontWeight.bold),
@@ -76,7 +77,7 @@ class _UserPageViewState extends State<UserPageView> {
                                       Routes.push(context, '/signIn');
                                     },
                                     child: Text(
-                                      'SIGN IN / REGISTER >',
+                                      '${S.of(context).usercenter_SignInAndRegister} >',
                                       style: TextStyle(
                                           fontSize: 20.w,
                                           color: AppColor.primaryText,
@@ -86,14 +87,14 @@ class _UserPageViewState extends State<UserPageView> {
                           direction: Axis.horizontal,
                           children: <Widget>[
                             ExpandedItem(data.userCenterInfo?.couponCount ?? 0,
-                                'Coupons',
+                                S.of(context).usercenter_coupons,
                                 url: '/usercenter/coupons'),
                             ExpandedItem(
                                 data.userCenterInfo?.goodsCollectionCount ?? 0,
-                                'Wishlist',
+                                S.of(context).usercenter_wishlists,
                                 url: '/usercenter/wishlists'),
-                            ExpandedItem(
-                                data.userCenterInfo?.pointCount ?? 0, 'Wiews',
+                            ExpandedItem(data.userCenterInfo?.pointCount ?? 0,
+                                S.of(context).usercenter_views,
                                 url: '/usercenter/viewed')
                           ],
                         ),
@@ -106,7 +107,7 @@ class _UserPageViewState extends State<UserPageView> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'My Order',
+                                S.of(context).usercenter_myOrder,
                                 style: TextStyle(
                                     fontSize: 16.w,
                                     fontWeight: FontWeight.w600),
@@ -120,56 +121,7 @@ class _UserPageViewState extends State<UserPageView> {
                                     });
                                   },
                                   child: Text(
-                                    'View All >',
-                                    style: TextStyle(
-                                        fontSize: 12.w,
-                                        color:
-                                            Color.fromRGBO(153, 153, 153, 1)),
-                                  ))
-                            ],
-                          ),
-                        ),
-                        Flex(
-                          direction: Axis.horizontal,
-                          children: <Widget>[
-                            ExpandedItem(data.userCenterInfo?.couponCount ?? 0,
-                                'Coupons',
-                                appBarTitle: 'My Coupons',
-                                url: '/usercenter/coupons'),
-                            ExpandedItem(
-                                data.userCenterInfo?.goodsCollectionCount ?? 0,
-                                'Wishlist',
-                                url: '/usercenter/wishlists'),
-                            ExpandedItem(
-                                data.userCenterInfo?.pointCount ?? 0, 'Views',
-                                appBarTitle: 'My Viewed',
-                                url: '/usercenter/viewed')
-                          ],
-                        ),
-                        PadingItem(),
-                        Padding(
-                          padding:
-                              const EdgeInsets.fromLTRB(12.0, 16.0, 12.0, 16.0),
-                          child: Flex(
-                            direction: Axis.horizontal,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'My Order',
-                                style: TextStyle(
-                                    fontSize: 16.w,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                              TextButton(
-                                  onPressed: () {
-                                    Routes.push(context, '/webview', params: {
-                                      "appBarTitle": "My Orders",
-                                      "content":
-                                          '{"url":"https://m.homary.com/usercenter/order"}'
-                                    });
-                                  },
-                                  child: Text(
-                                    'View All >',
+                                    '${S.of(context).usercenter_viewAll} >',
                                     style: TextStyle(
                                         fontSize: 12.w,
                                         color:
@@ -182,28 +134,28 @@ class _UserPageViewState extends State<UserPageView> {
                           direction: Axis.horizontal,
                           children: [
                             FlexItem(
-                              'Unpaid',
+                              S.of(context).usercenter_unpaid,
                               Icon(Iconfont.Unpaid, size: 30.0),
                               count: data.userCenterInfo?.unpaidOrderCount,
                               url: '/usercenter/order?active=unpaid',
                               title: 'My Orders',
                             ),
                             FlexItem(
-                              'Processing',
+                              S.of(context).usercenter_processing,
                               Icon(Iconfont.Processing, size: 30.0),
                               count: data.userCenterInfo?.processingOrderCount,
                               url: '/usercenter/order?active=undelivery',
                               title: 'My Orders',
                             ),
                             FlexItem(
-                              'Shipped',
+                              S.of(context).usercenter_shipped,
                               Icon(Iconfont.Shipped, size: 30.0),
                               count: data.userCenterInfo?.shippedOrderCount,
                               url: '/usercenter/order?active=shipped',
                               title: 'My Orders',
                             ),
                             FlexItem(
-                              'Returns',
+                              S.of(context).usercenter_returns,
                               Icon(Iconfont.Returns, size: 30.0),
                               count: data.userCenterInfo?.returnOrderCount,
                               url: '/usercenter/order?active=returns',
@@ -220,7 +172,7 @@ class _UserPageViewState extends State<UserPageView> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'More Services',
+                                S.of(context).usercenter_moreServices,
                                 style: TextStyle(
                                     fontSize: 16.w,
                                     fontWeight: FontWeight.w600),
@@ -232,24 +184,24 @@ class _UserPageViewState extends State<UserPageView> {
                           direction: Axis.horizontal,
                           children: [
                             FlexItem(
-                              'Customer',
+                              S.of(context).usercenter_customer,
                               Icon(Iconfont.Customer, size: 30.0),
                               url: '/AppCustomerService',
                             ),
                             FlexItem(
-                              'About',
+                              S.of(context).usercenter_about,
                               Icon(Iconfont.About, size: 30.0),
                               url: '/help-center/article-detail/64',
                               title: "Help Center",
                             ),
                             FlexItem(
-                              'Address',
+                              S.of(context).usercenter_address,
                               Icon(Iconfont.Address, size: 30.0),
                               url: '/address',
                               title: 'Address Book',
                             ),
                             FlexItem(
-                              'Personal',
+                              S.of(context).usercenter_personal,
                               Icon(Iconfont.Personal, size: 30.0),
                               url: '/usercenter/personal',
                               title: 'Info',
@@ -262,7 +214,7 @@ class _UserPageViewState extends State<UserPageView> {
                           padding:
                               const EdgeInsets.fromLTRB(12.0, 16.0, 12.0, 16.0),
                           child: Text(
-                            "Recently Browsed",
+                            S.of(context).usercenter_recentlyBrowsed,
                             style: TextStyle(
                                 fontSize: 16.w, fontWeight: FontWeight.w600),
                           ),
@@ -271,7 +223,7 @@ class _UserPageViewState extends State<UserPageView> {
                             ? Column(
                                 children: [
                                   Text(
-                                    "You have not saved anything recently.",
+                                    S.of(context).usercenter_noRecently,
                                     style: TextStyle(
                                         fontSize: 12.w,
                                         color:
@@ -282,7 +234,9 @@ class _UserPageViewState extends State<UserPageView> {
                                   ),
                                   TextButton(
                                     child: Text(
-                                      isLogin ? "Go Shopping" : "Log In",
+                                      isLogin
+                                          ? S.of(context).usercenter_goShopping
+                                          : "Log In",
                                       style: TextStyle(
                                           color: AppColor.primaryText),
                                     ),

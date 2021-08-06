@@ -46,9 +46,21 @@
               <category android:name="android.intent.category.BROWSABLE" />
               <data
                     android:scheme="homary"
-                    android:host="0.0.0.0" />
+                    android:host="10.0.9.79" />
           </intent-filter>
         </activity>
+        <!-- flutter_braintree -->
+        <activity android:name="com.braintreepayments.api.BraintreeBrowserSwitchActivity"
+          android:launchMode="singleTask">
+          <intent-filter>
+               <action android:name="android.intent.action.VIEW" />
+               <category android:name="android.intent.category.DEFAULT" />
+               <category android:name="android.intent.category.BROWSABLE" />
+               <data android:scheme="com.popicorns.homary.braintree" />
+          </intent-filter>
+     </activity>
+     <!-- google pay -->
+     <meta-data android:name="com.google.android.gms.wallet.api.enabled" android:value="true"/>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data
