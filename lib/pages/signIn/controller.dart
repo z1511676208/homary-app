@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-13 11:36:43
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-05 18:19:00
+ * @LastEditTime : 2021-08-06 18:29:04
  */
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -114,6 +114,8 @@ class SignInCtrl with ChangeNotifier {
     } else {
       if (res.error['code'] == 70018) {
         this.loginInEmailErr = res.error['message'];
+      } else {
+        Toast.error(res.error['message']);
       }
       notifyListeners();
     }
@@ -211,6 +213,7 @@ class SignInCtrl with ChangeNotifier {
     userInfo.token = null;
     setUserInfo(userInfo);
     setWebviewCookies();
+
     if (this.redirect != null) {
       Routes.replace(context, '/webview', params: {
         "showAppLoading": "0",

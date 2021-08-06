@@ -88,6 +88,21 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
         appBarTitle: appBarTitle);
   }
 
+  void changeAppBarTitle(String title) {
+    print('title====$title');
+    Provider.of<WebviewAppBarCtrl>(context, listen: false)
+        .setAppBarStatus(appBarTitle: title);
+  }
+
+  void goback(controller) async {
+    bool canGoBack = await controller?.canGoBack();
+    if (canGoBack) {
+      controller.goBack();
+    } else {
+      Routes.pop();
+    }
+  }
+
   @override
   void initState() {
     needLogin = widget.needLogin;
@@ -158,24 +173,23 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
         });
         // webview header 返回按钮
         busEvent.subWebViewCtrl('goback', ctrlName, () async {
-          bool canGoBack = await controller?.canGoBack();
-          print('canGoBack=====>$canGoBack');
-          if (canGoBack) {
-            controller.goBack();
-          } else {
-            Routes.pop();
-          }
+          goback(controller);
         });
         // webview 与 App 通信
         controller.addJavaScriptHandler(
             handlerName: "webviewGoBack",
             callback: (args) {
-              controller.goBack();
+              goback(controller);
             });
         controller.addJavaScriptHandler(
-            handlerName: "AppGoBack",
+            handlerName: "AppBarTitle",
             callback: (args) {
-              Routes.pop();
+              changeAppBarTitle(args[0]);
+            });
+        controller.addJavaScriptHandler(
+            handlerName: "AppJumpToSeach",
+            callback: (args) {
+              Routes.push(context, '/search');
             });
         controller.addJavaScriptHandler(
             handlerName: "AppJumpUrl",
@@ -183,16 +197,21 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
               String url = args[0];
               Map<String, dynamic> params = {};
               if (url.contains('?')) {
-                List _url = url.split('?');
-                url = _url[0];
-                List<String> list = _url[1].split('&');
-                list.forEach((element) {
-                  List arr = element.split('=');
-                  params.addAll({arr[0]: arr[1]});
+                int index = url.indexOf('?');
+                String query = url.substring(index + 1);
+                url = url.substring(0, index);
+                List arr = query.split('?');
+                String queryPath = arr[0];
+                String queryParams = arr[1];
+                List queryUrl = queryPath.split('=');
+                params.addAll({
+                  queryUrl[0]:
+                      '${queryUrl[1]}?${Uri.encodeComponent(queryParams)}'
                 });
+                print(query);
               }
               if (url != null) {
-                Routes.replace(context, url, params: params);
+                Routes.push(context, url, params: params);
               }
             });
 

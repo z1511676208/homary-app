@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-06 13:48:25
- * @LastEditors  : JHao
- * @LastEditTime : 2021-08-05 16:15:44
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-08-06 14:26:49
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/components/drawer/main.dart';
@@ -46,7 +46,9 @@ class _WebviewPageViewState extends State<WebviewPageView> {
                     showCart: data.showCart,
                     showMore: data.showMore,
                     showCollet: data.showCollect,
-                    title: widget.appBarTitle ?? data.appBarTitle,
+                    title: data.appBarTitle == ''
+                        ? widget.appBarTitle
+                        : data.appBarTitle,
                   ),
                   preferredSize:
                       data.isShowAppBar ? Size.fromHeight(44.h) : Size.zero,

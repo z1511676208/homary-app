@@ -504,6 +504,186 @@ class S {
       args: [],
     );
   }
+
+  /// `Sign In / Register`
+  String get usercenter_SignInAndRegister {
+    return Intl.message(
+      'Sign In / Register',
+      name: 'usercenter_SignInAndRegister',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Coupons`
+  String get usercenter_coupons {
+    return Intl.message(
+      'Coupons',
+      name: 'usercenter_coupons',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wishlists`
+  String get usercenter_wishlists {
+    return Intl.message(
+      'Wishlists',
+      name: 'usercenter_wishlists',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Views`
+  String get usercenter_views {
+    return Intl.message(
+      'Views',
+      name: 'usercenter_views',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My Orders`
+  String get usercenter_myOrder {
+    return Intl.message(
+      'My Orders',
+      name: 'usercenter_myOrder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View All`
+  String get usercenter_viewAll {
+    return Intl.message(
+      'View All',
+      name: 'usercenter_viewAll',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unpaid`
+  String get usercenter_unpaid {
+    return Intl.message(
+      'Unpaid',
+      name: 'usercenter_unpaid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Processing`
+  String get usercenter_processing {
+    return Intl.message(
+      'Processing',
+      name: 'usercenter_processing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shipped`
+  String get usercenter_shipped {
+    return Intl.message(
+      'Shipped',
+      name: 'usercenter_shipped',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Returns`
+  String get usercenter_returns {
+    return Intl.message(
+      'Returns',
+      name: 'usercenter_returns',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `More Services`
+  String get usercenter_moreServices {
+    return Intl.message(
+      'More Services',
+      name: 'usercenter_moreServices',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Customer`
+  String get usercenter_customer {
+    return Intl.message(
+      'Customer',
+      name: 'usercenter_customer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `About`
+  String get usercenter_about {
+    return Intl.message(
+      'About',
+      name: 'usercenter_about',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Address`
+  String get usercenter_address {
+    return Intl.message(
+      'Address',
+      name: 'usercenter_address',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Personal`
+  String get usercenter_personal {
+    return Intl.message(
+      'Personal',
+      name: 'usercenter_personal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recently Browsed`
+  String get usercenter_recentlyBrowsed {
+    return Intl.message(
+      'Recently Browsed',
+      name: 'usercenter_recentlyBrowsed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You have not saved anything recently.`
+  String get usercenter_noRecently {
+    return Intl.message(
+      'You have not saved anything recently.',
+      name: 'usercenter_noRecently',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Go Shopping`
+  String get usercenter_goShopping {
+    return Intl.message(
+      'Go Shopping',
+      name: 'usercenter_goShopping',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

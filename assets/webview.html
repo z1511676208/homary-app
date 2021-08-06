@@ -1,8 +1,8 @@
 <!--
  * @Author       : JHao
  * @Date         : 2021-06-25 16:39:55
- * @LastEditors  : JHao
- * @LastEditTime : 2021-08-04 17:07:14
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-08-06 16:09:47
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -38,7 +38,9 @@
   //  window.location.href = 'homary://webview?needLogin=0&source=&content={\"url\":\"https:\\/\\/m.homary.com\\/item\\/47-black-gold-console-table-small-accent-table-for-entryway-foyer-solid-wood-metal-11252.html\"}'
    const userAgent = window.navigator.userAgent
    alert(userAgent);
+   alert(userAgent.indexOf('Homary') !== -1)
         if (userAgent.indexOf('Homary') !== -1) {
+          alert('111');
           window.location.href = 'homary://webview?needLogin=0&source=&content={\"url\":\"https:\\/\\/m.homary.com\\/item\\/47-black-gold-console-table-small-accent-table-for-entryway-foyer-solid-wood-metal-11252.html\"}'
             return
         }
