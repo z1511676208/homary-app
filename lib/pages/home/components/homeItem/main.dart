@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-19 16:50:47
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-04 18:51:58
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-06 15:00:23
  */
 import 'package:exposure/exposure.dart';
 import 'package:flutter/material.dart';
@@ -97,9 +97,11 @@ class _HomeItemState extends State<HomeItem>
                 ReviewsList(),
                 SliverPadding(
                     padding: EdgeInsets.fromLTRB(12.w, 20.w, 12.w, 0),
-                    sliver: ContentTitle(
+                    sliver: SliverToBoxAdapter(
+                        child: ContentTitle(
                       title: S.of(context).HomePage_recommendTitle,
-                    )),
+                      showViewAll: false,
+                    ))),
                 SliverPadding(
                   padding: EdgeInsets.fromLTRB(12.w, 12.w, 12.w, 0),
                   sliver: RecommendList(),
@@ -118,8 +120,8 @@ class _HomeItemState extends State<HomeItem>
                     GestureDetector(
                       onTap: () {
                         Routes.push(context, '/webview', params: {
-                          "needLogin": '1',
-                          "source": "facebook",
+                          "needLogin": '0',
+                          "source": "",
                           "content":
                               '{"url":"https://m.homary.com/AppCustomerService"}'
                         });

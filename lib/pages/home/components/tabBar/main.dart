@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-09 19:31:26
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-04 14:35:38
+ * @LastEditTime : 2021-08-06 11:21:56
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/pages/home/components/tabBar/CustomUnderlineTabIndicator.dart';
@@ -25,7 +25,7 @@ class _TabBarWidgetState extends State<TabBarWidget>
     return Stack(
       children: [
         Container(
-          padding: EdgeInsets.fromLTRB(6.w, 0, 48.w, 0),
+          padding: EdgeInsets.fromLTRB(6.w, 0, 44.w, 0),
           height: 30.h,
           width: double.infinity,
           child: TabBar(
@@ -52,9 +52,9 @@ class _TabBarWidgetState extends State<TabBarWidget>
         Positioned(
           right: 0,
           child: Container(
-            margin: EdgeInsets.only(right: 44.w),
+            margin: EdgeInsets.only(right: 40.w),
             width: 8.w,
-            height: 27.w,
+            height: 30.w,
             child: Image.asset('assets/images/home/home_nav_shadow.png'),
           ),
         ),
@@ -73,7 +73,7 @@ class _TabBarWidgetState extends State<TabBarWidget>
                 Routes.goHome(pageIndex: 1);
               },
             ),
-            width: 40.w,
+            width: 36.w,
             height: 24.h,
           ),
         ),

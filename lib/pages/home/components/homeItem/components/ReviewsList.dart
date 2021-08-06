@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-23 18:34:11
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-05 14:36:08
+ * @LastEditTime : 2021-08-06 14:59:54
  */
 
 import 'package:fluro/fluro.dart';
@@ -11,6 +11,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/schema2path.dart';
 import 'package:homary/entity/homeReviewModule.dart';
+import 'package:homary/generated/l10n.dart';
+import 'package:homary/pages/home/components/homeItem/components/title.dart';
 import 'package:homary/pages/home/contorller.dart';
 import 'package:homary/widget/networkImg.dart';
 
@@ -23,45 +25,13 @@ class ReviewsList extends StatelessWidget {
         child: Selector<HomeCtrl, ReviewData>(
       builder: (BuildContext context, ReviewData data, child) {
         return data != null
-            // &&
-            //         data?.reviewList != null &&
-            //         data.reviewList.length > 0
             ? Padding(
                 padding: EdgeInsets.fromLTRB(12.w, 20.w, 12.w, 0),
                 child: Column(
                   children: [
-                    Row(
-                      children: [
-                        Text(data.title,
-                            style: TextStyle(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.bold,
-                                color: AppColor.primaryText)),
-                        Flexible(
-                          flex: 1,
-                          child: Container(),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            handleSchema(context, data?.moreJumpUrl);
-                          },
-                          child: Row(
-                            children: [
-                              Text(
-                                'View All',
-                                style: TextStyle(
-                                    fontSize: 12.sp,
-                                    color: AppColor.primaryLightSubTitle),
-                              ),
-                              Icon(
-                                Iconfont.ArrowRight,
-                                size: 12.w,
-                                color: AppColor.primaryLightSubTitle,
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
+                    ContentTitle(
+                      title: data.title,
+                      moreJumpUrl: data?.moreJumpUrl,
                     ),
                     Container(
                       height: 365.w,

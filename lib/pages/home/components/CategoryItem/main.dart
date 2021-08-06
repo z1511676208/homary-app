@@ -2,8 +2,10 @@
  * @Author       : JHao
  * @Date         : 2021-07-29 18:34:23
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-03 15:00:35
+ * @LastEditTime : 2021-08-06 14:40:43
  */
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:homary/common/utils/schema2path.dart';
 import 'package:homary/webView/webviewController.dart';
@@ -56,9 +58,10 @@ class _CategoryItemState extends State<CategoryItem> {
     return Scaffold(
       body: widget.idx + 1 == _currentTabIndex
           ? WebviewCtrl(
+              isInWebviewPage: false,
               needLogin: schemaParams['params']['needLogin'] ?? 0,
               source: schemaParams['params']['source'] ?? '',
-              content: schemaParams['params']['content'] ?? "",
+              content: jsonDecode(schemaParams['params']['content']) ?? {},
             )
           : Container(),
     );

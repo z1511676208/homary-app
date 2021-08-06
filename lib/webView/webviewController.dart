@@ -18,11 +18,13 @@ class WebviewCtrl extends StatefulWidget {
   final String source;
   final Map<String, dynamic> content;
   final String showAppLoading;
+  final bool isInWebviewPage;
   WebviewCtrl(
       {Key key,
       this.needLogin,
       this.content,
       this.source,
+      this.isInWebviewPage = true,
       this.showAppLoading = '1'})
       : super(key: key);
 
@@ -213,6 +215,14 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
                 return result.nonce;
               }
             });
+        // 首页分类webview 隐藏搜索框
+        if (!widget.isInWebviewPage) {
+          controller.addJavaScriptHandler(
+              handlerName: "hideSearchBar",
+              callback: (args) {
+                return true;
+              });
+        }
       },
       onLoadStart: (InAppWebViewController controller, Uri url) {
         changeHeadStatus(url);
@@ -226,25 +236,22 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
       onLoadResourceCustomScheme:
           (InAppWebViewController controller, Uri url) async {
         // 拦截webview 跳转 homary协议地址
-        // print("onLoadResourceCustomScheme $url");
         if (url.scheme == 'homary') {
+          print("进来  ${widget.isInWebviewPage}");
           var params = getSchemaParams(url.toString());
           var content = jsonDecode(params['params']['content']);
-          var link = Uri.decodeComponent(content['url']);
-          // int index = link.indexOf('homary.com');
-          // if (index != -1) {
-          //   link = link.substring(index + 10);
-          // }
-          // print(link);
-          // await controller.evaluateJavascript(
-          //     source:
-          //         "history.pushState('', 'Homary_App', $link);window.location.reload();");
-
-          controller.loadUrl(
-            urlRequest: URLRequest(url: Uri.parse(link)),
-          );
-
-          // return null;
+          if (widget.isInWebviewPage) {
+            // 如果在 原生webview路由下 则在当前webviewCtrl跳转，否则打开新的/webview路由
+            var link = Uri.decodeComponent(content['url']);
+            // await controller.evaluateJavascript(
+            //     source:
+            //         "history.pushState('', 'Homary_App', $link);window.location.reload();");
+            controller.loadUrl(
+              urlRequest: URLRequest(url: Uri.parse(link)),
+            );
+          } else {
+            handleSchema(context, url.toString());
+          }
         }
         return null;
       },

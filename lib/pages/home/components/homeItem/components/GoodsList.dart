@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-20 15:12:17
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-05 14:36:14
+ * @LastEditTime : 2021-08-06 14:56:58
  */
 
 import 'package:flutter/material.dart';
@@ -10,6 +10,8 @@ import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/schema2path.dart';
 import 'package:homary/components/GoodsCard/main.dart';
 import 'package:homary/entity/homeProductModule.dart';
+import 'package:homary/generated/l10n.dart';
+import 'package:homary/pages/home/components/homeItem/components/title.dart';
 import 'package:homary/pages/home/contorller.dart';
 
 class GoodsList extends StatelessWidget {
@@ -30,39 +32,8 @@ class GoodsList extends StatelessWidget {
                 padding: EdgeInsets.fromLTRB(12.w, 20.w, 12.w, 0),
                 child: Column(
                   children: [
-                    Row(
-                      children: [
-                        Text(data.title,
-                            style: TextStyle(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.bold,
-                                color: AppColor.primaryText)),
-                        Flexible(
-                          flex: 1,
-                          child: Container(),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            handleSchema(context, data.moreJumpUrl);
-                          },
-                          child: Row(
-                            children: [
-                              Text(
-                                'View All',
-                                style: TextStyle(
-                                    fontSize: 12.sp,
-                                    color: AppColor.primaryLightSubTitle),
-                              ),
-                              Icon(
-                                Iconfont.ArrowRight,
-                                size: 12.w,
-                                color: AppColor.primaryLightSubTitle,
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
+                    ContentTitle(
+                        title: data.title, moreJumpUrl: data.moreJumpUrl),
                     Container(
                       height: 230.w,
                       margin: EdgeInsets.fromLTRB(0, 12.w, 0, 0),
