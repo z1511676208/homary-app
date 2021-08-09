@@ -69,7 +69,7 @@ class ModuleDataProductList {
   SpuCategoryNameSecond spuCategoryNameSecond;
   SpuCategoryNameThird spuCategoryNameThird;
   String spuCategoryNameFourth;
-  int reviewScore;
+  dynamic reviewScore;
   dynamic reviewNum;
   dynamic skuSaleNum;
   dynamic sortWeight;
@@ -214,7 +214,7 @@ class MergeSkuList {
   SpuCategoryNameSecond spuCategoryNameSecond;
   SpuCategoryNameThird spuCategoryNameThird;
   String spuCategoryNameFourth;
-  int reviewScore;
+  dynamic reviewScore;
   dynamic reviewNum;
   dynamic skuSaleNum;
   dynamic sortWeight;

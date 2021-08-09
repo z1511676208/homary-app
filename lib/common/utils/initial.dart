@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-06-21 18:40:47
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-29 14:34:44
+ * @LastEditTime : 2021-08-09 17:11:53
  */
 import 'dart:io';
 import 'package:flutter/material.dart';
@@ -32,17 +32,16 @@ class Global {
 
     // 请求 init 接口，获取基础配置
     InitConfigRes result;
-    CommonApi.getInitConfig().then((res) {
-      if (res.error == null) {
-        result = InitConfigRes.fromJson(res.result);
-        if (result?.data?.urlMapData != null) {
-          Localstorage().setJSON(REQUEST_URL, result.data.urlMapData);
-        }
-        if (result?.data?.dynamicData != null) {
-          Localstorage().setJSON(DYNAMIC_DATA, result.data.dynamicData);
-        }
+    final commonResult = await CommonApi.getInitConfig();
+    if (commonResult.error == null) {
+      result = InitConfigRes.fromJson(commonResult.result);
+      if (result?.data?.urlMapData != null) {
+        await Localstorage().setJSON(REQUEST_URL, result.data.urlMapData);
       }
-    });
+      if (result?.data?.dynamicData != null) {
+        await Localstorage().setJSON(DYNAMIC_DATA, result.data.dynamicData);
+      }
+    }
 
     /// android 初始化
     if (Platform.isAndroid) {

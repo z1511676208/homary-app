@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-22 17:26:36
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-02 17:06:49
+ * @LastEditTime : 2021-08-09 11:17:59
  */
 import 'dart:async';
 import 'package:flutter/material.dart';
@@ -344,10 +344,13 @@ class _GoodsCardState extends State<GoodsCard> {
                                   child: Row(
                                     children: [
                                       RatingBarIndicator(
-                                        rating: _currentData.reviewScore is int
-                                            ? _currentData.reviewScore
-                                                .toDouble()
-                                            : 0,
+                                        rating:
+                                            _currentData.reviewScore is int ||
+                                                    _currentData.reviewScore
+                                                        is double
+                                                ? _currentData.reviewScore
+                                                    .toDouble()
+                                                : 0,
                                         itemBuilder: (context, index) => Icon(
                                           Icons.star,
                                           color: Color(0xFFFFB400),
