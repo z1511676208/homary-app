@@ -21,6 +21,7 @@ import 'package:homary/entity/cartNumber.dart';
 import 'package:homary/entity/serviceTimeRes.dart';
 
 import 'package:homary/common/utils/toast.dart';
+import 'package:homary/entity/slideNav.dart';
 
 var busEvent = BusProvider();
 
@@ -30,7 +31,7 @@ class GlobalConfig with ChangeNotifier {
   Locale _locale = Locale(
       getCurrentConfig() != null ? getCurrentConfig()['language'] : 'en', '');
   get curLocale => _locale;
-  List navList = []; //侧边栏菜单列表
+  List<Datum> navList = []; //侧边栏菜单列表
   CommonAmountList commonAmountList = new CommonAmountList();
   int shopCartNumber = 0; //购物车有效商品数量
 

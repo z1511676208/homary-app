@@ -44,3 +44,11 @@ Function debounce(
   };
   return target;
 }
+
+/// 从url中获取id
+String getIdFromUrl(String url) {
+  final reg = RegExp(r'-(\d+)\.html$');
+  String id =
+      reg.stringMatch(url)?.replaceAll('-', '')?.replaceAll('.html', '');
+  return id;
+}

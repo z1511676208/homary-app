@@ -48,6 +48,8 @@ class Datum {
     this.categoryImgList,
     this.subList,
     this.fontColor,
+    this.isExpand = false,
+    this.isSelect = false,
   });
 
   String categoryId;
@@ -59,6 +61,9 @@ class Datum {
   List<CategoryImgList> categoryImgList;
   List<Datum> subList;
   String fontColor;
+
+  bool isExpand;
+  bool isSelect;
 
   factory Datum.fromRawJson(String str) => Datum.fromJson(json.decode(str));
 

@@ -6,11 +6,9 @@
  */
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:homary/provider/common.dart';
 import 'package:homary/router/handler.dart';
 import 'package:homary/main.dart';
 import 'package:homary/common/utils/navigateWatcher.dart';
-import 'package:provider/provider.dart';
 
 /// 路由
 class Routes {
@@ -34,6 +32,13 @@ class Routes {
 
   /// 搜索页
   static String search = '/search';
+
+  /// 商品类目页
+  static String category = '/category';
+
+  /// channel页
+  static String channel = '/channel';
+
   // 配置route
   static void configureRoutes(FluroRouter router) {
     router.notFoundHandler = Handler(
@@ -48,6 +53,8 @@ class Routes {
     router.define(resetPassword, handler: resetPasswordPageHandler);
     router.define(reviewDetail, handler: reviewDetailPageHandler);
     router.define(search, handler: searchPageHandler);
+    router.define(category, handler: categoryHandler);
+    router.define(channel, handler: channelHandler);
   }
 
   static String formatQueryParams(Map<String, dynamic> params) {
