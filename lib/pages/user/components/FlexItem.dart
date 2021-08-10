@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-28 16:10:53
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-06 14:13:51
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-10 17:04:29
  */
 import 'package:flutter/material.dart';
 import 'package:homary/common/utils/localstorage.dart';
@@ -56,6 +56,7 @@ class FlexItem extends StatelessWidget {
                             shape: BoxShape.circle, color: Colors.red),
                         child: Text(
                           this.count.toString(),
+                          maxLines: 1,
                           style: TextStyle(color: Colors.white),
                         ),
                       )))

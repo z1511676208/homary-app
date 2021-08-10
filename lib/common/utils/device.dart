@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-14 14:33:19
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-14 15:13:33
+ * @LastEditTime : 2021-08-10 16:30:42
  * 获取设备信息
  */
 import 'dart:io';
@@ -11,10 +11,17 @@ import 'package:device_info_plus/device_info_plus.dart';
 
 class DeviveInfo {
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-// AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-// print('Running on ${androidInfo.model}');  // e.g. "Moto G (4)"
+  Future getDeviceId() async {
+    var deviceInfo = await getDeviceInfo();
+    if (Platform.isIOS) {
+      return deviceInfo['identifierForVendor'];
+    }
+    if (Platform.isAndroid) {
+      return deviceInfo['androidId'];
+    }
+  }
 
-  getDeviceInfo() async {
+  Future getDeviceInfo() async {
     if (Platform.isIOS) {
       IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
       return _readIosDeviceInfo(iosInfo);

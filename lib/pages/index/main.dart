@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-06 10:11:04
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-05 16:59:35
+ * @LastEditTime : 2021-08-10 16:28:38
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/components/drawer/main.dart';
@@ -11,7 +11,6 @@ import 'package:homary/pages/home/main.dart';
 import 'package:homary/pages/category/main.dart';
 import 'package:homary/pages/user/main.dart';
 import 'package:homary/pages/sale/main.dart';
-import 'package:tuple/tuple.dart';
 
 class IndexPage extends StatefulWidget {
   final Map<String, dynamic> content;
