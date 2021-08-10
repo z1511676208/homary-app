@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-19 16:33:28
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-28 15:15:43
+ * @LastEditTime : 2021-08-11 10:49:11
  */
 import 'dart:async';
 
@@ -10,6 +10,7 @@ import 'package:homary/api/search.dart';
 import 'package:homary/common/request/request.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
+import 'package:homary/common/utils/schema2path.dart';
 import 'package:homary/common/utils/utils.dart';
 import 'package:homary/entity/main.dart';
 
@@ -31,8 +32,9 @@ class SearchCtrl with ChangeNotifier {
     }
   }
 
-  Future getAnalyze(String value) async {
-    String keyword = value.trim();
+  Future getAnalyze(context) async {
+    String keyword = this.keyword;
+    print('keyword===>$keyword');
     if (keyword == '') {
       return false;
     }
@@ -40,13 +42,10 @@ class SearchCtrl with ChangeNotifier {
     DioResult res = await SearchApi.getAnalyze(params);
     if (res.error == null) {
       AnalyzeRes result = AnalyzeRes.fromJson(res.result);
-      this.toProductList(result.data.keyWord, result.data.jumpUrl, 'event');
+      this.toProductList(
+          context, result.data.keyWord, result.data.jumpUrl, 'event');
       notifyListeners();
     }
-  }
-
-  void cancel() {
-    Routes.pop();
   }
 
   void clearAll() {
@@ -86,7 +85,7 @@ class SearchCtrl with ChangeNotifier {
   }
 
   // 存储有效数据localStorage
-  toProductList(String keyword, String url, String event) {
+  toProductList(context, String keyword, String url, String event) {
     String keyName = keyword;
     int i =
         this.recentSearchs.indexWhere((element) => element['name'] == keyName);
@@ -98,12 +97,19 @@ class SearchCtrl with ChangeNotifier {
         'searchTime': DateTime.now().toString()
       });
       Localstorage().setJSON('recent_list', this.recentSearchs);
-      if (url != null) {
-      } else {}
+      if (url != null && url != '') {
+        handleSchema(context, url);
+      } else {
+        print('keyName===>$keyName');
+        Routes.push(context, '/webview', params: {
+          "content":
+              '{"url":"https://m.homary.com/category?keyword=${Uri.encodeComponent(keyName)}"}'
+        });
+      }
       notifyListeners();
       return;
     }
-    this.setStore(keyName, url, event);
+    this.setStore(context, keyName, url, event);
   }
 
   //获取缓存中最近搜索的词汇
@@ -120,7 +126,7 @@ class SearchCtrl with ChangeNotifier {
     }
   }
 
-  setStore(String name, String url, event) {
+  setStore(context, String name, String url, event) {
     Map<String, dynamic> map = {
       'name': name.trim(),
       'url': url,
@@ -131,6 +137,14 @@ class SearchCtrl with ChangeNotifier {
     }
     this.recentSearchs.insert(0, map);
     Localstorage().setJSON('recent_list', this.recentSearchs);
+    if (url != null && url != '') {
+      handleSchema(context, url);
+    } else {
+      Routes.push(context, '/webview', params: {
+        "content":
+            '{"url":"https://m.homary.com/category?keyword=${Uri.encodeComponent(name)}"}'
+      });
+    }
     notifyListeners();
   }
 }

@@ -91,7 +91,6 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
   }
 
   void changeAppBarTitle(String title) {
-    print('title====$title');
     Provider.of<WebviewAppBarCtrl>(context, listen: false)
         .setAppBarStatus(appBarTitle: title);
   }
@@ -216,7 +215,11 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
                 print(query);
               }
               if (url != null) {
-                Routes.push(context, url, params: params);
+                if (url.contains('/index')) {
+                  Routes.replace(context, url, params: params);
+                } else {
+                  Routes.push(context, url, params: params);
+                }
               }
             });
 

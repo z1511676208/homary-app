@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-19 16:21:04
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-04 18:52:03
+ * @LastEditTime : 2021-08-11 10:07:50
  */
 import 'package:hexcolor/hexcolor.dart';
 import 'package:homary/common/utils/main.dart';
@@ -59,9 +59,8 @@ class DefaultView extends StatelessWidget {
                     InkWell(
                       onTap: () {
                         Provider.of<SearchCtrl>(context, listen: false)
-                            .toProductList(list[index]['name'],
+                            .toProductList(context, list[index]['name'],
                                 list[index]['url'], 'event');
-                        handleSchema(context, list[index]['url']);
                       },
                       child: Text(list[index]['name'],
                           style: TextStyle(
@@ -114,9 +113,8 @@ class DefaultView extends StatelessWidget {
                   child: InkWell(
                     onTap: () {
                       Provider.of<SearchCtrl>(context, listen: false)
-                          .toProductList(list[index].hotWord,
+                          .toProductList(context, list[index].hotWord,
                               list[index].activityUrl, 'event');
-                      handleSchema(context, list[index].activityUrl);
                     },
                     child: Row(
                       children: [
