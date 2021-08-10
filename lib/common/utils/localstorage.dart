@@ -1,3 +1,9 @@
+/*
+ * @Author       : JHao
+ * @Date         : 2021-07-21 10:31:45
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-09 17:12:24
+ */
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -54,9 +60,9 @@ class Localstorage {
   }
 
   /// 设置 json 对象
-  Future<bool> setJSON(String key, dynamic jsonVal) {
+  Future<bool> setJSON(String key, dynamic jsonVal) async {
     String jsonString = jsonEncode(jsonVal);
-    return _prefs.setString(key, jsonString);
+    return await _prefs.setString(key, jsonString);
   }
 
   /// 获取 json 对象

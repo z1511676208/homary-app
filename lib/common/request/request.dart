@@ -100,16 +100,16 @@ class Request {
     dio.interceptors.add(DioLogInterceptor());
 
     /// 开启抓包 proxy 代理，禁用 https 证书
-    if (openProxy) {
-      (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-          (client) {
-        client.findProxy = (uri) {
-          return "PROXY $PROXY_IP:$PROXY_PORT";
-        };
-        client.badCertificateCallback =
-            (X509Certificate cert, String host, int port) => true;
+    // if (openProxy) {
+    (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+        (client) {
+      client.findProxy = (uri) {
+        return "PROXY $PROXY_IP:$PROXY_PORT";
       };
-    }
+      client.badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+    };
+    // }
   }
 
   /// refresh 是否刷新 默认 false

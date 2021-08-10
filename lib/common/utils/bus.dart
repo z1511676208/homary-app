@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-21 10:31:45
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-04 18:51:22
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-09 17:00:32
  */
 class BusProvider {
   static BusProvider _instance = BusProvider._internal();
@@ -33,7 +33,7 @@ class BusProvider {
     }
   }
 
-  pubWebViewCtrl(String name, {bool isLastCtrl}) {
+  pubWebViewCtrl(String name, {bool isLastCtrl = false}) {
     if (webViewEvent[name] != null) {
       if (isLastCtrl) {
         var v = webViewEvent[name].values.toList().last;

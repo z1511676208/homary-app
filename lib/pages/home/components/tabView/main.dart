@@ -2,8 +2,9 @@
  * @Author       : JHao
  * @Date         : 2021-07-09 19:31:26
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-03 13:44:03
+ * @LastEditTime : 2021-08-09 17:45:38
  */
+import 'package:flutter/gestures.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/entity/topChannelCategory.dart';
 import 'package:homary/pages/home/components/CategoryItem/main.dart';
@@ -20,6 +21,7 @@ class TabViewBox extends StatelessWidget {
     return Container(
       child: TabBarView(
         controller: _tabController,
+        // physics: NeverScrollableScrollPhysics(),
         children: [
           HomeItem(),
           ...this._tabWebview.asMap().entries.map((entry) {

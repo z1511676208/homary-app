@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:homary/common/storage/webview-cookie.dart';
@@ -155,6 +157,9 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
   Widget build(BuildContext context) {
     return Container(
         child: InAppWebView(
+      gestureRecognizers: Set()
+        ..add(Factory<VerticalDragGestureRecognizer>(
+            () => VerticalDragGestureRecognizer())),
       initialOptions: options,
       key: webViewKey,
       // initialFile: "assets/webview.html",
@@ -252,27 +257,25 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
         }
       },
       onLoadStop: (InAppWebViewController controller, Uri url) async {},
-      onLoadResourceCustomScheme:
-          (InAppWebViewController controller, Uri url) async {
-        // 拦截webview 跳转 homary协议地址
+      shouldOverrideUrlLoading: (controller, navigationAction) async {
+        var url = navigationAction.request.url;
         if (url.scheme == 'homary') {
-          print("进来  ${widget.isInWebviewPage}");
+          // print("进来  ${widget.isInWebviewPage}");
           var params = getSchemaParams(url.toString());
           var content = jsonDecode(params['params']['content']);
           if (widget.isInWebviewPage) {
             // 如果在 原生webview路由下 则在当前webviewCtrl跳转，否则打开新的/webview路由
             var link = Uri.decodeComponent(content['url']);
-            // await controller.evaluateJavascript(
-            //     source:
-            //         "history.pushState('', 'Homary_App', $link);window.location.reload();");
             controller.loadUrl(
               urlRequest: URLRequest(url: Uri.parse(link)),
             );
+            return NavigationActionPolicy.CANCEL;
           } else {
             handleSchema(context, url.toString());
+            return NavigationActionPolicy.CANCEL;
           }
         }
-        return null;
+        return NavigationActionPolicy.ALLOW;
       },
       onUpdateVisitedHistory:
           (InAppWebViewController controller, Uri url, bool androidIsReload) {
