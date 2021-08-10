@@ -2,13 +2,14 @@
  * @Author       : JHao
  * @Date         : 2021-06-21 18:40:47
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-09 17:11:53
+ * @LastEditTime : 2021-08-10 16:29:52
  */
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:homary/api/common.dart';
 import 'package:homary/common/request/request.dart';
+import 'package:homary/common/utils/device.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:homary/common/config/storage.dart';

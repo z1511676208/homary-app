@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-30 10:05:06
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-05 15:26:14
+ * @LastEditTime : 2021-08-10 14:16:29
  */
 import 'dart:async';
 
@@ -16,7 +16,7 @@ import 'package:homary/entity/userCenter.dart';
 class UserCtrl with ChangeNotifier {
   Data userCenterInfo;
   bool isLoading = false;
-  int hasMorePage = 1;
+  int hasMorePage = 0;
   Map<String, int> recentlyBrowsedParams = {"page": 1, "page_size": 10};
   List<ModuleDataProductList> recentlyList = [];
 

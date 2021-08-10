@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:homary/common/utils/device.dart';
 import 'package:homary/common/utils/entrance.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:fluro/fluro.dart';
@@ -102,8 +103,12 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
     initPlatformState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       Provider.of<GlobalConfig>(context, listen: false).getCommonConfig();
+
+      var deviceId = await DeviveInfo().getDeviceId();
+      Provider.of<GlobalConfig>(context, listen: false)
+          .pushDeviceInfo(params: {"device_number": deviceId});
     });
   }
 

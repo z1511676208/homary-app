@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-13 10:15:30
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-05 18:19:21
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-10 16:34:10
  */
 // import 'package:localization_demo/i18n/app_localization_delegate.dart';
 // import 'package:localization_demo/i18n/app_localizations.dart';
@@ -35,10 +35,6 @@ class GlobalConfig with ChangeNotifier {
 
   //判断当前页面是否是webview页面
   bool isWebviewPage = false;
-
-  // 底部BottomNavigationBar 索引值
-  int currentBottomNavigationBarIndex = 0;
-  PageController indexPageCtrl;
 
   void setIsWebviewPage(bool val) {
     this.isWebviewPage = val;
@@ -140,9 +136,13 @@ class GlobalConfig with ChangeNotifier {
     notifyListeners();
   }
 
-// 首页 index
-  setCurrentBottomNavigationBarIndex(int index) {
-    currentBottomNavigationBarIndex = index;
-    notifyListeners();
+  // 上报设备ID
+  Future<void> pushDeviceInfo({Map<String, dynamic> params}) async {
+    if (Localstorage().getBool('isPushDeviceId') == false) {
+      DioResult res = await CommonApi.pushDeviceInfo(params: params);
+      if (res.error == null) {
+        Localstorage().setBool('isPushDeviceId', true);
+      }
+    }
   }
 }

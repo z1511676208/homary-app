@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-07 20:28:59
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-04 11:34:30
+ * @LastEditTime : 2021-08-10 16:49:29
  */
 import 'dart:convert';
 import 'package:homary/common/utils/main.dart';
@@ -35,7 +35,8 @@ class _HomePageViewState extends State<HomePageView>
   void didChangeDependencies() async {
     var current =
         jsonEncode(Provider.of<GlobalConfig>(context).currentConfig?.toJson());
-    if (this.currentConfig != current) {
+    int tabIndex = _tabController.index;
+    if (current != 'null' && this.currentConfig != current) {
       this.currentConfig = current;
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
         await Provider.of<GlobalConfig>(context, listen: false)
@@ -55,6 +56,7 @@ class _HomePageViewState extends State<HomePageView>
           _tabWebview = channelMap['topChannelList'];
           _tabController =
               TabController(vsync: this, length: _tabValues.length);
+          _tabController.animateTo(tabIndex);
         });
       });
     }
