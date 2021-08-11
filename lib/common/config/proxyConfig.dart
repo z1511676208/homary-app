@@ -11,7 +11,10 @@ bool isRelease = bool.fromEnvironment("dart.vm.product");
 final bool openProxy = !isRelease;
 
 /// 代理服务IP
-const PROXY_IP = '10.0.1.70';
+const PROXY_IP = '0.0.0.0';
 
-//代理服务端口
+/// 代理服务端口
 const PROXY_PORT = 8866;
+
+/// 本机代理服务
+Map<String, String> proxy;

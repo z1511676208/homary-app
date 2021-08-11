@@ -9,11 +9,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:homary/api/common.dart';
 import 'package:homary/common/request/request.dart';
-import 'package:homary/common/utils/device.dart';
+import 'package:homary/common/config/proxyConfig.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:homary/common/config/storage.dart';
 import 'package:homary/entity/initConfig.dart';
+import 'package:system_proxy/system_proxy.dart';
 
 /// 全局变量
 class Global {
@@ -26,6 +27,14 @@ class Global {
 
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
+
+    // 强制竖屏
+    await SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown
+    ]);
+
+    proxy = await SystemProxy.getProxySettings();
 
     // 初始化工具函数
     Request();
