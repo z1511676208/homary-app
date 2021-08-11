@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-27 15:53:52
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-05 14:07:57
+ * @LastEditTime : 2021-08-09 16:45:56
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:popover/popover.dart';
@@ -22,12 +22,12 @@ class MoreButton extends StatelessWidget {
           showPopover(
               context: context,
               barrierColor: Colors.white.withAlpha(0),
-              transitionDuration: const Duration(milliseconds: 150),
+              transitionDuration: const Duration(milliseconds: 100),
               bodyBuilder: (context) => const ListItems(),
               onPop: () {},
               arrowDxOffset: -10,
               width: 174.w,
-              height: 188.5.w);
+              height: 200.w);
         },
       ),
     );

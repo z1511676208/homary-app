@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-28 16:10:53
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-04 11:39:01
+ * @LastEditTime : 2021-08-09 11:16:15
  */
 import 'package:flutter/material.dart';
 import 'package:homary/common/utils/localstorage.dart';
@@ -31,6 +31,7 @@ class ExpandedItem extends StatelessWidget {
                   if (this.url != null && isLogin) {
                     Routes.push(context, '/webview', params: {
                       "appBarTitle": this.appBarTitle,
+                      "showAppLoading": '0',
                       "content": '{"url":"https://m.homary.com${this.url}"}'
                     });
                   } else {

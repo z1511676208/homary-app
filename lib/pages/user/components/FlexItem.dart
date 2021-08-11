@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-28 16:10:53
- * @LastEditors  : JHao
- * @LastEditTime : 2021-08-10 17:04:29
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-08-11 12:52:24
  */
 import 'package:flutter/material.dart';
 import 'package:homary/common/utils/localstorage.dart';
@@ -29,6 +29,7 @@ class FlexItem extends StatelessWidget {
           if (this.url != null && isLogin) {
             Routes.push(context, '/webview', params: {
               "appBarTitle": this.title,
+              "showAppLoading": '0',
               "content": '{"url":"https://m.homary.com${this.url}"}'
             });
           } else {

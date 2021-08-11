@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-19 11:35:26
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-23 14:09:32
+ * @LastEditTime : 2021-08-11 10:56:31
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/toast.dart';
@@ -62,7 +62,7 @@ class _SearchViewState extends State<SearchView> {
                         },
                         onSubmitted: (val) {
                           Provider.of<SearchCtrl>(context, listen: false)
-                              .getAnalyze(val);
+                              .getAnalyze(context);
                         },
                         maxLines: 1,
                         style: TextStyle(
@@ -95,8 +95,7 @@ class _SearchViewState extends State<SearchView> {
                   ),
                   TextButton(
                       onPressed: () {
-                        Provider.of<SearchCtrl>(context, listen: false)
-                            .cancel();
+                        Routes.pop();
                       },
                       child: Text(
                         'Cancel',

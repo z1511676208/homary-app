@@ -46,9 +46,15 @@ class _UserPageViewState extends State<UserPageView> {
                               width: 46.w,
                               height: 46.h,
                               padding: EdgeInsets.only(right: 15.w),
-                              child: Icon(
-                                Iconfont.home_collect,
-                              ),
+                              child: IconButton(
+                                  color: Colors.black,
+                                  icon: Icon(Icons.favorite_border),
+                                  onPressed: () {
+                                    Routes.push(context, '/webview', params: {
+                                      "content":
+                                          '{"url":"http://m.homary.com/usercenter/wishlists"}'
+                                    });
+                                  }),
                             ),
                             IconButton(
                                 color: Colors.black,
@@ -117,7 +123,7 @@ class _UserPageViewState extends State<UserPageView> {
                                     Routes.push(context, '/webview', params: {
                                       "showAppLoading": '0',
                                       "content":
-                                          '{"url":"https://m.homary.com//usercenter/order}"}'
+                                          '{"url":"https://m.homary.com/usercenter/order"}'
                                     });
                                   },
                                   child: Text(
