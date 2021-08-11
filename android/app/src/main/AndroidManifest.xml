@@ -44,9 +44,7 @@
               <action android:name="android.intent.action.VIEW" />
               <category android:name="android.intent.category.DEFAULT" />
               <category android:name="android.intent.category.BROWSABLE" />
-              <data
-                    android:scheme="homary"
-                    android:host="10.0.1.83" />
+              <data android:scheme="homary"/>
           </intent-filter>
         </activity>
         <!-- flutter_braintree -->
