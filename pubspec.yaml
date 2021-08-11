@@ -60,6 +60,7 @@ dependencies:
   substring_highlight: ^1.0.33
   popover: ^0.2.6+2
   flutter_braintree: ^2.0.0+1
+  system_proxy: ^0.0.2
 dev_dependencies:
   flutter_test:
     sdk: flutter

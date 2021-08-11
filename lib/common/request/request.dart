@@ -14,6 +14,7 @@ import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/toast.dart';
 import 'package:homary/main.dart';
+import 'package:system_proxy/system_proxy.dart';
 
 class Request {
   static Request _instance = Request._internal();
@@ -102,9 +103,20 @@ class Request {
     /// 开启抓包 proxy 代理，禁用 https 证书
     // if (openProxy) {
     (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-        (client) {
+        (client) async {
+      // the proxy value likes:  {port: 8899, host: 127.0.0.1}
+      var systemProxyIp = PROXY_IP;
+      var systetProxyPorxy = PROXY_PORT;
+      if (openProxy) {
+        Map<String, String> proxy = await SystemProxy.getProxySettings();
+        if (proxy != null) {
+          systemProxyIp = proxy['host'];
+          systetProxyPorxy = int.parse(proxy['port']);
+        }
+      }
+
       client.findProxy = (uri) {
-        return "PROXY $PROXY_IP:$PROXY_PORT";
+        return "PROXY $systemProxyIp:$systetProxyPorxy";
       };
       client.badCertificateCallback =
           (X509Certificate cert, String host, int port) => true;
