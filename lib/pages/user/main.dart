@@ -2,6 +2,7 @@ import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/components/GoodsCard/main.dart';
 import 'package:homary/generated/l10n.dart';
+import 'package:homary/widget/cartAndNumber.dart';
 import 'components/FlexItem.dart';
 import 'components/ExpandedItem.dart';
 import 'components/PaddingItem.dart';
@@ -56,16 +57,7 @@ class _UserPageViewState extends State<UserPageView> {
                                     });
                                   }),
                             ),
-                            IconButton(
-                                color: Colors.black,
-                                icon: Icon(Iconfont.Cart),
-                                onPressed: () {
-                                  Routes.push(context, '/webview', params: {
-                                    "showAppLoading": '0',
-                                    "content":
-                                        '{"url":"https://m.homary.com/shoppingcart"}'
-                                  });
-                                })
+                            CartAndNumber()
                           ],
                         ),
                         Container(
@@ -99,7 +91,8 @@ class _UserPageViewState extends State<UserPageView> {
                                 data.userCenterInfo?.goodsCollectionCount ?? 0,
                                 S.of(context).usercenter_wishlists,
                                 url: '/usercenter/wishlists'),
-                            ExpandedItem(data.userCenterInfo?.pointCount ?? 0,
+                            ExpandedItem(
+                                data.userCenterInfo?.userViewCount ?? 0,
                                 S.of(context).usercenter_views,
                                 url: '/usercenter/viewed')
                           ],
@@ -122,6 +115,7 @@ class _UserPageViewState extends State<UserPageView> {
                                   onPressed: () {
                                     Routes.push(context, '/webview', params: {
                                       "showAppLoading": '0',
+                                      "appBarTitle": 'My Orders',
                                       "content":
                                           '{"url":"https://m.homary.com/usercenter/order"}'
                                     });

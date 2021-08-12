@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-12 15:32:59
- * @LastEditors  : JHao
- * @LastEditTime : 2021-07-27 15:16:08
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-08-12 11:03:24
  */
 import 'package:homary/common/utils/main.dart';
 
@@ -46,8 +46,8 @@ class ConfigItem extends StatelessWidget {
                 (BuildContext context, GlobalConfig globalConfig, child) {
               return Offstage(
                 offstage: (configType == 1 &&
-                        configData?.siteCode !=
-                            globalConfig?.currentConfig?.site) ||
+                        configData?.countryCode !=
+                            globalConfig?.currentConfig?.countryCode) ||
                     (configType == 2 &&
                         configData?.code !=
                             globalConfig?.currentConfig?.language) ||

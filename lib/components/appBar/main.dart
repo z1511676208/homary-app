@@ -2,10 +2,11 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-30 19:16:48
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-06 15:46:30
+ * @LastEditTime : 2021-08-13 11:00:55
  */
 import 'package:flutter/services.dart';
 import 'package:homary/common/utils/main.dart';
+import 'package:homary/widget/cartAndNumber.dart';
 import 'search/main.dart';
 
 class GlobalAppbar extends StatelessWidget {
@@ -56,16 +57,7 @@ class GlobalAppbar extends StatelessWidget {
                                     '{"url":"http://m.homary.com/usercenter/wishlists"}'
                               });
                             }),
-                        IconButton(
-                            color: Colors.black,
-                            icon: Icon(Iconfont.Cart),
-                            onPressed: () {
-                              Routes.push(context, '/webview', params: {
-                                "showAppLoading": '0',
-                                "content":
-                                    '{"url":"https://m.homary.com/shoppingcart"}'
-                              });
-                            })
+                        CartAndNumber()
                       ],
                     ),
                   ),

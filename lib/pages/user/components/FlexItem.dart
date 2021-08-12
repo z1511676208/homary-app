@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-28 16:10:53
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-11 12:52:24
+ * @LastEditTime : 2021-08-13 14:20:34
  */
 import 'package:flutter/material.dart';
 import 'package:homary/common/utils/localstorage.dart';
@@ -45,14 +45,14 @@ class FlexItem extends StatelessWidget {
             Stack(clipBehavior: Clip.none, children: [
               this.icon,
               Positioned(
-                  top: -10.w,
-                  right: -10.w,
+                  top: -8.w,
+                  right: -8.w,
                   child: Offstage(
                       offstage: this.count == null || this.count == 0,
                       child: Container(
                         alignment: Alignment.center,
-                        height: 18.w,
-                        width: 18.w,
+                        height: 20.w,
+                        width: 20.w,
                         decoration: BoxDecoration(
                             shape: BoxShape.circle, color: Colors.red),
                         child: Text(

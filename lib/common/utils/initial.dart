@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-06-21 18:40:47
- * @LastEditors  : JHao
- * @LastEditTime : 2021-08-10 16:29:52
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-08-16 09:50:03
  */
 import 'dart:io';
 import 'package:flutter/material.dart';
@@ -29,10 +29,8 @@ class Global {
     await Firebase.initializeApp();
 
     // 强制竖屏
-    await SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown
-    ]);
+    await SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
     proxy = await SystemProxy.getProxySettings();
 

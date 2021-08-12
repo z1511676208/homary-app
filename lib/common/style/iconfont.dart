@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class Iconfont {
@@ -208,6 +207,12 @@ class Iconfont {
 
   static const ArrowUp = IconData(
     0xe63b,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
+
+  static const Popular = IconData(
+    0xe6b0,
     fontFamily: 'Iconfont',
     matchTextDirection: true,
   );

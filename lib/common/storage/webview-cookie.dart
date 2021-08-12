@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-05 14:56:41
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-05 18:44:55
+ * @LastEditTime : 2021-08-13 18:30:51
  * webview cookie设置
  */
 import 'dart:convert';
@@ -20,6 +20,7 @@ setWebviewCookies() {
 // 站点信息
 setCurrentConfigCookie() {
   String currentConfig = jsonEncode(getCurrentConfig());
+  print(currentConfig);
   setCookie('currentConfig', currentConfig);
 }
 

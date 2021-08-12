@@ -2,13 +2,14 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-06 10:11:04
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-10 16:07:29
+ * @LastEditTime : 2021-08-11 14:13:02
  */
 
 import 'package:flutter/material.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/generated/l10n.dart';
+import 'package:homary/pages/signIn/controller.dart';
 import 'package:tuple/tuple.dart';
 import 'components/contactUs.dart';
 import 'components/slideNav/main.dart';
@@ -181,10 +182,13 @@ class _GlobalDrawerViewState extends State<GlobalDrawerView> {
                               padding: EdgeInsets.only(left: 16.w, right: 16.w),
                               margin: EdgeInsets.only(top: 16.w, bottom: 16.w),
                               child: OutlinedButton(
-                                onPressed: () {
-                                  Provider.of<GlobalConfig>(context,
+                                onPressed: () async {
+                                  await Provider.of<GlobalConfig>(context,
                                           listen: false)
                                       .signOut();
+                                  Provider.of<SignInCtrl>(context,
+                                          listen: false)
+                                      .thirdLogout();
                                   Navigator.of(context).pop();
                                 },
                                 child: Text(
@@ -233,6 +237,9 @@ class GlobalDrawer extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<SlideNavCtrl>(
           create: (context) => SlideNavCtrl(),
+        ),
+        ChangeNotifierProvider<SignInCtrl>(
+          create: (context) => SignInCtrl(),
         )
       ],
       child: GlobalDrawerView(),

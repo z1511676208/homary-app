@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-13 11:36:43
- * @LastEditors  : JHao
- * @LastEditTime : 2021-08-09 17:13:43
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-08-13 14:15:15
  */
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -122,9 +122,9 @@ class SignInCtrl with ChangeNotifier {
   }
 
   //谷歌登录
+  GoogleSignIn _googleSignIn = GoogleSignIn();
   void signInWithGoogle(context) async {
     try {
-      GoogleSignIn _googleSignIn = GoogleSignIn();
       final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
       if (googleUser != null) {
         final GoogleSignInAuthentication googleAuth =
@@ -169,11 +169,11 @@ class SignInCtrl with ChangeNotifier {
   }
 
   //Twitter登录
+  final TwitterLogin twitterLogin = new TwitterLogin(
+    consumerKey: 'twmeqdH1DOZJxRFUDpjaSj9iP',
+    consumerSecret: '8Zu6Sxup0f0KRvYiNiIhhT8Zo36tnxrR9jnERXmjGlY7WaAYKJ',
+  );
   Future signWithTwitter(context) async {
-    final TwitterLogin twitterLogin = new TwitterLogin(
-      consumerKey: 'twmeqdH1DOZJxRFUDpjaSj9iP',
-      consumerSecret: '8Zu6Sxup0f0KRvYiNiIhhT8Zo36tnxrR9jnERXmjGlY7WaAYKJ',
-    );
     final TwitterLoginResult result = await twitterLogin.authorize();
     switch (result.status) {
       case TwitterLoginStatus.loggedIn:
@@ -213,7 +213,7 @@ class SignInCtrl with ChangeNotifier {
     userInfo.token = null;
     setUserInfo(userInfo);
     setWebviewCookies();
-
+    Provider.of<GlobalConfig>(context, listen: false).getShoppingCartNumber();
     if (this.redirect != null) {
       Routes.replace(context, '/webview', params: {
         "showAppLoading": "0",
@@ -222,5 +222,12 @@ class SignInCtrl with ChangeNotifier {
     } else {
       Routes.goHome();
     }
+  }
+
+  //第三方登出
+  void thirdLogout() {
+    _googleSignIn.signOut();
+    facebookSignIn.logOut();
+    twitterLogin.logOut();
   }
 }

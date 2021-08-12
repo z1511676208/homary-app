@@ -1,13 +1,14 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-13 10:15:30
- * @LastEditors  : JHao
- * @LastEditTime : 2021-08-10 16:34:10
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-08-13 18:30:41
  */
 // import 'package:localization_demo/i18n/app_localization_delegate.dart';
 // import 'package:localization_demo/i18n/app_localizations.dart';
 
 import 'package:flutter/material.dart';
+import 'package:homary/api/cart.dart';
 import 'package:homary/api/common.dart';
 import 'package:homary/api/main.dart';
 import 'package:homary/common/request/request.dart';
@@ -15,6 +16,8 @@ import 'package:homary/common/storage/cookie.dart';
 import 'package:homary/common/storage/webview-cookie.dart';
 import 'package:homary/common/utils/bus.dart';
 import 'package:homary/common/utils/localstorage.dart';
+import 'package:homary/common/utils/main.dart';
+import 'package:homary/entity/cartNumber.dart';
 import 'package:homary/entity/serviceTimeRes.dart';
 
 import 'package:homary/common/utils/toast.dart';
@@ -29,6 +32,7 @@ class GlobalConfig with ChangeNotifier {
   get curLocale => _locale;
   List navList = []; //侧边栏菜单列表
   CommonAmountList commonAmountList = new CommonAmountList();
+  int shopCartNumber = 0; //购物车有效商品数量
 
   // 服务器时间
   int serviceTime;
@@ -42,39 +46,58 @@ class GlobalConfig with ChangeNotifier {
 
   //获取公共配置
   Future getCommonConfig() async {
-    if (this.currentConfigList.isEmpty) {
-      DioResult res = await SlideNavApi.getGlobalConfig();
-      if (res.error == null) {
-        GlobalConfigRes result = GlobalConfigRes.fromJson(res.result);
-        List siteList = result?.data?.siteList;
-        List languageList = result?.data?.languagesList;
-        List currencyList = result?.data?.currencyList;
-        this.commonAmountList = result?.data?.commonAmountList;
-        CurrentConfig config = result?.data?.currentConfig;
-        this.currentConfig = config;
-        var site = config.siteName;
-        var lang = config.languageName;
-        var currency = config.currencyName;
-
-        this.currentConfigList = [
-          {'title': 'Site', 'subTitle': site, 'subList': siteList, 'type': 1},
-          {
-            'title': 'Language',
-            'subTitle': lang,
-            'subList': languageList,
-            'type': 2
-          },
-          {
-            'title': 'Currency',
-            'subTitle': currency,
-            'subList': currencyList,
-            'type': 3
-          }
-        ];
+    DioResult res = await SlideNavApi.getGlobalConfig();
+    if (res.error == null) {
+      GlobalConfigRes result = GlobalConfigRes.fromJson(res.result);
+      List siteList = result?.data?.siteList;
+      List languageList = result?.data?.languagesList;
+      List currencyList = result?.data?.currencyList;
+      this.commonAmountList = result?.data?.commonAmountList;
+      CurrentConfig config;
+      //假如本地有缓存配置，优先取本地缓存，否则取接口返回配置
+      if (getCurrentConfig() == null) {
+        config = result?.data?.currentConfig;
         setCurrentConfig(config.toJson());
-        _locale = Locale(config.language);
-        notifyListeners();
+      } else {
+        config = CurrentConfig.fromJson(getCurrentConfig());
       }
+
+      this.currentConfig = config;
+      print(config.toJson());
+      var site = siteList
+          .where((item) => item.countryCode == config.countryCode)
+          .toList()[0]
+          .siteName;
+
+      var lang = languageList
+          .where((item) => item.code == config.language)
+          .toList()[0]
+          .name;
+
+      var currency = currencyList
+          .where((item) => item.code == config.currency)
+          .toList()[0]
+          .enName;
+
+      //  左侧菜单配置静态列表项
+      this.currentConfigList = [
+        {'title': 'Site', 'subTitle': site, 'subList': siteList, 'type': 1},
+        {
+          'title': 'Language',
+          'subTitle': lang,
+          'subList': languageList,
+          'type': 2
+        },
+        {
+          'title': 'Currency',
+          'subTitle': currency,
+          'subList': currencyList,
+          'type': 3
+        }
+      ];
+
+      _locale = Locale(config.language);
+      notifyListeners();
     }
   }
 
@@ -100,6 +123,7 @@ class GlobalConfig with ChangeNotifier {
         this.currentConfig.site = configData.siteCode;
         this.currentConfig.language = configData.languageCode;
         this.currentConfig.currency = configData.currencyCode;
+        this.currentConfig.countryCode = configData.countryCode;
         break;
       case 2:
         this.currentConfig.language = configData.code;
@@ -111,18 +135,18 @@ class GlobalConfig with ChangeNotifier {
     setCurrentConfigCookie();
     busEvent.pubWebViewCtrl('switchSite'); // 通知webview刷新页面
     this.navList = [];
-    this.currentConfigList = [];
     await this.getNavList(isNotNotify: true);
     await this.getCommonConfig();
   }
 
   //登出
-  void signOut() async {
+  Future signOut() async {
     DioResult res = await UserApi.signOut();
     if (res.error == null) {
       Localstorage().remove('token');
       Localstorage().setBool('isLogin', false);
       setWebviewCookies();
+      this.getShoppingCartNumber();
     }
   }
 
@@ -143,6 +167,15 @@ class GlobalConfig with ChangeNotifier {
       if (res.error == null) {
         Localstorage().setBool('isPushDeviceId', true);
       }
+    }
+  }
+
+  //获取购物车有效商品数量
+  Future<void> getShoppingCartNumber() async {
+    DioResult res = await CartApi.getShoppingCartNumber();
+    if (res.error == null) {
+      this.shopCartNumber = CartNumberRes.fromJson(res.result).data.num;
+      notifyListeners();
     }
   }
 }
