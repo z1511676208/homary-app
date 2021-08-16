@@ -27,8 +27,8 @@ class _CustomNetworkImageState extends State<CustomNetworkImage> {
     return CachedNetworkImage(
       width: widget.width,
       height: widget.height,
-      memCacheWidth: widget.width?.toInt(),
-      memCacheHeight: widget.height?.toInt(),
+      // memCacheWidth: widget.width?.toInt(),
+      // memCacheHeight: widget.height?.toInt(),
       fit: widget.fit,
       imageUrl: widget.url,
       placeholder: (context, url) => Image.asset(
