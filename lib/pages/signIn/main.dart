@@ -236,7 +236,14 @@ class _SignInViewState extends State<SignInView> {
                                             decoration:
                                                 TextDecoration.underline),
                                         recognizer: TapGestureRecognizer()
-                                          ..onTap = () {},
+                                          ..onTap = () {
+                                            // Routes.push(context, '/webview',
+                                            //     params: {
+                                            //       "showAppLoading": '0',
+                                            //       "content":
+                                            //           '{"url":"https://m.homary.com"}'
+                                            //     });
+                                          },
                                       ),
                                       TextSpan(
                                           text: S
@@ -248,7 +255,14 @@ class _SignInViewState extends State<SignInView> {
                                             decoration:
                                                 TextDecoration.underline),
                                         recognizer: TapGestureRecognizer()
-                                          ..onTap = () {},
+                                          ..onTap = () {
+                                            // Routes.push(context, '/webview',
+                                            //     params: {
+                                            //       "showAppLoading": '0',
+                                            //       "content":
+                                            //           '{"url":"https://m.homary.com"}'
+                                            //     });
+                                          },
                                       ),
                                     ]),
                               ))),

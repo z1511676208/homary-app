@@ -1,6 +1,6 @@
 // To parse this JSON data, do
 //
-//     final commonConfigRes = commonConfigResFromJson(jsonString);
+//     final globalConfigRes = globalConfigResFromJson(jsonString);
 
 import 'dart:convert';
 
@@ -177,6 +177,7 @@ class CurrentConfig {
     this.timeZoneCode,
     this.siteName,
     this.siteNameEn,
+    this.countryCode,
     this.currencyName,
     this.languageName,
   });
@@ -188,6 +189,7 @@ class CurrentConfig {
   String timeZoneCode;
   String siteName;
   String siteNameEn;
+  String countryCode;
   String currencyName;
   String languageName;
 
@@ -206,6 +208,7 @@ class CurrentConfig {
             json["time_zone_code"] == null ? null : json["time_zone_code"],
         siteName: json["site_name"] == null ? null : json["site_name"],
         siteNameEn: json["site_name_en"] == null ? null : json["site_name_en"],
+        countryCode: json["country_code"] == null ? null : json["country_code"],
         currencyName:
             json["currency_name"] == null ? null : json["currency_name"],
         languageName:
@@ -220,6 +223,7 @@ class CurrentConfig {
         "time_zone_code": timeZoneCode == null ? null : timeZoneCode,
         "site_name": siteName == null ? null : siteName,
         "site_name_en": siteNameEn == null ? null : siteNameEn,
+        "country_code": countryCode == null ? null : countryCode,
         "currency_name": currencyName == null ? null : currencyName,
         "language_name": languageName == null ? null : languageName,
       };
@@ -255,6 +259,7 @@ class SiteList {
     this.siteName,
     this.siteCode,
     this.iconUrl,
+    this.countryCode,
     this.currencyCode,
     this.languageCode,
     this.jumpUrl,
@@ -266,6 +271,7 @@ class SiteList {
   String siteName;
   String siteCode;
   String iconUrl;
+  String countryCode;
   String currencyCode;
   String languageCode;
   String jumpUrl;
@@ -282,6 +288,7 @@ class SiteList {
         siteName: json["site_name"] == null ? null : json["site_name"],
         siteCode: json["site_code"] == null ? null : json["site_code"],
         iconUrl: json["icon_url"] == null ? null : json["icon_url"],
+        countryCode: json["country_code"] == null ? null : json["country_code"],
         currencyCode:
             json["currency_code"] == null ? null : json["currency_code"],
         languageCode:
@@ -298,6 +305,7 @@ class SiteList {
         "site_name": siteName == null ? null : siteName,
         "site_code": siteCode == null ? null : siteCode,
         "icon_url": iconUrl == null ? null : iconUrl,
+        "country_code": countryCode == null ? null : countryCode,
         "currency_code": currencyCode == null ? null : currencyCode,
         "language_code": languageCode == null ? null : languageCode,
         "jump_url": jumpUrl == null ? null : jumpUrl,

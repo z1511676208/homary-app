@@ -2,8 +2,10 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-19 16:21:04
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-11 10:07:50
+ * @LastEditTime : 2021-08-12 18:31:34
  */
+import 'dart:ffi';
+
 import 'package:hexcolor/hexcolor.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/schema2path.dart';
@@ -25,12 +27,20 @@ class DefaultView extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'Recent Searches',
-                  style: TextStyle(
-                      color: AppColor.primaryText,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.bold),
+                Row(
+                  children: [
+                    Icon(Iconfont.Recent),
+                    SizedBox(
+                      width: 7.5.w,
+                    ),
+                    Text(
+                      'Recent Searches',
+                      style: TextStyle(
+                          color: AppColor.primaryText,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
                 ),
                 TextButton(
                     onPressed: () {
@@ -94,6 +104,10 @@ class DefaultView extends StatelessWidget {
           SliverToBoxAdapter(
             child: Row(
               children: [
+                Icon(Iconfont.Popular),
+                SizedBox(
+                  width: 7.5.w,
+                ),
                 Text(
                   'Popular Searches',
                   style: TextStyle(
