@@ -271,6 +271,12 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
                 return true;
               });
         }
+        // pdf 跳转
+        controller.addJavaScriptHandler(
+            handlerName: "AppPdfViewer",
+            callback: (args) {
+              Routes.push(context, '/pdf', params: {"link": args[0]});
+            });
       },
       onLoadStart: (InAppWebViewController controller, Uri url) {
         changeHeadStatus(url);
