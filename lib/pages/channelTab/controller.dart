@@ -33,9 +33,7 @@ class ChannelTabCtrl extends ChangeNotifier {
   /// channel列表
   List<ChannelList> channelList = [];
 
-  ChannelTabCtrl(this.channelId, this.type) {
-    getTopicFlow();
-  }
+  ChannelTabCtrl(this.channelId, this.type);
 
   @override
   void dispose() {
@@ -104,9 +102,9 @@ class ChannelTabCtrl extends ChangeNotifier {
     getTopicFlow(isNeedClean: true);
   }
 
-  Future<void> onRefresh() async {
+  Future<void> onRefresh({bool isOnRefresh = true}) async {
     page = 1;
     hasMorePage = 0;
-    await getTopicFlow(isNeedClean: true,isOnRefresh: true);
+    await getTopicFlow(isNeedClean: true,isOnRefresh: isOnRefresh);
   }
 }

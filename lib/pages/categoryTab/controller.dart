@@ -51,10 +51,7 @@ class CategoryTabCtrl extends ChangeNotifier {
   /// 商品总数
   int productTotal = 0;
 
-  CategoryTabCtrl(this.selectedCategoryId, {this.selectedCategoryName}) {
-    getProductAttrList(selectedCategoryId);
-    getProductList();
-  }
+  CategoryTabCtrl(this.selectedCategoryId, {this.selectedCategoryName});
 
   @override
   void dispose() {
