@@ -6,6 +6,7 @@ import 'package:homary/components/formInput/main.dart';
 import 'package:homary/generated/l10n.dart';
 import 'package:homary/pages/signIn/components/head.dart';
 import 'package:homary/pages/signIn/components/signInTabBar.dart';
+import 'package:homary/webView/webviewController.dart';
 import 'components/emailPattens.dart';
 import 'controller.dart';
 
@@ -237,12 +238,24 @@ class _SignInViewState extends State<SignInView> {
                                                 TextDecoration.underline),
                                         recognizer: TapGestureRecognizer()
                                           ..onTap = () {
-                                            // Routes.push(context, '/webview',
-                                            //     params: {
-                                            //       "showAppLoading": '0',
-                                            //       "content":
-                                            //           '{"url":"https://m.homary.com"}'
-                                            //     });
+                                            showModalBottomSheet<void>(
+                                                context: context,
+                                                isScrollControlled: true,
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.vertical(
+                                                  top: Radius.circular(30),
+                                                )),
+                                                builder: (context) => Container(
+                                                      height: 0.8.sh,
+                                                      child: WebviewCtrl(
+                                                        isInWebviewPage: false,
+                                                        content: {
+                                                          'url':
+                                                              'https://m.homary.com/AppPages/loginArticle?id=57'
+                                                        },
+                                                      ),
+                                                    ));
                                           },
                                       ),
                                       TextSpan(
@@ -256,12 +269,25 @@ class _SignInViewState extends State<SignInView> {
                                                 TextDecoration.underline),
                                         recognizer: TapGestureRecognizer()
                                           ..onTap = () {
-                                            // Routes.push(context, '/webview',
-                                            //     params: {
-                                            //       "showAppLoading": '0',
-                                            //       "content":
-                                            //           '{"url":"https://m.homary.com"}'
-                                            //     });
+                                            showModalBottomSheet<void>(
+                                                context: context,
+                                                isScrollControlled: true,
+                                                backgroundColor: Colors.black54,
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.vertical(
+                                                  top: Radius.circular(30),
+                                                )),
+                                                builder: (context) => Container(
+                                                      height: 0.8.sh,
+                                                      child: WebviewCtrl(
+                                                        isInWebviewPage: false,
+                                                        content: {
+                                                          'url':
+                                                              'https://m.homary.com/AppPages/loginArticle?id=58'
+                                                        },
+                                                      ),
+                                                    ));
                                           },
                                       ),
                                     ]),
