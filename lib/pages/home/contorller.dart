@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-21 10:42:50
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-03 17:47:15
+ * @LastEditTime : 2021-08-16 10:55:36
  */
 /*
  * @Author       : zhhjie
@@ -45,6 +45,9 @@ class HomeCtrl with ChangeNotifier {
   // 获取首页推荐商品流
   Future<void> getRecommendList({params}) async {
     recommendLoading = true;
+    if (params == null) {
+      recommendParams = {"page": 1, "page_size": 20};
+    }
     notifyListeners();
     DioResult res =
         await HomeApi.getRecommendList(params: params ?? recommendParams);

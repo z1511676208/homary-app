@@ -73,8 +73,7 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
         url.path.contains('/payfail') ||
         url.path.contains('/paysuccess') ||
         url.path.contains('/AppCustomerService') ||
-        url.path.contains('/wishlists') ||
-        url.host.contains('kfmcs.jiaxinyun.com')) {
+        url.path.contains('/wishlists')) {
       isShowAppBar = false;
     } else if (url.path.contains('/shoppingcart')) {
       showCart = false;
@@ -98,7 +97,7 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
         .setAppBarStatus(appBarTitle: title);
   }
 
-  void goback(InAppWebViewController controller) async {
+  void goback(controller) async {
     bool canGoBack = await controller?.canGoBack();
     if (canGoBack) {
       controller.goBack();
@@ -126,6 +125,7 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
   void dispose() {
     busEvent.removeControllers('switchSite', ctrlName);
     busEvent.removeControllers('goback', ctrlName);
+    Toast.clear();
     super.dispose();
   }
 
@@ -158,7 +158,7 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
-      builder: (context,constraints){
+      builder: (context, constraints) {
         return RefreshIndicator(
           onRefresh: () async {
             await controller?.reload();
@@ -177,148 +177,149 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
     );
   }
 
-  Widget buildWebView(BuildContext context){
+  Widget buildWebView(BuildContext context) {
     return Container(
         child: InAppWebView(
-          // gestureRecognizers: Set()
-          //   ..add(Factory<VerticalDragGestureRecognizer>(
-          //           () => VerticalDragGestureRecognizer())),
-          initialOptions: options,
-          key: webViewKey,
-          // initialFile: "assets/webview.html",
-          initialUrlRequest: URLRequest(url: Uri.parse(url)),
-          onWebViewCreated: (InAppWebViewController controller) async {
-            this.controller = controller;
-            Provider.of<GlobalConfig>(context, listen: false)
-                .setIsWebviewPage(true);
-            if (widget.showAppLoading == '1') {
-              Toast.loading();
-            }
-            setPlatform(); // 设置公参 pf 到 webview cookie
-            // 切换站点 语言 币种时，刷新webview
-            busEvent.subWebViewCtrl('switchSite', ctrlName, () {
-              setWebviewCookies();
-              controller.reload();
-            });
-            // webview header 返回按钮
-            busEvent.subWebViewCtrl('goback', ctrlName, () async {
+      // gestureRecognizers: Set()
+      //   ..add(Factory<VerticalDragGestureRecognizer>(
+      //           () => VerticalDragGestureRecognizer())),
+      initialOptions: options,
+      key: webViewKey,
+      // initialFile: "assets/webview.html",
+      initialUrlRequest: URLRequest(url: Uri.parse(url)),
+      onWebViewCreated: (InAppWebViewController controller) async {
+        this.controller = controller;
+        Provider.of<GlobalConfig>(context, listen: false)
+            .setIsWebviewPage(true);
+        if (widget.showAppLoading == '1') {
+          Toast.loading();
+        }
+        setPlatform(); // 设置公参 pf 到 webview cookie
+        // 切换站点 语言 币种时，刷新webview
+        busEvent.subWebViewCtrl('switchSite', ctrlName, () {
+          setWebviewCookies();
+          controller.reload();
+        });
+        // webview header 返回按钮
+        busEvent.subWebViewCtrl('goback', ctrlName, () async {
+          goback(controller);
+        });
+        // webview 与 App 通信
+        controller.addJavaScriptHandler(
+            handlerName: "webviewGoBack",
+            callback: (args) {
               goback(controller);
             });
-            // webview 与 App 通信
-            controller.addJavaScriptHandler(
-                handlerName: "webviewGoBack",
-                callback: (args) {
-                  goback(controller);
+        controller.addJavaScriptHandler(
+            handlerName: "AppBarTitle",
+            callback: (args) {
+              changeAppBarTitle(args[0]);
+            });
+        controller.addJavaScriptHandler(
+            handlerName: "AppJumpToSeach",
+            callback: (args) {
+              Routes.push(context, '/search');
+            });
+        controller.addJavaScriptHandler(
+            handlerName: "AppJumpUrl",
+            callback: (args) {
+              String url = args[0];
+              Map<String, dynamic> params = {};
+              if (url.contains('?')) {
+                int index = url.indexOf('?');
+                String query = url.substring(index + 1);
+                url = url.substring(0, index);
+                List arr = query.split('?');
+                String queryPath = arr[0];
+                String queryParams = arr[1];
+                List queryUrl = queryPath.split('=');
+                params.addAll({
+                  queryUrl[0]:
+                      '${queryUrl[1]}?${Uri.encodeComponent(queryParams)}'
                 });
-            controller.addJavaScriptHandler(
-                handlerName: "AppGoBack",
-                callback: (args) {
-                  Routes.pop();
-                });
-            controller.addJavaScriptHandler(
-                handlerName: "AppBarTitle",
-                callback: (args) {
-                  changeAppBarTitle(args[0]);
-                });
-            controller.addJavaScriptHandler(
-                handlerName: "AppJumpToSeach",
-                callback: (args) {
-                  Routes.push(context, '/search');
-                });
-            controller.addJavaScriptHandler(
-                handlerName: "AppJumpUrl",
-                callback: (args) {
-                  String url = args[0];
-                  print(url);
-                  Map<String, dynamic> params = {};
-                  if (url.contains('?')) {
-                    List arr = url.split('?');
-                    url = arr[0];
-                    String queryPath = arr[1];
-                    List queryUrl = queryPath.split('=');
-                    params.addAll({queryUrl[0]: '${queryUrl[1]}'});
-                  }
-                  if (url != null) {
-                    Routes.replace(context, url, params: params);
-                  }
-                });
-
-            controller.addJavaScriptHandler(
-                handlerName: 'AppPaypal',
-                callback: (args) async {
-                  var jsonData = json.decode(args[0]);
-                  print(jsonData);
-                  final request = BraintreePayPalRequest(
-                      currencyCode: jsonData['currency'],
-                      amount: jsonData['amount'].toString());
-                  // Toast.loading();
-                  BraintreePaymentMethodNonce result =
-                  await Braintree.requestPaypalNonce(
-                    jsonData['token'],
-                    request,
-                  );
-                  // Toast.clear();
-                  if (result != null) {
-                    return result.nonce;
-                  }
-                });
-            // 首页分类webview 隐藏搜索框
-            if (!widget.isInWebviewPage) {
-              controller.addJavaScriptHandler(
-                  handlerName: "hideSearchBar",
-                  callback: (args) {
-                    return true;
-                  });
-            }
-            //更新App购物车显示数量
-            controller.addJavaScriptHandler(
-                handlerName: "AppUpdateShopCartNumber",
-                callback: (args) {
-                  Provider.of<GlobalConfig>(context, listen: false)
-                      .getShoppingCartNumber();
-                });
-          },
-          onLoadStart: (InAppWebViewController controller, Uri url) {
-            changeHeadStatus(url);
-          },
-          onProgressChanged: (InAppWebViewController controller, int progress) {
-            if (progress > 80) {
-              Toast.clear();
-            }
-          },
-          onLoadStop: (InAppWebViewController controller, Uri url) async {},
-          shouldOverrideUrlLoading: (controller, navigationAction) async {
-            var url = navigationAction.request.url;
-            if (url.scheme == 'homary') {
-              // print("进来  ${widget.isInWebviewPage}");
-              var params = getSchemaParams(url.toString());
-              var content = jsonDecode(params['params']['content']);
-              if (widget.isInWebviewPage) {
-                // 如果在 原生webview路由下 则在当前webviewCtrl跳转，否则打开新的/webview路由
-                var link = Uri.decodeComponent(content['url']);
-                controller.loadUrl(
-                  urlRequest: URLRequest(url: Uri.parse(link)),
-                );
-                return NavigationActionPolicy.CANCEL;
-              } else {
-                handleSchema(context, url.toString());
-                return NavigationActionPolicy.CANCEL;
+                print(query);
               }
-            }
-            return NavigationActionPolicy.ALLOW;
-          },
-          onUpdateVisitedHistory:
-              (InAppWebViewController controller, Uri url, bool androidIsReload) {
-            print("路由跳转 ===》$url");
-            changeHeadStatus(url);
-          },
-          onLoadError: (context, url, i, e) {
-            print('error====> $i   $e');
-          },
+              if (url != null) {
+                if (url.contains('/index')) {
+                  Routes.replace(context, url, params: params);
+                } else {
+                  Routes.push(context, url, params: params);
+                }
+              }
+            });
 
-          onReceivedServerTrustAuthRequest: (controller, challenge) async =>
-              ServerTrustAuthResponse(
-                  action: ServerTrustAuthResponseAction.PROCEED),
-        ));
+        controller.addJavaScriptHandler(
+            handlerName: 'AppPaypal',
+            callback: (args) async {
+              var jsonData = json.decode(args[0]);
+              final request = BraintreePayPalRequest(
+                  currencyCode: jsonData['currency'],
+                  amount: jsonData['amount'].toString());
+              // Toast.loading();
+              BraintreePaymentMethodNonce result =
+                  await Braintree.requestPaypalNonce(
+                jsonData['token'],
+                request,
+              );
+              // Toast.clear();
+              if (result != null) {
+                print(result.nonce);
+                return result.nonce;
+              }
+            });
+        // 首页分类webview 隐藏搜索框
+        if (!widget.isInWebviewPage) {
+          controller.addJavaScriptHandler(
+              handlerName: "hideSearchBar",
+              callback: (args) {
+                return true;
+              });
+        }
+      },
+      onLoadStart: (InAppWebViewController controller, Uri url) {
+        changeHeadStatus(url);
+      },
+      onProgressChanged: (InAppWebViewController controller, int progress) {
+        if (progress > 80) {
+          Toast.clear();
+        }
+      },
+      onLoadStop: (InAppWebViewController controller, Uri url) async {},
+      shouldOverrideUrlLoading: (controller, navigationAction) async {
+        var url = navigationAction.request.url;
+        if (url.scheme == 'homary') {
+          //   // print("进来  ${widget.isInWebviewPage}");
+          //   var params = getSchemaParams(url.toString());
+          //   var content = jsonDecode(params['params']['content']);
+          //   if (widget.isInWebviewPage) {
+          //     // 如果在 原生webview路由下 则在当前webviewCtrl跳转，否则打开新的/webview路由
+          //     var link = Uri.decodeComponent(content['url']);
+          //     controller.loadUrl(
+          //       urlRequest: URLRequest(url: Uri.parse(link)),
+          //     );
+          //     return NavigationActionPolicy.CANCEL;
+          //   } else {
+          //     handleSchema(context, url.toString());
+          //     return NavigationActionPolicy.CANCEL;
+          //   }
+          // bugfix: 为了解决屏幕右滑 webview不能返回上一页的问题
+          handleSchema(context, url.toString());
+          return NavigationActionPolicy.CANCEL;
+        }
+        return NavigationActionPolicy.ALLOW;
+      },
+      onUpdateVisitedHistory:
+          (InAppWebViewController controller, Uri url, bool androidIsReload) {
+        print("路由跳转 ===》$url");
+        changeHeadStatus(url);
+      },
+      onLoadError: (context, url, i, e) {
+        print('error====> $i   $e');
+      },
+
+      onReceivedServerTrustAuthRequest: (controller, challenge) async =>
+          ServerTrustAuthResponse(
+              action: ServerTrustAuthResponseAction.PROCEED),
+    ));
   }
 }
