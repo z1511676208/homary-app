@@ -3,7 +3,6 @@ import 'package:homary/components/GoodsCard/main.dart';
 import 'package:homary/components/appBar/search/main.dart';
 import 'package:homary/components/goBackAppBar/main.dart';
 import 'package:homary/components/goTopMenu/main.dart';
-import 'package:homary/entity/commonConfig.dart';
 import 'package:homary/pages/categoryTab/components/category_menu_bar.dart';
 import 'package:homary/pages/categoryTab/components/filter_drawer.dart';
 import 'package:homary/pages/categoryTab/components/product_empty.dart';
@@ -29,7 +28,7 @@ class _CategoryTabState extends State<CategoryTab> {
 
   bool showBackTopButton = false;
 
-  CurrentConfig config;
+  int config;
 
   void _handleScroll() {
     if (_scrollController.offset >= 250 && showBackTopButton == false) {
@@ -61,8 +60,8 @@ class _CategoryTabState extends State<CategoryTab> {
       create: (context) => CategoryTabCtrl(widget.categoryId,
           selectedCategoryName: widget.appBarTitle),
       update: (context, config, ctrl) {
-        if (this.config != config.currentConfig) {
-          this.config = config.currentConfig;
+        if (this.config != config.currentConfig.hashCode) {
+          this.config = config.currentConfig.hashCode;
           ctrl.setCategoryList(config.navList);
           ctrl.init();
         }

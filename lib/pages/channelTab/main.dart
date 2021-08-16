@@ -3,7 +3,6 @@ import 'package:homary/components/GoodsCard/main.dart';
 import 'package:homary/components/appBar/search/main.dart';
 import 'package:homary/components/goBackAppBar/main.dart';
 import 'package:homary/components/goTopMenu/main.dart';
-import 'package:homary/entity/commonConfig.dart';
 import 'package:homary/pages/categoryTab/components/view_more_button.dart';
 import 'package:homary/pages/channelTab/components/channel_list_empty.dart';
 import 'package:homary/pages/channelTab/components/channel_list_widget.dart';
@@ -36,7 +35,7 @@ class _ChannelTabState extends State<ChannelTab> {
 
   bool showBackTopButton = false;
 
-  CurrentConfig config;
+  int config;
 
   void _handleScroll() {
     if (_scrollController.offset >= 250 && showBackTopButton == false) {
@@ -67,9 +66,9 @@ class _ChannelTabState extends State<ChannelTab> {
     return ChangeNotifierProxyProvider<GlobalConfig, ChannelTabCtrl>(
       create: (context) => ChannelTabCtrl(widget.channelId, widget.type),
       update: (context, config, ctrl) {
-        if (this.config != config.currentConfig) {
-          this.config = config.currentConfig;
-          return ChannelTabCtrl(widget.channelId, widget.type);
+        if (this.config != config.currentConfig.hashCode) {
+          this.config = config.currentConfig.hashCode;
+          ctrl.onRefresh(isOnRefresh: false);
         }
         return ctrl;
       },

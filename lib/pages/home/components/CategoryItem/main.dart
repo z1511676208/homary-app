@@ -40,11 +40,27 @@ class _CategoryItemState extends State<CategoryItem>
     schemaParams['url'] = params['url'];
     schemaParams['params'] = params['params'];
     super.initState();
+    widget.tabController.addListener(listenTab);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    widget.tabController.removeListener(listenTab);
+  }
+
+  void listenTab() {
+    if (widget.idx + 1 == widget.tabController.index) {
+      setState(() {});
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    if (widget.idx + 1 != widget.tabController.index) {
+      return Container();
+    }
     Map map = jsonDecode(schemaParams['params']['content']);
     if (map.containsKey('url')) {
       String url = map['url'] as String;
