@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-14 15:05:20
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-06 14:20:19
+ * @LastEditTime : 2021-08-16 13:47:26
  */
 
 // import 'package:homary/common/utils/main.dart';
@@ -61,6 +61,7 @@ class _SalePageState extends State<SalePage>
   Widget build(BuildContext context) {
     super.build(context);
     return WebviewCtrl(
+      isInWebviewPage: false,
       needLogin: '0',
       source: '',
       content: {"url": "https://m.homary.com/category/outdoor-110.html"},

@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-28 16:10:53
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-13 14:20:34
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-16 10:23:25
  */
 import 'package:flutter/material.dart';
 import 'package:homary/common/utils/localstorage.dart';
@@ -14,8 +14,9 @@ class FlexItem extends StatelessWidget {
   final int count;
   final String url;
   final String title;
+  final bool needLogin;
   const FlexItem(this.text, this.icon,
-      {Key key, this.count, this.url, this.title = ''})
+      {Key key, this.count, this.url, this.title = '', this.needLogin = true})
       : super(key: key);
 
   @override
@@ -26,7 +27,7 @@ class FlexItem extends StatelessWidget {
       child: InkWell(
         onTap: () {
           bool isLogin = Localstorage().getBool('isLogin');
-          if (this.url != null && isLogin) {
+          if (this.url != null && isLogin || !this.needLogin) {
             Routes.push(context, '/webview', params: {
               "appBarTitle": this.title,
               "showAppLoading": '0',
