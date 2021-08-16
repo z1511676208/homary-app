@@ -94,17 +94,21 @@ class _UserPageViewState extends State<UserPageView> {
                               direction: Axis.horizontal,
                               children: <Widget>[
                                 ExpandedItem(
-                                    data.userCenterInfo?.couponCount ?? 0,
-                                    S.of(context).usercenter_coupons,
-                                    url: '/usercenter/coupons'),
+                                  data.userCenterInfo?.couponCount ?? 0,
+                                  S.of(context).usercenter_coupons,
+                                  url: '/usercenter/coupons',
+                                  appBarTitle: S.of(context).usercenter_coupons,
+                                ),
                                 ExpandedItem(
-                                    data.userCenterInfo?.goodsCollectionCount ??
-                                        0,
-                                    S.of(context).usercenter_wishlists,
-                                    url: '/usercenter/wishlists'),
+                                  data.userCenterInfo?.goodsCollectionCount ??
+                                      0,
+                                  S.of(context).usercenter_wishlists,
+                                  url: '/usercenter/wishlists',
+                                ),
                                 ExpandedItem(
                                     data.userCenterInfo?.userViewCount ?? 0,
                                     S.of(context).usercenter_views,
+                                    appBarTitle: S.of(context).usercenter_views,
                                     url: '/usercenter/viewed')
                               ],
                             ),

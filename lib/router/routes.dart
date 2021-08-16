@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-07 20:28:59
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-05 18:12:07
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-16 16:08:47
  */
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +39,9 @@ class Routes {
   /// channel页
   static String channel = '/channel';
 
+  // pdf viewer
+  static String pdfViewer = '/pdf';
+
   // 配置route
   static void configureRoutes(FluroRouter router) {
     router.notFoundHandler = Handler(
@@ -55,6 +58,7 @@ class Routes {
     router.define(search, handler: searchPageHandler);
     router.define(category, handler: categoryHandler);
     router.define(channel, handler: channelHandler);
+    router.define(pdfViewer, handler: pdfViewerHandler);
   }
 
   static String formatQueryParams(Map<String, dynamic> params) {
