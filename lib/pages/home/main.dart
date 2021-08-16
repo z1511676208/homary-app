@@ -1,8 +1,13 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-07 20:28:59
+<<<<<<< Updated upstream
  * @LastEditors  : JHao
  * @LastEditTime : 2021-08-16 10:43:38
+=======
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-08-16 11:09:27
+>>>>>>> Stashed changes
  */
 import 'dart:convert';
 import 'package:homary/common/utils/main.dart';
@@ -48,6 +53,7 @@ class _HomePageViewState extends State<HomePageView>
         Map<String, dynamic> channelMap =
             await Provider.of<HomeCtrl>(context, listen: false)
                 .getTopChannelCategory();
+
         setState(() {
           _tabValues = [
             ...['Home'],

@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-06 10:11:04
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-11 14:13:02
+ * @LastEditTime : 2021-08-16 19:14:12
  */
 
 import 'package:flutter/material.dart';
@@ -153,7 +153,7 @@ class _GlobalDrawerViewState extends State<GlobalDrawerView> {
                               onTap: () {
                                 Routes.push(context, '/webview', params: {
                                   "content":
-                                      '{"url":"https://m.homary.com/AppCustomerService"}'
+                                      '{"url":"https://m.homary.com/AppPages/customerService"}'
                                 });
                               },
                               child: Row(

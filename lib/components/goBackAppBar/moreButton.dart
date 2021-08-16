@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-27 15:53:52
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-09 16:45:56
+ * @LastEditTime : 2021-08-16 19:14:21
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:popover/popover.dart';
@@ -53,7 +53,7 @@ class ListItems extends StatelessWidget {
       {
         'title': 'Support',
         'icon': Icon(Iconfont.Customer),
-        'url': 'https://m.homary.com/AppCustomerService'
+        'url': 'https://m.homary.com/AppPages/customerService'
       }
     ];
     return Scrollbar(

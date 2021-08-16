@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-13 10:15:30
- * @LastEditors  : JHao
- * @LastEditTime : 2021-08-16 16:58:55
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-08-16 20:37:55
  */
 // import 'package:localization_demo/i18n/app_localization_delegate.dart';
 // import 'package:localization_demo/i18n/app_localizations.dart';
@@ -62,9 +62,8 @@ class GlobalConfig with ChangeNotifier {
       } else {
         config = CurrentConfig.fromJson(getCurrentConfig());
       }
-
       this.currentConfig = config;
-      print(config.toJson());
+      setCurrentConfigCookie();
       var site = siteList
           .where((item) => item.countryCode == config.countryCode)
           .toList()[0]
@@ -133,11 +132,15 @@ class GlobalConfig with ChangeNotifier {
         this.currentConfig.currency = configData.code;
     }
     setCurrentConfig(this.currentConfig.toJson());
-    setCurrentConfigCookie();
-    busEvent.pubWebViewCtrl('switchSite'); // 通知webview刷新页面
+
     this.navList = [];
     await this.getNavList(isNotNotify: true);
     await this.getCommonConfig();
+    // if (configType == 1) {
+    //   Routes.goHome();
+    // } else {
+    busEvent.pubWebViewCtrl('switchSite'); // 通知webview刷新页面
+    // }
   }
 
   //登出
@@ -146,6 +149,7 @@ class GlobalConfig with ChangeNotifier {
     if (res.error == null) {
       Localstorage().remove('token');
       Localstorage().setBool('isLogin', false);
+      Toast.message('Logout succssful');
       setWebviewCookies();
       this.getShoppingCartNumber();
     }

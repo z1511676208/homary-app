@@ -257,6 +257,7 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
                 jsonData['token'],
                 request,
               );
+              print('result=======>$result');
               // Toast.clear();
               if (result != null) {
                 print(result.nonce);
