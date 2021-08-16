@@ -1,16 +1,16 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-13 10:15:30
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-03 11:18:52
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-16 16:51:58
  */
 Map<String, String> baseRequestUrl = {
   "homeReviewModule":
-      "https://frontapi.homary.com/home/index/get-home-review-module", // 首页评论模块
+      "https://frontapi.homary.com/home/index/get-home-review-module",
   "homeProductModule":
-      "https://frontapi.homary.com/home/index/get-home-product-module", // 首页热销商品模块
+      "https://frontapi.homary.com/home/index/get-home-product-module",
   "homeRecommendProduct":
-      "https://frontapi.homary.com/home/index/get-recommend-product", // 首页热门推荐商品模块
+      "https://frontapi.homary.com/home/index/get-recommend-product",
   "productInfo":
       "https://frontapi.homary.com/product/product/get-product-info?sku_id=#",
   "productStaticInfo":
@@ -29,12 +29,12 @@ Map<String, String> baseRequestUrl = {
   "skuCombineBuyList":
       "https://frontapi.homary.com/product/product/get-sku-combine-buy-list?sku_id=#",
   "skuCombineBuyInfo":
-      "https://frontapi.homary.com/product/product/get-sku-combine-buy-info?combine_buy_id=#",
+      "https://frontapi.homary.com/product/product/get-combine-buy-info?combine_buy_id=#",
   "productDetailRecommendList":
       "https://frontapi.homary.com/product/product/get-product-detail-recommend-list?sku_id=#",
   "skuCombineBuyRecommendList":
       "https://frontapi.homary.com/product/product/get-sku-combine-buy-recommend-list?sku_id=#",
-  "hotKeywords": "https://frontapi.homary.com/product/search/hot-keywords", //热搜
+  "hotKeywords": "https://frontapi.homary.com/product/search/hot-keywords",
   "analyzeData": "https://frontapi.homary.com/product/search/analyze-data",
   "activityInfo":
       "https://frontapi.homary.com/product/activity/get-activity-info?activity_id=#",
@@ -69,5 +69,7 @@ Map<String, String> baseRequestUrl = {
   "emailRegister": "https://frontapi.homary.com/user/user/register",
   "loginLogOut": "https://frontapi.homary.com/user/login/log-out",
   "userInfo": "https://frontapi.homary.com/user/user/info",
-  "fireBaseLogin": "https://frontapi.homary.com/user/login/fire-base-login"
+  "fireBaseLogin": "https://frontapi.homary.com/user/login/fire-base-login",
+  "sendEmail": "https://frontapi.homary.com/user/login/send-email",
+  "getCartNums": "https://frontapi.homary.com/order/cart/get-item-nums"
 };

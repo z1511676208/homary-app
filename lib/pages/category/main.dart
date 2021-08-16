@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-12 17:38:02
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-05 18:14:39
+ * @LastEditTime : 2021-08-16 16:56:56
  */
 import 'dart:convert';
 
@@ -55,7 +55,7 @@ class _ProductListViewState extends State<ProductListView> {
     var current =
         jsonEncode(Provider.of<GlobalConfig>(context).currentConfig?.toJson());
     if (this.currentConfig != current) {
-      Toast.loading();
+      // Toast.loading();
       this.currentConfig = current;
       Map<String, dynamic> channelMap =
           await Provider.of<HomeCtrl>(context, listen: false)
@@ -65,7 +65,7 @@ class _ProductListViewState extends State<ProductListView> {
           .setActiveCategoryId(topChannelList[0]?.categoryId);
       await Provider.of<CategoryCtrl>(context, listen: false).getCategoryList(
           params: {"category_id": topChannelList[0]?.categoryId ?? ""});
-      Toast.clear();
+      // Toast.clear();
     }
     super.didChangeDependencies();
   }

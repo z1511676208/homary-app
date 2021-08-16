@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-13 10:15:30
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-13 18:30:41
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-16 16:58:55
  */
 // import 'package:localization_demo/i18n/app_localization_delegate.dart';
 // import 'package:localization_demo/i18n/app_localizations.dart';
@@ -105,9 +105,9 @@ class GlobalConfig with ChangeNotifier {
   //获取菜单
   Future getNavList({bool isNotNotify = false}) async {
     if (this.navList.isEmpty) {
-      Toast.loading();
+      // Toast.loading();
       DioResult res = await SlideNavApi.getSlideNavData();
-      Toast.clear();
+      // Toast.clear();
       if (res.error == null) {
         this.navList = SlideNavRes.fromJson(res.result).data;
       }

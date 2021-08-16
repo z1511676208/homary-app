@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-22 17:26:36
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-09 11:17:59
+ * @LastEditTime : 2021-08-16 20:22:09
  */
 import 'dart:async';
 import 'package:flutter/material.dart';
@@ -212,52 +212,87 @@ class _GoodsCardState extends State<GoodsCard> {
                         children: [
                           widget.showSkuList == true
                               ? widget.data?.mergeSkuList != null &&
-                                      widget.data.mergeSkuList.length > 0
+                                          widget.data.mergeSkuList.length > 0 ||
+                                      widget.data.totalSkuNum != ""
                                   ? Container(
                                       height: 25.w,
                                       margin: EdgeInsets.only(top: 8.w),
                                       child: ListView.builder(
                                         scrollDirection: Axis.horizontal,
-                                        itemBuilder: (ctx, index) =>
-                                            GestureDetector(
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(3.w),
-                                            child: Container(
-                                              width: 25.w,
-                                              height: 25.w,
-                                              padding: EdgeInsets.all(2.w),
-                                              margin:
-                                                  EdgeInsets.only(right: 2.w),
-                                              decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      width: 1.w,
-                                                      color: _currentData
-                                                                  .skuId ==
-                                                              widget
-                                                                  .data
-                                                                  .mergeSkuList[
-                                                                      index]
-                                                                  .skuId
-                                                          ? AppColor
-                                                              .primaryColor
-                                                          : AppColor
-                                                              .primaryBorderOutline)),
-                                              child: CustomNetworkImage(widget
-                                                  .data
-                                                  .mergeSkuList[index]
-                                                  ?.imgUrl),
+                                        itemBuilder: (ctx, index) {
+                                          if (widget.data.totalSkuNum != "" &&
+                                              index ==
+                                                  widget.data.mergeSkuList
+                                                      .length) {
+                                            return GestureDetector(
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(3.w),
+                                                child: Container(
+                                                  width: 25.w,
+                                                  height: 25.w,
+                                                  alignment: Alignment.center,
+                                                  padding: EdgeInsets.all(2.w),
+                                                  margin: EdgeInsets.only(
+                                                      right: 2.w),
+                                                  color: AppColor
+                                                      .primaryNavBgColor,
+                                                  child: Text(
+                                                    widget.data.totalSkuNum,
+                                                    style: TextStyle(
+                                                        color: AppColor
+                                                            .primaryText),
+                                                  ),
+                                                ),
+                                              ),
+                                              onTap: () {
+                                                handleSchema(context,
+                                                    _currentData.jumpUrl);
+                                              },
+                                            );
+                                          }
+                                          return GestureDetector(
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(3.w),
+                                              child: Container(
+                                                width: 25.w,
+                                                height: 25.w,
+                                                padding: EdgeInsets.all(2.w),
+                                                margin:
+                                                    EdgeInsets.only(right: 2.w),
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        width: 1.w,
+                                                        color: _currentData
+                                                                    .skuId ==
+                                                                widget
+                                                                    .data
+                                                                    .mergeSkuList[
+                                                                        index]
+                                                                    .skuId
+                                                            ? AppColor
+                                                                .primaryColor
+                                                            : AppColor
+                                                                .primaryBorderOutline)),
+                                                child: CustomNetworkImage(widget
+                                                    .data
+                                                    .mergeSkuList[index]
+                                                    ?.imgUrl),
+                                              ),
                                             ),
-                                          ),
-                                          onTap: () {
-                                            setState(() {
-                                              _currentData = widget
-                                                  .data.mergeSkuList[index];
-                                            });
-                                          },
-                                        ),
-                                        itemCount:
-                                            widget.data.mergeSkuList.length,
+                                            onTap: () {
+                                              setState(() {
+                                                _currentData = widget
+                                                    .data.mergeSkuList[index];
+                                              });
+                                            },
+                                          );
+                                        },
+                                        itemCount: widget.data.totalSkuNum != ""
+                                            ? widget.data.mergeSkuList.length +
+                                                1
+                                            : widget.data.mergeSkuList.length,
                                       ),
                                     )
                                   : Container(
@@ -297,7 +332,7 @@ class _GoodsCardState extends State<GoodsCard> {
                                   text: _currentData.priceSymbol ??
                                       _currentData.price,
                                   style: TextStyle(
-                                      color: _currentData.activityStatus == 1
+                                      color: _currentData.tagPriceSymbol != ''
                                           ? AppColor.offPriceColor
                                           : AppColor.primaryText,
                                       fontSize: 14.sp,
@@ -306,7 +341,7 @@ class _GoodsCardState extends State<GoodsCard> {
                                 TextSpan(
                                   text: ' ',
                                 ),
-                                _currentData.activityStatus == 1
+                                _currentData.tagPriceSymbol != ''
                                     ? TextSpan(
                                         text: _currentData.tagPriceSymbol
                                                 ?.toString() ??
@@ -338,7 +373,9 @@ class _GoodsCardState extends State<GoodsCard> {
                               ]),
                             ),
                           ),
-                          widget.showRating
+                          widget.showRating &&
+                                  _currentData.reviewScore != "" &&
+                                  _currentData.reviewScore != 0
                               ? Padding(
                                   padding: EdgeInsets.only(top: 8.w),
                                   child: Row(
