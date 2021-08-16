@@ -216,4 +216,35 @@ class Iconfont {
     fontFamily: 'Iconfont',
     matchTextDirection: true,
   );
+
+  static const More2 = IconData(
+    0xe68e,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
+
+  static const Less = IconData(
+    0xe68f,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
+
+  static const DetailsLess = IconData(
+    0xe68c,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
+
+  static const DetailsPlus = IconData(
+    0xe68d,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
+
+
+  static const Tick = IconData(
+    0xe653,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
 }

@@ -4,6 +4,9 @@
  * @LastEditors  : zhhjie
  * @LastEditTime : 2021-08-04 18:51:48
  */
+import 'dart:convert';
+
+import 'package:homary/common/utils/utils.dart';
 import 'package:homary/router/routes.dart';
 
 void handleSchema(context, String link, {String appBarTitle}) {
@@ -25,6 +28,20 @@ void handleSchema(context, String link, {String appBarTitle}) {
   if (appBarTitle != null) {
     paramsMap.addAll({"appBarTitle": appBarTitle});
   }
+
+  Map contentMap = jsonDecode(paramsMap['content']);
+  String contentUrl = contentMap['url'];
+  if(contentUrl != null){
+    if(contentUrl.contains('/category/')){
+      url = Routes.category;
+      paramsMap['categoryId'] = getIdFromUrl(contentUrl);
+    }
+    if(contentUrl.contains('/channel/')){
+      url = Routes.channel;
+      paramsMap['type'] = getIdFromUrl(contentUrl);
+    }
+  }
+
   if (targetUrl != null) {
     // do something before page push
     Routes.push(context, url, params: paramsMap);

@@ -8,6 +8,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
+import 'package:homary/pages/categoryTab/main.dart';
+import 'package:homary/pages/channelTab/main.dart';
 import 'package:homary/pages/index/main.dart';
 import 'package:homary/pages/reviewDetail/main.dart';
 import 'package:homary/pages/signIn/main.dart';
@@ -70,5 +72,26 @@ Handler reviewDetailPageHandler = Handler(
 Handler searchPageHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return Search();
+  },
+);
+
+Handler categoryHandler = Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return CategoryTab(
+      isPage: true,
+      categoryId: params['categoryId']?.first,
+      appBarTitle: params['appBarTitle']?.first ?? '',
+    );
+  },
+);
+
+Handler channelHandler = Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return ChannelTab(
+      isPage: true,
+      channelId: params['channelId']?.first,
+      appBarTitle: params['appBarTitle']?.first ?? '',
+      type: params['type']?.first ?? '1',
+    );
   },
 );

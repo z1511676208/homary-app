@@ -193,6 +193,33 @@ class CurrentConfig {
   String currencyName;
   String languageName;
 
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is CurrentConfig &&
+          runtimeType == other.runtimeType &&
+          site == other.site &&
+          currencySymbol == other.currencySymbol &&
+          currency == other.currency &&
+          language == other.language &&
+          timeZoneCode == other.timeZoneCode &&
+          siteName == other.siteName &&
+          siteNameEn == other.siteNameEn &&
+          currencyName == other.currencyName &&
+          languageName == other.languageName;
+
+  @override
+  int get hashCode =>
+      site.hashCode ^
+      currencySymbol.hashCode ^
+      currency.hashCode ^
+      language.hashCode ^
+      timeZoneCode.hashCode ^
+      siteName.hashCode ^
+      siteNameEn.hashCode ^
+      currencyName.hashCode ^
+      languageName.hashCode;
+
   factory CurrentConfig.fromRawJson(String str) =>
       CurrentConfig.fromJson(json.decode(str));
 

@@ -106,6 +106,7 @@ class _MainPageState extends State<MainPage> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       Provider.of<GlobalConfig>(context, listen: false).getCommonConfig();
       Provider.of<GlobalConfig>(context, listen: false).getShoppingCartNumber();
+      Provider.of<GlobalConfig>(context, listen: false).getNavList();
       var deviceId = await DeviveInfo().getDeviceId();
       Provider.of<GlobalConfig>(context, listen: false)
           .pushDeviceInfo(params: {"device_number": deviceId});
