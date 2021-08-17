@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-13 11:36:43
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-13 14:15:15
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-17 19:13:29
  */
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -133,6 +133,8 @@ class SignInCtrl with ChangeNotifier {
           accessToken: googleAuth.accessToken,
           idToken: googleAuth.idToken,
         );
+        Toast.loading();
+
         final User user = (await _auth.signInWithCredential(credential)).user;
         String idTokenResult = await user.getIdToken();
         this.thridLogin(context, idTokenResult, 'google');
@@ -151,6 +153,8 @@ class SignInCtrl with ChangeNotifier {
           final FacebookAccessToken accessToken = result.accessToken;
           final AuthCredential credential =
               FacebookAuthProvider.credential(accessToken.token);
+          Toast.loading();
+
           final User user = (await _auth.signInWithCredential(credential)).user;
           String idTokenResult = await user.getIdToken(true);
           this.thridLogin(context, idTokenResult, 'facebook');
@@ -180,6 +184,8 @@ class SignInCtrl with ChangeNotifier {
         AuthCredential credential = TwitterAuthProvider.credential(
             accessToken: result.session.token ?? '',
             secret: result.session.secret ?? '');
+        Toast.loading();
+
         final User user = (await _auth.signInWithCredential(credential)).user;
         String idTokenResult = await user.getIdToken(true);
         this.thridLogin(context, idTokenResult, 'twitter');
@@ -194,7 +200,6 @@ class SignInCtrl with ChangeNotifier {
 
   //第三方登录请求获取信息
   void thridLogin(context, idTokenResult, oauthVerifier) async {
-    Toast.loading();
     UserThirdLoginReq params =
         UserThirdLoginReq(idToken: idTokenResult, oauthVerifier: oauthVerifier);
     DioResult res = await UserApi.thirdLogin(params: params);
