@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-09 16:22:36
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-03 17:36:10
+ * @LastEditTime : 2021-08-23 19:31:05
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -19,6 +19,8 @@ class NavItem extends StatelessWidget {
   final bool isConfig; //判断是是否是配置菜单点击 1是0否
   final int configType;
   final String jumpUrl;
+  final Function onTap;
+  final bool showArrow;
   const NavItem(
       {Key key,
       this.title,
@@ -28,24 +30,30 @@ class NavItem extends StatelessWidget {
       this.subList,
       this.isConfig,
       this.configType,
-      this.jumpUrl})
+      this.jumpUrl,
+      this.onTap,
+      this.showArrow})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          Provider.of<SlideNavCtrl>(context, listen: false)
-              .setSubList(subList, title);
-          if (subList == null || subList.isEmpty) {
-            Navigator.pop(context);
-            handleSchema(context, this.jumpUrl, appBarTitle: title);
-          } else {
-            Provider.of<SlideNavCtrl>(context, listen: false).subListToggle();
-          }
-          if (isConfig) {
+          if (onTap == null) {
             Provider.of<SlideNavCtrl>(context, listen: false)
-                .setConfig(configType);
+                .setSubList(subList, title);
+            if (subList == null || subList.isEmpty) {
+              Navigator.pop(context);
+              handleSchema(context, this.jumpUrl, appBarTitle: title);
+            } else {
+              Provider.of<SlideNavCtrl>(context, listen: false).subListToggle();
+            }
+            if (isConfig) {
+              Provider.of<SlideNavCtrl>(context, listen: false)
+                  .setConfig(configType);
+            }
+          } else {
+            onTap();
           }
         },
         child: Container(
@@ -98,7 +106,8 @@ class NavItem extends StatelessWidget {
               Container(
                 margin: EdgeInsets.only(right: 16.w),
                 child: Offstage(
-                  offstage: subList == null || subList.isEmpty,
+                  offstage:
+                      subList == null || subList.isEmpty || showArrow != null,
                   child: Icon(
                     Icons.chevron_right,
                     color: AppColor.primaryBorderLight,

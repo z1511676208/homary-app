@@ -81,5 +81,7 @@
   "Sale": "Venta",
   "Me": "Me",
   "newUserCouponModal_upto": "Hasta",
-  "newUserCouponModal_forUser": "de descuento"
+  "newUserCouponModal_forUser": "de descuento",
+  "home_viewMore": "Ver Mas",
+  "home_freeShipping": "Envío Gratis"
 }

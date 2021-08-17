@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-27 15:53:52
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-18 19:52:13
+ * @LastEditTime : 2021-08-23 17:35:37
  */
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
@@ -40,15 +40,15 @@ class ListItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List list = [
-      {'title': 'Home', 'icon': Icon(Iconfont.Home), 'url': '/'},
+      {'title': S.of(context).Home, 'icon': Icon(Iconfont.Home), 'url': '/'},
       {
-        'title': 'Wishlist',
+        'title': S.of(context).usercenter_wishlists,
         'icon': Icon(Iconfont.Collect),
         'url': 'https://m.homary.com/usercenter/wishlists',
         'isNeedLogin': true
       },
       {
-        'title': 'Recently Viewed',
+        'title': 'Recently Views',
         'icon': Icon(Iconfont.Recent),
         'url': 'https://m.homary.com/usercenter/viewed',
         'isNeedLogin': true

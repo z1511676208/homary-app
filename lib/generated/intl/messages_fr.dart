@@ -53,6 +53,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "channel_shopByDepartment" : MessageLookupByLibrary.simpleMessage("Magasiner par catégorie"),
     "close_drawer" : MessageLookupByLibrary.simpleMessage("Close Drawer 123"),
     "drawer_tip" : MessageLookupByLibrary.simpleMessage("This is the Drawer"),
+    "home_freeShipping" : MessageLookupByLibrary.simpleMessage("Livraison Gratuite"),
+    "home_viewMore" : MessageLookupByLibrary.simpleMessage("Voir Plus"),
     "login_email" : MessageLookupByLibrary.simpleMessage("Adresse E-mail"),
     "login_emailError" : MessageLookupByLibrary.simpleMessage("S\'il vous plaît, mettez une adresse email valide."),
     "login_forget" : MessageLookupByLibrary.simpleMessage("Mot de passe oublié?"),

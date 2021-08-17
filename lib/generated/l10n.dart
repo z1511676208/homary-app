@@ -864,6 +864,26 @@ class S {
       args: [],
     );
   }
+
+  /// `View More`
+  String get home_viewMore {
+    return Intl.message(
+      'View More',
+      name: 'home_viewMore',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Free Shipping`
+  String get home_freeShipping {
+    return Intl.message(
+      'Free Shipping',
+      name: 'home_freeShipping',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

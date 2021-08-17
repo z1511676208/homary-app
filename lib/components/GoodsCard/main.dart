@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-22 17:26:36
- * @LastEditors  : JHao
- * @LastEditTime : 2021-08-19 16:14:09
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-08-23 15:32:32
  */
 import 'dart:async';
 import 'package:flutter/material.dart';
@@ -416,7 +416,7 @@ class _GoodsCardState extends State<GoodsCard> {
                                   padding: EdgeInsets.only(top: 8.w),
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    'Free Shipping',
+                                    S.of(context).home_freeShipping,
                                     style: TextStyle(
                                       color: AppColor.primaryText,
                                       fontSize: 12.sp,
