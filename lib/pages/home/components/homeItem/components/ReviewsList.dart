@@ -1,9 +1,3 @@
-/*
- * @Author       : JHao
- * @Date         : 2021-07-23 18:34:11
- * @LastEditors  : JHao
- * @LastEditTime : 2021-08-25 13:49:59
- */
 
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';

@@ -5,38 +5,38 @@
 import 'dart:convert';
 
 class ModuleDataProductList {
-  ModuleDataProductList({
-    this.title,
-    this.price,
-    this.priceSymbol,
-    this.tagPrice,
-    this.tagPriceSymbol,
-    this.spuId,
-    this.skuId,
-    this.spuCode,
-    this.skuCode,
-    this.imgUrl,
-    this.jumpUrl,
-    this.status,
-    this.activityStatus,
-    this.statusDesc,
-    this.spuCategoryNameFirst,
-    this.spuCategoryNameSecond,
-    this.spuCategoryNameThird,
-    this.spuCategoryNameFourth,
-    this.reviewScore,
-    this.reviewNum,
-    this.skuSaleNum,
-    this.sortWeight,
-    this.purchaseRate,
-    this.cornerText,
-    this.cornerBgUrl,
-    this.activityEndTimeStamp,
-    this.priceOffDesc,
-    this.mergeSkuList,
-    this.mergeSkuDesc,
-    this.totalSkuNum,
-  });
+  ModuleDataProductList(
+      {this.title,
+      this.price,
+      this.priceSymbol,
+      this.tagPrice,
+      this.tagPriceSymbol,
+      this.spuId,
+      this.skuId,
+      this.spuCode,
+      this.skuCode,
+      this.imgUrl,
+      this.jumpUrl,
+      this.status,
+      this.activityStatus,
+      this.statusDesc,
+      this.spuCategoryNameFirst,
+      this.spuCategoryNameSecond,
+      this.spuCategoryNameThird,
+      this.spuCategoryNameFourth,
+      this.reviewScore,
+      this.reviewNum,
+      this.skuSaleNum,
+      this.sortWeight,
+      this.purchaseRate,
+      this.cornerText,
+      this.cornerBgUrl,
+      this.activityEndTimeStamp,
+      this.priceOffDesc,
+      this.mergeSkuList,
+      this.mergeSkuDesc,
+      this.totalSkuNum,
+      this.spuSaleQuantityDesc});
 
   String title;
   String price;
@@ -68,6 +68,7 @@ class ModuleDataProductList {
   List<MergeSkuList> mergeSkuList;
   String mergeSkuDesc;
   String totalSkuNum;
+  String spuSaleQuantityDesc;
 
   factory ModuleDataProductList.fromRawJson(String str) =>
       ModuleDataProductList.fromJson(json.decode(str));
@@ -76,38 +77,38 @@ class ModuleDataProductList {
 
   factory ModuleDataProductList.fromJson(Map<String, dynamic> json) =>
       ModuleDataProductList(
-        title: json["title"],
-        price: json["price"],
-        priceSymbol: json["price_symbol"],
-        tagPrice: json["tag_price"],
-        tagPriceSymbol: json["tag_price_symbol"],
-        spuId: json["spu_id"],
-        skuId: json["sku_id"],
-        spuCode: json["spu_code"],
-        skuCode: json["sku_code"],
-        imgUrl: json["img_url"],
-        jumpUrl: json["jump_url"],
-        status: json["status"],
-        activityStatus: json["activity_status"],
-        statusDesc: json["status_desc"],
-        spuCategoryNameFirst: json["spu_category_name_first"],
-        spuCategoryNameSecond: json["spu_category_name_second"],
-        spuCategoryNameThird: json["spu_category_name_third"],
-        spuCategoryNameFourth: json["spu_category_name_fourth"],
-        reviewScore: json["review_score"],
-        reviewNum: json["review_num"],
-        skuSaleNum: json["sku_sale_num"],
-        sortWeight: json["sort_weight"],
-        purchaseRate: json["purchase_rate"],
-        cornerText: json["corner_text"],
-        cornerBgUrl: json["corner_bg_url"],
-        activityEndTimeStamp: json["activity_end_time_stamp"],
-        priceOffDesc: json["price_off_desc"],
-        mergeSkuList: List<MergeSkuList>.from(
-            json["merge_sku_list"]?.map((x) => MergeSkuList.fromJson(x))),
-        mergeSkuDesc: json["merge_sku_desc"],
-        totalSkuNum: json["total_sku_num"],
-      );
+          title: json["title"],
+          price: json["price"],
+          priceSymbol: json["price_symbol"],
+          tagPrice: json["tag_price"],
+          tagPriceSymbol: json["tag_price_symbol"],
+          spuId: json["spu_id"],
+          skuId: json["sku_id"],
+          spuCode: json["spu_code"],
+          skuCode: json["sku_code"],
+          imgUrl: json["img_url"],
+          jumpUrl: json["jump_url"],
+          status: json["status"],
+          activityStatus: json["activity_status"],
+          statusDesc: json["status_desc"],
+          spuCategoryNameFirst: json["spu_category_name_first"],
+          spuCategoryNameSecond: json["spu_category_name_second"],
+          spuCategoryNameThird: json["spu_category_name_third"],
+          spuCategoryNameFourth: json["spu_category_name_fourth"],
+          reviewScore: json["review_score"],
+          reviewNum: json["review_num"],
+          skuSaleNum: json["sku_sale_num"],
+          sortWeight: json["sort_weight"],
+          purchaseRate: json["purchase_rate"],
+          cornerText: json["corner_text"],
+          cornerBgUrl: json["corner_bg_url"],
+          activityEndTimeStamp: json["activity_end_time_stamp"],
+          priceOffDesc: json["price_off_desc"],
+          mergeSkuList: List<MergeSkuList>.from(
+              json["merge_sku_list"]?.map((x) => MergeSkuList.fromJson(x))),
+          mergeSkuDesc: json["merge_sku_desc"],
+          totalSkuNum: json["total_sku_num"],
+          spuSaleQuantityDesc: json["spu_sale_quantity_desc"]);
 
   Map<String, dynamic> toJson() => {
         "title": title,
@@ -141,6 +142,7 @@ class ModuleDataProductList {
             List<dynamic>.from(mergeSkuList.map((x) => x.toJson())),
         "merge_sku_desc": mergeSkuDesc,
         "total_sku_num": totalSkuNum,
+        "spu_sale_quantity_desc": spuSaleQuantityDesc
       };
 }
 
