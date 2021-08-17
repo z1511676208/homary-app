@@ -2,13 +2,12 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-30 10:05:06
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-26 15:40:28
+ * @LastEditTime : 2021-08-27 15:24:24
  */
 import 'dart:async';
 
 import 'package:homary/api/main.dart';
 import 'package:homary/common/request/request.dart';
-import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/entity/home.dart';
 import 'package:homary/entity/recentlyBrowsed.dart' hide Data;
@@ -20,6 +19,20 @@ class UserCtrl with ChangeNotifier {
   int hasMorePage = 0;
   Map<String, int> recentlyBrowsedParams = {"page": 1, "page_size": 10};
   List<ModuleDataProductList> recentlyList = [];
+  bool _isDispose = false;
+
+  @override
+  void dispose() {
+    super.dispose();
+    _isDispose = true;
+  }
+
+  void _safeNotifyListeners() {
+    if (_isDispose) {
+      return;
+    }
+    notifyListeners();
+  }
 
   void init() {
     this.userCenterInfo = null;
@@ -27,7 +40,7 @@ class UserCtrl with ChangeNotifier {
     this.hasMorePage = 0;
     this.recentlyBrowsedParams = {"page": 1, "page_size": 10};
     this.recentlyList = [];
-    notifyListeners();
+    _safeNotifyListeners();
   }
 
   Future userCenter() async {
@@ -35,14 +48,13 @@ class UserCtrl with ChangeNotifier {
     if (res.error == null) {
       UserCenterRes result = UserCenterRes.fromJson(res.result);
       this.userCenterInfo = result.data;
-      Localstorage().setString('userID', result.data.userIdentification);
-      notifyListeners();
+      _safeNotifyListeners();
     }
   }
 
   Future<void> getRecentlyBrowsed({params}) async {
     isLoading = true;
-    notifyListeners();
+    _safeNotifyListeners();
     DioResult res = await UserCenterApi.getRecentlyBrowsed(
         params: params ?? recentlyBrowsedParams);
     isLoading = false;
@@ -55,7 +67,7 @@ class UserCtrl with ChangeNotifier {
         recentlyList = [...recentlyList, ...newResilt];
       }
       hasMorePage = result?.data?.hasMorePage ?? 1;
-      notifyListeners();
+      _safeNotifyListeners();
     }
   }
 

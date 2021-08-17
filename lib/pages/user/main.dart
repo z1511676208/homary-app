@@ -20,19 +20,22 @@ class _UserPageViewState extends State<UserPageView> {
   bool isLogin = false;
   @override
   void didChangeDependencies() {
+    super.didChangeDependencies();
+
     var isLoginConfig = Provider.of<GlobalConfig>(context).isLogin;
     if (isLoginConfig != null && this.isLogin != isLoginConfig) {
       this.isLogin = isLoginConfig;
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        if (this.isLogin) {
-          Provider.of<UserCtrl>(context, listen: false).userCenter();
-          Provider.of<UserCtrl>(context, listen: false).getRecentlyBrowsed();
-        } else {
-          Provider.of<UserCtrl>(context, listen: false).init();
+        if (mounted) {
+          if (this.isLogin) {
+            Provider.of<UserCtrl>(context, listen: false).userCenter();
+            Provider.of<UserCtrl>(context, listen: false).getRecentlyBrowsed();
+          } else {
+            Provider.of<UserCtrl>(context, listen: false).init();
+          }
         }
       });
     }
-    super.didChangeDependencies();
   }
 
   @override
@@ -65,7 +68,10 @@ class _UserPageViewState extends State<UserPageView> {
                                 ),
                                 IconButton(
                                     onPressed: () {
-                                      Routes.push(context, '/setting');
+                                      Routes.push(context, '/setting', params: {
+                                        "userID": data
+                                            .userCenterInfo?.userIdentification
+                                      });
                                     },
                                     icon: Icon(Iconfont.Setting))
                               ],

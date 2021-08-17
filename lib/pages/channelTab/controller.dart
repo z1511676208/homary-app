@@ -36,7 +36,10 @@ class ChannelTabCtrl extends ChangeNotifier {
   /// channel列表
   List<ChannelList> channelList = [];
 
-  ChannelTabCtrl(this.channelId, {this.type, this.activityId});
+  // context
+  BuildContext context;
+
+  ChannelTabCtrl(this.channelId, {this.type, this.activityId, this.context});
 
   @override
   void dispose() {

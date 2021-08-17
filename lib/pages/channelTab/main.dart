@@ -105,7 +105,7 @@ class _ChannelTabState extends State<ChannelTab> {
   Widget build(BuildContext context) {
     return ChangeNotifierProxyProvider<GlobalConfig, ChannelTabCtrl>(
       create: (context) => ChannelTabCtrl(widget.channelId,
-          type: widget.type, activityId: widget.activityId),
+          type: widget.type, activityId: widget.activityId, context: context),
       update: (context, config, ctrl) {
         if (this.config != config.currentConfig.hashCode) {
           this.config = config.currentConfig.hashCode;

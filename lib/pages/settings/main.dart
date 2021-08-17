@@ -2,7 +2,11 @@
  * @Author       : zhhjie
  * @Date         : 2021-08-23 10:55:22
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-26 17:09:38
+<<<<<<< HEAD
+ * @LastEditTime : 2021-08-27 15:23:37
+=======
+ * @LastEditTime : 2021-08-27 11:32:43
+>>>>>>> e85b870 (bugfix:ones bug修复,设置页面,第三方登录添加第三方接口错误提示,联调app升级信息接口,弹窗提示升级信息,新人弹窗)
  */
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:homary/common/config/packageInfo.dart';
@@ -19,11 +23,11 @@ import 'package:homary/components/drawer/controller.dart';
 import 'package:homary/components/goBackAppBar/main.dart';
 import 'package:homary/entity/appUpgrade.dart';
 import 'package:homary/pages/signIn/controller.dart';
-import 'package:homary/pages/user/controller.dart';
 import 'package:homary/widget/listTileItem.dart';
 
 class SettingView extends StatefulWidget {
-  SettingView({Key key}) : super(key: key);
+  final String userID;
+  SettingView({Key key, this.userID}) : super(key: key);
 
   @override
   _SettingViewState createState() => _SettingViewState();
@@ -43,9 +47,7 @@ class _SettingViewState extends State<SettingView> {
       Provider.of<SlideNavCtrl>(context, listen: false).initBottomLink(context);
       String size = await CacheCleanUtil.getCacheSize();
       setState(() {
-        user = isLogin
-            ? Localstorage().getString('userID') ?? ''
-            : 'Login in/Sign up';
+        user = isLogin ? widget.userID ?? '' : 'Login in/Sign up';
         cacheSize = size;
       });
     });
@@ -112,7 +114,7 @@ class _SettingViewState extends State<SettingView> {
                           style:
                               TextStyle(color: AppColor.primaryLightSubTitle)),
                       padding:
-                          EdgeInsets.only(left: 16.w, top: 14.w, bottom: 14.w),
+                          EdgeInsets.only(left: 16.w, top: 18.w, bottom: 18.w),
                       margin: EdgeInsets.zero,
                       showArrow: true,
                       onTap: () {
@@ -156,7 +158,8 @@ class _SettingViewState extends State<SettingView> {
                           fontWeight: FontWeight.bold),
                       childBorder: Border(),
                       needPop: false,
-                      padding: EdgeInsets.all(16.w),
+                      padding: EdgeInsets.only(
+                          left: 16.w, bottom: 18.w, top: 18.w, right: 16.w),
                       margin: EdgeInsets.zero,
                       iconColor: AppColor.primaryBorderLight,
                       list: bottomLinkList[index].data,
@@ -192,7 +195,7 @@ class _SettingViewState extends State<SettingView> {
                         bottom: BorderSide(
                             color: AppColor.primaryBorderBottomLine))),
                 child: ListTileItem(
-                  title: Text('Clear Cache',
+                  title: Text(S.of(context).setting_clearCache,
                       style: TextStyle(
                           color: AppColor.primaryText,
                           fontWeight: FontWeight.bold)),
@@ -200,8 +203,7 @@ class _SettingViewState extends State<SettingView> {
                   onTap: () async {
                     bool result = await AppDialog.showMessage(
                         context: context,
-                        message:
-                            'Delete all temporary images to free up some space in your device?');
+                        message: S.of(context).setting_cleanCacheTip);
                     if (result) {
                       await CacheCleanUtil.cleanCache();
                       String size = await CacheCleanUtil.getCacheSize();
@@ -219,7 +221,7 @@ class _SettingViewState extends State<SettingView> {
                         bottom: BorderSide(
                             color: AppColor.primaryBorderBottomLine))),
                 child: ListTileItem(
-                  title: Text('Version',
+                  title: Text(S.of(context).setting_version,
                       style: TextStyle(
                           color: AppColor.primaryText,
                           fontWeight: FontWeight.bold)),
@@ -233,7 +235,7 @@ class _SettingViewState extends State<SettingView> {
                     if (result != null) {
                       if (result.data.isUpgrade != 0) {
                       } else {
-                        Toast.message('Your app is already the latest version.',
+                        Toast.message(S.of(context).setting_upgrade,
                             duration: const Duration(milliseconds: 1000));
                       }
                     }
@@ -246,23 +248,22 @@ class _SettingViewState extends State<SettingView> {
                 child: Container(
                   padding: EdgeInsets.all(12.w),
                   child: OutlinedButton(
-                    onPressed: () async {
-                      await Provider.of<GlobalConfig>(context, listen: false)
-                          .signOut();
-                      Provider.of<SignInCtrl>(context, listen: false)
-                          .thirdLogout();
-                      setState(() {
-                        this.isLogin = false;
-                        this.user = 'Login in/Sign up';
-                      });
-                    },
-                    style: ButtonStyle(
-                        padding: MaterialStateProperty.all(
-                            EdgeInsets.symmetric(vertical: 16.w)),
-                        side: MaterialStateProperty.all(
-                            BorderSide(color: AppColor.primaryColor))),
-                    child: Text('Log Out'),
-                  ),
+                      onPressed: () async {
+                        await Provider.of<GlobalConfig>(context, listen: false)
+                            .signOut(context);
+                        Provider.of<SignInCtrl>(context, listen: false)
+                            .thirdLogout();
+                        setState(() {
+                          this.isLogin = false;
+                          this.user = 'Login in/Sign up';
+                        });
+                      },
+                      style: ButtonStyle(
+                          padding: MaterialStateProperty.all(
+                              EdgeInsets.symmetric(vertical: 16.w)),
+                          side: MaterialStateProperty.all(
+                              BorderSide(color: AppColor.primaryColor))),
+                      child: Text(S.of(context).sign_out_btn)),
                 ),
               )),
             ]),
@@ -286,7 +287,8 @@ class _SettingViewState extends State<SettingView> {
 }
 
 class Setting extends StatelessWidget {
-  const Setting({Key key}) : super(key: key);
+  final String userID;
+  const Setting({Key key, this.userID}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -299,7 +301,7 @@ class Setting extends StatelessWidget {
           create: (context) => SignInCtrl(),
         ),
       ],
-      child: SettingView(),
+      child: SettingView(userID: userID),
     );
   }
 }

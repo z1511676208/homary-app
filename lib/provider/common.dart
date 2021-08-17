@@ -18,7 +18,6 @@ import 'package:homary/entity/serviceTimeRes.dart';
 
 import 'package:homary/common/utils/toast.dart';
 import 'package:homary/entity/slideNav.dart';
-import 'package:homary/pages/user/controller.dart';
 
 var busEvent = BusProvider();
 
@@ -142,13 +141,14 @@ class GlobalConfig with ChangeNotifier {
   }
 
   //登出
-  Future signOut() async {
+  Future signOut(context) async {
+    Toast.loading();
     DioResult res = await UserApi.signOut();
+    Toast.clear();
     if (res.error == null) {
       Localstorage().remove('token');
       Localstorage().setBool('isLogin', false);
-      Localstorage().remove('userID');
-      Toast.message('Log out sucessfully!',
+      Toast.message(S.of(context).logout_successful,
           duration: const Duration(milliseconds: 1000));
       setWebviewCookies();
       this.getShoppingCartNumber();

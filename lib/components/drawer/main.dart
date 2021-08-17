@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-06 10:11:04
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-26 17:09:30
+ * @LastEditTime : 2021-08-27 15:22:40
  */
 
 import 'package:flutter/material.dart';
@@ -136,14 +136,14 @@ class _GlobalDrawerViewState extends State<GlobalDrawerView> {
                                 onPressed: () async {
                                   await Provider.of<GlobalConfig>(context,
                                           listen: false)
-                                      .signOut();
+                                      .signOut(context);
                                   Provider.of<SignInCtrl>(context,
                                           listen: false)
                                       .thirdLogout();
                                   Navigator.of(context).pop();
                                 },
                                 child: Text(
-                                  'Sign Out',
+                                  S.of(context).sign_out_btn,
                                   style: TextStyle(color: AppColor.primaryText),
                                 ),
                               ),

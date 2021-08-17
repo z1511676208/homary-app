@@ -1044,6 +1044,66 @@ class S {
       args: [amount],
     );
   }
+
+  /// `Your app is already the latest version.`
+  String get setting_upgrade {
+    return Intl.message(
+      'Your app is already the latest version.',
+      name: 'setting_upgrade',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Clear Cache`
+  String get setting_clearCache {
+    return Intl.message(
+      'Clear Cache',
+      name: 'setting_clearCache',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete all temporary images to free up some space in your device?`
+  String get setting_cleanCacheTip {
+    return Intl.message(
+      'Delete all temporary images to free up some space in your device?',
+      name: 'setting_cleanCacheTip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Version`
+  String get setting_version {
+    return Intl.message(
+      'Version',
+      name: 'setting_version',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Log out sucessfully!`
+  String get logout_successful {
+    return Intl.message(
+      'Log out sucessfully!',
+      name: 'logout_successful',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign Out`
+  String get sign_out_btn {
+    return Intl.message(
+      'Sign Out',
+      name: 'sign_out_btn',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

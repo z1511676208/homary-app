@@ -1,9 +1,16 @@
+/*
+ * @Author       : zhhjie
+ * @Date         : 2021-08-27 13:47:49
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-08-27 15:22:33
+ */
 import 'dart:async';
 
 import 'package:homary/common/utils/main.dart';
 
 class NewUserSuccessDialog extends StatefulWidget {
-  const NewUserSuccessDialog({Key key,@required this.totalAmountStr}) : super(key: key);
+  const NewUserSuccessDialog({Key key, @required this.totalAmountStr})
+      : super(key: key);
   final String totalAmountStr;
 
   @override
@@ -11,9 +18,8 @@ class NewUserSuccessDialog extends StatefulWidget {
 }
 
 class _NewUserSuccessDialogState extends State<NewUserSuccessDialog> {
-
   Timer _timer;
-  int second = 3;
+  int second = 2;
 
   @override
   void initState() {
@@ -21,7 +27,7 @@ class _NewUserSuccessDialogState extends State<NewUserSuccessDialog> {
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
         --second;
-        if(second == 0){
+        if (second == 0) {
           Navigator.pop(context);
         }
       });
@@ -38,7 +44,7 @@ class _NewUserSuccessDialogState extends State<NewUserSuccessDialog> {
   Widget build(BuildContext context) {
     return Container(
       width: 300.w,
-      height: 191.w,
+      height: 165.w,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(4.w),
@@ -73,27 +79,6 @@ class _NewUserSuccessDialogState extends State<NewUserSuccessDialog> {
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 14.sp,
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 16),
-            child: GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-                Routes.push(context, '/webview', params: {
-                  "appBarTitle": S.of(context).usercenter_coupons,
-                  "showAppLoading": '0',
-                  "content": '{"url":"https://m.homary.com/usercenter/coupons"}'
-                });
-              },
-              child: Text(
-                S.of(context).new_user_view_my_coupons,
-                style: TextStyle(
-                  color: AppColor.primaryColor,
-                  fontSize: 14.sp,
-                  decoration: TextDecoration.underline,
                 ),
               ),
             ),

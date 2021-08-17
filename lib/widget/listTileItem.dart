@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-08-23 13:59:48
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-26 14:09:26
+ * @LastEditTime : 2021-08-27 15:25:18
  */
 import 'package:flutter/cupertino.dart';
 import 'package:homary/common/utils/main.dart';
@@ -22,7 +22,8 @@ class ListTileItem extends StatelessWidget {
         ListTile(
             title: title,
             trailing: desc,
-            contentPadding: EdgeInsets.only(left: 16.w, right: 30.w),
+            contentPadding:
+                EdgeInsets.only(left: 16.w, right: 30.w, top: 2.w, bottom: 2.w),
             onTap: this.onTap),
         Positioned(
             right: 16.w,
