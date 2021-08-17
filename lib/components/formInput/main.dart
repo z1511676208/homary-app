@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-13 10:15:30
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-18 16:11:37
+ * @LastEditTime : 2021-08-19 14:48:01
  */
 import 'package:homary/common/style/main.dart';
 import 'package:flutter/material.dart';
@@ -53,13 +53,14 @@ class _InputState extends State<Input> {
   void focusEventListener() {
     setState(() {
       isFocus = focusNode.hasFocus;
-      showCloseIcon = isFocus && textEditingController.text != '';
+      showCloseIcon = isFocus && textEditingController.text.trim() != '';
     });
     if (!focusNode.hasFocus) {
       if (widget.validator != null) {
-        errorText = widget.validator(textEditingController.text);
+        errorText = widget.validator(textEditingController.text.trim());
       }
-      widget.onBlur != null && widget.onBlur(textEditingController.text ?? '');
+      widget.onBlur != null &&
+          widget.onBlur(textEditingController.text.trim() ?? '');
     } else {
       widget.onFocus != null && widget.onFocus(textEditingController.text);
     }
@@ -123,11 +124,11 @@ class _InputState extends State<Input> {
               onSaved: (val) {
                 if (widget.validator != null) {
                   setState(() {
-                    errorText = widget.validator(val);
+                    errorText = widget.validator(val.trim());
                   });
                 }
                 if (widget.onSaved != null) {
-                  widget.onSaved(val, errorText);
+                  widget.onSaved(val.trim(), errorText);
                 }
               },
               onChanged: (val) {

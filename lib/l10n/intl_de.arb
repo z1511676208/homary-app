@@ -79,5 +79,7 @@
   "signIn_guest_button": "WEITER ALS GAST",
   "Home": "Heim",
   "Sale": "Verkauf",
-  "Me": "Verkauf"
+  "Me": "Verkauf",
+  "newUserCouponModal_upto": "Bis zu",
+  "newUserCouponModal_forUser": "Rabatt für neue Nutzer"
 }

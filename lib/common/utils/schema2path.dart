@@ -28,7 +28,7 @@ void handleSchema(context, String link, {String appBarTitle}) {
   if (appBarTitle != null) {
     paramsMap.addAll({"appBarTitle": appBarTitle});
   }
-
+if(paramsMap['content'] != null){
   Map contentMap = jsonDecode(paramsMap['content']);
   String contentUrl = contentMap['url'];
   if(contentUrl != null){
@@ -43,6 +43,8 @@ void handleSchema(context, String link, {String appBarTitle}) {
       paramsMap['activityId'] = getIdFromUrl(contentUrl);
     }
   }
+}
+
 
   if (targetUrl != null) {
     // do something before page push

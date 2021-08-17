@@ -844,6 +844,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Up to`
+  String get newUserCouponModal_upto {
+    return Intl.message(
+      'Up to',
+      name: 'newUserCouponModal_upto',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `OFF For New User`
+  String get newUserCouponModal_forUser {
+    return Intl.message(
+      'OFF For New User',
+      name: 'newUserCouponModal_forUser',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

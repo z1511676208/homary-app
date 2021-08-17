@@ -79,5 +79,7 @@
   "signIn_guest_button": "Continuer en tant qu'invité",
   "Home": "Domicile",
   "Sale": "Vente",
-  "Me": "Moi"
+  "Me": "Moi",
+  "newUserCouponModal_upto": "Jusqu'à",
+  "newUserCouponModal_forUser": "de Rabais"
 }
