@@ -2,8 +2,9 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-27 15:53:52
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-16 19:14:21
+ * @LastEditTime : 2021-08-18 19:52:13
  */
+import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:popover/popover.dart';
 
@@ -43,17 +44,20 @@ class ListItems extends StatelessWidget {
       {
         'title': 'Wishlist',
         'icon': Icon(Iconfont.Collect),
-        'url': 'https://m.homary.com/usercenter/wishlists'
+        'url': 'https://m.homary.com/usercenter/wishlists',
+        'isNeedLogin': true
       },
       {
         'title': 'Recently Viewed',
         'icon': Icon(Iconfont.Recent),
-        'url': 'https://m.homary.com/usercenter/viewed'
+        'url': 'https://m.homary.com/usercenter/viewed',
+        'isNeedLogin': true
       },
       {
         'title': 'Support',
         'icon': Icon(Iconfont.Customer),
-        'url': 'https://m.homary.com/appPages/customerService'
+        'url': 'https://m.homary.com/appPages/customerService',
+        'isNeedLogin': false
       }
     ];
     return Scrollbar(
@@ -67,10 +71,15 @@ class ListItems extends StatelessWidget {
                       onTap: () {
                         String url = e['url'];
                         if (url.startsWith('https://')) {
-                          Routes.push(context, '/webview', params: {
-                            "showAppLoading": '0',
-                            "content": '{"url":"$url"}'
-                          });
+                          bool isLogin = Localstorage().getBool('isLogin');
+                          if (e['isNeedLogin'] && !isLogin) {
+                            Routes.push(context, '/signIn');
+                          } else {
+                            Routes.push(context, '/webview', params: {
+                              "showAppLoading": '0',
+                              "content": '{"url":"$url"}'
+                            });
+                          }
                         } else {
                           Routes.goHome();
                         }

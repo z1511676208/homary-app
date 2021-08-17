@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-13 10:15:30
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-28 11:36:20
+ * @LastEditTime : 2021-08-18 16:11:37
  */
 import 'package:homary/common/style/main.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +50,7 @@ class _InputState extends State<Input> {
   bool showCloseIcon = false;
   bool obscureText = false;
 
-  void focusEvent() {
+  void focusEventListener() {
     setState(() {
       isFocus = focusNode.hasFocus;
       showCloseIcon = isFocus && textEditingController.text != '';
@@ -59,11 +59,15 @@ class _InputState extends State<Input> {
       if (widget.validator != null) {
         errorText = widget.validator(textEditingController.text);
       }
-      if (widget.onBlur != null) {
-        widget.onBlur(textEditingController.text ?? '');
-      }
-    } else if (widget.onFocus != null) {
-      widget.onFocus(textEditingController.text);
+      widget.onBlur != null && widget.onBlur(textEditingController.text ?? '');
+    } else {
+      widget.onFocus != null && widget.onFocus(textEditingController.text);
+    }
+  }
+
+  void textIsEmptyListener() {
+    if (textEditingController.text == '') {
+      errorText = null;
     }
   }
 
@@ -73,14 +77,16 @@ class _InputState extends State<Input> {
     obscureText = widget.isPwd ?? false;
     focusNode = widget.focusNode ?? FocusNode();
     textEditingController = widget.textController ?? TextEditingController();
-    focusNode.addListener(focusEvent);
+    focusNode.addListener(focusEventListener);
+    textEditingController.addListener(textIsEmptyListener);
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    focusNode.removeListener(focusEvent);
+    focusNode.removeListener(focusEventListener);
+    textEditingController.removeListener(textIsEmptyListener);
     textEditingController.dispose();
   }
 
