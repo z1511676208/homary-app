@@ -16,15 +16,14 @@ class FlexItem extends StatelessWidget {
   final String url;
   final String title;
   final bool needLogin;
+
   const FlexItem(this.text, this.icon,
       {Key key, this.count, this.url, this.title = '', this.needLogin = true})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Expanded(
-      flex: 1,
+    return Expanded(
       child: InkWell(
         onTap: () {
           bool isLogin = Localstorage().getBool('isLogin');
@@ -39,44 +38,52 @@ class FlexItem extends StatelessWidget {
           }
         },
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
               height: 16.w,
             ),
-            Stack(clipBehavior: Clip.none, children: [
-              this.icon,
-              Positioned(
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                this.icon,
+                Positioned(
                   top: -8.w,
                   right: -8.w,
                   child: Offstage(
-                      offstage: this.count == null || this.count == 0,
-                      child: Container(
-                        alignment: Alignment.center,
-                        height: 20.w,
-                        width: 20.w,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle, color: Colors.red),
-                        child: AutoSizeText(
-                          this.count.toString(),
-                          style:
-                              TextStyle(fontSize: 12.sp, color: Colors.white),
-                          maxLines: 1,
-                          minFontSize: 10,
-                          textAlign: TextAlign.center,
-                        ),
-                      )))
-            ]),
-            SizedBox(
-              height: 14.w,
+                    offstage: this.count == null || this.count == 0,
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: 20.w,
+                      width: 20.w,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle, color: Colors.red),
+                      child: AutoSizeText(
+                        this.count.toString(),
+                        style: TextStyle(fontSize: 12.sp, color: Colors.white),
+                        maxLines: 1,
+                        minFontSize: 10,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-            Container(child: Text(this.text, style: TextStyle(fontSize: 12.w))),
-            SizedBox(
-              height: 16.w,
+            Container(
+              height: 30.w,
+              margin: EdgeInsets.only(top: 14.w),
+              alignment: Alignment.topCenter,
+              child: Text(
+                this.text,
+                style: TextStyle(
+                  fontSize: 12.w,
+                ),
+                textAlign: TextAlign.center,
+              ),
             ),
           ],
         ),
       ),
-    ));
+    );
   }
 }
