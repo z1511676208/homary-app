@@ -49,7 +49,7 @@ class Data {
   List<ModuleDataProductList> activityProduct;
   List<ChannelInfo> channelInfo;
   List<ChannelList> channelList;
-  String total;
+  int total;
   int hasMorePage;
   int totalPage;
 
@@ -92,7 +92,7 @@ class ActivityInfo {
   String title;
   String imgUrl;
   String bgColor;
-  int status;
+  String status;
   String seoTitle;
   String seoKeyword;
   String seoDescription;
@@ -130,7 +130,7 @@ class ChannelInfo {
   });
 
   String channelName;
-  int channelId;
+  dynamic channelId;
   String jumpUrl;
 
   factory ChannelInfo.fromRawJson(String str) => ChannelInfo.fromJson(json.decode(str));

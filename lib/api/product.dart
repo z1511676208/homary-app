@@ -26,4 +26,12 @@ class ProductApi{
         params: params);
     return res;
   }
+
+  static Future<DioResult> getActivityInfo({dynamic params}) async {
+    DioResult res = await Request().get(
+        urlMapList['activityInfo'] ??
+            baseRequestUrl['activityInfo'],
+        params: params);
+    return res;
+  }
 }

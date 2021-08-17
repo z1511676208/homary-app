@@ -14,6 +14,7 @@ import 'package:homary/pages/index/main.dart';
 import 'package:homary/common/utils/navigateWatcher.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
+
 void main() {
   Global.init().then((e) => runApp(MyApp()));
   EasyLoading.instance
@@ -49,12 +50,12 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: [
-          ChangeNotifierProvider.value(value: GlobalConfig()),
-          ChangeNotifierProvider.value(value: HomeCtrl()),
-        ],
-        child: Consumer<GlobalConfig>(
-            builder: (context, GlobalConfig value, child) {
+      providers: [
+        ChangeNotifierProvider(create: (context) => GlobalConfig()),
+        ChangeNotifierProvider(create: (context) => HomeCtrl()),
+      ],
+      child: Consumer<GlobalConfig>(
+        builder: (context, GlobalConfig value, child) {
           return MaterialApp(
             localizationsDelegates: [
               GlobalMaterialLocalizations.delegate,
@@ -81,11 +82,14 @@ class _MyAppState extends State<MyApp> {
             navigatorObservers: <NavigatorObserver>[
               Analytics.observer,
               NavigateWatcher()
-            ], //加入路由统计
+            ],
+            //加入路由统计
             home: MainPage(),
             builder: EasyLoading.init(),
           );
-        }));
+        },
+      ),
+    );
   }
 }
 
@@ -126,6 +130,8 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-        designSize: Size(375, 648), builder: () => IndexPage());
+      designSize: Size(375, 648),
+      builder: () => IndexPage(),
+    );
   }
 }

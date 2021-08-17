@@ -17,19 +17,19 @@ class _FilterDrawerState extends State<FilterDrawer> {
       width: 336.w,
       child: Drawer(
         child: Scaffold(
-          appBar: buildAppbar(),
+          appBar: buildAppbar(context),
           body: ListView(
             children: ctrl.filterList.map((e) {
               return FilterProperty(productAttrMain: e);
             }).toList(),
           ),
-          bottomNavigationBar: buildBottom(ctrl),
+          bottomNavigationBar: buildBottom(ctrl,context),
         ),
       ),
     );
   }
 
-  Widget buildAppbar() {
+  Widget buildAppbar(BuildContext context) {
     return PreferredSize(
       preferredSize: Size.fromHeight(48.w),
       child: Stack(
@@ -41,7 +41,7 @@ class _FilterDrawerState extends State<FilterDrawer> {
           ),
           Align(
             child: Text(
-              'Filter',
+              S.of(context).category_filter,
               style: TextStyle(
                 fontSize: 15.sp,
                 fontWeight: FontWeight.bold,
@@ -60,7 +60,7 @@ class _FilterDrawerState extends State<FilterDrawer> {
     );
   }
 
-  Widget buildBottom(CategoryTabCtrl ctrl) {
+  Widget buildBottom(CategoryTabCtrl ctrl,BuildContext context) {
     return Container(
       height: 50.5.w,
       child: Column(
@@ -84,7 +84,7 @@ class _FilterDrawerState extends State<FilterDrawer> {
                       Navigator.of(context).pop();
                     },
                     child: Text(
-                      'Clear',
+                      S.of(context).category_clear,
                       style: TextStyle(
                         fontSize: 15.sp,
                         fontWeight: FontWeight.bold,
@@ -106,7 +106,7 @@ class _FilterDrawerState extends State<FilterDrawer> {
                       Navigator.of(context).pop();
                     },
                     child: Text(
-                      'Apply',
+                      S.of(context).category_apply,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 15.sp,

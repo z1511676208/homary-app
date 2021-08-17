@@ -63,5 +63,17 @@
   "usercenter_personal": "Personal",
   "usercenter_recentlyBrowsed": "Visto recientemente",
   "usercenter_noRecently": "No has guardado nada recientemente.",
-  "usercenter_goShopping": "Ir de compras"
+  "usercenter_goShopping": "Ir de compras",
+  "category": "Categoría",
+  "category_sortBy": "Ordenar por",
+  "category_filter": "FILTER",
+  "category_highToLow": "Precio de mayor a menor",
+  "category_lowToHigh": "Precios de barato a caro",
+  "category_items": "items",
+  "category_clear": "Reiniciar",
+  "category_apply": "Hecho",
+  "category_emptyProduct": "Parece que no podemos encontrar ningún producto que coincida con su búsqueda",
+  "channel_shopByDepartment": "Comprar por Categoría",
+  "channel_emptyList": "Tu lista está vacía",
+  "channel_returnHome": "Volver a la Página de Inicio"
 }

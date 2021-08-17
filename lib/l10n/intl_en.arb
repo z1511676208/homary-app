@@ -63,5 +63,17 @@
   "usercenter_personal": "Personal",
   "usercenter_recentlyBrowsed": "Recently Browsed",
   "usercenter_noRecently": "You have not saved anything recently.",
-  "usercenter_goShopping": "Go Shopping"
+  "usercenter_goShopping": "Go Shopping",
+  "category": "Category",
+  "category_sortBy": "Sort By",
+  "category_filter": "Filter",
+  "category_highToLow": "High to Low",
+  "category_lowToHigh": "Low to High",
+  "category_items": "items",
+  "category_clear": "Clear",
+  "category_apply": "Apply",
+  "category_emptyProduct": "We can't seem to find any products that match your search",
+  "channel_shopByDepartment": "Shop by department",
+  "channel_emptyList": "Your List is Empty",
+  "channel_returnHome": "Return Home"
 }

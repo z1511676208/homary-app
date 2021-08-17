@@ -16,7 +16,8 @@ class ChannelTab extends StatefulWidget {
     this.channelId,
     this.isPage = false,
     this.appBarTitle,
-    this.type = '1',
+    this.type,
+    this.activityId,
   }) : super(key: key);
 
   final String channelId;
@@ -25,6 +26,7 @@ class ChannelTab extends StatefulWidget {
 
   /// 1=new；2=sale
   final String type;
+  final String activityId;
 
   @override
   _ChannelTabState createState() => _ChannelTabState();
@@ -64,7 +66,8 @@ class _ChannelTabState extends State<ChannelTab> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProxyProvider<GlobalConfig, ChannelTabCtrl>(
-      create: (context) => ChannelTabCtrl(widget.channelId, widget.type),
+      create: (context) => ChannelTabCtrl(widget.channelId,
+          type: widget.type, activityId: widget.activityId),
       update: (context, config, ctrl) {
         if (this.config != config.currentConfig.hashCode) {
           this.config = config.currentConfig.hashCode;
@@ -150,18 +153,18 @@ class _ChannelTabState extends State<ChannelTab> {
         return ctrl.bannerImgUrl;
       },
       builder: (context, value, __) {
-        if (value == null || value.isEmpty) {
-          return SliverToBoxAdapter();
-        }
         return SliverPadding(
           padding: EdgeInsets.all(12.w),
           sliver: SliverToBoxAdapter(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(6.w),
-              child: CustomNetworkImage(
-                value,
-                width: 351.w,
-                height: 119.w,
+            child: Visibility(
+              visible: value != null,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(6.w),
+                child: CustomNetworkImage(
+                  value ?? '',
+                  width: 351.w,
+                  height: 119.w,
+                ),
               ),
             ),
           ),

@@ -1,4 +1,5 @@
 import 'package:homary/api/product.dart';
+import 'package:homary/common/request/request.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/toast.dart';
 import 'package:homary/entity/home.dart';
@@ -9,6 +10,7 @@ class ChannelTabCtrl extends ChangeNotifier {
 
   ///1=new；2=sale
   String type;
+  String activityId;
 
   String channelId;
 
@@ -33,7 +35,7 @@ class ChannelTabCtrl extends ChangeNotifier {
   /// channel列表
   List<ChannelList> channelList = [];
 
-  ChannelTabCtrl(this.channelId, this.type);
+  ChannelTabCtrl(this.channelId, {this.type,this.activityId});
 
   @override
   void dispose() {
@@ -59,12 +61,23 @@ class ChannelTabCtrl extends ChangeNotifier {
       isLoading = true;
       _safeNotifyListeners();
     }
-    final result = await ProductApi.getTopicFlow(params: {
-      'channel_id': int.tryParse(channelId ?? ''),
-      'page': page++,
-      'size': size,
-      'type': type,
-    });
+    DioResult result;
+    if(type != null){
+      result = await ProductApi.getTopicFlow(params: {
+        'channel_id': int.tryParse(channelId ?? ''),
+        'page': page++,
+        'size': size,
+        'type': type,
+      });
+    } else {
+      result = await ProductApi.getActivityInfo(params: {
+        'channel_id': int.tryParse(channelId ?? ''),
+        'page': page++,
+        'size': size,
+        'activity_id': activityId,
+      });
+    }
+
 
     if (result.result != null) {
       TopicFlowRes res = TopicFlowRes.fromJson(result.result);
@@ -79,7 +92,7 @@ class ChannelTabCtrl extends ChangeNotifier {
       }
       productList.addAll(res.data.activityProduct ?? []);
       hasMorePage = res.data.hasMorePage ?? 0;
-      if (int.parse(res.data.total ?? '0') == 0) {
+      if (res.data.total == null) {
         isShowEmpty = true;
       } else {
         isShowEmpty = false;

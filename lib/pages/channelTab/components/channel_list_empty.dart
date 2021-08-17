@@ -18,7 +18,7 @@ class ChannelListEmpty extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: 12.w),
             child: Text(
-              'Your List is Empty',
+              S.of(context).channel_emptyList,
               style: TextStyle(
                 fontSize: 16.sp,
                 color: AppColor.primaryText,
@@ -38,7 +38,7 @@ class ChannelListEmpty extends StatelessWidget {
                   shape: StadiumBorder(),
                 ),
                 child: Text(
-                  'Return Home',
+                  S.of(context).channel_returnHome,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 15.sp,

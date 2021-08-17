@@ -684,6 +684,126 @@ class S {
       args: [],
     );
   }
+
+  /// `Category`
+  String get category {
+    return Intl.message(
+      'Category',
+      name: 'category',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sort By`
+  String get category_sortBy {
+    return Intl.message(
+      'Sort By',
+      name: 'category_sortBy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Filter`
+  String get category_filter {
+    return Intl.message(
+      'Filter',
+      name: 'category_filter',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `High to Low`
+  String get category_highToLow {
+    return Intl.message(
+      'High to Low',
+      name: 'category_highToLow',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Low to High`
+  String get category_lowToHigh {
+    return Intl.message(
+      'Low to High',
+      name: 'category_lowToHigh',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `items`
+  String get category_items {
+    return Intl.message(
+      'items',
+      name: 'category_items',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Clear`
+  String get category_clear {
+    return Intl.message(
+      'Clear',
+      name: 'category_clear',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Apply`
+  String get category_apply {
+    return Intl.message(
+      'Apply',
+      name: 'category_apply',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We can't seem to find any products that match your search`
+  String get category_emptyProduct {
+    return Intl.message(
+      'We can\'t seem to find any products that match your search',
+      name: 'category_emptyProduct',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shop by department`
+  String get channel_shopByDepartment {
+    return Intl.message(
+      'Shop by department',
+      name: 'channel_shopByDepartment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your List is Empty`
+  String get channel_emptyList {
+    return Intl.message(
+      'Your List is Empty',
+      name: 'channel_emptyList',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Return Home`
+  String get channel_returnHome {
+    return Intl.message(
+      'Return Home',
+      name: 'channel_returnHome',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

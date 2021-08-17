@@ -35,10 +35,12 @@ void handleSchema(context, String link, {String appBarTitle}) {
     if(contentUrl.contains('/category/')){
       url = Routes.category;
       paramsMap['categoryId'] = getIdFromUrl(contentUrl);
-    }
-    if(contentUrl.contains('/channel/')){
+    } else if (contentUrl.contains('/channel/')){
       url = Routes.channel;
       paramsMap['type'] = getIdFromUrl(contentUrl);
+    } else if (contentUrl.contains('/act/')){
+      url = Routes.act;
+      paramsMap['activityId'] = getIdFromUrl(contentUrl);
     }
   }
 

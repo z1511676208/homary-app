@@ -7,6 +7,7 @@ import 'package:homary/entity/home.dart';
 import 'package:homary/entity/product_attr_res.dart';
 import 'package:homary/entity/product_res.dart';
 import 'package:homary/entity/slideNav.dart';
+import 'package:homary/main.dart';
 
 class CategoryTabCtrl extends ChangeNotifier {
   bool _isDispose = false;
@@ -119,11 +120,11 @@ class CategoryTabCtrl extends ChangeNotifier {
       res.data.orderBy.forEach((element) {
         if (element.key == 'price') {
           orderByList.add(ProductAttrOrderBy(
-            name: '${element.name} High to Low',
+            name: '${element.name} ${S.of(navigatorKey.currentState.context).category_highToLow}',
             key: element.key,
           ));
           orderByList.add(ProductAttrOrderBy(
-            name: '${element.name} Low to High',
+            name: '${element.name} ${S.of(navigatorKey.currentState.context).category_lowToHigh}',
             key: element.key,
             orderBy: 'asc',
           ));

@@ -23,7 +23,7 @@ class ChannelListWidget extends StatelessWidget {
               bottom: 16.w,
             ),
             child: Text(
-              'Shop by department',
+              S.of(context).channel_shopByDepartment,
               style: TextStyle(
                 color: AppColor.primaryText,
                 fontSize: 18.sp,
