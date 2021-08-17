@@ -1,9 +1,10 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-28 16:10:53
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-16 20:36:56
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-17 15:40:21
  */
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
@@ -56,10 +57,13 @@ class FlexItem extends StatelessWidget {
                         width: 20.w,
                         decoration: BoxDecoration(
                             shape: BoxShape.circle, color: Colors.red),
-                        child: Text(
+                        child: AutoSizeText(
                           this.count.toString(),
+                          style:
+                              TextStyle(fontSize: 12.sp, color: Colors.white),
                           maxLines: 1,
-                          style: TextStyle(color: Colors.white),
+                          minFontSize: 10,
+                          textAlign: TextAlign.center,
                         ),
                       )))
             ]),

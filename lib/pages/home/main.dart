@@ -1,13 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-07 20:28:59
-<<<<<<< Updated upstream
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-16 10:43:38
-=======
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-16 11:09:27
->>>>>>> Stashed changes
+ * @LastEditTime : 2021-08-17 16:39:32
  */
 import 'dart:convert';
 import 'package:homary/common/utils/main.dart';
@@ -46,6 +41,9 @@ class _HomePageViewState extends State<HomePageView>
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
         await Provider.of<GlobalConfig>(context, listen: false)
             .getServiceTime();
+        if (!mounted) {
+          return;
+        }
         Provider.of<HomeCtrl>(context, listen: false).getAdvInfo();
         Provider.of<HomeCtrl>(context, listen: false).getProductModule();
         Provider.of<HomeCtrl>(context, listen: false).getReviewModule();

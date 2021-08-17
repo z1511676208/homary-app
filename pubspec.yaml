@@ -62,6 +62,8 @@ dependencies:
   popover: ^0.2.6+2
   flutter_braintree: ^2.0.0+1
   system_proxy: ^0.0.2
+  auto_size_text: ^2.1.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

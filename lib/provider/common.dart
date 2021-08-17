@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-13 10:15:30
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-16 20:37:55
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-17 16:40:08
  */
 // import 'package:localization_demo/i18n/app_localization_delegate.dart';
 // import 'package:localization_demo/i18n/app_localizations.dart';
@@ -136,11 +136,11 @@ class GlobalConfig with ChangeNotifier {
     this.navList = [];
     await this.getNavList(isNotNotify: true);
     await this.getCommonConfig();
-    // if (configType == 1) {
-    //   Routes.goHome();
-    // } else {
-    busEvent.pubWebViewCtrl('switchSite'); // 通知webview刷新页面
-    // }
+    if (configType == 1) {
+      Routes.goHome();
+    } else {
+      busEvent.pubWebViewCtrl('switchSite'); // 通知webview刷新页面
+    }
   }
 
   //登出
