@@ -2,12 +2,13 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-19 16:33:28
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-17 10:50:37
+ * @LastEditTime : 2021-08-20 18:00:07
  */
 import 'dart:async';
 
 import 'package:homary/api/search.dart';
 import 'package:homary/common/request/request.dart';
+import 'package:homary/common/utils/analytics.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/schema2path.dart';
@@ -35,18 +36,17 @@ class SearchCtrl with ChangeNotifier {
   Future getAnalyze(context) async {
     String keyword = this.keyword;
     if (keyword == '') {
-       Routes.push(context, '/webview', params: {
-          "content":
-              '{"url":"https://m.homary.com/category?keyword="}'
-        });
+      Routes.push(context, '/webview', params: {
+        "content": '{"url":"https://m.homary.com/category?keyword="}'
+      });
       return false;
     }
     Map<String, dynamic> params = {'keyword': keyword};
     DioResult res = await SearchApi.getAnalyze(params);
     if (res.error == null) {
       AnalyzeRes result = AnalyzeRes.fromJson(res.result);
-      this.toProductList(
-          context, result.data.keyWord, result.data.jumpUrl, 'event');
+      this.toProductList(context, result.data.keyWord, result.data.jumpUrl,
+          'view_search_results');
       notifyListeners();
     }
   }
@@ -100,6 +100,11 @@ class SearchCtrl with ChangeNotifier {
         'searchTime': DateTime.now().toString()
       });
       Localstorage().setJSON('recent_list', this.recentSearchs);
+      sendGTMData({
+        // 埋点
+        'event': event,
+        'ecommerce': {'search_term': keyName}
+      });
       if (url != null && url != '') {
         handleSchema(context, url);
       } else {
@@ -139,6 +144,11 @@ class SearchCtrl with ChangeNotifier {
     }
     this.recentSearchs.insert(0, map);
     Localstorage().setJSON('recent_list', this.recentSearchs);
+    sendGTMData({
+      // 埋点
+      event: event,
+      'ecommerce': {'search_term': name.trim()}
+    });
     if (url != null && url != '') {
       handleSchema(context, url);
     } else {

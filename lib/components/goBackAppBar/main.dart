@@ -2,11 +2,12 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-13 10:15:30
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-19 16:57:48
+ * @LastEditTime : 2021-08-20 14:28:16
  */
 
 import 'package:flutter/material.dart';
 import 'package:homary/common/style/main.dart';
+import 'package:homary/components/appBar/search/main.dart';
 import 'package:homary/router/routes.dart';
 import 'package:homary/widget/cartAndNumber.dart';
 import 'package:homary/widget/goBackIconBtn.dart';
@@ -21,6 +22,7 @@ class GoBackAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool showMore;
   final bool showBorder;
   final Function handleGoBackFn;
+  final bool showSearch;
   const GoBackAppBar(
       {Key key,
       this.title = "",
@@ -28,7 +30,8 @@ class GoBackAppBar extends StatelessWidget implements PreferredSizeWidget {
       this.showCart = false,
       this.showCollet = false,
       this.showMore = false,
-      this.showBorder = true})
+      this.showBorder = true,
+      this.showSearch = false})
       : super(key: key);
 
   @override
@@ -47,10 +50,12 @@ class GoBackAppBar extends StatelessWidget implements PreferredSizeWidget {
         child: AppBar(
           centerTitle: true,
           elevation: 0,
-          title: Text(this.title,
-              style: TextStyle(
-                color: AppColor.primaryText,
-              )),
+          title: !this.showSearch
+              ? Text(this.title,
+                  style: TextStyle(
+                    color: AppColor.primaryText,
+                  ))
+              : AppbarSearch(),
           backgroundColor: Colors.white,
           leading: GobackIconBtn(
             handleGoBackFn: this.handleGoBackFn,

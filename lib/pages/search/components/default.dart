@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-19 16:21:04
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-19 18:27:00
+ * @LastEditTime : 2021-08-20 17:59:35
  */
 import 'dart:ffi';
 
@@ -70,7 +70,7 @@ class DefaultView extends StatelessWidget {
                       onTap: () {
                         Provider.of<SearchCtrl>(context, listen: false)
                             .toProductList(context, list[index]['name'],
-                                list[index]['url'], 'event');
+                                list[index]['url'], 'search_recent_click');
                       },
                       child: Text(list[index]['name'],
                           style: TextStyle(
@@ -130,7 +130,7 @@ class DefaultView extends StatelessWidget {
                     onTap: () {
                       Provider.of<SearchCtrl>(context, listen: false)
                           .toProductList(context, list[index].hotWord,
-                              list[index].activityUrl, 'event');
+                              list[index].activityUrl, 'search_popular_click');
                     },
                     child: Row(
                       children: [
