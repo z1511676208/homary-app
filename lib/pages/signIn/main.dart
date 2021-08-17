@@ -7,6 +7,7 @@ import 'package:homary/generated/l10n.dart';
 import 'package:homary/pages/signIn/components/head.dart';
 import 'package:homary/pages/signIn/components/signInTabBar.dart';
 import 'package:homary/webView/webviewController.dart';
+import 'components/ArticlePopup.dart';
 import 'components/emailPattens.dart';
 import 'controller.dart';
 
@@ -24,6 +25,7 @@ class _SignInViewState extends State<SignInView> {
   String email;
   String password;
   bool subscribe = true;
+  String couponNewUserTip = '';
 
   TextEditingController emailEditingController = TextEditingController();
   TextEditingController pwdEditingController = TextEditingController();
@@ -43,9 +45,11 @@ class _SignInViewState extends State<SignInView> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      print('redirect=> ${widget.redirect}');
       Provider.of<SignInCtrl>(context, listen: false)
           .setRedirect(widget.redirect);
+      this.couponNewUserTip = Provider.of<GlobalConfig>(context, listen: false)
+          .commonAmountList
+          .couponNewuserAmountStr;
     });
   }
 
@@ -76,11 +80,25 @@ class _SignInViewState extends State<SignInView> {
                       Offstage(
                         offstage: this._currentTab != 1,
                         child: Container(
-                            // decoration: BoxDecoration(
-                            //   border:Border.all(color: ),
-                            //   )
-                            // ),
+                          width: 335.w,
+                          height: 32.w,
+                          padding: EdgeInsets.only(left: 12.w),
+                          margin: EdgeInsets.only(bottom: 16.w),
+                          alignment: Alignment.centerLeft,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image:
+                                  AssetImage("assets/images/signIn/new_bg.png"),
+                              fit: BoxFit.cover,
                             ),
+                          ),
+                          child: Text(
+                            "Up To $couponNewUserTip For New User",
+                            style: TextStyle(
+                                color: AppColor.primaryNewUserTipColor,
+                                fontSize: 14.sp),
+                          ),
+                        ),
                       ),
                       Stack(
                         clipBehavior: Clip.none,
@@ -241,21 +259,14 @@ class _SignInViewState extends State<SignInView> {
                                             showModalBottomSheet<void>(
                                                 context: context,
                                                 isScrollControlled: true,
+                                                backgroundColor: Colors.white,
                                                 shape: RoundedRectangleBorder(
                                                     borderRadius:
                                                         BorderRadius.vertical(
                                                   top: Radius.circular(30),
                                                 )),
-                                                builder: (context) => Container(
-                                                      height: 0.8.sh,
-                                                      child: WebviewCtrl(
-                                                        isInWebviewPage: false,
-                                                        content: {
-                                                          'url':
-                                                              'https://m.homary.com/AppPages/loginArticle?id=57'
-                                                        },
-                                                      ),
-                                                    ));
+                                                builder: (context) =>
+                                                    ArticlePopup('57'));
                                           },
                                       ),
                                       TextSpan(
@@ -272,22 +283,14 @@ class _SignInViewState extends State<SignInView> {
                                             showModalBottomSheet<void>(
                                                 context: context,
                                                 isScrollControlled: true,
-                                                backgroundColor: Colors.black54,
+                                                backgroundColor: Colors.white,
                                                 shape: RoundedRectangleBorder(
                                                     borderRadius:
                                                         BorderRadius.vertical(
                                                   top: Radius.circular(30),
                                                 )),
-                                                builder: (context) => Container(
-                                                      height: 0.8.sh,
-                                                      child: WebviewCtrl(
-                                                        isInWebviewPage: false,
-                                                        content: {
-                                                          'url':
-                                                              'https://m.homary.com/AppPages/loginArticle?id=58'
-                                                        },
-                                                      ),
-                                                    ));
+                                                builder: (context) =>
+                                                    ArticlePopup('58'));
                                           },
                                       ),
                                     ]),

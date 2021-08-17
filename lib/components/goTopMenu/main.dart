@@ -14,7 +14,7 @@ class GoTopMenu extends StatelessWidget {
             Routes.push(context, '/webview', params: {
               "needLogin": '0',
               "source": "",
-              "content": '{"url":"https://m.homary.com/AppCustomerService"}'
+              "content": '{"url":"https://m.homary.com/appPages/customerServic"}'
             });
           },
           child: Container(

@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-08-13 10:44:42
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-13 11:25:22
+ * @LastEditTime : 2021-08-17 14:40:44
  */
 import 'package:homary/common/utils/main.dart';
 
@@ -12,6 +12,8 @@ class CartAndNumber extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
+      alignment: AlignmentDirectional.center,
+      clipBehavior: Clip.none,
       children: [
         IconButton(
             color: Colors.black,
@@ -24,7 +26,7 @@ class CartAndNumber extends StatelessWidget {
             }),
         Selector(
             builder: (BuildContext context, int cartNum, child) => Positioned(
-                top: 0,
+                top: 1.w,
                 right: 0,
                 child: Offstage(
                     offstage: cartNum == 0,
