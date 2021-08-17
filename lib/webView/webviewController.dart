@@ -220,27 +220,17 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
             handlerName: "AppJumpUrl",
             callback: (args) {
               String url = args[0];
+              print(url);
               Map<String, dynamic> params = {};
               if (url.contains('?')) {
-                int index = url.indexOf('?');
-                String query = url.substring(index + 1);
-                url = url.substring(0, index);
-                List arr = query.split('?');
-                String queryPath = arr[0];
-                String queryParams = arr[1];
+                List arr = url.split('?');
+                url = arr[0];
+                String queryPath = arr[1];
                 List queryUrl = queryPath.split('=');
-                params.addAll({
-                  queryUrl[0]:
-                      '${queryUrl[1]}?${Uri.encodeComponent(queryParams)}'
-                });
-                print(query);
+                params.addAll({queryUrl[0]: '${queryUrl[1]}'});
               }
               if (url != null) {
-                if (url.contains('/index')) {
-                  Routes.replace(context, url, params: params);
-                } else {
-                  Routes.push(context, url, params: params);
-                }
+                Routes.replace(context, url, params: params);
               }
             });
 
