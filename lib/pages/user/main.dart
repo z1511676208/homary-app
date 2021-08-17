@@ -17,19 +17,21 @@ class UserPageView extends StatefulWidget {
 }
 
 class _UserPageViewState extends State<UserPageView> {
-  bool isLogin;
-
+  bool isLogin = false;
   @override
   void didChangeDependencies() {
-    setState(() {
-      this.isLogin = Localstorage().getBool('isLogin') ?? false;
-    });
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      if (this.isLogin) {
-        Provider.of<UserCtrl>(context, listen: false).userCenter();
-        Provider.of<UserCtrl>(context, listen: false).getRecentlyBrowsed();
-      }
-    });
+    var isLoginConfig = Provider.of<GlobalConfig>(context).isLogin;
+    if (isLoginConfig != null && this.isLogin != isLoginConfig) {
+      this.isLogin = isLoginConfig;
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        if (this.isLogin) {
+          Provider.of<UserCtrl>(context, listen: false).userCenter();
+          Provider.of<UserCtrl>(context, listen: false).getRecentlyBrowsed();
+        } else {
+          Provider.of<UserCtrl>(context, listen: false).init();
+        }
+      });
+    }
     super.didChangeDependencies();
   }
 
@@ -65,13 +67,13 @@ class _UserPageViewState extends State<UserPageView> {
                                     onPressed: () {
                                       Routes.push(context, '/setting');
                                     },
-                                    icon: Icon(Icons.settings))
+                                    icon: Icon(Iconfont.Setting))
                               ],
                             ),
                             Container(
                                 alignment: Alignment.centerLeft,
                                 padding: EdgeInsets.only(left: 16.w),
-                                child: isLogin
+                                child: isLogin && isLogin != null
                                     ? Text(
                                         "Hi, ${data.userCenterInfo?.userIdentification ?? ''}",
                                         style: TextStyle(
@@ -224,7 +226,7 @@ class _UserPageViewState extends State<UserPageView> {
                                   S.of(context).usercenter_address,
                                   Icon(Iconfont.Address, size: 30.0),
                                   url: '/address',
-                                  title: S.of(context).help_center,
+                                  title: S.of(context).address_book,
                                 ),
                                 FlexItem(
                                   S.of(context).usercenter_personal,

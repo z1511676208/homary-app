@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-08-25 10:10:20
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-25 10:15:31
+ * @LastEditTime : 2021-08-26 18:52:26
  */
 // To parse this JSON data, do
 //
@@ -28,6 +28,9 @@ class UpgradeReq {
         "language": language,
       };
 }
+// To parse this JSON data, do
+//
+//     final upgradeRes = upgradeResFromJson(jsonString);
 
 class UpgradeRes {
   UpgradeRes({
@@ -61,10 +64,12 @@ class UpgradeRes {
 class Data {
   Data({
     this.isUpgrade,
+    this.upgradeVersion,
     this.content,
   });
 
   int isUpgrade;
+  String upgradeVersion;
   String content;
 
   factory Data.fromRawJson(String str) => Data.fromJson(json.decode(str));
@@ -73,11 +78,14 @@ class Data {
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         isUpgrade: json["is_upgrade"] == null ? null : json["is_upgrade"],
+        upgradeVersion:
+            json["upgrade_version"] == null ? null : json["upgrade_version"],
         content: json["content"] == null ? null : json["content"],
       );
 
   Map<String, dynamic> toJson() => {
         "is_upgrade": isUpgrade == null ? null : isUpgrade,
+        "upgrade_version": upgradeVersion == null ? null : upgradeVersion,
         "content": content == null ? null : content,
       };
 }

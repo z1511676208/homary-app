@@ -124,14 +124,84 @@ class _MainPageState extends State<MainPage> {
       UpgradeRes upGradeInfo =
           await Provider.of<GlobalConfig>(context, listen: false)
               .getAppUpgradeInfo();
-      if (upGradeInfo != null) {
-        if (upGradeInfo.data.isUpgrade != 0) {
-          Widget content = HtmlWidget(upGradeInfo.data.content);
-          AppDialog.show(
-              context: context,
-              widget: Container(width: 200.w, height: 200.w, child: content),
-              canCancel: upGradeInfo.data.isUpgrade == 2);
-        }
+      if (upGradeInfo != null && upGradeInfo.data.isUpgrade != 0) {
+        Widget content = HtmlWidget(upGradeInfo.data.content ?? '');
+        Widget popup = Container(
+          padding: EdgeInsets.fromLTRB(12.w, 16.w, 12.w, 12.w),
+          color: Colors.white,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Update Available:',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
+              ),
+              SizedBox(
+                width: double.infinity,
+                height: 14.w,
+              ),
+              Text('Latest version:v${upGradeInfo.data.upgradeVersion}'),
+              SizedBox(
+                width: double.infinity,
+                height: 12.w,
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: content,
+                ),
+              ),
+              SizedBox(
+                width: double.infinity,
+                height: 12.w,
+              ),
+              Container(
+                  width: double.infinity,
+                  height: 30.w,
+                  child: Builder(builder: (ctx) {
+                    return OutlinedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(AppColor.primaryColor),
+                          elevation: MaterialStateProperty.all(0),
+                          overlayColor: MaterialStateProperty.all(
+                              AppColor.primaryPressed),
+                          foregroundColor:
+                              MaterialStateProperty.all(Colors.white),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(36.0.w),
+                          ))),
+                      onPressed: () async {},
+                      child: Text('Update',
+                          style: TextStyle(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white)),
+                    );
+                  })),
+              Offstage(
+                  offstage: upGradeInfo.data.isUpgrade == 1,
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(
+                          'No thanks',
+                          style: TextStyle(
+                              decoration: TextDecoration.underline,
+                              color: AppColor.primaryText),
+                        )),
+                  ))
+            ],
+          ),
+        );
+        AppDialog.show(
+            context: context,
+            widget: Container(width: 200.w, height: 250.w, child: popup),
+            canCancel: upGradeInfo.data.isUpgrade == 1);
       }
     });
 

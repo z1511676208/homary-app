@@ -2,14 +2,26 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-23 17:28:26
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-28 15:03:03
+ * @LastEditTime : 2021-08-26 11:52:19
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/generated/l10n.dart';
 import 'slideNav/noBorderExpansionTile/main.dart';
 
 class ContactUs extends StatelessWidget {
-  const ContactUs({Key key}) : super(key: key);
+  final Color backgroud;
+  final EdgeInsets padding;
+  final EdgeInsets margin;
+  final Icon icon;
+  final Color iconColor;
+  const ContactUs(
+      {Key key,
+      this.backgroud,
+      this.padding,
+      this.margin,
+      this.iconColor,
+      this.icon})
+      : super(key: key);
 
   Widget contactUsItem(String label, String content, String introduction) {
     return Padding(
@@ -47,12 +59,17 @@ class ContactUs extends StatelessWidget {
     }
     return SliverToBoxAdapter(
         child: Container(
-      color: AppColor.primaryBackground,
+      color: backgroud ?? AppColor.primaryBackground,
       child: NoBorderExpansionTile(
+        icon: this.icon,
+        iconColor: AppColor.primaryBorderLight,
+        tilePadding: padding,
+        tileMargin: margin,
+        expandedAlignment: Alignment.centerLeft,
         expandedCrossAxisAlignment: CrossAxisAlignment.start,
         childrenPadding: EdgeInsets.only(left: 14.w, top: 4.w, bottom: 4.w),
         title: Container(
-          color: AppColor.primaryBackground,
+          color: backgroud ?? AppColor.primaryBackground,
           child: Text(
             S.of(context).bottom_contact_title,
             style: TextStyle(

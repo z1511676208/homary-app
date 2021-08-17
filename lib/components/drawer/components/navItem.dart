@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-09 16:22:36
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-23 19:31:05
+ * @LastEditTime : 2021-08-26 10:41:30
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -21,6 +21,8 @@ class NavItem extends StatelessWidget {
   final String jumpUrl;
   final Function onTap;
   final bool showArrow;
+  final EdgeInsets margin;
+  final EdgeInsets padding;
   const NavItem(
       {Key key,
       this.title,
@@ -32,7 +34,9 @@ class NavItem extends StatelessWidget {
       this.configType,
       this.jumpUrl,
       this.onTap,
-      this.showArrow})
+      this.showArrow = true,
+      this.margin,
+      this.padding})
       : super(key: key);
 
   @override
@@ -61,8 +65,8 @@ class NavItem extends StatelessWidget {
               border: Border(
                   bottom: BorderSide(
                       width: 0.5.w, color: AppColor.primaryBorderOutline))),
-          padding: EdgeInsets.only(top: 14.h, bottom: 14.h),
-          margin: EdgeInsets.only(left: 16.w),
+          padding: this.padding ?? EdgeInsets.only(top: 14.h, bottom: 14.h),
+          margin: this.margin ?? EdgeInsets.only(left: 16.w),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -104,13 +108,13 @@ class NavItem extends StatelessWidget {
                 ],
               )),
               Container(
-                margin: EdgeInsets.only(right: 16.w),
+                margin: EdgeInsets.only(right: 16.w, left: 4.w),
                 child: Offstage(
-                  offstage:
-                      subList == null || subList.isEmpty || showArrow != null,
+                  offstage: !showArrow,
                   child: Icon(
-                    Icons.chevron_right,
+                    Iconfont.ArrowRight,
                     color: AppColor.primaryBorderLight,
+                    size: 12.w,
                   ),
                 ),
               ),

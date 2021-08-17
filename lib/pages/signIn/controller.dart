@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-13 11:36:43
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-24 18:15:31
+ * @LastEditTime : 2021-08-26 15:44:52
  */
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -256,6 +256,7 @@ class SignInCtrl with ChangeNotifier {
     var userInfo = res.data;
     setToken(userInfo.token);
     Localstorage().setBool('isLogin', true);
+    Provider.of<GlobalConfig>(context, listen: false).setIsLogin(true);
     userInfo.token = null;
     setUserInfo(userInfo);
     setWebviewCookies();
