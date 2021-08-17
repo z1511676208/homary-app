@@ -160,7 +160,7 @@ class _UserPageViewState extends State<UserPageView> {
                                   Icon(Iconfont.Unpaid, size: 30.0),
                                   count: data.userCenterInfo?.unpaidOrderCount,
                                   url: '/usercenter/order?active=unpaid',
-                                  title: 'My Orders',
+                                  title: S.of(context).usercenter_myOrder,
                                 ),
                                 FlexItem(
                                   S.of(context).usercenter_processing,
@@ -168,21 +168,21 @@ class _UserPageViewState extends State<UserPageView> {
                                   count:
                                       data.userCenterInfo?.processingOrderCount,
                                   url: '/usercenter/order?active=undelivery',
-                                  title: 'My Orders',
+                                  title: S.of(context).usercenter_myOrder,
                                 ),
                                 FlexItem(
                                   S.of(context).usercenter_shipped,
                                   Icon(Iconfont.Shipped, size: 30.0),
                                   count: data.userCenterInfo?.shippedOrderCount,
                                   url: '/usercenter/order?active=shipped',
-                                  title: 'My Orders',
+                                  title: S.of(context).usercenter_myOrder,
                                 ),
                                 FlexItem(
                                   S.of(context).usercenter_returns,
                                   Icon(Iconfont.Returns, size: 30.0),
                                   count: data.userCenterInfo?.returnOrderCount,
                                   url: '/usercenter/order?active=returns',
-                                  title: 'My Orders',
+                                  title: S.of(context).usercenter_myOrder,
                                 ),
                               ],
                             ),
@@ -217,14 +217,14 @@ class _UserPageViewState extends State<UserPageView> {
                                   S.of(context).usercenter_about,
                                   Icon(Iconfont.About, size: 30.0),
                                   url: '/help-center/article-detail/64',
-                                  title: "Help Center",
+                                  title: S.of(context).help_center,
                                   needLogin: false,
                                 ),
                                 FlexItem(
                                   S.of(context).usercenter_address,
                                   Icon(Iconfont.Address, size: 30.0),
                                   url: '/address',
-                                  title: 'Address Book',
+                                  title: S.of(context).help_center,
                                 ),
                                 FlexItem(
                                   S.of(context).usercenter_personal,
@@ -265,7 +265,7 @@ class _UserPageViewState extends State<UserPageView> {
                                               ? S
                                                   .of(context)
                                                   .usercenter_goShopping
-                                              : "Log In",
+                                              : S.of(context).login_signIn,
                                           style: TextStyle(
                                               color: AppColor.primaryText),
                                         ),

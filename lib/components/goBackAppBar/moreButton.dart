@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-27 15:53:52
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-23 17:35:37
+ * @LastEditTime : 2021-08-24 18:15:12
  */
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
@@ -49,13 +49,13 @@ class ListItems extends StatelessWidget {
         'isNeedLogin': true
       },
       {
-        'title': 'Recently Views',
+        'title': S.of(context).appBar_recentyle_views,
         'icon': Icon(Iconfont.Recent),
         'url': 'https://m.homary.com/usercenter/viewed',
         'isNeedLogin': true
       },
       {
-        'title': 'Support',
+        'title': S.of(context).appBar_support,
         'icon': Icon(Iconfont.Customer),
         'url': 'https://m.homary.com/appPages/customerService',
         'isNeedLogin': false
@@ -71,10 +71,10 @@ class ListItems extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: ListView(
-                padding: EdgeInsets.symmetric(vertical: 10.w),
-                children: list
-                    .map(
-                      (e) => InkWell(
+              padding: EdgeInsets.symmetric(vertical: 10.w),
+              children: list
+                  .map(
+                    (e) => InkWell(
                       onTap: () {
                         DropMenuManager.instance.hide();
                         String url = e['url'];
@@ -93,26 +93,28 @@ class ListItems extends StatelessWidget {
                         }
                       },
                       child: Container(
-                          padding: EdgeInsets.only(
-                              left: 13.5.w, top: 10.w, bottom: 10.w),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              e['icon'],
-                              SizedBox(
-                                width: 12.5.w,
-                              ),
-                              Expanded(
-                                  child: Text(
-                                    e['title'],
-                                    style: TextStyle(
-                                        fontSize: 15.sp,
-                                        color: AppColor.primaryText),
-                                  ))
-                            ],
-                          ),),),
-                )
-                    .toList(),),
+                        padding: EdgeInsets.only(
+                            left: 13.5.w, top: 10.w, bottom: 10.w),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            e['icon'],
+                            SizedBox(
+                              width: 12.5.w,
+                            ),
+                            Expanded(
+                                child: Text(
+                              e['title'],
+                              style: TextStyle(
+                                  fontSize: 15.sp, color: AppColor.primaryText),
+                            ))
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
+                  .toList(),
+            ),
           ),
         ),
       ),

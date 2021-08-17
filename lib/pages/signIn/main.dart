@@ -1,5 +1,4 @@
 import 'package:flutter/gestures.dart';
-import 'package:homary/common/storage/webview-cookie.dart';
 import 'package:homary/common/utils/analytics.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/components/goBackAppBar/main.dart';

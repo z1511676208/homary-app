@@ -84,5 +84,9 @@
   "newUserCouponModal_forUser": "Rabatt für neue Nutzer",
   "home_viewMore": "Mehr Sehen",
   "home_freeShipping": "Kostenloser Versand",
-  "endsSoon": "Enden Bald"
+  "endsSoon": "Enden Bald",
+  "appBar_support": "Unterstützung",
+  "appBar_recentyle_views": "Kürzlich Aufrufe",
+  "help_center": "Hilfezentrum",
+  "address_book": "Adressbuch"
 }
