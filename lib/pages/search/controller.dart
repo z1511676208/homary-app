@@ -34,8 +34,11 @@ class SearchCtrl with ChangeNotifier {
 
   Future getAnalyze(context) async {
     String keyword = this.keyword;
-    print('keyword===>$keyword');
     if (keyword == '') {
+       Routes.push(context, '/webview', params: {
+          "content":
+              '{"url":"https://m.homary.com/category?keyword="}'
+        });
       return false;
     }
     Map<String, dynamic> params = {'keyword': keyword};
