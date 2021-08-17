@@ -14,8 +14,11 @@ import 'controller.dart';
 class SignInView extends StatefulWidget {
   final String redirect;
   final bool showGuestBtn;
-
-  SignInView({this.redirect, this.showGuestBtn, Key key}) : super(key: key);
+  final String pageFrom;
+  final String adp;
+  SignInView(
+      {this.redirect, this.showGuestBtn, this.pageFrom, this.adp, Key key})
+      : super(key: key);
 
   @override
   _SignInViewState createState() => _SignInViewState();
@@ -51,10 +54,12 @@ class _SignInViewState extends State<SignInView> {
   @override
   void initState() {
     super.initState();
-    print("showGuestBtn ${widget.showGuestBtn}");
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Provider.of<SignInCtrl>(context, listen: false)
-          .setRedirect(widget.redirect);
+      Provider.of<SignInCtrl>(context, listen: false).getQuery(
+          redirect: widget.redirect,
+          pageFrom: widget.pageFrom,
+          adp: widget.adp);
+
       this.couponNewUserTip = Provider.of<GlobalConfig>(context, listen: false)
           .commonAmountList
           .couponNewuserAmountStr;
@@ -454,7 +459,7 @@ class _SignInViewState extends State<SignInView> {
                         ],
                       ),
                       Positioned(
-                          top: 132.w,
+                          top: this._currentTab != 1 ? 132.w : 178.w,
                           left: 0,
                           child: Offstage(
                             offstage: !controller.showEmailTip,
@@ -476,7 +481,10 @@ class _SignInViewState extends State<SignInView> {
 class SignInPage extends StatelessWidget {
   final String redirect;
   final bool showGuestBtn;
-  const SignInPage({this.redirect, this.showGuestBtn, Key key})
+  final String pageFrom;
+  final String adp;
+  const SignInPage(
+      {this.redirect, this.showGuestBtn, this.pageFrom, this.adp, Key key})
       : super(key: key);
 
   @override
@@ -488,8 +496,9 @@ class SignInPage extends StatelessWidget {
           )
         ],
         child: SignInView(
-          redirect: redirect,
-          showGuestBtn: showGuestBtn,
-        ));
+            redirect: redirect,
+            showGuestBtn: showGuestBtn,
+            pageFrom: pageFrom,
+            adp: adp));
   }
 }

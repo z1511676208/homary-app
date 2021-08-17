@@ -2,11 +2,12 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-30 19:16:48
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-13 11:00:55
+ * @LastEditTime : 2021-08-19 10:33:07
  */
 import 'package:flutter/services.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/widget/cartAndNumber.dart';
+import 'package:homary/widget/wishIconButton.dart';
 import 'search/main.dart';
 
 class GlobalAppbar extends StatelessWidget {
@@ -47,18 +48,7 @@ class GlobalAppbar extends StatelessWidget {
                   Container(
                     width: 100,
                     child: Row(
-                      children: [
-                        IconButton(
-                            color: Colors.black,
-                            icon: Icon(Icons.favorite_border),
-                            onPressed: () {
-                              Routes.push(context, '/webview', params: {
-                                "content":
-                                    '{"url":"http://m.homary.com/usercenter/wishlists"}'
-                              });
-                            }),
-                        CartAndNumber()
-                      ],
+                      children: [WishIconButton(), CartAndNumber()],
                     ),
                   ),
                 ],

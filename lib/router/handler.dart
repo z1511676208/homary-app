@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-06 10:11:04
- * @LastEditors  : JHao
- * @LastEditTime : 2021-08-18 19:04:18
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-08-19 10:37:53
  */
 import 'dart:convert';
 
@@ -26,14 +26,16 @@ Map<String, dynamic> _getContent(dynamic content) {
 // 登录
 Handler signInPageHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    String redirect = params['redirectUrl']?.first ?? null;
+    String redirect = params['redirect_url']?.first ?? null;
     String showGuestBtn = params['showGuestBtn']?.first ?? null;
-    print("showGuestBtn  $showGuestBtn");
+    String pageFrom = params['page_from']?.first ?? null;
+    String adp = params['adp']?.first ?? '';
     return SignInPage(
-      redirect: redirect,
-      showGuestBtn:
-          showGuestBtn != null && showGuestBtn == 'true' ? true : false,
-    );
+        redirect: redirect,
+        showGuestBtn:
+            showGuestBtn != null && showGuestBtn == 'true' ? true : false,
+        pageFrom: pageFrom,
+        adp: adp);
   },
 );
 

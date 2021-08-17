@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-19 11:35:26
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-11 10:56:31
+ * @LastEditTime : 2021-08-19 11:25:11
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/toast.dart';
@@ -72,7 +72,7 @@ class _SearchViewState extends State<SearchView> {
                             contentPadding:
                                 EdgeInsets.symmetric(vertical: 10.w),
                             prefixIcon: Icon(
-                              Icons.search,
+                              Iconfont.search,
                               color: AppColor.primaryBorderLight,
                             ),
                             border: OutlineInputBorder(

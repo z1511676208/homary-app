@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-13 10:15:30
- * @LastEditors  : JHao
- * @LastEditTime : 2021-08-18 16:53:50
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-08-19 10:32:40
  */
 
 import 'package:flutter/material.dart';
@@ -10,6 +10,7 @@ import 'package:homary/common/style/main.dart';
 import 'package:homary/router/routes.dart';
 import 'package:homary/widget/cartAndNumber.dart';
 import 'package:homary/widget/goBackIconBtn.dart';
+import 'package:homary/widget/wishIconButton.dart';
 
 import 'moreButton.dart';
 
@@ -57,16 +58,7 @@ class GoBackAppBar extends StatelessWidget implements PreferredSizeWidget {
           actions: [
             Offstage(
               offstage: !this.showCollet,
-              child: IconButton(
-                  color: Colors.black,
-                  icon: Icon(Iconfont.Collect),
-                  onPressed: () {
-                    Routes.push(context, '/webview', params: {
-                      "showAppLoading": '0',
-                      "content":
-                          '{"url":"https://m.homary.com/usercenter/wishlists"}'
-                    });
-                  }),
+              child: WishIconButton(),
             ),
             Offstage(offstage: !this.showCart, child: CartAndNumber()),
             Offstage(

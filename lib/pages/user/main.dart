@@ -3,6 +3,7 @@ import 'package:homary/common/utils/main.dart';
 import 'package:homary/components/GoodsCard/main.dart';
 import 'package:homary/generated/l10n.dart';
 import 'package:homary/widget/cartAndNumber.dart';
+import 'package:homary/widget/wishIconButton.dart';
 import 'components/FlexItem.dart';
 import 'components/ExpandedItem.dart';
 import 'components/PaddingItem.dart';
@@ -55,16 +56,7 @@ class _UserPageViewState extends State<UserPageView> {
                                   width: 46.w,
                                   height: 46.h,
                                   padding: EdgeInsets.only(right: 15.w),
-                                  child: IconButton(
-                                      color: Colors.black,
-                                      icon: Icon(Icons.favorite_border),
-                                      onPressed: () {
-                                        Routes.push(context, '/webview',
-                                            params: {
-                                              "content":
-                                                  '{"url":"http://m.homary.com/usercenter/wishlists"}'
-                                            });
-                                      }),
+                                  child: WishIconButton(),
                                 ),
                                 CartAndNumber()
                               ],
