@@ -18,7 +18,7 @@ class ProductEmptyWidget extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: 8.5.w),
             child: Text(
-              'We can\'t seem to find any products that match your search',
+              S.of(context).category_emptyProduct,
               style: TextStyle(
                 fontSize: 11.sp,
                 color: AppColor.primarySubTitle,

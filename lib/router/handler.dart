@@ -92,7 +92,18 @@ Handler channelHandler = Handler(
       isPage: true,
       channelId: params['channelId']?.first,
       appBarTitle: params['appBarTitle']?.first ?? '',
-      type: params['type']?.first ?? '1',
+      type: params['type']?.first,
+    );
+  },
+);
+
+Handler actHandler = Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return ChannelTab(
+      isPage: true,
+      channelId: params['channelId']?.first,
+      appBarTitle: params['appBarTitle']?.first ?? '',
+      activityId: params['activityId']?.first,
     );
   },
 );

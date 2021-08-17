@@ -70,6 +70,9 @@ class _CategoryItemState extends State<CategoryItem>
       if (url.contains('/channel/')) {
         return ChannelTab(type: getIdFromUrl(url));
       }
+      if (url.contains('/act/')) {
+        return ChannelTab(activityId: getIdFromUrl(url));
+      }
     }
     return Scaffold(
       body: WebviewCtrl(

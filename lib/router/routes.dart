@@ -39,8 +39,11 @@ class Routes {
   /// channel页
   static String channel = '/channel';
 
-  // pdf viewer
+  /// pdf viewer
   static String pdfViewer = '/pdf';
+
+  /// act页
+  static String act = '/act';
 
   // 配置route
   static void configureRoutes(FluroRouter router) {
@@ -59,6 +62,7 @@ class Routes {
     router.define(category, handler: categoryHandler);
     router.define(channel, handler: channelHandler);
     router.define(pdfViewer, handler: pdfViewerHandler);
+    router.define(act, handler: actHandler);
   }
 
   static String formatQueryParams(Map<String, dynamic> params) {

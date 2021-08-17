@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/schema2path.dart';
-import 'package:homary/common/utils/utils.dart';
 import 'package:homary/components/dropMenu/drop_menu.dart';
 import 'package:homary/entity/slideNav.dart';
 import 'package:homary/pages/categoryTab/components/drop_menu_category.dart';
@@ -55,12 +54,6 @@ class _CategoryMenuBarState extends State<CategoryMenuBar> {
                   if (url.contains('/category/')) {
                     ctrl.changeCategory(datum);
                     return;
-                  } else if (url.contains('/channel/')) {
-                    Routes.push(context, Routes.channel, params: {
-                      'appBarTitle': datum.categoryName,
-                      'type' : getIdFromUrl(url),
-                    });
-                    return;
                   }
                   handleSchema(context, datum.jumpUrl,
                       appBarTitle: datum.categoryName);
@@ -103,7 +96,7 @@ class _CategoryMenuBarState extends State<CategoryMenuBar> {
                 child: Padding(
                   padding: EdgeInsets.only(right: 12.w),
                   child: Text(
-                    '${ctrl.productTotal} items',
+                    '${ctrl.productTotal} ${S.of(context).category_items}',
                     style: TextStyle(
                       fontSize: 13.sp,
                       color: AppColor.primarySubTitle,
@@ -112,7 +105,7 @@ class _CategoryMenuBarState extends State<CategoryMenuBar> {
                 ),
               ),
               buildSelectWidget(
-                  'Category',
+                  S.of(context).category,
                   AppColor.primaryColor,
                   buildIcon(_isCategoryOpen ? Iconfont.Less : Iconfont.More2,
                       AppColor.primaryColor),
@@ -121,7 +114,7 @@ class _CategoryMenuBarState extends State<CategoryMenuBar> {
                 width: 20.w,
               ),
               buildSelectWidget(
-                  'Sort By',
+                  S.of(context).category_sortBy,
                   AppColor.primaryColor,
                   buildIcon(_isSortOpen ? Iconfont.Less : Iconfont.More2,
                       AppColor.primaryColor),
@@ -131,7 +124,7 @@ class _CategoryMenuBarState extends State<CategoryMenuBar> {
               ),
               Builder(builder: (context) {
                 return buildSelectWidget(
-                    'Filter',
+                    S.of(context).category_filter,
                     ctrl.hasFilter
                         ? AppColor.primaryColor
                         : AppColor.primaryText,
