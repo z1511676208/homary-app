@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-12 15:32:59
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-12 11:03:24
+ * @LastEditTime : 2021-08-17 11:00:55
  */
 import 'package:homary/common/utils/main.dart';
 
@@ -21,6 +21,8 @@ class ConfigItem extends StatelessWidget {
       onTap: () {
         Provider.of<GlobalConfig>(context, listen: false)
             .updateCurrentConfig(configData, configType);
+        Provider.of<GlobalConfig>(context, listen: false)
+            .getShoppingCartNumber();
         Navigator.of(context).pop();
       },
       child: Container(

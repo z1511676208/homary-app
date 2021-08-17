@@ -205,7 +205,7 @@ class _UserPageViewState extends State<UserPageView> {
                                 FlexItem(
                                   S.of(context).usercenter_customer,
                                   Icon(Iconfont.Customer, size: 30.0),
-                                  url: '/AppCustomerService',
+                                  url: '/appPages/customerService',
                                   needLogin: false,
                                 ),
                                 FlexItem(

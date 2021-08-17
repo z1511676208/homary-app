@@ -153,7 +153,7 @@ class _GlobalDrawerViewState extends State<GlobalDrawerView> {
                               onTap: () {
                                 Routes.push(context, '/webview', params: {
                                   "content":
-                                      '{"url":"https://m.homary.com/AppPages/customerService"}'
+                                      '{"url":"https://m.homary.com/appPages/customerService"}'
                                 });
                               },
                               child: Row(

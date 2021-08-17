@@ -241,9 +241,14 @@ class Iconfont {
     matchTextDirection: true,
   );
 
-
   static const Tick = IconData(
     0xe653,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
+
+  static const PopupClose = IconData(
+    0xe695,
     fontFamily: 'Iconfont',
     matchTextDirection: true,
   );

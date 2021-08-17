@@ -53,7 +53,7 @@ class ListItems extends StatelessWidget {
       {
         'title': 'Support',
         'icon': Icon(Iconfont.Customer),
-        'url': 'https://m.homary.com/AppPages/customerService'
+        'url': 'https://m.homary.com/appPages/customerService'
       }
     ];
     return Scrollbar(

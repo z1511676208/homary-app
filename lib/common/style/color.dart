@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-07 20:04:36
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-28 16:13:50
+ * @LastEditTime : 2021-08-17 13:56:11
  */
 import 'dart:ui';
 
@@ -74,4 +74,7 @@ class AppColor {
 
   //提示阴影
   static const Color primaryShadowTipShadow = Color(0x17000000);
+
+  //注册新人礼券提示语颜色
+  static const Color primaryNewUserTipColor = Color(0xFFFF9800);
 }

@@ -124,6 +124,7 @@ class GlobalConfig with ChangeNotifier {
         this.currentConfig.language = configData.languageCode;
         this.currentConfig.currency = configData.currencyCode;
         this.currentConfig.countryCode = configData.countryCode;
+        Localstorage().remove('recent_list');
         break;
       case 2:
         this.currentConfig.language = configData.code;

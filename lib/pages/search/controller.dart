@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-19 16:33:28
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-11 10:49:11
+ * @LastEditTime : 2021-08-17 10:50:37
  */
 import 'dart:async';
 
@@ -100,7 +100,6 @@ class SearchCtrl with ChangeNotifier {
       if (url != null && url != '') {
         handleSchema(context, url);
       } else {
-        print('keyName===>$keyName');
         Routes.push(context, '/webview', params: {
           "content":
               '{"url":"https://m.homary.com/category?keyword=${Uri.encodeComponent(keyName)}"}'
