@@ -294,6 +294,20 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
               setUserInfo(args[1]);
               setWebviewCookies();
             });
+        //更新App购物车显示数量
+        controller.addJavaScriptHandler(
+            handlerName: "AppUpdateShopCartNumber",
+            callback: (args) {
+              Provider.of<GlobalConfig>(context, listen: false)
+                  .getShoppingCartNumber();
+            });
+        //跳转到登录页
+        controller.addJavaScriptHandler(
+            handlerName: "AppJumpToSignIn",
+            callback: (args) {
+              Provider.of<GlobalConfig>(context, listen: false)
+                  .getShoppingCartNumber();
+            });
       },
       onLoadStart: (InAppWebViewController controller, Uri url) {
         changeHeadStatus(url);

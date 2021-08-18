@@ -1,11 +1,10 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-06 13:48:25
- * @LastEditors  : JHao
- * @LastEditTime : 2021-08-18 16:54:28
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-08-18 19:54:52
  */
 import 'package:homary/common/utils/main.dart';
-import 'package:homary/components/drawer/main.dart';
 import 'package:flutter/material.dart';
 import 'package:homary/common/utils/bus.dart';
 import 'package:homary/components/goBackAppBar/main.dart';

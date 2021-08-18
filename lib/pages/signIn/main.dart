@@ -7,7 +7,6 @@ import 'package:homary/components/formInput/main.dart';
 import 'package:homary/generated/l10n.dart';
 import 'package:homary/pages/signIn/components/head.dart';
 import 'package:homary/pages/signIn/components/signInTabBar.dart';
-import 'package:homary/webView/webviewController.dart';
 import 'components/ArticlePopup.dart';
 import 'components/emailPattens.dart';
 import 'controller.dart';
@@ -32,14 +31,21 @@ class _SignInViewState extends State<SignInView> {
   TextEditingController emailEditingController = TextEditingController();
   TextEditingController pwdEditingController = TextEditingController();
   FocusNode emailFocusNode = FocusNode();
+  FocusNode passwordFocusNode = FocusNode();
 
-  void _switchTab(ctx, int idx) {
-    emailEditingController.clear();
-    pwdEditingController.clear();
+  void _switchTab(context, int idx) {
     this.setState(() {
       this._currentTab = idx;
     });
     Provider.of<SignInCtrl>(context, listen: false).closeEmailTipPopup();
+    resetInput();
+  }
+
+  void resetInput() {
+    emailEditingController.clear();
+    pwdEditingController.clear();
+    emailFocusNode.unfocus();
+    passwordFocusNode.unfocus();
   }
 
   @override
