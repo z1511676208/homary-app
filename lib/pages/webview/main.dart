@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-06 13:48:25
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-06 14:26:49
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-18 16:54:28
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/components/drawer/main.dart';
@@ -49,11 +49,13 @@ class _WebviewPageViewState extends State<WebviewPageView> {
                     title: data.appBarTitle == ''
                         ? widget.appBarTitle
                         : data.appBarTitle,
+                    handleGoBackFn: () {
+                      busEvent.pubWebViewCtrl('goback', isLastCtrl: true);
+                    },
                   ),
                   preferredSize:
                       data.isShowAppBar ? Size.fromHeight(44.h) : Size.zero,
                 ),
-                drawer: GlobalDrawer(),
                 body: SafeArea(
                     top: false,
                     bottom: true,

@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-13 10:15:30
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-03 16:54:37
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-18 16:55:14
  */
 import 'package:homary/common/utils/bus.dart';
 import 'package:homary/common/utils/main.dart';
@@ -12,17 +12,20 @@ var busEvent = BusProvider();
 class GobackIconBtn extends StatelessWidget {
   final Color color;
   final double size;
+  final Function handleGoBackFn;
   const GobackIconBtn(
-      {Key key, this.color = AppColor.primaryText, this.size = 30.0})
+      {Key key,
+      this.color = AppColor.primaryText,
+      this.size = 30.0,
+      this.handleGoBackFn})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
         onPressed: () {
-          print('back');
-          if (Provider.of<GlobalConfig>(context, listen: false).isWebviewPage) {
-            busEvent.pubWebViewCtrl('goback', isLastCtrl: true);
+          if (this.handleGoBackFn != null) {
+            this.handleGoBackFn();
           } else {
             Routes.pop();
           }

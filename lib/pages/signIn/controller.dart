@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-13 11:36:43
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-18 11:00:20
+ * @LastEditTime : 2021-08-18 16:36:39
  */
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -223,10 +223,11 @@ class SignInCtrl with ChangeNotifier {
     setWebviewCookies();
     Provider.of<GlobalConfig>(context, listen: false).getShoppingCartNumber();
     if (this.redirect != null) {
-      Routes.replace(context, '/webview', params: {
-        "showAppLoading": "0",
-        "content": '{"url":"https://m.homary.com${this.redirect}"}'
-      });
+      // Routes.replace(context, '/webview', params: {
+      //   "showAppLoading": "0",
+      //   "content": '{"url":"https://m.homary.com${this.redirect}"}'
+      // });
+      Routes.pop(result: true);
     } else {
       Routes.goHome();
     }

@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-07 20:28:59
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-16 16:08:47
+ * @LastEditTime : 2021-08-18 16:36:14
  */
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
@@ -118,10 +118,10 @@ class Routes {
   }
 
   /// 返回方法
-  static pop() {
+  static Future pop({dynamic result}) async {
     /// 通过全局的 global key 获取到当前的路由 overlay 信息，就是用户当前打开的页面。然后调用返回
     BuildContext context = navigatorKey.currentState.overlay.context;
-    router.pop(context);
+    return router.pop(context, result);
   }
 
   /// 进入首页

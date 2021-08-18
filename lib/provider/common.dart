@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-13 10:15:30
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-17 16:40:08
+ * @LastEditTime : 2021-08-18 17:26:35
  */
 // import 'package:localization_demo/i18n/app_localization_delegate.dart';
 // import 'package:localization_demo/i18n/app_localizations.dart';
@@ -37,13 +37,6 @@ class GlobalConfig with ChangeNotifier {
 
   // 服务器时间
   int serviceTime;
-
-  //判断当前页面是否是webview页面
-  bool isWebviewPage = false;
-
-  void setIsWebviewPage(bool val) {
-    this.isWebviewPage = val;
-  }
 
   //获取公共配置
   Future getCommonConfig() async {

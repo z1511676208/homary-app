@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-06 10:11:04
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-16 16:32:54
+ * @LastEditTime : 2021-08-18 19:04:18
  */
 import 'dart:convert';
 
@@ -27,7 +27,13 @@ Map<String, dynamic> _getContent(dynamic content) {
 Handler signInPageHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     String redirect = params['redirectUrl']?.first ?? null;
-    return SignInPage(redirect: redirect);
+    String showGuestBtn = params['showGuestBtn']?.first ?? null;
+    print("showGuestBtn  $showGuestBtn");
+    return SignInPage(
+      redirect: redirect,
+      showGuestBtn:
+          showGuestBtn != null && showGuestBtn == 'true' ? true : false,
+    );
   },
 );
 

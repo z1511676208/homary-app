@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-13 10:15:30
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-13 11:01:22
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-18 16:53:50
  */
 
 import 'package:flutter/material.dart';
@@ -19,9 +19,11 @@ class GoBackAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool showCart;
   final bool showMore;
   final bool showBorder;
+  final Function handleGoBackFn;
   const GoBackAppBar(
       {Key key,
       this.title = "",
+      this.handleGoBackFn,
       this.showCart = false,
       this.showCollet = false,
       this.showMore = false,
@@ -49,7 +51,9 @@ class GoBackAppBar extends StatelessWidget implements PreferredSizeWidget {
                 color: AppColor.primaryText,
               )),
           backgroundColor: Colors.white,
-          leading: GobackIconBtn(),
+          leading: GobackIconBtn(
+            handleGoBackFn: this.handleGoBackFn,
+          ),
           actions: [
             Offstage(
               offstage: !this.showCollet,

@@ -14,8 +14,9 @@ import 'controller.dart';
 
 class SignInView extends StatefulWidget {
   final String redirect;
+  final bool showGuestBtn;
 
-  SignInView({this.redirect, Key key}) : super(key: key);
+  SignInView({this.redirect, this.showGuestBtn, Key key}) : super(key: key);
 
   @override
   _SignInViewState createState() => _SignInViewState();
@@ -44,7 +45,7 @@ class _SignInViewState extends State<SignInView> {
   @override
   void initState() {
     super.initState();
-
+    print("showGuestBtn ${widget.showGuestBtn}");
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Provider.of<SignInCtrl>(context, listen: false)
           .setRedirect(widget.redirect);
@@ -380,59 +381,68 @@ class _SignInViewState extends State<SignInView> {
                                       ),
                                     ],
                                   ),
-                                  Container(
-                                      width: 335.w,
-                                      height: 48.h,
-                                      margin:
-                                          EdgeInsets.symmetric(vertical: 30.w),
-                                      child: Builder(builder: (ctx) {
-                                        return ElevatedButton.icon(
-                                          style: ButtonStyle(
-                                              elevation:
-                                                  MaterialStateProperty.all(0),
-                                              backgroundColor:
-                                                  MaterialStateProperty.all(
-                                                      Colors.white),
-                                              overlayColor:
-                                                  MaterialStateProperty.all(
-                                                      AppColor.whiteBtnPressed),
-                                              shape: MaterialStateProperty.all<
-                                                      RoundedRectangleBorder>(
-                                                  RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        36.0.w),
-                                                side: BorderSide(
-                                                  width: 1.w,
-                                                  color: AppColor.primaryColor,
-                                                ),
-                                              ))),
-                                          onPressed: () async {
-                                            setGuest(true);
-                                            if (widget.redirect != null) {
-                                              Routes.replace(
-                                                  context, '/webview',
-                                                  params: {
-                                                    "showAppLoading": "0",
-                                                    "content":
-                                                        '{"url":"https://m.homary.com${widget.redirect}"}'
-                                                  });
-                                            } else {
-                                              Routes.goHome();
-                                            }
-                                          },
-                                          icon: Icon(
-                                            Iconfont.LockSharp,
-                                            color: AppColor.primaryColor,
-                                          ),
-                                          label: Text(
-                                              S.of(context).signIn_guest_button,
-                                              style: TextStyle(
-                                                  color: AppColor.primaryColor,
-                                                  fontSize: 18.sp,
-                                                  fontWeight: FontWeight.bold)),
-                                        );
-                                      }))
+                                  widget.showGuestBtn
+                                      ? Container(
+                                          width: 335.w,
+                                          height: 48.h,
+                                          margin: EdgeInsets.symmetric(
+                                              vertical: 30.w),
+                                          child: Builder(builder: (ctx) {
+                                            return ElevatedButton.icon(
+                                              style: ButtonStyle(
+                                                  elevation:
+                                                      MaterialStateProperty.all(
+                                                          0),
+                                                  backgroundColor:
+                                                      MaterialStateProperty.all(
+                                                          Colors.white),
+                                                  overlayColor:
+                                                      MaterialStateProperty.all(
+                                                          AppColor
+                                                              .whiteBtnPressed),
+                                                  shape: MaterialStateProperty
+                                                      .all<RoundedRectangleBorder>(
+                                                          RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            36.0.w),
+                                                    side: BorderSide(
+                                                      width: 1.w,
+                                                      color:
+                                                          AppColor.primaryColor,
+                                                    ),
+                                                  ))),
+                                              onPressed: () async {
+                                                setGuest(true);
+                                                if (widget.redirect != null) {
+                                                  Routes.replace(
+                                                      context, '/webview',
+                                                      params: {
+                                                        "showAppLoading": "0",
+                                                        "content":
+                                                            '{"url":"https://m.homary.com${widget.redirect}"}'
+                                                      });
+                                                } else {
+                                                  Routes.goHome();
+                                                }
+                                              },
+                                              icon: Icon(
+                                                Iconfont.LockSharp,
+                                                color: AppColor.primaryColor,
+                                              ),
+                                              label: Text(
+                                                  S
+                                                      .of(context)
+                                                      .signIn_guest_button,
+                                                  style: TextStyle(
+                                                      color:
+                                                          AppColor.primaryColor,
+                                                      fontSize: 18.sp,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                            );
+                                          }))
+                                      : Container()
                                 ],
                               )),
                         ],
@@ -459,7 +469,9 @@ class _SignInViewState extends State<SignInView> {
 
 class SignInPage extends StatelessWidget {
   final String redirect;
-  const SignInPage({this.redirect, Key key}) : super(key: key);
+  final bool showGuestBtn;
+  const SignInPage({this.redirect, this.showGuestBtn, Key key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -471,6 +483,7 @@ class SignInPage extends StatelessWidget {
         ],
         child: SignInView(
           redirect: redirect,
+          showGuestBtn: showGuestBtn,
         ));
   }
 }

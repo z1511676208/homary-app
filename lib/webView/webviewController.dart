@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:homary/common/storage/cookie.dart';
 import 'package:homary/common/storage/webview-cookie.dart';
 import 'package:homary/common/utils/bus.dart';
 import 'package:homary/common/utils/localstorage.dart';
@@ -14,6 +15,7 @@ import 'package:homary/common/utils/schema2path.dart';
 import 'package:homary/common/utils/toast.dart';
 import 'package:homary/pages/webview/controller.dart';
 import 'package:flutter_braintree/flutter_braintree.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class WebviewCtrl extends StatefulWidget {
   final String needLogin;
@@ -134,7 +136,6 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
 
   @override
   void deactivate() {
-    Provider.of<GlobalConfig>(context, listen: false).setIsWebviewPage(false);
     super.deactivate();
   }
 
@@ -172,6 +173,10 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
         : '${urlData['url']}?$finalStringParams';
   }
 
+  _launchURL(String _url) async => await canLaunch(_url)
+      ? await launch(_url)
+      : Toast.error('Could not launch $_url');
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -186,8 +191,7 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
       initialUrlRequest: URLRequest(url: Uri.parse(url)),
       onWebViewCreated: (InAppWebViewController controller) async {
         this.controller = controller;
-        Provider.of<GlobalConfig>(context, listen: false)
-            .setIsWebviewPage(true);
+
         if (widget.showAppLoading == '1') {
           Toast.loading();
         }
@@ -219,18 +223,16 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
             });
         controller.addJavaScriptHandler(
             handlerName: "AppJumpUrl",
-            callback: (args) {
+            callback: (args) async {
               String url = args[0];
-              Map<String, dynamic> params = {};
-              if (url.contains('?')) {
-                List arr = url.split('?');
-                url = arr[0];
-                String queryPath = arr[1];
-                List queryUrl = queryPath.split('=');
-                params.addAll({queryUrl[0]: '${queryUrl[1]}'});
-              }
+              String path = url.split('?')[0];
+              Uri _paramsUri = Uri.parse(url);
+              Map<String, String> params = _paramsUri.queryParameters;
               if (url != null) {
-                Routes.replace(context, url, params: params);
+                final result = await Routes.push(context, path, params: params);
+                if (result ?? false) {
+                  controller?.reload();
+                }
               }
             });
 
@@ -265,7 +267,8 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
         controller.addJavaScriptHandler(
             handlerName: "AppPdfViewer",
             callback: (args) {
-              Routes.push(context, '/pdf', params: {"link": args[0]});
+              print(' ----  ${args[0]}');
+              _launchURL(args[0]);
             });
         //更新App购物车显示数量
         controller.addJavaScriptHandler(
@@ -281,6 +284,16 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
               Provider.of<GlobalConfig>(context, listen: false)
                   .getShoppingCartNumber();
             });
+        //跳转到登录页
+        controller.addJavaScriptHandler(
+            handlerName: "AppGuestLogin",
+            callback: (args) {
+              setToken(args[0]);
+              Localstorage().setBool('isLogin', true);
+              args[1]['token'] = null;
+              setUserInfo(args[1]);
+              setWebviewCookies();
+            });
       },
       onLoadStart: (InAppWebViewController controller, Uri url) {
         changeHeadStatus(url);
@@ -295,10 +308,10 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
         pullToRefreshController.endRefreshing();
         // 处理某些机型点击获取focus时出现边框
         controller.injectCSSCode(source: '''
-*:focus {
-    -webkit-focus-ring-color: rgba(0, 0, 0, 1)!important;
-    outline: none!important;
-}
+          *:focus {
+              -webkit-focus-ring-color: rgba(0, 0, 0, 1)!important;
+              outline: none!important;
+          }
         ''');
       },
       shouldOverrideUrlLoading: (controller, navigationAction) async {
