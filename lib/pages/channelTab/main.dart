@@ -157,7 +157,7 @@ class _ChannelTabState extends State<ChannelTab> {
           padding: EdgeInsets.all(12.w),
           sliver: SliverToBoxAdapter(
             child: Visibility(
-              visible: value != null,
+              visible: value != null && value.isNotEmpty,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(6.w),
                 child: CustomNetworkImage(
