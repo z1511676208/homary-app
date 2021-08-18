@@ -804,6 +804,16 @@ class S {
       args: [],
     );
   }
+
+  /// `CONTINUE AS A GUEST`
+  String get signIn_guest_button {
+    return Intl.message(
+      'CONTINUE AS A GUEST',
+      name: 'signIn_guest_button',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

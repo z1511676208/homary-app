@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-07 20:04:36
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-17 13:56:11
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-18 14:34:17
  */
 import 'dart:ui';
 
@@ -63,6 +63,7 @@ class AppColor {
 
   //点击状态色
   static const Color primaryPressed = Color.fromARGB(10, 0, 0, 0);
+  static const Color whiteBtnPressed = Color.fromARGB(100, 255, 247, 231);
 
   static const Color offPriceColor = Color(0xFFCE2226); //打折后的价格
 

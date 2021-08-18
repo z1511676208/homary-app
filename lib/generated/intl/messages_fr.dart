@@ -78,6 +78,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "resetpassword_supportCenter" : MessageLookupByLibrary.simpleMessage("centre de soutien"),
     "resetpassword_tip" : MessageLookupByLibrary.simpleMessage("Enter your email address and we will send you a link."),
     "resetpassword_title" : MessageLookupByLibrary.simpleMessage("Reset Password"),
+    "signIn_guest_button" : MessageLookupByLibrary.simpleMessage("Continuer en tant qu\'invité"),
     "title" : MessageLookupByLibrary.simpleMessage("Localization Demo"),
     "usercenter_SignInAndRegister" : MessageLookupByLibrary.simpleMessage("Se connecter / s\'inscrire"),
     "usercenter_about" : MessageLookupByLibrary.simpleMessage("À propos de"),

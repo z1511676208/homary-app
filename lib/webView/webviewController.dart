@@ -294,8 +294,7 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
       onLoadStop: (InAppWebViewController controller, Uri url) async {
         pullToRefreshController.endRefreshing();
         // 处理某些机型点击获取focus时出现边框
-        controller.injectCSSCode(
-          source: '''
+        controller.injectCSSCode(source: '''
 *:focus {
     -webkit-focus-ring-color: rgba(0, 0, 0, 1)!important;
     outline: none!important;

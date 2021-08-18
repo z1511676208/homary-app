@@ -2,13 +2,14 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-13 11:36:43
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-17 19:13:29
+ * @LastEditTime : 2021-08-18 11:00:20
  */
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:homary/common/request/request.dart';
+import 'package:homary/common/storage/cookie-manager.dart';
 import 'package:homary/common/storage/cookie.dart';
 import 'package:homary/api/main.dart';
 import 'package:homary/common/storage/webview-cookie.dart';
@@ -86,6 +87,7 @@ class SignInCtrl with ChangeNotifier {
     Toast.clear();
     if (res.error == null) {
       UserEmailLoginRes result = UserEmailLoginRes.fromJson(res.result);
+      deleteCookie('isGuest');
       this.successCb(context, result);
     } else {
       if (res.error['code'] == 30011) {
@@ -110,6 +112,7 @@ class SignInCtrl with ChangeNotifier {
     Toast.clear();
     if (res.error == null) {
       UserEmailLoginRes result = UserEmailLoginRes.fromJson(res.result);
+      deleteCookie('isGuest');
       this.successCb(context, result);
     } else {
       if (res.error['code'] == 70018) {
@@ -134,7 +137,6 @@ class SignInCtrl with ChangeNotifier {
           idToken: googleAuth.idToken,
         );
         Toast.loading();
-
         final User user = (await _auth.signInWithCredential(credential)).user;
         String idTokenResult = await user.getIdToken();
         this.thridLogin(context, idTokenResult, 'google');
@@ -206,6 +208,7 @@ class SignInCtrl with ChangeNotifier {
     if (res.error == null) {
       Toast.clear();
       UserEmailLoginRes result = UserEmailLoginRes.fromJson(res.result);
+      deleteCookie('isGuest');
       this.successCb(context, result);
     }
   }

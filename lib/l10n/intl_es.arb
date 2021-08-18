@@ -75,5 +75,6 @@
   "category_emptyProduct": "Parece que no podemos encontrar ningún producto que coincida con su búsqueda",
   "channel_shopByDepartment": "Comprar por Categoría",
   "channel_emptyList": "Tu lista está vacía",
-  "channel_returnHome": "Volver a la Página de Inicio"
+  "channel_returnHome": "Volver a la Página de Inicio",
+  "signIn_guest_button": "CONTINUE AS A GUEST"
 }

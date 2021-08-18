@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-20 15:12:17
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-29 17:37:09
+ * @LastEditTime : 2021-08-18 14:54:10
  */
 
 import 'package:exposure/exposure.dart';
@@ -25,7 +25,7 @@ class RecommendList extends StatelessWidget {
                   crossAxisCount: 2, //Grid按两列显示
                   mainAxisSpacing: 8.w,
                   crossAxisSpacing: 8.w,
-                  childAspectRatio: ((1.sw - 24.w) / 2) / 354.w,
+                  childAspectRatio: ((1.sw - 24.w) / 2) / 320.w,
                 ),
                 delegate: SliverChildBuilderDelegate(
                     (BuildContext context, int index) => ExposureDetector(
@@ -35,7 +35,7 @@ class RecommendList extends StatelessWidget {
                             width: (1.sw - 24.w) / 2,
                             data: data[index],
                             showCorner: false,
-                            showSkuList: true,
+                            showSkuList: false,
                             showFreeShipping: true,
                             showRating: true,
                           ),

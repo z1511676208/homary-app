@@ -252,4 +252,10 @@ class Iconfont {
     fontFamily: 'Iconfont',
     matchTextDirection: true,
   );
+
+  static const LockSharp = IconData(
+    0xe6ad,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
 }

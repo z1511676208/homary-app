@@ -75,5 +75,6 @@
   "category_emptyProduct": "We can't seem to find any products that match your search",
   "channel_shopByDepartment": "Shop by department",
   "channel_emptyList": "Your List is Empty",
-  "channel_returnHome": "Return Home"
+  "channel_returnHome": "Return Home",
+  "signIn_guest_button": "CONTINUE AS A GUEST"
 }
