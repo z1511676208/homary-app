@@ -14,19 +14,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "1053109877152-2ldtdhhenjkffvlh5ummbp1gu4e588bu.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.popicorns.homary",
-            "certificate_hash": "20084295dbbf8fe018e847b977897992686336b0"
-          }
-        },
-        {
-          "client_id": "1053109877152-rd62vm1sk250clf4n98i9l09sq2gnk5k.apps.googleusercontent.com",
+          "client_id": "1053109877152-b3ejf49tif8r90funceopnc5t105cbmq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.popicorns.homary",
             "certificate_hash": "4a5fd624e72243be391c2b04b5898d350604b798"
+          }
+        },
+        {
+          "client_id": "1053109877152-hrvk434ig0rb495v190grj6acjl9l9oe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.popicorns.homary",
+            "certificate_hash": "9ff764d095ee72ddedea5d5a9c3c95910f4f4918"
           }
         },
         {

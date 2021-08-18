@@ -51,6 +51,7 @@ class Request {
           bool isSendGTM = res.data['data'] != null &&
               res.data['data'] is Map &&
               res.data['data']['__ga'] != null &&
+              res.data['data']['__ga'] is Map &&
               res.data['data']['__ga']['is_auto_send'] == 1;
           if (isSendGTM) {
             Map<String, dynamic> gaData = res.data['data']['__ga'];
