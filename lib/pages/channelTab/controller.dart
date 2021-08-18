@@ -35,7 +35,7 @@ class ChannelTabCtrl extends ChangeNotifier {
   /// channel列表
   List<ChannelList> channelList = [];
 
-  ChannelTabCtrl(this.channelId, {this.type,this.activityId});
+  ChannelTabCtrl(this.channelId, {this.type, this.activityId});
 
   @override
   void dispose() {
@@ -62,7 +62,7 @@ class ChannelTabCtrl extends ChangeNotifier {
       _safeNotifyListeners();
     }
     DioResult result;
-    if(type != null){
+    if (type != null) {
       result = await ProductApi.getTopicFlow(params: {
         'channel_id': int.tryParse(channelId ?? ''),
         'page': page++,
@@ -78,7 +78,6 @@ class ChannelTabCtrl extends ChangeNotifier {
       });
     }
 
-
     if (result.result != null) {
       TopicFlowRes res = TopicFlowRes.fromJson(result.result);
 
@@ -92,7 +91,10 @@ class ChannelTabCtrl extends ChangeNotifier {
       }
       productList.addAll(res.data.activityProduct ?? []);
       hasMorePage = res.data.hasMorePage ?? 0;
-      if (res.data.total == null) {
+      if (res.data.total == null ||
+          (res.data.total is int &&
+              res.data.total == 0 &&
+              res.data.channelList.isEmpty)) {
         isShowEmpty = true;
       } else {
         isShowEmpty = false;
@@ -118,6 +120,6 @@ class ChannelTabCtrl extends ChangeNotifier {
   Future<void> onRefresh({bool isOnRefresh = true}) async {
     page = 1;
     hasMorePage = 0;
-    await getTopicFlow(isNeedClean: true,isOnRefresh: isOnRefresh);
+    await getTopicFlow(isNeedClean: true, isOnRefresh: isOnRefresh);
   }
 }
