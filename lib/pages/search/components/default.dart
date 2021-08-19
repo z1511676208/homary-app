@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-19 16:21:04
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-12 18:31:34
+ * @LastEditTime : 2021-08-19 18:27:00
  */
 import 'dart:ffi';
 
@@ -102,6 +102,8 @@ class DefaultView extends StatelessWidget {
             ),
           ),
           SliverToBoxAdapter(
+              child: Offstage(
+            offstage: Provider.of<SearchCtrl>(context).popularSearchs.isEmpty,
             child: Row(
               children: [
                 Icon(Iconfont.Popular),
@@ -117,7 +119,7 @@ class DefaultView extends StatelessWidget {
                 ),
               ],
             ),
-          ),
+          )),
           Selector(
             builder: (BuildContext context, List list, child) => SliverList(
                 delegate: SliverChildBuilderDelegate((context, index) {
