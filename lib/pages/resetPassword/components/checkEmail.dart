@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-14 18:20:33
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-04 14:40:28
+ * @LastEditTime : 2021-08-19 17:26:56
  */
 import 'package:flutter/gestures.dart';
 import 'package:homary/common/utils/main.dart';
@@ -48,23 +48,23 @@ class CheckEmail extends StatelessWidget {
                   Text(S.of(context).resetpassword_remind2,
                       style: TextStyle(
                           color: AppColor.primaryText, fontSize: 14.sp)),
-                  RichText(
-                      text: TextSpan(
-                    style:
-                        TextStyle(color: AppColor.primaryText, fontSize: 14.sp),
-                    children: [
-                      TextSpan(text: S.of(context).resetpassword_remind3),
-                      TextSpan(
-                          text: S.of(context).resetpassword_supportCenter,
-                          style:
-                              TextStyle(decoration: TextDecoration.underline),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              // print('object');
-                            }),
-                      TextSpan(text: S.of(context).resetpassword_remind4)
-                    ],
-                  )),
+                  // RichText(
+                  //     text: TextSpan(
+                  //   style:
+                  //       TextStyle(color: AppColor.primaryText, fontSize: 14.sp),
+                  //   children: [
+                  //     TextSpan(text: S.of(context).resetpassword_remind3),
+                  //     TextSpan(
+                  //         text: S.of(context).resetpassword_supportCenter,
+                  //         style:
+                  //             TextStyle(decoration: TextDecoration.underline),
+                  //         recognizer: TapGestureRecognizer()
+                  //           ..onTap = () {
+                  //             // print('object');
+                  //           }),
+                  //     TextSpan(text: S.of(context).resetpassword_remind4)
+                  //   ],
+                  // )),
                   SizedBox(
                     height: 24.h,
                   ),
