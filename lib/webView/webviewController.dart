@@ -228,6 +228,7 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
               String path = url.split('?')[0];
               Uri _paramsUri = Uri.parse(url);
               Map<String, String> params = _paramsUri.queryParameters;
+              print(params);
               if (url != null) {
                 final result = await Routes.push(context, path, params: params);
                 if (result ?? false) {

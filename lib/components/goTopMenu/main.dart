@@ -1,3 +1,9 @@
+/*
+ * @Author       : zhhjie
+ * @Date         : 2021-08-17 19:43:07
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-08-18 20:17:44
+ */
 import 'package:homary/common/utils/main.dart';
 
 class GoTopMenu extends StatelessWidget {
@@ -14,7 +20,8 @@ class GoTopMenu extends StatelessWidget {
             Routes.push(context, '/webview', params: {
               "needLogin": '0',
               "source": "",
-              "content": '{"url":"https://m.homary.com/appPages/customerServic"}'
+              "content":
+                  '{"url":"https://m.homary.com/appPages/customerService"}'
             });
           },
           child: Container(
@@ -43,7 +50,7 @@ class GoTopMenu extends StatelessWidget {
           height: 8.w,
         ),
         GestureDetector(
-          onTap: (){
+          onTap: () {
             scrollController.animateTo(0,
                 duration: Duration(milliseconds: 200), curve: Curves.easeIn);
           },

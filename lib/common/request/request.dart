@@ -86,7 +86,7 @@ class Request {
           String redirectUrl = Routes.getCurPath();
           BuildContext context = navigatorKey.currentState.overlay.context;
           Routes.replace(context, '/signIn',
-              params: {'redirectUrl': Uri.encodeComponent(redirectUrl)});
+              params: {'redirect_url': Uri.encodeComponent(redirectUrl)});
           return handler.reject(errData);
         } else {
           Toast.error(res.data['message'] ?? '');

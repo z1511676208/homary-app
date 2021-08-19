@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-13 11:36:43
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-18 19:52:20
+ * @LastEditTime : 2021-08-19 11:28:47
  */
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,6 +24,9 @@ class SignInCtrl with ChangeNotifier {
   String loginInEmailErr;
   String loginInPassErr;
   String redirect;
+  String pageFrom;
+  String adp;
+
   List emailPatterns = [
     '@gmail.com',
     '@hotmail.com',
@@ -37,10 +40,12 @@ class SignInCtrl with ChangeNotifier {
     '@msn.com'
   ];
   List emailPatternList = [];
-  //获取设置重定向地址
-  setRedirect(val) {
-    print(val);
-    this.redirect = val;
+
+  //获取设置URL参数
+  getQuery({redirect, pageFrom, adp}) {
+    this.redirect = redirect;
+    this.pageFrom = pageFrom;
+    this.adp = adp;
   }
 
   //邮箱填写提示
@@ -87,7 +92,6 @@ class SignInCtrl with ChangeNotifier {
     Toast.clear();
     if (res.error == null) {
       UserEmailLoginRes result = UserEmailLoginRes.fromJson(res.result);
-      deleteCookie('isGuest');
       this.successCb(context, result);
     } else {
       if (res.error['code'] == 30011) {
@@ -112,7 +116,6 @@ class SignInCtrl with ChangeNotifier {
     Toast.clear();
     if (res.error == null) {
       UserEmailLoginRes result = UserEmailLoginRes.fromJson(res.result);
-      deleteCookie('isGuest');
       this.successCb(context, result);
     } else {
       if (res.error['code'] == 70018) {
@@ -208,13 +211,13 @@ class SignInCtrl with ChangeNotifier {
     if (res.error == null) {
       Toast.clear();
       UserEmailLoginRes result = UserEmailLoginRes.fromJson(res.result);
-      deleteCookie('isGuest');
       this.successCb(context, result);
     }
   }
 
   //登录成功之后的回调
   void successCb(context, res) {
+    deleteCookie('isGuest');
     var userInfo = res.data;
     setToken(userInfo.token);
     Localstorage().setBool('isLogin', true);
@@ -222,15 +225,24 @@ class SignInCtrl with ChangeNotifier {
     setUserInfo(userInfo);
     setWebviewCookies();
     Provider.of<GlobalConfig>(context, listen: false).getShoppingCartNumber();
+    if (goNewComerLanding(context)) return;
     if (this.redirect != null) {
-      // Routes.replace(context, '/webview', params: {
-      //   "showAppLoading": "0",
-      //   "content": '{"url":"https://m.homary.com${this.redirect}"}'
-      // });
       Routes.pop(result: true);
     } else {
       Routes.goHome();
     }
+  }
+
+// 如果从新人弹窗(NewUserModal)登录点进来，登陆成功之后跳转新人落地页
+  goNewComerLanding(context) {
+    if (this.pageFrom == 'newUserModal') {
+      Routes.replace(context, '/webview', params: {
+        "content":
+            '{"url":"https://m.homary.com/activity-list/newcomer-landing-page?adp=${this.adp}"}'
+      });
+      return true;
+    }
+    return false;
   }
 
   //第三方登出
