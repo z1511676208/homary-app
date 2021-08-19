@@ -38,6 +38,7 @@ class NavItem extends StatelessWidget {
           Provider.of<SlideNavCtrl>(context, listen: false)
               .setSubList(subList, title);
           if (subList == null || subList.isEmpty) {
+            Navigator.pop(context);
             handleSchema(context, this.jumpUrl, appBarTitle: title);
           } else {
             Provider.of<SlideNavCtrl>(context, listen: false).subListToggle();

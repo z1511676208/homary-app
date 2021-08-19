@@ -19,6 +19,7 @@ class ExpansionItem extends StatelessWidget {
   Widget navItemChild(value, context) {
     return InkWell(
         onTap: () {
+          Navigator.pop(context);
           if (value != null && value.jumpUrl.contains('webview')) {
             handleSchema(context, value.jumpUrl,
                 appBarTitle: value?.categoryName);

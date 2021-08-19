@@ -6,6 +6,8 @@
  */
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:homary/common/event/go_home.dart';
+import 'package:homary/common/utils/event_bus.dart';
 import 'package:homary/router/handler.dart';
 import 'package:homary/main.dart';
 import 'package:homary/common/utils/navigateWatcher.dart';
@@ -121,19 +123,13 @@ class Routes {
   }
 
   /// 进入首页
-  static goHome(
-      {bool replace = true, int pageIndex = 0, Map<String, dynamic> params}) {
-    String queryStr = "";
-    if (params == null) {
-      params = {};
-    }
-    params.addAll({"pageIndex": pageIndex});
-    queryStr = formatQueryParams({
-      ...params,
-    });
+  static goHome({int pageIndex = 0, int pageTabIndex = 0}) {
     BuildContext context = navigatorKey.currentState.overlay.context;
-    router.navigateTo(context, "/index" + queryStr,
-        replace: replace, transition: TransitionType.fadeIn);
+    Navigator.of(context).popUntil((route) => route.isFirst);
+    EventBus.instance.emit(GoHomeEvent(
+      index: pageIndex,
+      homeTabIndex: pageTabIndex,
+    ));
   }
 
   static getCurPath() {
