@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-06-21 18:40:47
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-19 14:59:41
+ * @LastEditTime : 2021-08-19 18:31:46
  */
 import 'dart:io';
 import 'package:flutter/material.dart';
@@ -15,7 +15,7 @@ import 'package:homary/common/utils/localstorage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:homary/common/config/storage.dart';
 import 'package:homary/entity/initConfig.dart';
-import 'package:package_info/package_info.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:system_proxy/system_proxy.dart';
 
 /// 全局变量
