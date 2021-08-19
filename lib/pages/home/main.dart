@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-07 20:28:59
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-17 16:39:32
+ * @LastEditTime : 2021-08-19 16:15:20
  */
 import 'dart:convert';
 import 'package:homary/common/utils/main.dart';
@@ -54,7 +54,7 @@ class _HomePageViewState extends State<HomePageView>
 
         setState(() {
           _tabValues = [
-            ...['Home'],
+            ...[S.of(context).Home],
             ...channelMap['topChannelNameList']
           ];
           _tabWebview = channelMap['topChannelList'];

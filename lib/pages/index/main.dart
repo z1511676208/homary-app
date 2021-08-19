@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-06 10:11:04
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-16 10:48:03
+ * @LastEditTime : 2021-08-19 16:12:31
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/components/drawer/main.dart';
@@ -28,25 +28,6 @@ class _IndexPageState extends State<IndexPage> {
     2: {'is_show_app_bar': true, 'component': SalePage()},
     3: {'is_show_app_bar': false, 'component': UserPage()}
   };
-
-  List<BottomNavigationBarItem> _barItem = [
-    BottomNavigationBarItem(
-        icon: Icon(Iconfont.HomeBarItem),
-        activeIcon: Icon(Iconfont.ActiveHomeBarItem),
-        label: 'Home'),
-    BottomNavigationBarItem(
-        icon: Icon(Iconfont.CategoryBarItem),
-        activeIcon: Icon(Iconfont.ActiveCategoryBarItem),
-        label: 'Category'),
-    BottomNavigationBarItem(
-        icon: Icon(Iconfont.SaleBarItem),
-        activeIcon: Icon(Iconfont.ActiveSaleBarItem),
-        label: 'Sale'),
-    BottomNavigationBarItem(
-        icon: Icon(Iconfont.MeBarItem),
-        activeIcon: Icon(Iconfont.ActiveMeBarItem),
-        label: 'Me'),
-  ];
 
   PageController indexPageCtrl = PageController();
   int _currentPageIndex = 0;
@@ -87,7 +68,24 @@ class _IndexPageState extends State<IndexPage> {
         },
         backgroundColor: Colors.white,
         currentIndex: _currentPageIndex,
-        items: _barItem,
+        items: [
+          BottomNavigationBarItem(
+              icon: Icon(Iconfont.HomeBarItem),
+              activeIcon: Icon(Iconfont.ActiveHomeBarItem),
+              label: S.of(context).Home),
+          BottomNavigationBarItem(
+              icon: Icon(Iconfont.CategoryBarItem),
+              activeIcon: Icon(Iconfont.ActiveCategoryBarItem),
+              label: S.of(context).category),
+          BottomNavigationBarItem(
+              icon: Icon(Iconfont.SaleBarItem),
+              activeIcon: Icon(Iconfont.ActiveSaleBarItem),
+              label: S.of(context).Sale),
+          BottomNavigationBarItem(
+              icon: Icon(Iconfont.MeBarItem),
+              activeIcon: Icon(Iconfont.ActiveMeBarItem),
+              label: S.of(context).Me),
+        ],
         fixedColor: AppColor.primaryColor,
         unselectedFontSize: 12.sp,
         selectedFontSize: 12.sp,

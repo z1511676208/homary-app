@@ -814,6 +814,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Home`
+  String get Home {
+    return Intl.message(
+      'Home',
+      name: 'Home',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sale`
+  String get Sale {
+    return Intl.message(
+      'Sale',
+      name: 'Sale',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Me`
+  String get Me {
+    return Intl.message(
+      'Me',
+      name: 'Me',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

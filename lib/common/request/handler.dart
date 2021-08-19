@@ -2,11 +2,12 @@
  * @Author       : JHao
  * @Date         : 2021-07-16 19:35:41
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-04 18:46:37
+ * @LastEditTime : 2021-08-19 15:18:05
  */
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:homary/common/config/packageInfo.dart';
 import 'package:homary/common/config/storage.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/requsetUrl.dart';
@@ -19,7 +20,7 @@ class RrequsetHandler extends Interceptor {
     "language": 'en',
     "currency": 'usd',
     "token": '',
-    "version": "1.0.0",
+    "version": packageInfo.version ?? '1.0.0',
     "eid": '',
     "pf": Platform.isIOS ? 'ios' : 'android',
   };

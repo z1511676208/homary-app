@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-22 17:26:36
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-16 20:22:09
+ * @LastEditTime : 2021-08-19 16:14:09
  */
 import 'dart:async';
 import 'package:flutter/material.dart';
@@ -311,7 +311,7 @@ class _GoodsCardState extends State<GoodsCard> {
                               : Container(),
                           Container(
                             height: 44.w,
-                            padding: EdgeInsets.symmetric(vertical: 8.w),
+                            padding: EdgeInsets.symmetric(vertical: 6.w),
                             alignment: Alignment.topLeft,
                             child: Text(
                               _currentData.title,

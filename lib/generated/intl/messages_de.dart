@@ -21,10 +21,13 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "Home" : MessageLookupByLibrary.simpleMessage("Heim"),
     "HomePage_ServiceIcon1" : MessageLookupByLibrary.simpleMessage("Holen Sie sich"),
     "HomePage_ServiceIcon2" : MessageLookupByLibrary.simpleMessage("Kostenloser Versand"),
     "HomePage_ServiceIcon3" : MessageLookupByLibrary.simpleMessage("Rückgabe & Umtausch"),
     "HomePage_recommendTitle" : MessageLookupByLibrary.simpleMessage("Für Sie empfehlen"),
+    "Me" : MessageLookupByLibrary.simpleMessage("Verkauf"),
+    "Sale" : MessageLookupByLibrary.simpleMessage("Verkauf"),
     "bottom_b2b_list" : MessageLookupByLibrary.simpleMessage("Handelsprogramm,Affiliate-Programm"),
     "bottom_b2b_title" : MessageLookupByLibrary.simpleMessage("B2B-Programm"),
     "bottom_contact_content" : MessageLookupByLibrary.simpleMessage("service@homary.com|+1-888-903-3332 |4501 E Flughafen Dr. Unit BOntario"),

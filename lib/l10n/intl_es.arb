@@ -76,5 +76,8 @@
   "channel_shopByDepartment": "Comprar por Categoría",
   "channel_emptyList": "Tu lista está vacía",
   "channel_returnHome": "Volver a la Página de Inicio",
-  "signIn_guest_button": "CONTINUE AS A GUEST"
+  "signIn_guest_button": "CONTINUE AS A GUEST",
+  "Home": "Casa",
+  "Sale": "Venta",
+  "Me": "Me"
 }

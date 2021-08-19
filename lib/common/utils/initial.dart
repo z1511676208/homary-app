@@ -1,19 +1,21 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-06-21 18:40:47
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-16 09:50:03
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-19 14:59:41
  */
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:homary/api/common.dart';
+import 'package:homary/common/config/packageInfo.dart';
 import 'package:homary/common/request/request.dart';
 import 'package:homary/common/config/proxyConfig.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:homary/common/config/storage.dart';
 import 'package:homary/entity/initConfig.dart';
+import 'package:package_info/package_info.dart';
 import 'package:system_proxy/system_proxy.dart';
 
 /// 全局变量
@@ -32,6 +34,12 @@ class Global {
     await SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
+    // 获取包信息
+    packageInfo = await PackageInfo.fromPlatform();
+    print(
+        'packageInfo  ${packageInfo.appName}  ${packageInfo.buildNumber}  ${packageInfo.packageName}  ${packageInfo.version}');
+
+    // 获取设备代理信息
     proxy = await SystemProxy.getProxySettings();
 
     // 初始化工具函数
