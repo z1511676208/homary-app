@@ -29,7 +29,6 @@ class _DropMenuSortState extends State<DropMenuSort> {
     if(_selectIndex == index){
       return;
     }
-    widget.onSelect?.call();
     setState(() {
       _selectIndex = index;
       for (int i = 0; i < widget.orderByList.length; i++) {
@@ -40,6 +39,7 @@ class _DropMenuSortState extends State<DropMenuSort> {
         }
       }
     });
+    widget.onSelect?.call();
     await Future.delayed(Duration(milliseconds: 200));
     DropMenuManager.instance.hide();
   }
