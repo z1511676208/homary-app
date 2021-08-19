@@ -79,5 +79,7 @@
   "signIn_guest_button": "CONTINUE AS A GUEST",
   "Home": "Home",
   "Sale": "Sale",
-  "Me": "Me"
+  "Me": "Me",
+  "newUserCouponModal_upto": "Up to",
+  "newUserCouponModal_forUser": "OFF For New User"
 }

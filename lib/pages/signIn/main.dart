@@ -107,7 +107,7 @@ class _SignInViewState extends State<SignInView> {
                                 ),
                               ),
                               child: Text(
-                                "Up To $couponNewUserTip For New User",
+                                "${S.of(context).newUserCouponModal_upto} $couponNewUserTip ${S.of(context).newUserCouponModal_forUser}",
                                 style: TextStyle(
                                     color: AppColor.primaryNewUserTipColor,
                                     fontSize: 14.sp),
@@ -426,13 +426,7 @@ class _SignInViewState extends State<SignInView> {
                                               onPressed: () async {
                                                 setGuest(true);
                                                 if (widget.redirect != null) {
-                                                  Routes.replace(
-                                                      context, '/webview',
-                                                      params: {
-                                                        "showAppLoading": "0",
-                                                        "content":
-                                                            '{"url":"https://m.homary.com${widget.redirect}"}'
-                                                      });
+                                                  Routes.pop();
                                                 } else {
                                                   Routes.goHome();
                                                 }

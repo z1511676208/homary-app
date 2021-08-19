@@ -79,5 +79,7 @@
   "signIn_guest_button": "CONTINUE AS A GUEST",
   "Home": "Casa",
   "Sale": "Venta",
-  "Me": "Me"
+  "Me": "Me",
+  "newUserCouponModal_upto": "Hasta",
+  "newUserCouponModal_forUser": "de descuento"
 }
