@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-07 20:28:59
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-18 16:36:14
+ * @LastEditTime : 2021-08-19 18:05:01
  */
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
@@ -39,9 +39,6 @@ class Routes {
   /// channel页
   static String channel = '/channel';
 
-  /// pdf viewer
-  static String pdfViewer = '/pdf';
-
   /// act页
   static String act = '/act';
 
@@ -61,7 +58,6 @@ class Routes {
     router.define(search, handler: searchPageHandler);
     router.define(category, handler: categoryHandler);
     router.define(channel, handler: channelHandler);
-    router.define(pdfViewer, handler: pdfViewerHandler);
     router.define(act, handler: actHandler);
   }
 

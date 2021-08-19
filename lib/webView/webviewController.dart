@@ -23,14 +23,12 @@ class WebviewCtrl extends StatefulWidget {
   final Map<String, dynamic> content;
   final String showAppLoading;
   final bool isInWebviewPage;
-  final bool isPDF;
   WebviewCtrl(
       {Key key,
       this.needLogin,
       this.content,
       this.source,
       this.isInWebviewPage = true,
-      this.isPDF = false,
       this.showAppLoading = '1'})
       : super(key: key);
 
@@ -349,8 +347,8 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
           // bugfix: 为了解决屏幕右滑 webview不能返回上一页的问题
           handleSchema(context, url.toString());
           return NavigationActionPolicy.CANCEL;
-        } else if (url.toString().contains('.pdf') && !widget.isPDF) {
-          Routes.push(context, '/pdf', params: {"link": url.toString()});
+        } else if (url.toString().contains('my.yotpo.com')) {
+          _launchURL(url.toString());
           return NavigationActionPolicy.CANCEL;
         }
         return NavigationActionPolicy.ALLOW;

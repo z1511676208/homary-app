@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-06 10:11:04
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-19 16:59:18
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-19 18:04:44
  */
 import 'dart:convert';
 
@@ -11,7 +11,6 @@ import 'package:fluro/fluro.dart';
 import 'package:homary/pages/categoryTab/main.dart';
 import 'package:homary/pages/channelTab/main.dart';
 import 'package:homary/pages/index/main.dart';
-import 'package:homary/pages/pdfViewer/main.dart';
 import 'package:homary/pages/reviewDetail/main.dart';
 import 'package:homary/pages/signIn/main.dart';
 import 'package:homary/pages/webview/main.dart';
@@ -112,15 +111,6 @@ Handler actHandler = Handler(
       channelId: params['channelId']?.first,
       appBarTitle: params['appBarTitle']?.first ?? '',
       activityId: params['activityId']?.first,
-    );
-  },
-);
-
-Handler pdfViewerHandler = Handler(
-  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    return PdfViewer(
-      link: params['link']?.first ?? '',
-      title: params['title']?.first ?? '',
     );
   },
 );
