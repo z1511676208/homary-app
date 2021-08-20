@@ -4,7 +4,10 @@
  * @LastEditors  : JHao
  * @LastEditTime : 2021-08-19 16:15:20
  */
+import 'dart:async';
 import 'dart:convert';
+import 'package:homary/common/event/go_home.dart';
+import 'package:homary/common/utils/event_bus.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/entity/topChannelCategory.dart';
 import 'package:homary/pages/home/components/tabBar/main.dart';
@@ -24,11 +27,17 @@ class _HomePageViewState extends State<HomePageView>
   List<TopChannelDatum> _tabWebview = [];
   TabController _tabController;
   var currentConfig;
+  StreamSubscription _subscription;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(vsync: this, length: _tabValues.length);
+    _subscription = EventBus.instance.on<GoHomeEvent>().listen((event) {
+      setState(() {
+        _tabController.animateTo(event.homeTabIndex ?? 0);
+      });
+    });
   }
 
   @override
@@ -70,6 +79,7 @@ class _HomePageViewState extends State<HomePageView>
   @override
   void dispose() {
     _tabController.dispose();
+    _subscription?.cancel();
     super.dispose();
   }
 

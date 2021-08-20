@@ -9,9 +9,7 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:homary/common/utils/main.dart';
-import 'package:homary/common/utils/schema2path.dart';
 import 'package:homary/entity/homeReviewModule.dart';
-import 'package:homary/generated/l10n.dart';
 import 'package:homary/pages/home/components/homeItem/components/title.dart';
 import 'package:homary/pages/home/contorller.dart';
 import 'package:homary/widget/networkImg.dart';
@@ -24,7 +22,7 @@ class ReviewsList extends StatelessWidget {
     return SliverToBoxAdapter(
         child: Selector<HomeCtrl, ReviewData>(
       builder: (BuildContext context, ReviewData data, child) {
-        return data != null
+        return data != null && data.reviewList.isNotEmpty
             ? Padding(
                 padding: EdgeInsets.fromLTRB(12.w, 20.w, 12.w, 0),
                 child: Column(

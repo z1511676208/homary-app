@@ -4,6 +4,10 @@
  * @LastEditors  : JHao
  * @LastEditTime : 2021-08-19 16:12:31
  */
+import 'dart:async';
+
+import 'package:homary/common/event/go_home.dart';
+import 'package:homary/common/utils/event_bus.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/components/drawer/main.dart';
 import 'package:homary/components/appBar/main.dart';
@@ -31,11 +35,23 @@ class _IndexPageState extends State<IndexPage> {
 
   PageController indexPageCtrl = PageController();
   int _currentPageIndex = 0;
+  StreamSubscription _subscription;
 
   @override
   void initState() {
     _currentPageIndex = int.parse(widget.pageIndex);
     super.initState();
+    _subscription = EventBus.instance.on<GoHomeEvent>().listen((event) {
+      setState(() {
+        _currentPageIndex = event.index ?? 0;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _subscription?.cancel();
   }
 
   @override
