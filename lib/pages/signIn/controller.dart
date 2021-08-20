@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-13 11:36:43
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-20 16:20:58
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-20 18:23:22
  */
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -221,7 +221,8 @@ class SignInCtrl with ChangeNotifier {
   }
 
   //登录成功之后的回调
-  void successCb(context, res, String method, {String event = 'login'}) {
+  void successCb(context, UserEmailLoginRes res, String method,
+      {String event = 'login'}) {
     deleteCookie('isGuest');
     var userInfo = res.data;
     setToken(userInfo.token);
@@ -232,8 +233,9 @@ class SignInCtrl with ChangeNotifier {
     //登录发送GA
     sendGTMData({
       'event': event,
+      "method": method,
       'data': {'method': method},
-      'user_propertys': userInfo
+      'user_propertys': userInfo.toJson()
     });
     Provider.of<GlobalConfig>(context, listen: false).getShoppingCartNumber();
     if (goNewComerLanding(context)) return;

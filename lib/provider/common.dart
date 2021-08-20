@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-13 10:15:30
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-18 17:26:35
+ * @LastEditTime : 2021-08-20 18:35:48
  */
 // import 'package:localization_demo/i18n/app_localization_delegate.dart';
 // import 'package:localization_demo/i18n/app_localizations.dart';
@@ -143,7 +143,8 @@ class GlobalConfig with ChangeNotifier {
     if (res.error == null) {
       Localstorage().remove('token');
       Localstorage().setBool('isLogin', false);
-      Toast.message('Logout succssful');
+      Toast.message('Logout succssful',
+          duration: const Duration(milliseconds: 1000));
       setWebviewCookies();
       this.getShoppingCartNumber();
     }

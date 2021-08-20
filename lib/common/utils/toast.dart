@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-16 18:39:18
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-28 16:15:40
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-20 18:35:01
  */
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
@@ -27,8 +27,9 @@ class Toast {
     EasyLoading.showInfo(text ?? 'Warning');
   }
 
-  static void message(String text) {
-    EasyLoading.showToast(text ?? 'Message');
+  static void message(String text,
+      {Duration duration = const Duration(milliseconds: 3000)}) {
+    EasyLoading.showToast(text ?? 'Message', duration: duration);
   }
 
   static void clear() {

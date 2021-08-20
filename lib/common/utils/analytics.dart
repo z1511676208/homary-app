@@ -2,12 +2,13 @@
  * @Author       : JHao
  * @Date         : 2021-06-28 14:41:10
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-20 17:51:28
+ * @LastEditTime : 2021-08-20 18:36:21
  */
 import 'dart:convert';
 
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
+import 'package:homary/common/utils/localstorage.dart';
 
 //统计
 FirebaseAnalytics analytics = FirebaseAnalytics();
@@ -35,12 +36,28 @@ Future<void> sendGTMData(Map<String, dynamic> data) async {
     }
   }
   Map<String, dynamic> sendData = {
+    ...data,
     "event": data["event"],
-    "user_propertys": null
+    "ecommerce": data['data'] ?? data['ecommerce'] ?? null,
+    "user_propertys": getUserInfo()
   };
   sendData.addAll(eventData);
   await analytics.logEvent(name: sendData["event"], parameters: sendData);
   print('LogEvent Succeeded : $sendData');
+}
+
+getUserInfo() {
+  var userInfo = Localstorage().getJSON('userInfo');
+  if (userInfo != null) {
+    userInfo = {
+      "email": userInfo["email"],
+      "first_name": userInfo["first_name"],
+      "last_name": userInfo["last_name"],
+      "id": userInfo["id"],
+      "user_id": userInfo["user_id"]
+    };
+  }
+  return userInfo;
 }
 
 // 商品卡片上报

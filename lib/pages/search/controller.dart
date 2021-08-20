@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-19 16:33:28
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-20 18:00:07
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-20 18:41:51
  */
 import 'dart:async';
 
@@ -146,7 +146,7 @@ class SearchCtrl with ChangeNotifier {
     Localstorage().setJSON('recent_list', this.recentSearchs);
     sendGTMData({
       // 埋点
-      event: event,
+      "event": event,
       'ecommerce': {'search_term': name.trim()}
     });
     if (url != null && url != '') {
