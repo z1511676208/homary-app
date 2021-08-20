@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-19 16:26:00
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-11 10:10:57
+ * @LastEditTime : 2021-08-20 16:34:13
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:tuple/tuple.dart';
@@ -26,7 +26,7 @@ class FilterList extends StatelessWidget {
                     context,
                     data.item1[index].channelName,
                     data.item1[index].channelUrl,
-                    'event',
+                    'search_associate_click',
                   );
                 },
                 child: SubstringHighlight(

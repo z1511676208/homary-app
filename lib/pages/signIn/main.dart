@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:homary/common/storage/webview-cookie.dart';
+import 'package:homary/common/utils/analytics.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/components/goBackAppBar/main.dart';
 import 'package:homary/common/utils/validator.dart';
@@ -424,7 +425,8 @@ class _SignInViewState extends State<SignInView> {
                                                     ),
                                                   ))),
                                               onPressed: () async {
-                                                setGuest(true);
+                                                sendGTMData(
+                                                    {'event': 'BeGuest_Click'});
                                                 if (widget.redirect != null) {
                                                   Routes.pop();
                                                 } else {

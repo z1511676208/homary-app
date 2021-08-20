@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-13 11:36:43
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-19 11:28:47
+ * @LastEditTime : 2021-08-20 16:20:58
  */
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,6 +13,7 @@ import 'package:homary/common/storage/cookie-manager.dart';
 import 'package:homary/common/storage/cookie.dart';
 import 'package:homary/api/main.dart';
 import 'package:homary/common/storage/webview-cookie.dart';
+import 'package:homary/common/utils/analytics.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/toast.dart';
@@ -92,7 +93,7 @@ class SignInCtrl with ChangeNotifier {
     Toast.clear();
     if (res.error == null) {
       UserEmailLoginRes result = UserEmailLoginRes.fromJson(res.result);
-      this.successCb(context, result);
+      this.successCb(context, result, 'homary');
     } else {
       if (res.error['code'] == 30011) {
         this.loginInEmailErr = res.error['message'];
@@ -115,8 +116,12 @@ class SignInCtrl with ChangeNotifier {
     DioResult res = await UserApi.userRegister(params: params);
     Toast.clear();
     if (res.error == null) {
+      if (subscribe == 1) {
+        //订阅成功
+        sendGTMData({'event': 'generate_lead'});
+      }
       UserEmailLoginRes result = UserEmailLoginRes.fromJson(res.result);
-      this.successCb(context, result);
+      this.successCb(context, result, 'homary', event: 'sign_up');
     } else {
       if (res.error['code'] == 70018) {
         this.loginInEmailErr = res.error['message'];
@@ -211,12 +216,12 @@ class SignInCtrl with ChangeNotifier {
     if (res.error == null) {
       Toast.clear();
       UserEmailLoginRes result = UserEmailLoginRes.fromJson(res.result);
-      this.successCb(context, result);
+      this.successCb(context, result, oauthVerifier);
     }
   }
 
   //登录成功之后的回调
-  void successCb(context, res) {
+  void successCb(context, res, String method, {String event = 'login'}) {
     deleteCookie('isGuest');
     var userInfo = res.data;
     setToken(userInfo.token);
@@ -224,6 +229,12 @@ class SignInCtrl with ChangeNotifier {
     userInfo.token = null;
     setUserInfo(userInfo);
     setWebviewCookies();
+    //登录发送GA
+    sendGTMData({
+      'event': event,
+      'data': {'method': method},
+      'user_propertys': userInfo
+    });
     Provider.of<GlobalConfig>(context, listen: false).getShoppingCartNumber();
     if (goNewComerLanding(context)) return;
     if (this.redirect != null) {
@@ -236,6 +247,7 @@ class SignInCtrl with ChangeNotifier {
 // 如果从新人弹窗(NewUserModal)登录点进来，登陆成功之后跳转新人落地页
   goNewComerLanding(context) {
     if (this.pageFrom == 'newUserModal') {
+      sendGTMData({'event': 'view_new_from_popup'});
       Routes.replace(context, '/webview', params: {
         "content":
             '{"url":"https://m.homary.com/activity-list/newcomer-landing-page?adp=${this.adp}"}'
