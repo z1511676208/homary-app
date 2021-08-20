@@ -4,19 +4,6 @@
 
 import 'dart:convert';
 
-enum SpuCategoryNameFirst { LIGHTING, BATH, FURNITURE }
-
-final spuCategoryNameFirstValues = EnumValues({
-  "Bath": SpuCategoryNameFirst.BATH,
-  "Furniture": SpuCategoryNameFirst.FURNITURE,
-  "Lighting": SpuCategoryNameFirst.LIGHTING
-});
-
-enum StatusDesc { IN_STOCK, SOLD_OUT }
-
-final statusDescValues = EnumValues(
-    {"In stock": StatusDesc.IN_STOCK, "Sold Out": StatusDesc.SOLD_OUT});
-
 class ModuleDataProductList {
   ModuleDataProductList({
     this.title,
@@ -58,16 +45,16 @@ class ModuleDataProductList {
   String tagPriceSymbol;
   String spuId;
   String skuId;
-  SpuCode spuCode;
-  SkuCode skuCode;
+  String spuCode;
+  String skuCode;
   String imgUrl;
   String jumpUrl;
   int status;
   int activityStatus;
-  StatusDesc statusDesc;
-  SpuCategoryNameFirst spuCategoryNameFirst;
-  SpuCategoryNameSecond spuCategoryNameSecond;
-  SpuCategoryNameThird spuCategoryNameThird;
+  String statusDesc;
+  String spuCategoryNameFirst;
+  String spuCategoryNameSecond;
+  String spuCategoryNameThird;
   String spuCategoryNameFourth;
   dynamic reviewScore;
   dynamic reviewNum;
@@ -96,19 +83,16 @@ class ModuleDataProductList {
         tagPriceSymbol: json["tag_price_symbol"],
         spuId: json["spu_id"],
         skuId: json["sku_id"],
-        spuCode: spuCodeValues.map[json["spu_code"]],
-        skuCode: skuCodeValues.map[json["sku_code"]],
+        spuCode: json["spu_code"],
+        skuCode: json["sku_code"],
         imgUrl: json["img_url"],
         jumpUrl: json["jump_url"],
         status: json["status"],
         activityStatus: json["activity_status"],
-        statusDesc: statusDescValues.map[json["status_desc"]],
-        spuCategoryNameFirst:
-            spuCategoryNameFirstValues.map[json["spu_category_name_first"]],
-        spuCategoryNameSecond:
-            spuCategoryNameSecondValues.map[json["spu_category_name_second"]],
-        spuCategoryNameThird:
-            spuCategoryNameThirdValues.map[json["spu_category_name_third"]],
+        statusDesc: json["status_desc"],
+        spuCategoryNameFirst: json["spu_category_name_first"],
+        spuCategoryNameSecond: json["spu_category_name_second"],
+        spuCategoryNameThird: json["spu_category_name_third"],
         spuCategoryNameFourth: json["spu_category_name_fourth"],
         reviewScore: json["review_score"],
         reviewNum: json["review_num"],
@@ -133,19 +117,16 @@ class ModuleDataProductList {
         "tag_price_symbol": tagPriceSymbol,
         "spu_id": spuId,
         "sku_id": skuId,
-        "spu_code": spuCodeValues.reverse[spuCode],
-        "sku_code": skuCodeValues.reverse[skuCode],
+        "spu_code": spuCode,
+        "sku_code": skuCode,
         "img_url": imgUrl,
         "jump_url": jumpUrl,
         "status": status,
         "activity_status": activityStatus,
-        "status_desc": statusDescValues.reverse[statusDesc],
-        "spu_category_name_first":
-            spuCategoryNameFirstValues.reverse[spuCategoryNameFirst],
-        "spu_category_name_second":
-            spuCategoryNameSecondValues.reverse[spuCategoryNameSecond],
-        "spu_category_name_third":
-            spuCategoryNameThirdValues.reverse[spuCategoryNameThird],
+        "status_desc": statusDesc,
+        "spu_category_name_first": spuCategoryNameFirst,
+        "spu_category_name_second": spuCategoryNameSecond,
+        "spu_category_name_third": spuCategoryNameThird,
         "spu_category_name_fourth": spuCategoryNameFourth,
         "review_score": reviewScore,
         "review_num": reviewNum,
@@ -203,16 +184,16 @@ class MergeSkuList {
   String tagPriceSymbol;
   String spuId;
   String skuId;
-  SpuCode spuCode;
-  SkuCode skuCode;
+  String spuCode;
+  String skuCode;
   String imgUrl;
   String jumpUrl;
   int status;
   int activityStatus;
-  StatusDesc statusDesc;
-  SpuCategoryNameFirst spuCategoryNameFirst;
-  SpuCategoryNameSecond spuCategoryNameSecond;
-  SpuCategoryNameThird spuCategoryNameThird;
+  String statusDesc;
+  String spuCategoryNameFirst;
+  String spuCategoryNameSecond;
+  String spuCategoryNameThird;
   String spuCategoryNameFourth;
   dynamic reviewScore;
   dynamic reviewNum;
@@ -239,19 +220,16 @@ class MergeSkuList {
         tagPriceSymbol: json["tag_price_symbol"],
         spuId: json["spu_id"],
         skuId: json["sku_id"],
-        spuCode: spuCodeValues.map[json["spu_code"]],
-        skuCode: skuCodeValues.map[json["sku_code"]],
+        spuCode: json["spu_code"],
+        skuCode: json["sku_code"],
         imgUrl: json["img_url"],
         jumpUrl: json["jump_url"],
         status: json["status"],
         activityStatus: json["activity_status"],
-        statusDesc: statusDescValues.map[json["status_desc"]],
-        spuCategoryNameFirst:
-            spuCategoryNameFirstValues.map[json["spu_category_name_first"]],
-        spuCategoryNameSecond:
-            spuCategoryNameSecondValues.map[json["spu_category_name_second"]],
-        spuCategoryNameThird:
-            spuCategoryNameThirdValues.map[json["spu_category_name_third"]],
+        statusDesc: json["status_desc"],
+        spuCategoryNameFirst: json["spu_category_name_first"],
+        spuCategoryNameSecond: json["spu_category_name_second"],
+        spuCategoryNameThird: json["spu_category_name_third"],
         spuCategoryNameFourth: json["spu_category_name_fourth"],
         reviewScore: json["review_score"],
         reviewNum: json["review_num"],
@@ -274,19 +252,16 @@ class MergeSkuList {
         "tag_price_symbol": tagPriceSymbol,
         "spu_id": spuId,
         "sku_id": skuId,
-        "spu_code": spuCodeValues.reverse[spuCode],
-        "sku_code": skuCodeValues.reverse[skuCode],
+        "spu_code": spuCode,
+        "sku_code": skuCode,
         "img_url": imgUrl,
         "jump_url": jumpUrl,
         "status": status,
         "activity_status": activityStatus,
-        "status_desc": statusDescValues.reverse[statusDesc],
-        "spu_category_name_first":
-            spuCategoryNameFirstValues.reverse[spuCategoryNameFirst],
-        "spu_category_name_second":
-            spuCategoryNameSecondValues.reverse[spuCategoryNameSecond],
-        "spu_category_name_third":
-            spuCategoryNameThirdValues.reverse[spuCategoryNameThird],
+        "status_desc": statusDesc,
+        "spu_category_name_first": spuCategoryNameFirst,
+        "spu_category_name_second": spuCategoryNameSecond,
+        "spu_category_name_third": spuCategoryNameThird,
         "spu_category_name_fourth": spuCategoryNameFourth,
         "review_score": reviewScore,
         "review_num": reviewNum,
@@ -301,28 +276,6 @@ class MergeSkuList {
         "merge_sku_desc": mergeSkuDesc,
       };
 }
-
-enum SkuCode { J011005_1_V_BLACK_L, J011005_1_V_GRAY_M, J011005_1_V_WHITE_L }
-
-final skuCodeValues = EnumValues({
-  "J011005-1V-BLACK-L": SkuCode.J011005_1_V_BLACK_L,
-  "J011005-1V-GRAY-M": SkuCode.J011005_1_V_GRAY_M,
-  "J011005-1V-WHITE-L": SkuCode.J011005_1_V_WHITE_L
-});
-
-enum SpuCategoryNameSecond { CEILING_LIGHTS }
-
-final spuCategoryNameSecondValues =
-    EnumValues({"Ceiling Lights": SpuCategoryNameSecond.CEILING_LIGHTS});
-
-enum SpuCategoryNameThird { FLUSH_MOUNT_LIGHTING }
-
-final spuCategoryNameThirdValues = EnumValues(
-    {"Flush Mount Lighting": SpuCategoryNameThird.FLUSH_MOUNT_LIGHTING});
-
-enum SpuCode { J011005_1_V }
-
-final spuCodeValues = EnumValues({"J011005-1V": SpuCode.J011005_1_V});
 
 class ReviewList {
   ReviewList({

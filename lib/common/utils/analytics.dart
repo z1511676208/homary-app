@@ -2,8 +2,10 @@
  * @Author       : JHao
  * @Date         : 2021-06-28 14:41:10
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-01 13:39:16
+ * @LastEditTime : 2021-08-20 17:51:28
  */
+import 'dart:convert';
+
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 
@@ -39,4 +41,42 @@ Future<void> sendGTMData(Map<String, dynamic> data) async {
   sendData.addAll(eventData);
   await analytics.logEvent(name: sendData["event"], parameters: sendData);
   print('LogEvent Succeeded : $sendData');
+}
+
+// 商品卡片上报
+sendProductItemGTM(
+    {List<Map> data,
+    String itemListName,
+    String eventName,
+    Map<String, dynamic> extraParms}) {
+  List pointList = data;
+  List<Map> currenPointList = [];
+  pointList.asMap().entries.map((entry) {
+    int idx = entry.key;
+    dynamic e = entry.value;
+    return currenPointList.add({
+      "item_name": e['title'], // Name or ID is required.
+      "item_id": e['sku_code'],
+      "price": e['price'],
+      "item_brand": 'homary',
+      "item_category": e['spu_category_name_first'],
+      "item_category2": e['spu_category_name_second'],
+      "item_category3": e['spu_category_name_third'],
+      "item_category4": e['spu_category_name_fourth'],
+      "item_variant": '',
+      "item_list_name": itemListName,
+      "item_list_id": "",
+      "index": idx + 1,
+      "quantity": 1
+    });
+  }).toList();
+  Map<String, dynamic> ecommerce = {
+    "items": currenPointList,
+    "item_list_id": "",
+    "item_list_name": itemListName,
+  };
+  if (extraParms != null) {
+    ecommerce.addAll(extraParms);
+  }
+  sendGTMData({"event": eventName, "ecommerce": ecommerce});
 }

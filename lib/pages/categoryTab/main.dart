@@ -1,3 +1,7 @@
+import 'dart:async';
+
+import 'package:exposure/exposure.dart';
+import 'package:homary/common/utils/analytics.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/components/GoodsCard/main.dart';
 import 'package:homary/components/appBar/search/main.dart';
@@ -42,14 +46,53 @@ class _CategoryTabState extends State<CategoryTab> {
     }
   }
 
+  bool _debounce = false;
+  Timer _timer;
+  List<Map> pointList = [];
+
+  _sendPointList() {
+    if (_timer != null && _debounce == true) {
+      _debounce = false;
+      if (_timer.isActive) {
+        _timer.cancel();
+      }
+    }
+    if (_debounce == false) {
+      _debounce = true;
+      _timer = Timer(Duration(seconds: 1), () {
+        sendProductItemGTM(
+          data: pointList,
+          itemListName: 'Category Products',
+          eventName: 'view_item_list',
+        );
+        pointList = [];
+        _debounce = false;
+      });
+    }
+  }
+
   @override
   void initState() {
+    if (_timer != null) {
+      // 页面销毁时触发定时器销毁
+      if (_timer.isActive) {
+        // 判断定时器是否是激活状态
+        _timer.cancel();
+      }
+    }
     super.initState();
     _scrollController.addListener(_handleScroll);
   }
 
   @override
   void dispose() {
+    if (_timer != null) {
+      // 页面销毁时触发定时器销毁
+      if (_timer.isActive) {
+        // 判断定时器是否是激活状态
+        _timer.cancel();
+      }
+    }
     super.dispose();
     _scrollController.removeListener(_handleScroll);
   }
@@ -152,14 +195,22 @@ class _CategoryTabState extends State<CategoryTab> {
         ),
         delegate: SliverChildBuilderDelegate(
           (BuildContext context, int index) {
-            return GoodsCard(
-              key: UniqueKey(),
-              width: (1.sw - 24.w) / 2,
-              data: ctrl.productList[index],
-              showCorner: false,
-              showSkuList: true,
-              showFreeShipping: true,
-              showRating: true,
+            return ExposureDetector(
+              key: Key('Category_$index'),
+              child: GoodsCard(
+                key: UniqueKey(),
+                width: (1.sw - 24.w) / 2,
+                data: ctrl.productList[index],
+                showCorner: false,
+                showSkuList: true,
+                showFreeShipping: true,
+                showRating: true,
+              ),
+              onExposure: (visibilityInfo) {
+                Map<String, dynamic> item = ctrl.productList[index].toJson();
+                pointList.add(item);
+                _sendPointList();
+              },
             );
           },
           childCount: ctrl.productList.length,
