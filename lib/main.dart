@@ -134,7 +134,7 @@ class _MainPageState extends State<MainPage> {
                 channel.id,
                 channel.name,
                 channel.description,
-                // icon: 'launch_background',
+                icon: 'launcher_icon',
               ),
             ));
       }
