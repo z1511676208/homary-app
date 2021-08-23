@@ -53,6 +53,9 @@ PODS:
     - FirebaseAnalytics (~> 8.5.0)
   - Firebase/CoreOnly (8.5.0):
     - FirebaseCore (= 8.5.0)
+  - Firebase/Messaging (8.5.0):
+    - Firebase/CoreOnly
+    - FirebaseMessaging (~> 8.5.0)
   - firebase_analytics (8.3.0):
     - Firebase/Analytics (= 8.5.0)
     - firebase_core
@@ -63,6 +66,10 @@ PODS:
     - Flutter
   - firebase_core (1.5.0):
     - Firebase/CoreOnly (= 8.5.0)
+    - Flutter
+  - firebase_messaging (10.0.5):
+    - Firebase/Messaging (= 8.5.0)
+    - firebase_core
     - Flutter
   - FirebaseAnalytics (8.5.0):
     - FirebaseAnalytics/AdIdSupport (= 8.5.0)
@@ -101,6 +108,13 @@ PODS:
     - GoogleUtilities/Environment (~> 7.4)
     - GoogleUtilities/UserDefaults (~> 7.4)
     - PromisesObjC (< 3.0, >= 1.2)
+  - FirebaseMessaging (8.5.0):
+    - FirebaseCore (~> 8.0)
+    - FirebaseInstallations (~> 8.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
+    - GoogleUtilities/Environment (~> 7.4)
+    - GoogleUtilities/Reachability (~> 7.4)
+    - GoogleUtilities/UserDefaults (~> 7.4)
   - Flutter (1.0.0)
   - flutter_braintree (1.0.0):
     - Braintree/ApplePay (~> 5.3.2)
@@ -118,6 +132,8 @@ PODS:
   - flutter_inappwebview/Core (0.0.1):
     - Flutter
     - OrderedSet (~> 5.0)
+  - flutter_local_notifications (0.0.1):
+    - Flutter
   - flutter_twitter_login (0.0.1):
     - Flutter
     - TwitterCore (~> 3.2.0)
@@ -205,10 +221,12 @@ DEPENDENCIES:
   - firebase_analytics (from `.symlinks/plugins/firebase_analytics/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
+  - firebase_messaging (from `.symlinks/plugins/firebase_messaging/ios`)
   - Flutter (from `Flutter`)
   - flutter_braintree (from `.symlinks/plugins/flutter_braintree/ios`)
   - flutter_facebook_login (from `.symlinks/plugins/flutter_facebook_login/ios`)
   - flutter_inappwebview (from `.symlinks/plugins/flutter_inappwebview/ios`)
+  - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - flutter_twitter_login (from `.symlinks/plugins/flutter_twitter_login/ios`)
   - google_sign_in (from `.symlinks/plugins/google_sign_in/ios`)
   - hexcolor (from `.symlinks/plugins/hexcolor/ios`)
@@ -233,6 +251,7 @@ SPEC REPOS:
     - FirebaseCore
     - FirebaseCoreDiagnostics
     - FirebaseInstallations
+    - FirebaseMessaging
     - FMDB
     - GoogleAppMeasurement
     - GoogleDataTransport
@@ -255,6 +274,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_auth/ios"
   firebase_core:
     :path: ".symlinks/plugins/firebase_core/ios"
+  firebase_messaging:
+    :path: ".symlinks/plugins/firebase_messaging/ios"
   Flutter:
     :path: Flutter
   flutter_braintree:
@@ -263,6 +284,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_facebook_login/ios"
   flutter_inappwebview:
     :path: ".symlinks/plugins/flutter_inappwebview/ios"
+  flutter_local_notifications:
+    :path: ".symlinks/plugins/flutter_local_notifications/ios"
   flutter_twitter_login:
     :path: ".symlinks/plugins/flutter_twitter_login/ios"
   google_sign_in:
@@ -295,15 +318,18 @@ SPEC CHECKSUMS:
   firebase_analytics: 3b7d92b8d1a3482f557c201e5e46c2f7fa2644ff
   firebase_auth: f11162693be6dc63672349d151453d5cd402bffd
   firebase_core: 82d486a6231b636aea229bd471bceca82cbe00a6
+  firebase_messaging: 0c5342aa6d92d09429ef67c81a1345189fcb76c9
   FirebaseAnalytics: 96325c1e0acbd2bb805c6a613028b1fe599d6a37
   FirebaseAuth: b152ea261b60eeb9419ae7e5bf34761382b33277
   FirebaseCore: 1c1ca72483b59b17050f5b4cec4fb748425a3901
   FirebaseCoreDiagnostics: 3721920bde3a9a6d5aa093c1d25e9d3e47f694af
   FirebaseInstallations: 0ede6ffcd215b8f93c19d9b06c1c54e2d4107e98
+  FirebaseMessaging: 0705ec705c21705efc51c071fba924c8e25c63e7
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
   flutter_braintree: fe1bf2f5e99010e293af6986bc55876362bb28dd
   flutter_facebook_login: cfb5659f686b1c575ef205c6b6fd20db9679d3c4
   flutter_inappwebview: bfd58618f49dc62f2676de690fc6dcda1d6c3721
+  flutter_local_notifications: 0c0b1ae97e741e1521e4c1629a459d04b9aec743
   flutter_twitter_login: 1f670e60647cdf517ba20495e1b32046d9f22697
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   google_sign_in: de494e5e993986afae63e22a32441e30c35c9823

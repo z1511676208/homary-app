@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:homary/common/utils/device.dart';
 import 'package:homary/common/utils/entrance.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -114,6 +116,33 @@ class _MainPageState extends State<MainPage> {
       var deviceId = await DeviveInfo().getDeviceId();
       Provider.of<GlobalConfig>(context, listen: false)
           .pushDeviceInfo(params: {"device_number": deviceId});
+    });
+    FirebaseMessaging.instance.getToken().then((value) => print(value));
+
+    // 當 app 處於開啟狀態時，監聽推撥訊息用
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+      RemoteNotification notification = message.notification;
+      AndroidNotification android = message.notification?.android;
+
+      if (notification != null && android != null) {
+        await flutterLocalNotificationsPlugin.show(
+            notification.hashCode,
+            notification.title,
+            notification.body,
+            NotificationDetails(
+              android: AndroidNotificationDetails(
+                channel.id,
+                channel.name,
+                channel.description,
+                icon: 'launcher_icon',
+              ),
+            ));
+      }
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      print('A new onMessageOpenedApp event was published!');
+      // 這邊可以寫在 app 關閉狀態，點通知訊息時，打開 app 後要做的事情
     });
   }
 
