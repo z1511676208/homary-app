@@ -51,14 +51,16 @@ class _UserPageViewState extends State<UserPageView> {
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
-                              children: <Widget>[
-                                new Container(
-                                  width: 46.w,
-                                  height: 46.h,
-                                  padding: EdgeInsets.only(right: 15.w),
-                                  child: WishIconButton(),
+                              children: [
+                                Container(
+                                  width: 100,
+                                  child: Row(
+                                    children: <Widget>[
+                                      WishIconButton(),
+                                      CartAndNumber()
+                                    ],
+                                  ),
                                 ),
-                                CartAndNumber()
                               ],
                             ),
                             Container(

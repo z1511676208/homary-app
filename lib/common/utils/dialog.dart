@@ -1,0 +1,41 @@
+import 'package:homary/common/utils/main.dart';
+import 'package:homary/components/dialog/message_dialog.dart';
+
+/// App弹窗管理类
+class AppDialog {
+  /// 自定义弹窗
+  /// [context] context
+  /// [widget] 自定义弹窗widget
+  /// [canCancel] 点击弹窗外部区域或返回键，是否可取消弹窗。默认可以
+  static Future<T> show<T>({
+    @required BuildContext context,
+    @required Widget widget,
+    bool canCancel = true,
+  }) {
+    return showDialog<T>(
+      context: context,
+      barrierDismissible: canCancel,
+      builder: (context) {
+        return Center(child: widget);
+      },
+    );
+  }
+
+  /// 展示一段文字信息的弹窗
+  /// [context] context
+  /// [message] 需要显示的文字信息
+  /// [canCancel] 点击弹窗外部区域或返回键，是否可取消弹窗。默认可以
+  static Future<bool> showMessage({
+    @required BuildContext context,
+    String message,
+    bool canCancel = true,
+  }) {
+    return show<bool>(
+      context: context,
+      canCancel: canCancel,
+      widget: MessageDialog(
+        message: message,
+      ),
+    );
+  }
+}
