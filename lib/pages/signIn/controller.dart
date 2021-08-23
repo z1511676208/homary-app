@@ -1,11 +1,12 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-13 11:36:43
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-23 19:31:34
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-24 13:43:10
  */
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:homary/common/request/request.dart';
@@ -87,8 +88,9 @@ class SignInCtrl with ChangeNotifier {
   //登录
   Future signIn(context, email, password) async {
     Toast.loading();
-    UserEmailLoginReq params =
-        UserEmailLoginReq(email: email, password: password);
+    String firebaseMessageToken = await FirebaseMessaging.instance.getToken();
+    UserEmailLoginReq params = UserEmailLoginReq(
+        email: email, password: password, deviceNumber: firebaseMessageToken);
     DioResult res = await UserApi.emailLogin(params: params);
     Toast.clear();
     if (res.error == null) {
@@ -111,8 +113,12 @@ class SignInCtrl with ChangeNotifier {
   Future userRegister(context, email, password, subscribeParam) async {
     Toast.loading();
     int subscribe = subscribeParam ? 1 : 0;
-    UserRegisterReq params =
-        UserRegisterReq(email: email, password: password, subscribe: subscribe);
+    String firebaseMessageToken = await FirebaseMessaging.instance.getToken();
+    UserRegisterReq params = UserRegisterReq(
+        email: email,
+        password: password,
+        subscribe: subscribe,
+        deviceNumber: firebaseMessageToken);
     DioResult res = await UserApi.userRegister(params: params);
     Toast.clear();
     if (res.error == null) {
@@ -210,8 +216,11 @@ class SignInCtrl with ChangeNotifier {
 
   //第三方登录请求获取信息
   void thridLogin(context, idTokenResult, oauthVerifier) async {
-    UserThirdLoginReq params =
-        UserThirdLoginReq(idToken: idTokenResult, oauthVerifier: oauthVerifier);
+    String firebaseMessageToken = await FirebaseMessaging.instance.getToken();
+    UserThirdLoginReq params = UserThirdLoginReq(
+        idToken: idTokenResult,
+        oauthVerifier: oauthVerifier,
+        deviceNumber: firebaseMessageToken);
     DioResult res = await UserApi.thirdLogin(params: params);
     if (res.error == null) {
       Toast.clear();

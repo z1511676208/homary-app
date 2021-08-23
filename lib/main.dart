@@ -113,11 +113,10 @@ class _MainPageState extends State<MainPage> {
       Provider.of<GlobalConfig>(context, listen: false).getCommonConfig();
       Provider.of<GlobalConfig>(context, listen: false).getShoppingCartNumber();
       Provider.of<GlobalConfig>(context, listen: false).getNavList();
-      var deviceId = await DeviveInfo().getDeviceId();
+      String firebaseMessageToken = await FirebaseMessaging.instance.getToken();
       Provider.of<GlobalConfig>(context, listen: false)
-          .pushDeviceInfo(params: {"device_number": deviceId});
+          .pushDeviceInfo(params: {"device_number": firebaseMessageToken});
     });
-    FirebaseMessaging.instance.getToken().then((value) => print(value));
 
     // 當 app 處於開啟狀態時，監聽推撥訊息用
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {

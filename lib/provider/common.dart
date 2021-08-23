@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-13 10:15:30
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-20 18:35:48
+ * @LastEditTime : 2021-08-24 11:07:50
  */
 // import 'package:localization_demo/i18n/app_localization_delegate.dart';
 // import 'package:localization_demo/i18n/app_localizations.dart';
@@ -162,12 +162,12 @@ class GlobalConfig with ChangeNotifier {
 
   // 上报设备ID
   Future<void> pushDeviceInfo({Map<String, dynamic> params}) async {
-    if (Localstorage().getBool('isPushDeviceId') == false) {
-      DioResult res = await CommonApi.pushDeviceInfo(params: params);
-      if (res.error == null) {
-        Localstorage().setBool('isPushDeviceId', true);
-      }
+    // if (Localstorage().getBool('isPushDeviceId') == false) {
+    DioResult res = await CommonApi.pushDeviceInfo(params: params);
+    if (res.error == null) {
+      Localstorage().setBool('isPushDeviceId', true);
     }
+    // }
   }
 
   //获取购物车有效商品数量
