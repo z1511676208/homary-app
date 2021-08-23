@@ -1,3 +1,9 @@
+/*
+ * @Author       : zhhjie
+ * @Date         : 2021-08-16 20:34:50
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-08-23 15:31:40
+ */
 import 'package:homary/common/utils/main.dart';
 
 class ViewMoreButton extends StatelessWidget {
@@ -26,7 +32,7 @@ class ViewMoreButton extends StatelessWidget {
         ),
         child: isLoading == false
             ? Text(
-                'View More',
+                S.of(context).home_viewMore,
                 style: TextStyle(
                   fontSize: 14.sp,
                   color: AppColor.primaryText,
@@ -41,7 +47,7 @@ class ViewMoreButton extends StatelessWidget {
                 ),
               ),
         onPressed: () {
-          if(isLoading){
+          if (isLoading) {
             return;
           }
           onLoadMore?.call();

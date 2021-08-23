@@ -81,5 +81,7 @@
   "Sale": "Sale",
   "Me": "Me",
   "newUserCouponModal_upto": "Up to",
-  "newUserCouponModal_forUser": "OFF For New User"
+  "newUserCouponModal_forUser": "OFF For New User",
+  "home_viewMore": "View More",
+  "home_freeShipping": "Free Shipping"
 }

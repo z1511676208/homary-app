@@ -81,5 +81,7 @@
   "Sale": "Verkauf",
   "Me": "Verkauf",
   "newUserCouponModal_upto": "Bis zu",
-  "newUserCouponModal_forUser": "Rabatt für neue Nutzer"
+  "newUserCouponModal_forUser": "Rabatt für neue Nutzer",
+  "home_viewMore": "Mehr Sehen",
+  "home_freeShipping": "Kostenloser Versand"
 }

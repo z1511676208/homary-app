@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-23 18:00:04
- * @LastEditors  : JHao
- * @LastEditTime : 2021-07-23 18:13:27
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-08-23 15:31:52
  */
 import 'package:flutter/material.dart';
 import 'package:homary/common/utils/main.dart';
@@ -34,7 +34,7 @@ class RecommendViewMoreButton extends StatelessWidget {
                         ),
                         child: data.item2 == false
                             ? Text(
-                                'View More',
+                                S.of(context).home_viewMore,
                                 style: TextStyle(
                                     fontSize: 14.sp,
                                     color: AppColor.primaryText),

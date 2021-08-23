@@ -61,6 +61,11 @@ class _UserPageViewState extends State<UserPageView> {
                                     ],
                                   ),
                                 ),
+                                IconButton(
+                                    onPressed: () {
+                                      Routes.push(context, '/setting');
+                                    },
+                                    icon: Icon(Icons.settings))
                               ],
                             ),
                             Container(
@@ -345,7 +350,7 @@ class _UserPageViewState extends State<UserPageView> {
                                       ),
                                       child: data.isLoading == false
                                           ? Text(
-                                              'View More',
+                                              S.of(context).home_viewMore,
                                               style: TextStyle(
                                                   fontSize: 14.sp,
                                                   color: AppColor.primaryText),

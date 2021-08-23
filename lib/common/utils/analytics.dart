@@ -1,10 +1,9 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-06-28 14:41:10
- * @LastEditors  : JHao
- * @LastEditTime : 2021-08-20 18:36:21
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-08-23 19:30:50
  */
-import 'dart:convert';
 
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';

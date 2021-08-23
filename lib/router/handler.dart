@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-06 10:11:04
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-19 18:44:27
+ * @LastEditTime : 2021-08-23 19:32:05
  */
 import 'dart:convert';
 
@@ -12,6 +12,7 @@ import 'package:homary/pages/categoryTab/main.dart';
 import 'package:homary/pages/channelTab/main.dart';
 import 'package:homary/pages/index/main.dart';
 import 'package:homary/pages/reviewDetail/main.dart';
+import 'package:homary/pages/settings/main.dart';
 import 'package:homary/pages/signIn/main.dart';
 import 'package:homary/pages/webview/main.dart';
 import 'package:homary/pages/resetPassword/main.dart';
@@ -112,5 +113,10 @@ Handler actHandler = Handler(
       appBarTitle: params['appBarTitle']?.first ?? '',
       activityId: params['activityId']?.first,
     );
+  },
+);
+Handler settingHandler = Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return Setting();
   },
 );
