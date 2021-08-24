@@ -884,6 +884,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Ends Soon`
+  String get endsSoon {
+    return Intl.message(
+      'Ends Soon',
+      name: 'endsSoon',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
