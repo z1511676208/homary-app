@@ -133,7 +133,9 @@ class _MainPageState extends State<MainPage> {
                 channel.id,
                 channel.name,
                 channel.description,
-                icon: 'launcher_icon',
+                icon: 'launcher_small',
+                color: AppColor.primaryColor,
+                largeIcon: DrawableResourceAndroidBitmap('launcher_icon'),
               ),
             ));
       }
