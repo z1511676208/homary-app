@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-14 15:05:20
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-16 13:47:26
+ * @LastEditTime : 2021-08-24 14:55:20
  */
 
 // import 'package:homary/common/utils/main.dart';
@@ -64,7 +64,9 @@ class _SalePageState extends State<SalePage>
       isInWebviewPage: false,
       needLogin: '0',
       source: '',
-      content: {"url": "https://m.homary.com/category/outdoor-110.html"},
+      content: {
+        "url": "https://m.homary.com/activity-list/father-s-day-2021?current=1"
+      },
     );
   }
 }
