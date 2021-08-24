@@ -59,7 +59,6 @@ dependencies:
   exposure: ^1.0.3
   flutter_rating_bar: ^4.0.0
   substring_highlight: ^1.0.33
-  popover: ^0.2.6+2
   flutter_braintree: ^2.0.0+1
   system_proxy: ^0.0.2
   auto_size_text: ^2.1.0

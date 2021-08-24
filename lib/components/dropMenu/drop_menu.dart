@@ -26,6 +26,7 @@ class DropMenuManager {
     double menuBarHeight = 0,
     double menuHeight = 0,
     Function onRemove,
+        bool isShowShadow = true,
   }) {
     if (_entry != null && id == _entryId) {
       hide();
@@ -44,6 +45,7 @@ class DropMenuManager {
         menuBarHeight: menuBarHeight,
         menu: menu,
         menuHeight: menuHeight,
+        isShowShadow: isShowShadow,
       );
     });
     Overlay.of(context).insert(_entry);
@@ -79,15 +81,17 @@ class DropMenu extends StatefulWidget {
   final Widget menu;
   final double menuBarHeight;
   final double menuHeight;
+  final bool isShowShadow;
 
-  const DropMenu(
-      {Key key,
-      this.onRemove,
-      this.marginTop,
-      this.menu,
-      this.menuBarHeight,
-      this.menuHeight})
-      : super(key: key);
+  const DropMenu({
+    Key key,
+    this.onRemove,
+    this.marginTop,
+    this.menu,
+    this.menuBarHeight,
+    this.menuHeight,
+    this.isShowShadow = true,
+  }) : super(key: key);
 
   @override
   _DropMenuState createState() => _DropMenuState();
@@ -140,7 +144,9 @@ class _DropMenuState extends State<DropMenu>
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,
                   child: Container(
-                    color: Color.fromRGBO(0, 0, 0, 0.5),
+                    color: widget.isShowShadow
+                        ? Color.fromRGBO(0, 0, 0, 0.5)
+                        : null,
                   ),
                   onTap: widget.onRemove,
                 ),

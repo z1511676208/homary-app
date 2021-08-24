@@ -6,7 +6,8 @@
  */
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
-import 'package:popover/popover.dart';
+import 'package:homary/components/dropMenu/bubble_shape.dart';
+import 'package:homary/components/dropMenu/drop_menu.dart';
 
 class MoreButton extends StatelessWidget {
   const MoreButton({Key key}) : super(key: key);
@@ -20,15 +21,15 @@ class MoreButton extends StatelessWidget {
           child: Icon(Icons.more_horiz),
         ),
         onTap: () {
-          showPopover(
-              context: context,
-              barrierColor: Colors.white.withAlpha(0),
-              transitionDuration: const Duration(milliseconds: 100),
-              bodyBuilder: (context) => const ListItems(),
-              onPop: () {},
-              arrowDxOffset: -10,
-              width: 174.w,
-              height: 200.w);
+          DropMenuManager.instance.showDropDownMenu(
+            context,
+            id: 99,
+            isShowShadow: false,
+            menu: ListItems(),
+            menuHeight: 180.w,
+            marginTop:
+                DropMenuManager.instance.getWeightMarginTop(context) + 42.w,
+          );
         },
       ),
     );
@@ -60,15 +61,22 @@ class ListItems extends StatelessWidget {
         'isNeedLogin': false
       }
     ];
-    return Scrollbar(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        child: ListView(
-            padding: EdgeInsets.symmetric(vertical: 10.w),
-            children: list
-                .map(
-                  (e) => InkWell(
+    return Container(
+      width: 180.w,
+      margin: EdgeInsets.only(left: 185.w),
+      child: CustomPaint(
+        painter: BubbleShape(),
+        size: Size(180.w, 180.w),
+        child: Scrollbar(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: ListView(
+                padding: EdgeInsets.symmetric(vertical: 10.w),
+                children: list
+                    .map(
+                      (e) => InkWell(
                       onTap: () {
+                        DropMenuManager.instance.hide();
                         String url = e['url'];
                         if (url.startsWith('https://')) {
                           bool isLogin = Localstorage().getBool('isLogin');
@@ -96,15 +104,17 @@ class ListItems extends StatelessWidget {
                               ),
                               Expanded(
                                   child: Text(
-                                e['title'],
-                                style: TextStyle(
-                                    fontSize: 15.sp,
-                                    color: AppColor.primaryText),
-                              ))
+                                    e['title'],
+                                    style: TextStyle(
+                                        fontSize: 15.sp,
+                                        color: AppColor.primaryText),
+                                  ))
                             ],
-                          ))),
+                          ),),),
                 )
-                .toList()),
+                    .toList(),),
+          ),
+        ),
       ),
     );
   }
