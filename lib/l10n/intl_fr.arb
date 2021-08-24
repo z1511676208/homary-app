@@ -84,5 +84,9 @@
   "newUserCouponModal_forUser": "de Rabais",
   "home_viewMore": "Voir Plus",
   "home_freeShipping": "Livraison Gratuite",
-  "endsSoon": "Vente Flash"
+  "endsSoon": "Vente Flash",
+  "appBar_support": "Soutien",
+  "appBar_recentyle_views": "Vues récentes",
+  "help_center": "Centre d'aide",
+  "address_book": "Carnet d'adresses"
 }

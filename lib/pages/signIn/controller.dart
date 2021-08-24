@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-13 11:36:43
- * @LastEditors  : JHao
- * @LastEditTime : 2021-08-24 13:43:10
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-08-24 18:15:31
  */
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -151,9 +151,15 @@ class SignInCtrl with ChangeNotifier {
           idToken: googleAuth.idToken,
         );
         Toast.loading();
-        final User user = (await _auth.signInWithCredential(credential)).user;
-        String idTokenResult = await user.getIdToken();
-        this.thridLogin(context, idTokenResult, 'google');
+        try {
+          final User user = (await _auth.signInWithCredential(credential)).user;
+          String idTokenResult = await user.getIdToken();
+          this.thridLogin(context, idTokenResult, 'google');
+        } catch (e) {
+          Toast.clear();
+          FirebaseAuthException error = e;
+          Toast.message(error.message);
+        }
       }
     } catch (e) {
       print(e);
@@ -170,10 +176,16 @@ class SignInCtrl with ChangeNotifier {
           final AuthCredential credential =
               FacebookAuthProvider.credential(accessToken.token);
           Toast.loading();
-
-          final User user = (await _auth.signInWithCredential(credential)).user;
-          String idTokenResult = await user.getIdToken(true);
-          this.thridLogin(context, idTokenResult, 'facebook');
+          try {
+            final User user =
+                (await _auth.signInWithCredential(credential)).user;
+            String idTokenResult = await user.getIdToken(true);
+            this.thridLogin(context, idTokenResult, 'facebook');
+          } catch (e) {
+            Toast.clear();
+            FirebaseAuthException error = e;
+            Toast.message(error.message);
+          }
           break;
         case FacebookLoginStatus.cancelledByUser:
           print('Login cancelled by the user.');
@@ -201,10 +213,18 @@ class SignInCtrl with ChangeNotifier {
             accessToken: result.session.token ?? '',
             secret: result.session.secret ?? '');
         Toast.loading();
+        try {
+          UserCredential userCredential =
+              await _auth.signInWithCredential(credential);
+          final User user = userCredential.user;
+          String idTokenResult = await user.getIdToken(true);
+          this.thridLogin(context, idTokenResult, 'twitter');
+        } catch (e) {
+          Toast.clear();
+          FirebaseAuthException error = e;
+          Toast.message(error.message);
+        }
 
-        final User user = (await _auth.signInWithCredential(credential)).user;
-        String idTokenResult = await user.getIdToken(true);
-        this.thridLogin(context, idTokenResult, 'twitter');
         break;
       case TwitterLoginStatus.cancelledByUser:
         print('twitter----cancel');

@@ -894,6 +894,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Support`
+  String get appBar_support {
+    return Intl.message(
+      'Support',
+      name: 'appBar_support',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recently Views`
+  String get appBar_recentyle_views {
+    return Intl.message(
+      'Recently Views',
+      name: 'appBar_recentyle_views',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Help Center`
+  String get help_center {
+    return Intl.message(
+      'Help Center',
+      name: 'help_center',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Address Book`
+  String get address_book {
+    return Intl.message(
+      'Address Book',
+      name: 'address_book',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -84,5 +84,9 @@
   "newUserCouponModal_forUser": "de descuento",
   "home_viewMore": "Ver Mas",
   "home_freeShipping": "Envío Gratis",
-  "endsSoon": "Termina Pronto"
+  "endsSoon": "Termina Pronto",
+  "appBar_support": "Apoyo",
+  "appBar_recentyle_views": "Vistas recientes",
+  "help_center": "Centro de ayuda",
+  "address_book": "Directorio"
 }

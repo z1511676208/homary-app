@@ -84,5 +84,9 @@
   "newUserCouponModal_forUser": "OFF For New User",
   "home_viewMore": "View More",
   "home_freeShipping": "Free Shipping",
-  "endsSoon": "Ends Soon"
+  "endsSoon": "Ends Soon",
+  "appBar_support": "Support",
+  "appBar_recentyle_views": "Recently Views",
+  "help_center": "Help Center",
+  "address_book": "Address Book"
 }
