@@ -1,10 +1,11 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-22 17:26:36
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-23 15:32:32
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-24 18:04:12
  */
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:homary/common/utils/formatDate.dart';
 import 'package:homary/common/utils/main.dart';
@@ -54,6 +55,7 @@ class _GoodsCardState extends State<GoodsCard> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    _activityTime = S.of(context).endsSoon;
     if (_currentData.activityStatus == 1) {
       int serviceTime =
           Provider.of<GlobalConfig>(context, listen: false).serviceTime;
@@ -152,9 +154,11 @@ class _GoodsCardState extends State<GoodsCard> {
                                     ),
                                     Container(
                                       width: widget.width / 2,
-                                      margin: EdgeInsets.only(bottom: 2.w),
+                                      margin: EdgeInsets.only(
+                                          bottom: Platform.isIOS ? 2.w : 0),
                                       alignment: Alignment.bottomCenter,
                                       child: Text(_activityTime,
+                                          maxLines: 1,
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 12.sp)),
