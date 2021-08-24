@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-06 10:11:04
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-19 16:12:31
+ * @LastEditTime : 2021-08-24 15:33:10
  */
 import 'dart:async';
 
@@ -63,7 +63,8 @@ class _IndexPageState extends State<IndexPage> {
       appBar: this._pageList[_currentPageIndex]['is_show_app_bar']
           ? PreferredSize(
               child: GlobalAppbar(),
-              preferredSize: Size.fromHeight(96.5.w),
+              preferredSize:
+                  Size.fromHeight(_currentPageIndex == 0 ? 96.5.w : 88.w),
             )
           : null,
       drawer: GlobalDrawer(),
