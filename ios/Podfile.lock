@@ -31,8 +31,6 @@ PODS:
     - Braintree/ThreeDSecure (>= 5.3.2, ~> 5.3)
     - Braintree/UnionPay (>= 5.3.2, ~> 5.3)
     - Braintree/Venmo (>= 5.3.2, ~> 5.3)
-  - device_info_plus (0.0.1):
-    - Flutter
   - FBSDKCoreKit (5.15.1):
     - FBSDKCoreKit/Basics (= 5.15.1)
     - FBSDKCoreKit/Core (= 5.15.1)
@@ -217,7 +215,6 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
-  - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
   - firebase_analytics (from `.symlinks/plugins/firebase_analytics/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
@@ -266,8 +263,6 @@ SPEC REPOS:
     - TwitterKit
 
 EXTERNAL SOURCES:
-  device_info_plus:
-    :path: ".symlinks/plugins/device_info_plus/ios"
   firebase_analytics:
     :path: ".symlinks/plugins/firebase_analytics/ios"
   firebase_auth:
@@ -311,7 +306,6 @@ SPEC CHECKSUMS:
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
   Braintree: d9314d1a97acda74b77e40be5db6aa3e655c6539
   BraintreeDropIn: 3e666d341e34efb0b5e18221eacd76db469bdab8
-  device_info_plus: e5c5da33f982a436e103237c0c85f9031142abed
   FBSDKCoreKit: 1d5acf7c9d7a2f92bb1a242dc60cae5b7adb91df
   FBSDKLoginKit: f1ea8026a58b52d30c9f2e6a58ca7d813619fb83
   Firebase: ff8c73105b90e33e1dc6c8e5445d7adc2ccdc7c1

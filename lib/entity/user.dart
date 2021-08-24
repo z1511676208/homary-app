@@ -1,43 +1,47 @@
 /// 用户登录
 /// 邮箱登录
 class UserEmailLoginReq {
-  UserEmailLoginReq({
-    this.email,
-    this.password,
-  }) : super();
+  UserEmailLoginReq({this.email, this.password, this.deviceNumber}) : super();
 
   String email;
   String password;
+  String deviceNumber;
 
   factory UserEmailLoginReq.fromJson(Map<String, dynamic> json) {
     return UserEmailLoginReq(
       email: json["email"],
       password: json["password"],
+      deviceNumber: json["device_number"],
     );
   }
 
   Map<String, dynamic> toJson() => {
         "email": email,
         "password": password,
+        "device_number": deviceNumber,
       };
 }
 
 //第三方登录
 class UserThirdLoginReq {
-  UserThirdLoginReq({this.idToken, this.oauthVerifier}) : super();
+  UserThirdLoginReq({this.idToken, this.oauthVerifier, this.deviceNumber})
+      : super();
   String idToken;
   String oauthVerifier;
+  String deviceNumber;
 
   factory UserThirdLoginReq.fromJson(Map<String, dynamic> json) {
     return UserThirdLoginReq(
       idToken: json["id_token"],
       oauthVerifier: json["oauth_verifier"],
+      deviceNumber: json["device_number"],
     );
   }
 
   Map<String, dynamic> toJson() => {
         "id_token": idToken,
         "oauth_verifier": oauthVerifier,
+        "device_number": deviceNumber,
       };
 }
 
@@ -57,15 +61,19 @@ class UserSendEmailReq {
 
 //用户注册
 class UserRegisterReq {
-  UserRegisterReq({this.email, this.password, this.subscribe}) : super();
+  UserRegisterReq(
+      {this.email, this.password, this.subscribe, this.deviceNumber})
+      : super();
   int subscribe;
   String email;
   String password;
+  String deviceNumber;
   factory UserRegisterReq.fromJson(Map<String, dynamic> json) {
     return UserRegisterReq(
       email: json["email"],
       password: json["password"],
       subscribe: json["subscribe"],
+      deviceNumber: json["device_number"],
     );
   }
 
@@ -73,6 +81,7 @@ class UserRegisterReq {
         "email": email,
         "password": password,
         "subscribe": subscribe,
+        "device_number": deviceNumber,
       };
 }
 
