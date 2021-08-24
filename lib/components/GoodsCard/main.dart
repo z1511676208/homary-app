@@ -1,11 +1,12 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-22 17:26:36
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-24 18:15:22
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-24 19:31:15
  */
 import 'dart:async';
 import 'dart:io';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:homary/common/utils/formatDate.dart';
 import 'package:homary/common/utils/main.dart';
@@ -153,16 +154,18 @@ class _GoodsCardState extends State<GoodsCard> {
                                                   fontSize: 12.sp))),
                                     ),
                                     Container(
-                                      width: widget.width / 2,
-                                      margin: EdgeInsets.only(
-                                          bottom: Platform.isIOS ? 2.w : 0),
-                                      alignment: Alignment.bottomCenter,
-                                      child: Text(_activityTime,
-                                          maxLines: 1,
+                                        width: widget.width / 2,
+                                        margin: EdgeInsets.only(
+                                            bottom: Platform.isIOS ? 2.w : 0),
+                                        alignment: Alignment.bottomCenter,
+                                        child: AutoSizeText(
+                                          _activityTime,
                                           style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 12.sp)),
-                                    ),
+                                              fontSize: 12.sp,
+                                              color: Colors.white),
+                                          maxLines: 1,
+                                          minFontSize: 10,
+                                        )),
                                   ],
                                 ),
                               ))
