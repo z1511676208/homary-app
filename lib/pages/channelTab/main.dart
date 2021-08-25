@@ -8,7 +8,7 @@ import 'package:homary/components/appBar/search/main.dart';
 import 'package:homary/components/goBackAppBar/main.dart';
 import 'package:homary/components/goTopMenu/main.dart';
 import 'package:homary/pages/categoryTab/components/view_more_button.dart';
-import 'package:homary/pages/channelTab/components/channel_list_empty.dart';
+import 'package:homary/components/empty/list_empty.dart';
 import 'package:homary/pages/channelTab/components/channel_list_widget.dart';
 import 'package:homary/pages/channelTab/controller.dart';
 import 'package:homary/widget/networkImg.dart';
@@ -127,7 +127,7 @@ class _ChannelTabState extends State<ChannelTab> {
                           physics: AlwaysScrollableScrollPhysics(),
                           child: Container(
                             height: constraints.maxHeight,
-                            child: ChannelListEmpty(),
+                            child: ListEmptyWidget(isShowGoHome: true,),
                           ),
                         )
                       : Stack(

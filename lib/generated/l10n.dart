@@ -785,10 +785,10 @@ class S {
     );
   }
 
-  /// `Your List is Empty`
+  /// `Your List Is Empty`
   String get channel_emptyList {
     return Intl.message(
-      'Your List is Empty',
+      'Your List Is Empty',
       name: 'channel_emptyList',
       desc: '',
       args: [],
