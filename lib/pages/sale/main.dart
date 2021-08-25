@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-14 15:05:20
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-24 14:55:20
+ * @LastEditTime : 2021-08-25 19:07:25
  */
 
 // import 'package:homary/common/utils/main.dart';
@@ -64,9 +64,7 @@ class _SalePageState extends State<SalePage>
       isInWebviewPage: false,
       needLogin: '0',
       source: '',
-      content: {
-        "url": "https://m.homary.com/activity-list/father-s-day-2021?current=1"
-      },
+      content: {"url": "https://m.homary.com/lego/sale-154.html"},
     );
   }
 }
