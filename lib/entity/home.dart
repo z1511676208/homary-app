@@ -65,7 +65,7 @@ class ModuleDataProductList {
   String cornerBgUrl;
   int activityEndTimeStamp;
   String priceOffDesc;
-  List<MergeSkuList> mergeSkuList;
+  List<ModuleDataProductList> mergeSkuList;
   String mergeSkuDesc;
   String totalSkuNum;
   String spuSaleQuantityDesc;
@@ -104,8 +104,8 @@ class ModuleDataProductList {
           cornerBgUrl: json["corner_bg_url"],
           activityEndTimeStamp: json["activity_end_time_stamp"],
           priceOffDesc: json["price_off_desc"],
-          mergeSkuList: List<MergeSkuList>.from(
-              json["merge_sku_list"]?.map((x) => MergeSkuList.fromJson(x))),
+          mergeSkuList: List<ModuleDataProductList>.from(json["merge_sku_list"]
+              ?.map((x) => ModuleDataProductList.fromJson(x))),
           mergeSkuDesc: json["merge_sku_desc"],
           totalSkuNum: json["total_sku_num"],
           spuSaleQuantityDesc: json["spu_sale_quantity_desc"]);
@@ -146,138 +146,140 @@ class ModuleDataProductList {
       };
 }
 
-class MergeSkuList {
-  MergeSkuList({
-    this.title,
-    this.price,
-    this.priceSymbol,
-    this.tagPrice,
-    this.tagPriceSymbol,
-    this.spuId,
-    this.skuId,
-    this.spuCode,
-    this.skuCode,
-    this.imgUrl,
-    this.jumpUrl,
-    this.status,
-    this.activityStatus,
-    this.statusDesc,
-    this.spuCategoryNameFirst,
-    this.spuCategoryNameSecond,
-    this.spuCategoryNameThird,
-    this.spuCategoryNameFourth,
-    this.reviewScore,
-    this.reviewNum,
-    this.skuSaleNum,
-    this.sortWeight,
-    this.purchaseRate,
-    this.cornerText,
-    this.cornerBgUrl,
-    this.activityEndTimeStamp,
-    this.priceOffDesc,
-    this.mergeSkuList,
-    this.mergeSkuDesc,
-  });
+// class MergeSkuList {
+//   MergeSkuList(
+//       {this.title,
+//       this.price,
+//       this.priceSymbol,
+//       this.tagPrice,
+//       this.tagPriceSymbol,
+//       this.spuId,
+//       this.skuId,
+//       this.spuCode,
+//       this.skuCode,
+//       this.imgUrl,
+//       this.jumpUrl,
+//       this.status,
+//       this.activityStatus,
+//       this.statusDesc,
+//       this.spuCategoryNameFirst,
+//       this.spuCategoryNameSecond,
+//       this.spuCategoryNameThird,
+//       this.spuCategoryNameFourth,
+//       this.reviewScore,
+//       this.reviewNum,
+//       this.skuSaleNum,
+//       this.sortWeight,
+//       this.purchaseRate,
+//       this.cornerText,
+//       this.cornerBgUrl,
+//       this.activityEndTimeStamp,
+//       this.priceOffDesc,
+//       this.mergeSkuList,
+//       this.mergeSkuDesc,
+//       this.spuSaleQuantityDesc});
 
-  String title;
-  String price;
-  String priceSymbol;
-  dynamic tagPrice;
-  String tagPriceSymbol;
-  String spuId;
-  String skuId;
-  String spuCode;
-  String skuCode;
-  String imgUrl;
-  String jumpUrl;
-  int status;
-  int activityStatus;
-  String statusDesc;
-  String spuCategoryNameFirst;
-  String spuCategoryNameSecond;
-  String spuCategoryNameThird;
-  String spuCategoryNameFourth;
-  dynamic reviewScore;
-  dynamic reviewNum;
-  dynamic skuSaleNum;
-  dynamic sortWeight;
-  dynamic purchaseRate;
-  String cornerText;
-  String cornerBgUrl;
-  int activityEndTimeStamp;
-  String priceOffDesc;
-  List<dynamic> mergeSkuList;
-  String mergeSkuDesc;
+//   String title;
+//   String price;
+//   String priceSymbol;
+//   dynamic tagPrice;
+//   String tagPriceSymbol;
+//   String spuId;
+//   String skuId;
+//   String spuCode;
+//   String skuCode;
+//   String imgUrl;
+//   String jumpUrl;
+//   int status;
+//   int activityStatus;
+//   String statusDesc;
+//   String spuCategoryNameFirst;
+//   String spuCategoryNameSecond;
+//   String spuCategoryNameThird;
+//   String spuCategoryNameFourth;
+//   dynamic reviewScore;
+//   dynamic reviewNum;
+//   dynamic skuSaleNum;
+//   dynamic sortWeight;
+//   dynamic purchaseRate;
+//   String cornerText;
+//   String cornerBgUrl;
+//   int activityEndTimeStamp;
+//   String priceOffDesc;
+//   List<dynamic> mergeSkuList;
+//   String mergeSkuDesc;
+//   String spuSaleQuantityDesc;
 
-  factory MergeSkuList.fromRawJson(String str) =>
-      MergeSkuList.fromJson(json.decode(str));
+//   factory MergeSkuList.fromRawJson(String str) =>
+//       MergeSkuList.fromJson(json.decode(str));
 
-  String toRawJson() => json.encode(toJson());
+//   String toRawJson() => json.encode(toJson());
 
-  factory MergeSkuList.fromJson(Map<String, dynamic> json) => MergeSkuList(
-        title: json["title"],
-        price: json["price"],
-        priceSymbol: json["price_symbol"],
-        tagPrice: json["tag_price"],
-        tagPriceSymbol: json["tag_price_symbol"],
-        spuId: json["spu_id"],
-        skuId: json["sku_id"],
-        spuCode: json["spu_code"],
-        skuCode: json["sku_code"],
-        imgUrl: json["img_url"],
-        jumpUrl: json["jump_url"],
-        status: json["status"],
-        activityStatus: json["activity_status"],
-        statusDesc: json["status_desc"],
-        spuCategoryNameFirst: json["spu_category_name_first"],
-        spuCategoryNameSecond: json["spu_category_name_second"],
-        spuCategoryNameThird: json["spu_category_name_third"],
-        spuCategoryNameFourth: json["spu_category_name_fourth"],
-        reviewScore: json["review_score"],
-        reviewNum: json["review_num"],
-        skuSaleNum: json["sku_sale_num"],
-        sortWeight: json["sort_weight"],
-        purchaseRate: json["purchase_rate"],
-        cornerText: json["corner_text"],
-        cornerBgUrl: json["corner_bg_url"],
-        activityEndTimeStamp: json["activity_end_time_stamp"],
-        priceOffDesc: json["price_off_desc"],
-        mergeSkuList: List<dynamic>.from(json["merge_sku_list"].map((x) => x)),
-        mergeSkuDesc: json["merge_sku_desc"],
-      );
+//   factory MergeSkuList.fromJson(Map<String, dynamic> json) => MergeSkuList(
+//       title: json["title"],
+//       price: json["price"],
+//       priceSymbol: json["price_symbol"],
+//       tagPrice: json["tag_price"],
+//       tagPriceSymbol: json["tag_price_symbol"],
+//       spuId: json["spu_id"],
+//       skuId: json["sku_id"],
+//       spuCode: json["spu_code"],
+//       skuCode: json["sku_code"],
+//       imgUrl: json["img_url"],
+//       jumpUrl: json["jump_url"],
+//       status: json["status"],
+//       activityStatus: json["activity_status"],
+//       statusDesc: json["status_desc"],
+//       spuCategoryNameFirst: json["spu_category_name_first"],
+//       spuCategoryNameSecond: json["spu_category_name_second"],
+//       spuCategoryNameThird: json["spu_category_name_third"],
+//       spuCategoryNameFourth: json["spu_category_name_fourth"],
+//       reviewScore: json["review_score"],
+//       reviewNum: json["review_num"],
+//       skuSaleNum: json["sku_sale_num"],
+//       sortWeight: json["sort_weight"],
+//       purchaseRate: json["purchase_rate"],
+//       cornerText: json["corner_text"],
+//       cornerBgUrl: json["corner_bg_url"],
+//       activityEndTimeStamp: json["activity_end_time_stamp"],
+//       priceOffDesc: json["price_off_desc"],
+//       mergeSkuList: List<dynamic>.from(json["merge_sku_list"].map((x) => x)),
+//       mergeSkuDesc: json["merge_sku_desc"],
+//       spuSaleQuantityDesc: json["spu_sale_quantity_desc"]);
 
-  Map<String, dynamic> toJson() => {
-        "title": title,
-        "price": price,
-        "price_symbol": priceSymbol,
-        "tag_price": tagPrice,
-        "tag_price_symbol": tagPriceSymbol,
-        "spu_id": spuId,
-        "sku_id": skuId,
-        "spu_code": spuCode,
-        "sku_code": skuCode,
-        "img_url": imgUrl,
-        "jump_url": jumpUrl,
-        "status": status,
-        "activity_status": activityStatus,
-        "status_desc": statusDesc,
-        "spu_category_name_first": spuCategoryNameFirst,
-        "spu_category_name_second": spuCategoryNameSecond,
-        "spu_category_name_third": spuCategoryNameThird,
-        "spu_category_name_fourth": spuCategoryNameFourth,
-        "review_score": reviewScore,
-        "review_num": reviewNum,
-        "sku_sale_num": skuSaleNum,
-        "sort_weight": sortWeight,
-        "purchase_rate": purchaseRate,
-        "corner_text": cornerText,
-        "corner_bg_url": cornerBgUrl,
-        "activity_end_time_stamp": activityEndTimeStamp,
-        "price_off_desc": priceOffDesc,
-        "merge_sku_list": List<dynamic>.from(mergeSkuList.map((x) => x)),
-        "merge_sku_desc": mergeSkuDesc,
-      };
-}
+//   Map<String, dynamic> toJson() => {
+//         "title": title,
+//         "price": price,
+//         "price_symbol": priceSymbol,
+//         "tag_price": tagPrice,
+//         "tag_price_symbol": tagPriceSymbol,
+//         "spu_id": spuId,
+//         "sku_id": skuId,
+//         "spu_code": spuCode,
+//         "sku_code": skuCode,
+//         "img_url": imgUrl,
+//         "jump_url": jumpUrl,
+//         "status": status,
+//         "activity_status": activityStatus,
+//         "status_desc": statusDesc,
+//         "spu_category_name_first": spuCategoryNameFirst,
+//         "spu_category_name_second": spuCategoryNameSecond,
+//         "spu_category_name_third": spuCategoryNameThird,
+//         "spu_category_name_fourth": spuCategoryNameFourth,
+//         "review_score": reviewScore,
+//         "review_num": reviewNum,
+//         "sku_sale_num": skuSaleNum,
+//         "sort_weight": sortWeight,
+//         "purchase_rate": purchaseRate,
+//         "corner_text": cornerText,
+//         "corner_bg_url": cornerBgUrl,
+//         "activity_end_time_stamp": activityEndTimeStamp,
+//         "price_off_desc": priceOffDesc,
+//         "merge_sku_list": List<dynamic>.from(mergeSkuList.map((x) => x)),
+//         "merge_sku_desc": mergeSkuDesc,
+//         "spu_sale_quantity_desc": spuSaleQuantityDesc
+//       };
+// }
 
 class ReviewList {
   ReviewList({

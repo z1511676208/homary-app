@@ -125,11 +125,12 @@ class _MainPageState extends State<MainPage> {
           await Provider.of<GlobalConfig>(context, listen: false)
               .getAppUpgradeInfo();
       if (upGradeInfo != null) {
-        if (upGradeInfo.data.isUpgrade == 1) {
+        if (upGradeInfo.data.isUpgrade != 0) {
           Widget content = HtmlWidget(upGradeInfo.data.content);
           AppDialog.show(
               context: context,
-              widget: Container(width: 200.w, height: 200.w, child: content));
+              widget: Container(width: 200.w, height: 200.w, child: content),
+              canCancel: upGradeInfo.data.isUpgrade == 2);
         }
       }
     });

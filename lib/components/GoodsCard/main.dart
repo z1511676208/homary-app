@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-22 17:26:36
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-25 17:08:50
+ * @LastEditTime : 2021-08-25 17:47:18
  */
 import 'dart:async';
 import 'dart:io';
@@ -12,6 +12,7 @@ import 'package:homary/common/utils/formatDate.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:homary/common/utils/schema2path.dart';
+import 'package:homary/entity/home.dart';
 import 'package:homary/widget/networkImg.dart';
 
 class GoodsCard extends StatefulWidget {
@@ -42,7 +43,7 @@ class GoodsCard extends StatefulWidget {
 }
 
 class _GoodsCardState extends State<GoodsCard> {
-  dynamic _currentData;
+  ModuleDataProductList _currentData;
   int _serviceTime;
   Timer _timer;
   String _activityTime = 'Ends Soon';
