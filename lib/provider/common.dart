@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-13 10:15:30
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-24 11:07:50
+ * @LastEditTime : 2021-08-25 16:46:33
  */
 // import 'package:localization_demo/i18n/app_localization_delegate.dart';
 // import 'package:localization_demo/i18n/app_localizations.dart';
@@ -40,7 +40,9 @@ class GlobalConfig with ChangeNotifier {
 
   //获取公共配置
   Future getCommonConfig() async {
+    Toast.loading();
     DioResult res = await SlideNavApi.getGlobalConfig();
+    Toast.clear();
     if (res.error == null) {
       GlobalConfigRes result = GlobalConfigRes.fromJson(res.result);
       List siteList = result?.data?.siteList;
@@ -128,8 +130,8 @@ class GlobalConfig with ChangeNotifier {
     setCurrentConfig(this.currentConfig.toJson());
 
     this.navList = [];
-    await this.getNavList(isNotNotify: true);
-    await this.getCommonConfig();
+    this.getNavList(isNotNotify: true);
+    this.getCommonConfig();
     if (configType == 1) {
       Routes.goHome();
     } else {
@@ -162,12 +164,12 @@ class GlobalConfig with ChangeNotifier {
 
   // 上报设备ID
   Future<void> pushDeviceInfo({Map<String, dynamic> params}) async {
-    // if (Localstorage().getBool('isPushDeviceId') == false) {
-    DioResult res = await CommonApi.pushDeviceInfo(params: params);
-    if (res.error == null) {
-      Localstorage().setBool('isPushDeviceId', true);
+    if (Localstorage().getBool('isPushDeviceId') == false) {
+      DioResult res = await CommonApi.pushDeviceInfo(params: params);
+      if (res.error == null) {
+        Localstorage().setBool('isPushDeviceId', true);
+      }
     }
-    // }
   }
 
   //获取购物车有效商品数量
