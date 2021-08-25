@@ -51,7 +51,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "category_items" : MessageLookupByLibrary.simpleMessage("items"),
     "category_lowToHigh" : MessageLookupByLibrary.simpleMessage("Low to High"),
     "category_sortBy" : MessageLookupByLibrary.simpleMessage("Sort By"),
-    "channel_emptyList" : MessageLookupByLibrary.simpleMessage("Your List is Empty"),
+    "channel_emptyList" : MessageLookupByLibrary.simpleMessage("Your List Is Empty"),
     "channel_returnHome" : MessageLookupByLibrary.simpleMessage("Return Home"),
     "channel_shopByDepartment" : MessageLookupByLibrary.simpleMessage("Shop by department"),
     "close_drawer" : MessageLookupByLibrary.simpleMessage("Close Drawer 123"),

@@ -7,6 +7,7 @@
 import 'package:flutter/rendering.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/schema2path.dart';
+import 'package:homary/components/empty/list_empty.dart';
 import 'package:homary/entity/category.dart';
 import 'package:homary/pages/category/controller.dart';
 import 'package:homary/pages/category/Watcher.dart';
@@ -128,15 +129,22 @@ class _RightListLayoutState extends State<RightListLayout>
             controller: _scorllCtrl,
             slivers: [
               _banner(),
-              TopNav(
-                _scorllCtrl,
-                _topNavScrollCtrl,
-                key: ValueKey(activeCategoryId),
-              ),
-              ProductList(
-                subList: data,
-              ),
-              SliverToBoxAdapter(child: SizedBox(height: 30.h))
+
+              if (data.isEmpty)
+                SliverToBoxAdapter(
+                  child: ListEmptyWidget(marginTop: 90.w,),
+                )
+              else ...[
+                TopNav(
+                  _scorllCtrl,
+                  _topNavScrollCtrl,
+                  key: ValueKey(activeCategoryId),
+                ),
+                ProductList(
+                  subList: data,
+                ),
+                SliverToBoxAdapter(child: SizedBox(height: 30.h))
+              ],
             ],
           ),
         );
