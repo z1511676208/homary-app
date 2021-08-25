@@ -2,10 +2,11 @@ import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:homary/common/utils/device.dart';
+import 'package:homary/common/utils/dialog.dart';
 import 'package:homary/common/utils/entrance.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:fluro/fluro.dart';
+import 'package:homary/entity/appUpgrade.dart';
 import 'package:homary/pages/home/contorller.dart';
 
 import 'package:homary/router/routes.dart';
@@ -14,6 +15,8 @@ import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/analytics.dart' as Analytics;
 import 'package:homary/pages/index/main.dart';
 import 'package:homary/common/utils/navigateWatcher.dart';
+// import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 
@@ -116,6 +119,19 @@ class _MainPageState extends State<MainPage> {
       String firebaseMessageToken = await FirebaseMessaging.instance.getToken();
       Provider.of<GlobalConfig>(context, listen: false)
           .pushDeviceInfo(params: {"device_number": firebaseMessageToken});
+
+      //获取app升级信息，判断是否弹出升级提示框
+      UpgradeRes upGradeInfo =
+          await Provider.of<GlobalConfig>(context, listen: false)
+              .getAppUpgradeInfo();
+      if (upGradeInfo != null) {
+        if (upGradeInfo.data.isUpgrade == 1) {
+          Widget content = HtmlWidget(upGradeInfo.data.content);
+          AppDialog.show(
+              context: context,
+              widget: Container(width: 200.w, height: 200.w, child: content));
+        }
+      }
     });
 
     // 當 app 處於開啟狀態時，監聽推撥訊息用

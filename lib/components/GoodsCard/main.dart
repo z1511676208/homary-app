@@ -329,7 +329,7 @@ class _GoodsCardState extends State<GoodsCard> {
                             ),
                           ),
                           Container(
-                            padding: EdgeInsets.only(bottom: 4.w),
+                            // padding: EdgeInsets.only(bottom: 4.w),
                             alignment: Alignment.centerLeft,
                             child: RichText(
                               maxLines: 1,
@@ -365,71 +365,102 @@ class _GoodsCardState extends State<GoodsCard> {
                               ]),
                             ),
                           ),
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            child: RichText(
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              text: TextSpan(children: [
-                                TextSpan(
-                                  text: _currentData.priceOffDesc,
-                                  style: TextStyle(
-                                      color: AppColor.offPriceColor,
-                                      fontSize: 12.sp),
-                                ),
-                              ]),
+                          Offstage(
+                            offstage: _currentData.priceOffDesc == null ||
+                                _currentData.priceOffDesc == '',
+                            child: Container(
+                              padding: EdgeInsets.only(top: 4.w),
+                              alignment: Alignment.centerLeft,
+                              child: RichText(
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                text: TextSpan(children: [
+                                  TextSpan(
+                                    text: _currentData.priceOffDesc,
+                                    style: TextStyle(
+                                        color: AppColor.offPriceColor,
+                                        fontSize: 12.sp),
+                                  ),
+                                ]),
+                              ),
                             ),
                           ),
-                          widget.showRating &&
-                                  _currentData.reviewScore != "" &&
-                                  _currentData.reviewScore != 0
-                              ? Padding(
-                                  padding: EdgeInsets.only(top: 8.w),
-                                  child: Row(
-                                    children: [
-                                      RatingBarIndicator(
-                                        rating:
-                                            _currentData.reviewScore is int ||
-                                                    _currentData.reviewScore
-                                                        is double
-                                                ? _currentData.reviewScore
-                                                    .toDouble()
-                                                : 0,
-                                        itemBuilder: (context, index) => Icon(
-                                          Icons.star,
-                                          color: Color(0xFFFFB400),
+                          Offstage(
+                            offstage: widget.showRating &&
+                                    _currentData.reviewScore == "" ||
+                                _currentData.reviewScore == 0,
+                            child: Padding(
+                                padding: EdgeInsets.only(top: 8.w),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        RatingBarIndicator(
+                                          rating:
+                                              _currentData.reviewScore is int ||
+                                                      _currentData.reviewScore
+                                                          is double
+                                                  ? _currentData.reviewScore
+                                                      .toDouble()
+                                                  : 0,
+                                          itemBuilder: (context, index) => Icon(
+                                            Icons.star,
+                                            color: Color(0xFFFFB400),
+                                          ),
+                                          unratedColor: Color(0xFFE3E3E3),
+                                          itemCount: 5,
+                                          itemSize: 15.w,
+                                          direction: Axis.horizontal,
                                         ),
-                                        unratedColor: Color(0xFFE3E3E3),
-                                        itemCount: 5,
-                                        itemSize: 15.w,
-                                        direction: Axis.horizontal,
-                                      ),
-                                      SizedBox(
-                                        width: 2.w,
-                                      ),
-                                      Text(
-                                        _currentData.reviewNum != null
-                                            ? _currentData.reviewNum.toString()
-                                            : '0',
-                                        style: TextStyle(
-                                            color: AppColor.primarySubTitle,
-                                            fontSize: 13.sp),
-                                      ),
-                                    ],
-                                  ))
-                              : Container(),
+                                        SizedBox(
+                                          width: 2.w,
+                                        ),
+                                        Text(
+                                          _currentData.reviewNum != null
+                                              ? _currentData.reviewNum
+                                                  .toString()
+                                              : '0',
+                                          style: TextStyle(
+                                              color: AppColor.primarySubTitle,
+                                              fontSize: 13.sp),
+                                        ),
+                                      ],
+                                    ),
+                                    Text(
+                                      _currentData.spuSaleQuantityDesc ?? '',
+                                      style: TextStyle(
+                                          color: AppColor.primarySubTitle),
+                                    )
+                                  ],
+                                )),
+                          ),
                           widget.showFreeShipping
                               ? Container(
                                   padding: EdgeInsets.only(top: 8.w),
                                   alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    S.of(context).home_freeShipping,
-                                    style: TextStyle(
-                                      color: AppColor.primaryText,
-                                      fontSize: 12.sp,
-                                    ),
-                                  ),
-                                )
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        S.of(context).home_freeShipping,
+                                        style: TextStyle(
+                                          color: AppColor.primaryText,
+                                          fontSize: 12.sp,
+                                        ),
+                                      ),
+                                      Offstage(
+                                        offstage: widget.showRating &&
+                                            _currentData.reviewScore != "" &&
+                                            _currentData.reviewScore != 0,
+                                        child: Text(
+                                            _currentData.spuSaleQuantityDesc ??
+                                                ''),
+                                      )
+                                    ],
+                                  ))
                               : Container()
                         ],
                       ),
