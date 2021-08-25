@@ -105,8 +105,10 @@ class _CategoryTabState extends State<CategoryTab> {
       update: (context, config, ctrl) {
         if (this.config != config.currentConfig.hashCode) {
           this.config = config.currentConfig.hashCode;
-          ctrl.setCategoryList(config.navList);
-          ctrl.init();
+          config.getServiceTime().then((value) {
+            ctrl.setCategoryList(config.navList);
+            ctrl.init();
+          });
         }
         return ctrl;
       },

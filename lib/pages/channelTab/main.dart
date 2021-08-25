@@ -108,7 +108,9 @@ class _ChannelTabState extends State<ChannelTab> {
       update: (context, config, ctrl) {
         if (this.config != config.currentConfig.hashCode) {
           this.config = config.currentConfig.hashCode;
-          ctrl.onRefresh(isOnRefresh: false);
+          config.getServiceTime().then((value) {
+            ctrl.onRefresh(isOnRefresh: false);
+          });
         }
         return ctrl;
       },

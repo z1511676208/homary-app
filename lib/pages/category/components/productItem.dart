@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-15 11:35:54
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-02 20:39:09
+ * @LastEditTime : 2021-08-25 15:28:39
  */
 import 'package:flutter/material.dart';
 import 'package:homary/common/utils/main.dart';
@@ -61,12 +61,16 @@ class _ProductItemState extends State<ProductItem> {
           children: [
             Align(
               alignment: Alignment.centerLeft,
-              child: Text(
-                  widget.subList[widget.idx] != null
-                      ? widget.subList[widget.idx].categoryName
-                      : '',
-                  style:
-                      TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold)),
+              child: GestureDetector(
+                  onTap: () {
+                    handleSchema(context, widget.subList[widget.idx].jumpUrl);
+                  },
+                  child: Text(
+                      widget.subList[widget.idx] != null
+                          ? widget.subList[widget.idx].categoryName
+                          : '',
+                      style: TextStyle(
+                          fontSize: 20.sp, fontWeight: FontWeight.bold))),
             ),
             SizedBox(height: 16.w),
             Align(
