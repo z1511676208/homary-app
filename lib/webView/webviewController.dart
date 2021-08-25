@@ -181,7 +181,9 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
         child: InAppWebView(
       gestureRecognizers: Set()
         ..add(Factory<VerticalDragGestureRecognizer>(
-            () => VerticalDragGestureRecognizer())),
+            () => VerticalDragGestureRecognizer()))
+        ..add(Factory<HorizontalDragGestureRecognizer>(
+            () => HorizontalDragGestureRecognizer())),
       pullToRefreshController: pullToRefreshController,
       initialOptions: options,
       key: webViewKey,

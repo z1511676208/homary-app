@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-23 18:34:11
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-06 14:59:54
+ * @LastEditTime : 2021-08-25 13:49:59
  */
 
 import 'package:fluro/fluro.dart';
@@ -74,7 +74,8 @@ class ReviewsList extends StatelessWidget {
                                                       ''
                                                   ? 0
                                                   : double.parse(data
-                                                      .reviewList[index].score),
+                                                      .reviewList[index].score
+                                                      .toString()),
                                               itemBuilder: (context, index) =>
                                                   Icon(
                                                 Icons.star,
