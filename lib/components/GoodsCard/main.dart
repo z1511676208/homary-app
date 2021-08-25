@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-22 17:26:36
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-24 19:31:15
+ * @LastEditTime : 2021-08-25 17:08:50
  */
 import 'dart:async';
 import 'dart:io';
@@ -386,9 +386,9 @@ class _GoodsCardState extends State<GoodsCard> {
                             ),
                           ),
                           Offstage(
-                            offstage: widget.showRating &&
-                                    _currentData.reviewScore == "" ||
-                                _currentData.reviewScore == 0,
+                            offstage: !(widget.showRating &&
+                                _currentData.reviewScore != "" &&
+                                _currentData.reviewScore != 0),
                             child: Padding(
                                 padding: EdgeInsets.only(top: 8.w),
                                 child: Row(
