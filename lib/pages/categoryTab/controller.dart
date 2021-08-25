@@ -217,7 +217,7 @@ class CategoryTabCtrl extends ChangeNotifier {
     filterList.forEach((element) {
       element.filterData.forEach((e) {
         if (e.isSelect) {
-          list.add('${element.pnId}:${e.pvValue}');
+          list.add('${element.pnValue}:${e.pvValue}');
         }
       });
     });
