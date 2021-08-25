@@ -116,6 +116,13 @@ class CategoryTabCtrl extends ChangeNotifier {
       ProductAttrRes res = ProductAttrRes.fromJson(result.result);
       filterList.clear();
       filterList.addAll(res.data.main);
+      int i = 0;
+      filterList.forEach((element) {
+        if(i < 3){
+          element.isExpand = true;
+        }
+        i++;
+      });
       orderByList.clear();
       res.data.orderBy.forEach((element) {
         if (element.key == 'price') {
