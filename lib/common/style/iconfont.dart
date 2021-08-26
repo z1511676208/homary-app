@@ -258,4 +258,9 @@ class Iconfont {
     fontFamily: 'Iconfont',
     matchTextDirection: true,
   );
+  static const Setting = IconData(
+    0xe6eb,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
 }

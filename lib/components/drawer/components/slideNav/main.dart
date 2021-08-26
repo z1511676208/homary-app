@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-07 15:43:25
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-03 14:43:14
+ * @LastEditTime : 2021-08-25 17:37:51
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/components/drawer/components/configNav/configItem.dart';
@@ -11,6 +11,9 @@ import '../../controller.dart';
 import 'expansionItem.dart';
 
 class SlideNav extends StatelessWidget {
+  final double width;
+  final bool showHead;
+  const SlideNav({this.width, this.showHead = true, key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Consumer<SlideNavCtrl>(
@@ -18,44 +21,48 @@ class SlideNav extends StatelessWidget {
             AnimatedPositioned(
                 left: slideNavCtrl.showSubList
                     ? 0.0
-                    : -MediaQuery.of(context).size.width * 0.8,
+                    : this.width ?? -MediaQuery.of(context).size.width * 0.8,
                 duration: Duration(milliseconds: 200),
                 child: Container(
                   color: Colors.white,
                   height: MediaQuery.of(context).size.height,
-                  width: MediaQuery.of(context).size.width * 0.8,
+                  width: this.width ?? MediaQuery.of(context).size.width * 0.8,
                   child: SafeArea(
                     child: Column(
                       children: [
-                        Stack(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.only(top: 13.h, bottom: 13.h),
-                              width: double.infinity,
-                              child: Text(slideNavCtrl?.subTitle ?? '',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: AppColor.primaryText,
-                                      fontSize: 15.sp,
-                                      fontWeight: FontWeight.bold)),
-                            ),
-                            Positioned(
-                              left: 0,
-                              top: 2.h,
-                              child: IconButton(
-                                  onPressed: () {
-                                    slideNavCtrl.subListToggle();
-                                  },
-                                  iconSize: 30,
-                                  color: AppColor.primaryText,
-                                  icon: Icon(Icons.chevron_left)),
-                            )
-                          ],
+                        Offstage(
+                          offstage: !this.showHead,
+                          child: Stack(
+                            children: [
+                              Container(
+                                padding:
+                                    EdgeInsets.only(top: 13.h, bottom: 13.h),
+                                width: double.infinity,
+                                child: Text(slideNavCtrl?.subTitle ?? '',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: AppColor.primaryText,
+                                        fontSize: 15.sp,
+                                        fontWeight: FontWeight.bold)),
+                              ),
+                              Positioned(
+                                left: 0,
+                                top: 2.h,
+                                child: IconButton(
+                                    onPressed: () {
+                                      slideNavCtrl.subListToggle();
+                                    },
+                                    iconSize: 30,
+                                    color: AppColor.primaryText,
+                                    icon: Icon(Icons.chevron_left)),
+                              )
+                            ],
+                          ),
                         ),
                         Container(
                           color: AppColor.primaryBackground,
                           child: SizedBox(
-                            height: 12.h,
+                            height: this.showHead ? 12.h : 0,
                             width: double.infinity,
                           ),
                         ),

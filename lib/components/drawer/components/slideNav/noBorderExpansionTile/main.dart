@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-08 09:53:28
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-28 15:26:09
+ * @LastEditTime : 2021-08-26 17:48:43
  */
 // Copyright 2014 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
@@ -38,28 +38,32 @@ class NoBorderExpansionTile extends StatefulWidget {
   /// Creates a single-line [ListTile] with a trailing button that expands or collapses
   /// the tile to reveal or hide the [children]. The [initiallyExpanded] property must
   /// be non-null.
-  const NoBorderExpansionTile({
-    Key key,
-    this.leading,
-    this.title,
-    this.subtitle,
-    this.onExpansionChanged,
-    this.children = const <Widget>[],
-    this.trailing,
-    this.initiallyExpanded = false,
-    this.maintainState = false,
-    this.tilePadding,
-    this.expandedCrossAxisAlignment,
-    this.expandedAlignment,
-    this.childrenPadding,
-    this.backgroundColor,
-    this.collapsedBackgroundColor,
-    this.textColor,
-    this.collapsedTextColor,
-    this.iconColor,
-    this.collapsedIconColor,
-    this.showArrow = true,
-  })  : assert(initiallyExpanded != null),
+  const NoBorderExpansionTile(
+      {Key key,
+      this.leading,
+      this.title,
+      this.subtitle,
+      this.onExpansionChanged,
+      this.children = const <Widget>[],
+      this.trailing,
+      this.initiallyExpanded = false,
+      this.maintainState = false,
+      this.tilePadding,
+      this.tileMargin,
+      this.expandedCrossAxisAlignment,
+      this.expandedAlignment,
+      this.childrenPadding,
+      this.backgroundColor,
+      this.collapsedBackgroundColor,
+      this.textColor,
+      this.collapsedTextColor,
+      this.iconColor,
+      this.collapsedIconColor,
+      this.showArrow = true,
+      this.showBorder = true,
+      this.showTickerModeBottomBorder = false,
+      this.icon})
+      : assert(initiallyExpanded != null),
         assert(maintainState != null),
         assert(
           expandedCrossAxisAlignment != CrossAxisAlignment.baseline,
@@ -183,6 +187,10 @@ class NoBorderExpansionTile extends StatefulWidget {
   final Color collapsedTextColor;
 
   final bool showArrow;
+  final bool showBorder;
+  final EdgeInsets tileMargin;
+  final Icon icon;
+  final bool showTickerModeBottomBorder;
   @override
   _NoBorderExpansionTileState createState() => _NoBorderExpansionTileState();
 }
@@ -195,7 +203,8 @@ class _NoBorderExpansionTileState extends State<NoBorderExpansionTile>
       CurveTween(curve: Curves.easeIn);
   static final Animatable<double> _halfTween =
       Tween<double>(begin: 0.0, end: 0.5);
-
+  static final Animatable<double> _quarterTween =
+      Tween<double>(begin: 0.0, end: 0.25);
   final ColorTween _borderColorTween = ColorTween();
   final ColorTween _headerColorTween = ColorTween();
   final ColorTween _iconColorTween = ColorTween();
@@ -204,6 +213,7 @@ class _NoBorderExpansionTileState extends State<NoBorderExpansionTile>
   AnimationController _controller;
   Animation<double> _iconTurns;
   Animation<double> _heightFactor;
+  Animation<double> _widgetIconTurns;
 
   bool _isExpanded = false;
 
@@ -213,6 +223,7 @@ class _NoBorderExpansionTileState extends State<NoBorderExpansionTile>
     _controller = AnimationController(duration: _kExpand, vsync: this);
     _heightFactor = _controller.drive(_easeInTween);
     _iconTurns = _controller.drive(_halfTween.chain(_easeInTween));
+    _widgetIconTurns = _controller.drive(_quarterTween.chain(_easeInTween));
     _isExpanded = PageStorage.of(context)?.readState(context) as bool ??
         widget.initiallyExpanded;
     if (_isExpanded) _controller.value = 1.0;
@@ -255,8 +266,9 @@ class _NoBorderExpansionTileState extends State<NoBorderExpansionTile>
                         bottom: BorderSide(
                             width: 0.5.w,
                             color: AppColor.primaryBorderOutline))),
-                padding: EdgeInsets.fromLTRB(0, 14.h, 12.w, 14.h),
-                margin: EdgeInsets.only(left: 16),
+                padding: widget.tilePadding ??
+                    EdgeInsets.fromLTRB(0, 14.h, 12.w, 14.h),
+                margin: widget.tileMargin ?? EdgeInsets.only(left: 16.w),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -264,8 +276,10 @@ class _NoBorderExpansionTileState extends State<NoBorderExpansionTile>
                     Offstage(
                       offstage: !widget.showArrow,
                       child: RotationTransition(
-                        turns: _iconTurns,
-                        child: const Icon(Icons.expand_more),
+                        turns:
+                            widget.icon == null ? _iconTurns : _widgetIconTurns,
+                        child: widget.icon ??
+                            Icon(Icons.expand_more, color: widget.iconColor),
                       ),
                     ),
                   ],
@@ -328,8 +342,13 @@ class _NoBorderExpansionTileState extends State<NoBorderExpansionTile>
 
     final Widget result = Offstage(
       child: TickerMode(
-        child: Padding(
+        child: Container(
           padding: widget.childrenPadding ?? EdgeInsets.zero,
+          decoration: BoxDecoration(
+              border: Border(
+                  bottom: BorderSide(
+                      width: widget.showTickerModeBottomBorder ? 1.w : 0,
+                      color: AppColor.primaryBorderBottomLine))),
           child: Column(
             crossAxisAlignment:
                 widget.expandedCrossAxisAlignment ?? CrossAxisAlignment.center,

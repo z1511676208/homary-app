@@ -2,13 +2,12 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-13 10:15:30
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-20 14:28:16
+ * @LastEditTime : 2021-08-25 18:50:22
  */
 
 import 'package:flutter/material.dart';
 import 'package:homary/common/style/main.dart';
 import 'package:homary/components/appBar/search/main.dart';
-import 'package:homary/router/routes.dart';
 import 'package:homary/widget/cartAndNumber.dart';
 import 'package:homary/widget/goBackIconBtn.dart';
 import 'package:homary/widget/wishIconButton.dart';

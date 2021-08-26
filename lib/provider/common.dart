@@ -1,4 +1,3 @@
-
 // import 'package:localization_demo/i18n/app_localization_delegate.dart';
 // import 'package:localization_demo/i18n/app_localizations.dart';
 
@@ -19,21 +18,27 @@ import 'package:homary/entity/serviceTimeRes.dart';
 
 import 'package:homary/common/utils/toast.dart';
 import 'package:homary/entity/slideNav.dart';
+import 'package:homary/pages/user/controller.dart';
 
 var busEvent = BusProvider();
 
 class GlobalConfig with ChangeNotifier {
   var currentConfig; //当前公共配置信息
   List currentConfigList = []; //配置信息列表
+  List<Datum> navList = []; //侧边栏菜单列表
   Locale _locale = Locale(
       getCurrentConfig() != null ? getCurrentConfig()['language'] : 'en', '');
-  get curLocale => _locale;
-  List<Datum> navList = []; //侧边栏菜单列表
   CommonAmountList commonAmountList = new CommonAmountList();
   int shopCartNumber = 0; //购物车有效商品数量
+  int serviceTime; // 服务器时间
+  bool isLogin = Localstorage().getBool('isLogin') ?? false;
 
-  // 服务器时间
-  int serviceTime;
+  get curLocale => _locale;
+
+  setIsLogin(bool isLogin) {
+    this.isLogin = isLogin;
+    notifyListeners();
+  }
 
   //获取公共配置
   Future getCommonConfig() async {
@@ -142,10 +147,12 @@ class GlobalConfig with ChangeNotifier {
     if (res.error == null) {
       Localstorage().remove('token');
       Localstorage().setBool('isLogin', false);
-      Toast.message('Logout succssful',
+      Localstorage().remove('userID');
+      Toast.message('Log out sucessfully!',
           duration: const Duration(milliseconds: 1000));
       setWebviewCookies();
       this.getShoppingCartNumber();
+      this.setIsLogin(false);
     }
   }
 

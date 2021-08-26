@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-06 10:11:04
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-16 19:14:12
+ * @LastEditTime : 2021-08-26 17:09:30
  */
 
 import 'package:flutter/material.dart';
@@ -10,6 +10,7 @@ import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/generated/l10n.dart';
 import 'package:homary/pages/signIn/controller.dart';
+import 'package:homary/pages/user/controller.dart';
 import 'package:tuple/tuple.dart';
 import 'components/contactUs.dart';
 import 'components/slideNav/main.dart';
@@ -25,64 +26,12 @@ class GlobalDrawerView extends StatefulWidget {
 }
 
 class _GlobalDrawerViewState extends State<GlobalDrawerView> {
-  List<BottomLink> bottomLinkList;
-  List<Child> bottomLinkChildList;
-  List linkURL = [
-    [
-      '/help-center/article-detail/64',
-      '/reviews',
-      '/help-center/article-detail/65',
-      '/help-center/article-detail/57',
-      '/help-center/article-detail/58'
-    ],
-    [
-      '/help-center',
-      '/help-center/article-detail/61',
-      '/help-center/category/5',
-      '/help-center/article-detail/59'
-    ],
-    ['/big-customer', '/help-center/article-detail/60']
-  ];
-
-  var currentConfig;
-  void setBbottomLinkList(List<String> titleList, List<String> childList) {
-    List<BottomLink> bottomList = [];
-
-    for (var i = 0; i < titleList.length; i++) {
-      bottomLinkChildList = [];
-      List arr = childList[i].split(',');
-      for (var j = 0; j < arr.length; j++) {
-        bottomLinkChildList.add(Child(
-            categoryName: arr[j],
-            jumpUrl: 'https://m.homary.com${linkURL[i][j]}'));
-      }
-      bottomList
-          .add(BottomLink(title: titleList[i], data: bottomLinkChildList));
-    }
-
-    setState(() {
-      bottomLinkList = bottomList;
-    });
-  }
-
-  void initBottomLink() {
-    setBbottomLinkList([
-      S.of(context).bottom_information_title,
-      S.of(context).bottom_customer_title,
-      S.of(context).bottom_b2b_title,
-    ], [
-      S.of(context).bottom_information_list,
-      S.of(context).bottom_customer_list,
-      S.of(context).bottom_b2b_list,
-    ]);
-  }
-
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      this.initBottomLink();
       await Provider.of<GlobalConfig>(context, listen: false).getNavList();
+      Provider.of<SlideNavCtrl>(context, listen: false).initBottomLink(context);
     });
   }
 
@@ -111,6 +60,8 @@ class _GlobalDrawerViewState extends State<GlobalDrawerView> {
                             index: index,
                             title: data?.item1[index]?.categoryName,
                             subList: data?.item1[index]?.subList,
+                            showArrow: data?.item1[index]?.subList != null &&
+                                data?.item1[index].subList.length > 0,
                             jumpUrl: data?.item1[index]?.jumpUrl,
                             isConfig: false);
                       }, childCount: data?.item1?.length)),
@@ -198,14 +149,21 @@ class _GlobalDrawerViewState extends State<GlobalDrawerView> {
                               ),
                             )),
                       ),
-                      SliverList(
-                          delegate: SliverChildBuilderDelegate((contex, index) {
-                        return Container(
-                            color: AppColor.primaryBackground,
-                            child: ExpansionItem(
-                                list: bottomLinkList[index].data,
-                                title: bottomLinkList[index].title));
-                      }, childCount: bottomLinkList?.length ?? 0)),
+                      Selector<SlideNavCtrl, List>(
+                        builder: (context, List bottomLinkList, child) =>
+                            SliverList(
+                                delegate:
+                                    SliverChildBuilderDelegate((contex, index) {
+                          return Container(
+                              color: AppColor.primaryBackground,
+                              child: ExpansionItem(
+                                  list: bottomLinkList[index].data,
+                                  title: bottomLinkList[index].title));
+                        }, childCount: bottomLinkList?.length ?? 0)),
+                        selector: (context, SlideNavCtrl slideNavCtrl) {
+                          return slideNavCtrl.bottomLinkList;
+                        },
+                      ),
                       ContactUs()
                     ],
                   ));
@@ -240,22 +198,9 @@ class GlobalDrawer extends StatelessWidget {
         ),
         ChangeNotifierProvider<SignInCtrl>(
           create: (context) => SignInCtrl(),
-        )
+        ),
       ],
       child: GlobalDrawerView(),
     );
   }
-}
-
-class Child {
-  String categoryName;
-  String jumpUrl;
-  Child({this.categoryName, this.jumpUrl});
-}
-
-class BottomLink {
-  String title;
-  List<Child> data;
-
-  BottomLink({this.title, this.data});
 }

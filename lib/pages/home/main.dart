@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-07 20:28:59
- * @LastEditors  : JHao
- * @LastEditTime : 2021-08-25 16:45:02
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-08-25 18:15:32
  */
 import 'dart:async';
 import 'dart:convert';
@@ -32,6 +32,7 @@ class _HomePageViewState extends State<HomePageView>
   @override
   void initState() {
     super.initState();
+    print('initState 111111111111111111111');
     _tabController = TabController(vsync: this, length: _tabValues.length);
     _subscription = EventBus.instance.on<GoHomeEvent>().listen((event) {
       setState(() {
@@ -48,6 +49,7 @@ class _HomePageViewState extends State<HomePageView>
     if (current != 'null' && this.currentConfig != current) {
       this.currentConfig = current;
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+        print('111111111111111111111');
         Provider.of<GlobalConfig>(context, listen: false).getServiceTime();
         Provider.of<HomeCtrl>(context, listen: false).getAdvInfo();
         Provider.of<HomeCtrl>(context, listen: false).getProductModule();
