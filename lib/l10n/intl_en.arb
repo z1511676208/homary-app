@@ -88,5 +88,16 @@
   "appBar_support": "Support",
   "appBar_recentyle_views": "Recently Views",
   "help_center": "Help Center",
-  "address_book": "Address Book"
+  "address_book": "Address Book",
+  "new_user_welcome": "WELCOME TO HOMARY",
+  "new_user_exclusive": "Exclusive for New User",
+  "new_user_sign_get_all": "SIGN IN TO GET ALL",
+  "new_user_get_all": "GET ALL",
+  "new_user_free_shipping": "Free Shipping",
+  "new_user_no_hassle_returns": "No Hassle Returns",
+  "new_user_724": "7*24 Service",
+  "new_user_orders_over": "Orders over",
+  "new_user_use_now": "USE NOW",
+  "new_user_view_my_coupons": "View My Coupons",
+  "new_user_received_all": "You have received all new user coupons，up to {amount} OFF for all items."
 }

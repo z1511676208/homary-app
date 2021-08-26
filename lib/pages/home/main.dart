@@ -8,6 +8,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:homary/common/event/go_home.dart';
 import 'package:homary/common/utils/event_bus.dart';
+import 'package:homary/common/utils/home_dialog.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/entity/topChannelCategory.dart';
 import 'package:homary/pages/home/components/tabBar/main.dart';
@@ -59,6 +60,9 @@ class _HomePageViewState extends State<HomePageView>
             await Provider.of<HomeCtrl>(context, listen: false)
                 .getTopChannelCategory();
 
+        // 显示首页弹窗
+        HomeDialog.instance.getAppPopUp(context);
+
         setState(() {
           _tabValues = [
             ...[S.of(context).Home],
@@ -78,6 +82,7 @@ class _HomePageViewState extends State<HomePageView>
   void dispose() {
     _tabController.dispose();
     _subscription?.cancel();
+    HomeDialog.instance.dispose();
     super.dispose();
   }
 

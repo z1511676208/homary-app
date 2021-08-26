@@ -44,4 +44,20 @@ class HomeApi {
         params: params);
     return res;
   }
+
+  static Future<DioResult> getAppPopUp(
+      {Map<String, dynamic> params}) async {
+    DioResult res = await Request().get(
+        urlMapList['indexPopUp'] ??
+            baseRequestUrl['indexPopUp'],
+        params: params);
+    return res;
+  }
+
+  static Future<DioResult> getAllNewCoupons(
+      {Map<String, dynamic> params}) async {
+    DioResult res = await Request().post('/market/coupon/batch-get-coupon',
+        params: params, isRequire: true);
+    return res;
+  }
 }
