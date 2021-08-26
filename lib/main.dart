@@ -8,6 +8,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:fluro/fluro.dart';
 import 'package:homary/entity/appUpgrade.dart';
 import 'package:homary/pages/home/contorller.dart';
+import 'package:homary/provider/productEtaInfo.dart';
 
 import 'package:homary/router/routes.dart';
 import 'package:homary/generated/l10n.dart';
@@ -58,6 +59,7 @@ class _MyAppState extends State<MyApp> {
       providers: [
         ChangeNotifierProvider(create: (context) => GlobalConfig()),
         ChangeNotifierProvider(create: (context) => HomeCtrl()),
+        ChangeNotifierProvider(create: (context) => ProductEtaInfo()),
       ],
       child: Consumer<GlobalConfig>(
         builder: (context, GlobalConfig value, child) {
@@ -116,6 +118,8 @@ class _MainPageState extends State<MainPage> {
       Provider.of<GlobalConfig>(context, listen: false).getCommonConfig();
       Provider.of<GlobalConfig>(context, listen: false).getShoppingCartNumber();
       Provider.of<GlobalConfig>(context, listen: false).getNavList();
+      Provider.of<ProductEtaInfo>(context, listen: false).getAreaByIp();
+
       String firebaseMessageToken = await FirebaseMessaging.instance.getToken();
       Provider.of<GlobalConfig>(context, listen: false)
           .pushDeviceInfo(params: {"device_number": firebaseMessageToken});

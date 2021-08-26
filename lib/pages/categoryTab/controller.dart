@@ -8,6 +8,7 @@ import 'package:homary/entity/product_attr_res.dart';
 import 'package:homary/entity/product_res.dart';
 import 'package:homary/entity/slideNav.dart';
 import 'package:homary/main.dart';
+import 'package:homary/provider/productEtaInfo.dart';
 
 class CategoryTabCtrl extends ChangeNotifier {
   bool _isDispose = false;
@@ -52,7 +53,11 @@ class CategoryTabCtrl extends ChangeNotifier {
   /// 商品总数
   int productTotal = 0;
 
-  CategoryTabCtrl(this.selectedCategoryId, {this.selectedCategoryName});
+  // context
+  BuildContext context;
+
+  CategoryTabCtrl(this.selectedCategoryId,
+      {this.selectedCategoryName, this.context});
 
   @override
   void dispose() {
@@ -118,7 +123,7 @@ class CategoryTabCtrl extends ChangeNotifier {
       filterList.addAll(res.data.main);
       int i = 0;
       filterList.forEach((element) {
-        if(i < 3){
+        if (i < 3) {
           element.isExpand = true;
         }
         i++;
@@ -127,11 +132,13 @@ class CategoryTabCtrl extends ChangeNotifier {
       res.data.orderBy.forEach((element) {
         if (element.key == 'price') {
           orderByList.add(ProductAttrOrderBy(
-            name: '${element.name} ${S.of(navigatorKey.currentState.context).category_highToLow}',
+            name:
+                '${element.name} ${S.of(navigatorKey.currentState.context).category_highToLow}',
             key: element.key,
           ));
           orderByList.add(ProductAttrOrderBy(
-            name: '${element.name} ${S.of(navigatorKey.currentState.context).category_lowToHigh}',
+            name:
+                '${element.name} ${S.of(navigatorKey.currentState.context).category_lowToHigh}',
             key: element.key,
             orderBy: 'asc',
           ));
@@ -146,7 +153,7 @@ class CategoryTabCtrl extends ChangeNotifier {
   /// 获取商品列表
   Future<void> getProductList({bool isOnRefresh = false}) async {
     if (page == 1) {
-      if(!isOnRefresh){
+      if (!isOnRefresh) {
         Toast.loading();
       }
     } else {
@@ -156,13 +163,15 @@ class CategoryTabCtrl extends ChangeNotifier {
     final result = await ProductApi.getProductList(params: {
       'channel_id': selectedCategoryId,
       'page': page++,
-      'size': size,
+      'page_size': size,
       'attr': filterStr,
       'sort': sort,
       'order_sort': orderSort,
     });
     if (result.error == null) {
       ProductRes res = ProductRes.fromJson(result.result);
+      await Provider.of<ProductEtaInfo>(context, listen: false)
+          .getEtaInfo(res.data.list);
       productList.addAll(res.data.list);
       productTotal = res.data.total;
       hasMorePage = res.data.hasMorePage;

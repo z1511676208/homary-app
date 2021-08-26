@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:exposure/exposure.dart';
 import 'package:homary/common/utils/analytics.dart';
 import 'package:homary/common/utils/main.dart';
+import 'package:homary/common/utils/utils.dart';
 import 'package:homary/components/GoodsCard/main.dart';
 import 'package:homary/components/appBar/search/main.dart';
 import 'package:homary/components/goBackAppBar/main.dart';
@@ -104,7 +105,7 @@ class _ChannelTabState extends State<ChannelTab> {
   Widget build(BuildContext context) {
     return ChangeNotifierProxyProvider<GlobalConfig, ChannelTabCtrl>(
       create: (context) => ChannelTabCtrl(widget.channelId,
-          type: widget.type, activityId: widget.activityId),
+          type: widget.type, activityId: widget.activityId, context: context),
       update: (context, config, ctrl) {
         if (this.config != config.currentConfig.hashCode) {
           this.config = config.currentConfig.hashCode;
@@ -127,7 +128,9 @@ class _ChannelTabState extends State<ChannelTab> {
                           physics: AlwaysScrollableScrollPhysics(),
                           child: Container(
                             height: constraints.maxHeight,
-                            child: ListEmptyWidget(isShowGoHome: true,),
+                            child: ListEmptyWidget(
+                              isShowGoHome: true,
+                            ),
                           ),
                         )
                       : Stack(

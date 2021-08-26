@@ -263,4 +263,9 @@ class Iconfont {
     fontFamily: 'Iconfont',
     matchTextDirection: true,
   );
+  static const fastDispatch = IconData(
+    0xe6ec,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
 }

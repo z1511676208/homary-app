@@ -4,6 +4,7 @@ import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/toast.dart';
 import 'package:homary/entity/home.dart';
 import 'package:homary/entity/topic_flow_res.dart';
+import 'package:homary/provider/productEtaInfo.dart';
 
 class ChannelTabCtrl extends ChangeNotifier {
   bool _isDispose = false;
@@ -35,7 +36,10 @@ class ChannelTabCtrl extends ChangeNotifier {
   /// channel列表
   List<ChannelList> channelList = [];
 
-  ChannelTabCtrl(this.channelId, {this.type, this.activityId});
+  // context
+  BuildContext context;
+
+  ChannelTabCtrl(this.channelId, {this.type, this.activityId, this.context});
 
   @override
   void dispose() {
@@ -66,14 +70,14 @@ class ChannelTabCtrl extends ChangeNotifier {
       result = await ProductApi.getTopicFlow(params: {
         'channel_id': int.tryParse(channelId ?? ''),
         'page': page++,
-        'size': size,
+        'page_size': size,
         'type': type,
       });
     } else {
       result = await ProductApi.getActivityInfo(params: {
         'channel_id': int.tryParse(channelId ?? ''),
         'page': page++,
-        'size': size,
+        'page_size': size,
         'activity_id': activityId,
       });
     }
