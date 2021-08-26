@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:exposure/exposure.dart';
 import 'package:homary/common/utils/analytics.dart';
 import 'package:homary/common/utils/main.dart';
+import 'package:homary/common/utils/utils.dart';
 import 'package:homary/components/GoodsCard/main.dart';
 import 'package:homary/components/appBar/search/main.dart';
 import 'package:homary/components/goBackAppBar/main.dart';
@@ -101,7 +102,7 @@ class _CategoryTabState extends State<CategoryTab> {
   Widget build(BuildContext context) {
     return ChangeNotifierProxyProvider<GlobalConfig, CategoryTabCtrl>(
       create: (context) => CategoryTabCtrl(widget.categoryId,
-          selectedCategoryName: widget.appBarTitle),
+          selectedCategoryName: widget.appBarTitle, context: context),
       update: (context, config, ctrl) {
         if (this.config != config.currentConfig.hashCode) {
           this.config = config.currentConfig.hashCode;
@@ -192,7 +193,9 @@ class _CategoryTabState extends State<CategoryTab> {
           crossAxisCount: 2, //Grid按两列显示
           mainAxisSpacing: 8.w,
           crossAxisSpacing: 8.w,
-          childAspectRatio: ((1.sw - 24.w) / 2) / 354.w,
+          childAspectRatio: isShowEtaInfo()
+              ? ((1.sw - 24.w) / 2) / 375.w
+              : ((1.sw - 24.w) / 2) / 354.w,
         ),
         delegate: SliverChildBuilderDelegate(
           (BuildContext context, int index) {
@@ -206,6 +209,7 @@ class _CategoryTabState extends State<CategoryTab> {
                 showSkuList: true,
                 showFreeShipping: true,
                 showRating: true,
+                showDispatch: true,
               ),
               onExposure: (visibilityInfo) {
                 Map<String, dynamic> item = ctrl.productList[index].toJson();

@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-22 17:26:36
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-26 18:52:05
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-26 19:02:42
  */
 import 'dart:async';
 import 'dart:io';
@@ -13,6 +13,7 @@ import 'package:homary/common/utils/main.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:homary/common/utils/schema2path.dart';
 import 'package:homary/entity/home.dart';
+import 'package:homary/provider/productEtaInfo.dart';
 import 'package:homary/widget/networkImg.dart';
 
 class GoodsCard extends StatefulWidget {
@@ -25,6 +26,7 @@ class GoodsCard extends StatefulWidget {
   final bool showSkuList; // 是否显示 sku 切换列表
   final bool showFreeShipping; // 是否显示Free Shipping
   final bool showRating; // 是否显示评分
+  final bool showDispatch; // 是否显示48小时配送
   GoodsCard(
       {Key key,
       this.width,
@@ -35,6 +37,7 @@ class GoodsCard extends StatefulWidget {
       this.showSkuList = false,
       this.showFreeShipping = false,
       this.showRating = false,
+      this.showDispatch = false,
       this.marginRight = 0})
       : super(key: key);
 
@@ -47,6 +50,7 @@ class _GoodsCardState extends State<GoodsCard> {
   int _serviceTime;
   Timer _timer;
   String _activityTime = 'Ends Soon';
+  dynamic _currentEtaInfo;
 
   @override
   void initState() {
@@ -95,6 +99,21 @@ class _GoodsCardState extends State<GoodsCard> {
     Map<String, int> time = CountdownUtils.second2HMSList(endTime);
     return time['h'] < 72 ||
         time['h'] == 72 && time['m'] == 0 && time['s'] == 0;
+  }
+
+  bool _isShowDispatch(String code) {
+    List<Map<String, dynamic>> productEtaList =
+        Provider.of<ProductEtaInfo>(context, listen: false).productEtaList;
+    if (productEtaList.length > 0) {
+      for (var i = 0; i < productEtaList.length; i++) {
+        if (productEtaList[i]['skuCode'] == code) {
+          _currentEtaInfo = productEtaList[i];
+          break;
+        }
+      }
+      return _currentEtaInfo != null;
+    }
+    return false;
   }
 
   @override
@@ -429,10 +448,16 @@ class _GoodsCardState extends State<GoodsCard> {
                                         ),
                                       ],
                                     ),
-                                    Text(
+                                    SizedBox(
+                                      width: 2.w,
+                                    ),
+                                    AutoSizeText(
                                       _currentData.spuSaleQuantityDesc ?? '',
                                       style: TextStyle(
+                                          fontSize: 12.sp,
                                           color: AppColor.primarySubTitle),
+                                      maxLines: 1,
+                                      minFontSize: 10,
                                     )
                                   ],
                                 )),
@@ -452,14 +477,49 @@ class _GoodsCardState extends State<GoodsCard> {
                                           fontSize: 12.sp,
                                         ),
                                       ),
+                                      SizedBox(
+                                        width: 2.w,
+                                      ),
                                       Offstage(
                                         offstage: widget.showRating &&
                                             _currentData.reviewScore != "" &&
                                             _currentData.reviewScore != 0,
-                                        child: Text(
-                                            _currentData.spuSaleQuantityDesc ??
-                                                ''),
+                                        child: AutoSizeText(
+                                          _currentData.spuSaleQuantityDesc ??
+                                              '',
+                                          style: TextStyle(
+                                              fontSize: 12.sp,
+                                              color: AppColor.primarySubTitle),
+                                          maxLines: 1,
+                                          minFontSize: 10,
+                                        ),
                                       )
+                                    ],
+                                  ))
+                              : Container(),
+                          widget.showDispatch &&
+                                  _isShowDispatch(_currentData.skuCode)
+                              ? Container(
+                                  padding: EdgeInsets.only(top: 8.w),
+                                  alignment: Alignment.centerLeft,
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Iconfont.fastDispatch,
+                                        size: 16.sp,
+                                      ),
+                                      SizedBox(
+                                        width: 5.w,
+                                      ),
+                                      Text(
+                                        _currentEtaInfo['dispatchLabel'],
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          color: AppColor.primaryText,
+                                          fontSize: 12.sp,
+                                        ),
+                                      ),
                                     ],
                                   ))
                               : Container()

@@ -1,11 +1,12 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-19 11:35:37
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-19 18:08:45
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-26 18:33:01
  */
 import 'dart:async';
 
+import 'package:homary/common/storage/cookie.dart';
 import 'package:homary/common/storage/webview-cookie.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:uuid/uuid.dart';
@@ -51,4 +52,11 @@ String getIdFromUrl(String url) {
   String id =
       reg.stringMatch(url)?.replaceAll('-', '')?.replaceAll('.html', '');
   return id;
+}
+
+// 判断是否显示ETA信息 (美国/英国站才显示)
+bool isShowEtaInfo() {
+  List<String> siteList = ["us", 'uk'];
+  var currentConfig = getCurrentConfig();
+  return siteList.contains(currentConfig['site'] ?? '');
 }

@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-21 10:46:35
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-25 09:51:58
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-26 10:26:37
  */
 import 'package:homary/common/request/request.dart';
 
@@ -28,6 +28,13 @@ class CommonApi {
   //获取升级信息
   static Future<DioResult> appUpgrade({dynamic params}) async {
     DioResult res = await Request().post('/api/app/upgrade', params: params);
+    return res;
+  }
+
+  // 获取用户IP对应的地区信息
+  static Future<DioResult> getAreaByIp({dynamic params}) async {
+    DioResult res = await Request()
+        .post('/user/user-no-auth/get-area-by-ip', params: params);
     return res;
   }
 }
