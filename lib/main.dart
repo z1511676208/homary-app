@@ -131,8 +131,9 @@ class _MainPageState extends State<MainPage> {
       if (upGradeInfo != null && upGradeInfo.data.isUpgrade != 0) {
         Widget content = HtmlWidget(upGradeInfo.data.content ?? '');
         Widget popup = Container(
-          padding: EdgeInsets.fromLTRB(12.w, 16.w, 12.w, 12.w),
-          color: Colors.white,
+          decoration: BoxDecoration(
+              borderRadius: AppStyle.primaryBorderRaduis, color: Colors.white),
+          padding: EdgeInsets.all(16.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -142,9 +143,12 @@ class _MainPageState extends State<MainPage> {
               ),
               SizedBox(
                 width: double.infinity,
-                height: 14.w,
+                height: 12.w,
               ),
-              Text('Latest version:v${upGradeInfo.data.upgradeVersion}'),
+              Text(
+                'Latest version:v${upGradeInfo.data.upgradeVersion}',
+                style: TextStyle(fontSize: 14.sp),
+              ),
               SizedBox(
                 width: double.infinity,
                 height: 12.w,
@@ -160,7 +164,7 @@ class _MainPageState extends State<MainPage> {
               ),
               Container(
                   width: double.infinity,
-                  height: 30.w,
+                  height: 40.w,
                   child: Builder(builder: (ctx) {
                     return OutlinedButton(
                       style: ButtonStyle(
@@ -179,7 +183,7 @@ class _MainPageState extends State<MainPage> {
                       onPressed: () async {},
                       child: Text('Update',
                           style: TextStyle(
-                              fontSize: 12.sp,
+                              fontSize: 14.sp,
                               fontWeight: FontWeight.bold,
                               color: Colors.white)),
                     );
@@ -204,8 +208,8 @@ class _MainPageState extends State<MainPage> {
         );
         AppDialog.show(
             context: context,
-            widget: Container(width: 200.w, height: 250.w, child: popup),
-            canCancel: upGradeInfo.data.isUpgrade == 1);
+            widget: Container(width: 0.76.sw, height: 280.w, child: popup),
+            canCancel: upGradeInfo.data.isUpgrade == 2);
       }
     });
 
