@@ -68,6 +68,9 @@ dependencies:
   flutter_local_notifications: ^8.1.1+1
   path_provider: ^2.0.2
   flutter_widget_from_html_core: ^0.6.2
+  dio_http_cache: ^0.3.0
+  sentry_flutter: ^5.1.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

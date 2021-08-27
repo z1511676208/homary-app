@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:homary/common/config/appConfig.dart';
 import 'package:homary/common/utils/dialog.dart';
 import 'package:homary/common/utils/entrance.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -18,11 +19,17 @@ import 'package:homary/pages/index/main.dart';
 import 'package:homary/common/utils/navigateWatcher.dart';
 // import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 
-void main() {
-  Global.init().then((e) => runApp(MyApp()));
+void main() async {
+  await SentryFlutter.init(
+    (options) {
+      options.dsn = AppConfig.SENTRY_DSN;
+    },
+    appRunner: () => Global.init().then((e) => runApp(MyApp())),
+  );
   EasyLoading.instance
     ..displayDuration = const Duration(milliseconds: 3000)
     ..indicatorType = EasyLoadingIndicatorType.ring

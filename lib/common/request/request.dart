@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:dio/adapter.dart';
+import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:dio_log/dio_log.dart';
 import 'package:homary/common/request/handler.dart';
 // import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
 // import 'package:homary/common/utils/main.dart';
 // import 'package:dio_cookie_manager/dio_cookie_manager.dart';
-import 'package:homary/common/request/cache.dart';
 import 'package:homary/common/config/proxyConfig.dart';
 import 'package:homary/common/utils/analytics.dart';
 import 'package:homary/common/utils/localstorage.dart';
@@ -19,10 +19,15 @@ class Request {
   static Request _instance = Request._internal();
   factory Request() => _instance;
 
+  static const BASE_URL = 'https://frontapi.homary.com';
+
+  DioCacheManager dioCacheManager =
+      DioCacheManager(CacheConfig(baseUrl: BASE_URL));
+
   Dio dio;
   Request._internal() {
     BaseOptions options = BaseOptions(
-        baseUrl: 'https://frontapi.homary.com',
+        baseUrl: BASE_URL,
         // 连接服务器超时时间
         connectTimeout: 30 * 1000,
         // 响应流前后两次接收数据间隔
@@ -40,7 +45,8 @@ class Request {
     // 设置自定携带 cookies
     // dio.interceptors.add(CookieManager(cookieJar));
     dio.interceptors.add(RrequsetHandler());
-    dio.interceptors.add(CacheGet());
+    dio.interceptors
+        .add(dioCacheManager.interceptor);
     dio.interceptors.add(InterceptorsWrapper(
         onRequest: (RequestOptions options, RequestInterceptorHandler handler) {
       // do something before request is sent
@@ -122,13 +128,9 @@ class Request {
     // }
   }
 
-  /// refresh 是否刷新 默认 false
+  /// refresh 是否强制刷新 默认 false
   /// cache 是否缓存 默认 false
-  /// list 是否列表 默认 false
-  /// cacheKey 缓存key
-  /// diskCache 磁盘缓存
   /// isRequire 是否需要登陆token
-  /// cacheTime 缓存时间 (默认)
   Future get(
     String path, {
     dynamic params,
@@ -136,22 +138,23 @@ class Request {
     CancelToken cancelToken,
     bool refresh = false,
     bool cache = false,
-    bool diskCache = false,
     bool isRequire = false,
-    bool list = false,
-    String cacheKey,
-    int cacheTime = 600,
   }) async {
     try {
       Options requestOptions = options ?? Options();
+      if (cache) {
+        // 缓存策略:
+        // 10分钟内 使用缓存数据
+        // 10分钟后至7天之内 网络正常时发送请求，网络异常时使用缓存数据
+        requestOptions = buildCacheOptions(
+          Duration(minutes: 10),
+          maxStale: Duration(days: 7),
+          forceRefresh: refresh,
+          options: options,
+        );
+      }
       Map<String, dynamic> cacheOption = {
-        "refresh": refresh,
-        "cache": cache,
-        "diskCache": diskCache,
         "isRequire": isRequire,
-        "list": list,
-        "cacheKey": cacheKey,
-        "cacheTime": cacheTime,
       };
       if (requestOptions.extra == null) {
         requestOptions.extra = cacheOption;

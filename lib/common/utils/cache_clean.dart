@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:homary/common/request/request.dart';
 import 'package:path_provider/path_provider.dart';
 
 /// 缓存清理工具类
@@ -15,6 +16,7 @@ class CacheCleanUtil {
 
   ///清理缓存
   static Future<void> cleanCache() async {
+    await Request().dioCacheManager.clearAll();
     Directory tempDir = await getTemporaryDirectory();
     final List<FileSystemEntity> children = tempDir.listSync();
     for (final FileSystemEntity child in children) {
