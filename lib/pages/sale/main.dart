@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-14 15:05:20
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-27 16:41:32
+ * @LastEditTime : 2021-08-27 18:21:05
  */
 
 // import 'package:homary/common/utils/main.dart';
@@ -44,6 +44,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:homary/common/storage/cookie.dart';
+import 'package:homary/common/utils/sale_page_list.dart';
 import 'package:homary/webView/webviewController.dart';
 
 class SalePage extends StatefulWidget {
@@ -56,28 +57,17 @@ class SalePage extends StatefulWidget {
 class _SalePageState extends State<SalePage>
     with AutomaticKeepAliveClientMixin {
   @override
-  bool get wantKeepAlive => false;
-
-  Map<String, String> _siteLink = {
-    'us': "https://m.homary.com/lego/sale-154.html",
-    "uk": "https://muk.homary.com/lego/sale-160.html",
-    "fr": "https://mfr.homary.com/lego/bon-plan-pour-la-maison-164.html",
-    "es": "https://mes.homary.com/lego/buenasofertas-73.html",
-    "de": "https://mde.homary.com/lego/angebote-126.html",
-    "au": "https://mau.homary.com/lego/saleau-129.html",
-    "ca": "https://mca.homary.com/lego/saleca-132.html",
-    "global": "https://m.homary.com/channel/new-products-1.html?current=1"
-  };
-  String _site = getCurrentConfig()['site'] ?? 'us';
+  bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
     return WebviewCtrl(
+      isSalePage: true,
       isInWebviewPage: false,
       needLogin: '0',
       source: '',
-      content: {"url": _siteLink[_site]},
+      content: {"url": getSalePageLink()},
     );
   }
 }

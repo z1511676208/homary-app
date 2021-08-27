@@ -1,14 +1,10 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-08-23 10:55:22
- * @LastEditors  : zhhjie
-<<<<<<< HEAD
- * @LastEditTime : 2021-08-27 15:23:37
-=======
- * @LastEditTime : 2021-08-27 11:32:43
->>>>>>> e85b870 (bugfix:ones bug修复,设置页面,第三方登录添加第三方接口错误提示,联调app升级信息接口,弹窗提示升级信息,新人弹窗)
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-27 17:46:15
  */
-import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
+// import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:homary/common/config/packageInfo.dart';
 import 'package:homary/common/utils/cache_clean.dart';
 import 'package:homary/common/utils/dialog.dart';
@@ -171,7 +167,7 @@ class _SettingViewState extends State<SettingView> {
               ),
               ContactUs(
                 backgroud: Colors.white,
-                padding: EdgeInsets.all(16.w),
+                padding: EdgeInsets.fromLTRB(16.w, 18.w, 16.w, 18.w),
                 margin: EdgeInsets.zero,
                 icon: Icon(
                   Iconfont.ArrowRight,

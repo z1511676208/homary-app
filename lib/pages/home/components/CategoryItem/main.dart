@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-29 18:34:23
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-03 15:00:35
+ * @LastEditTime : 2021-08-27 18:37:06
  */
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -40,25 +40,17 @@ class _CategoryItemState extends State<CategoryItem>
     schemaParams['url'] = params['url'];
     schemaParams['params'] = params['params'];
     super.initState();
-    widget.tabController.addListener(listenTab);
   }
 
   @override
   void dispose() {
     super.dispose();
-    widget.tabController.removeListener(listenTab);
-  }
-
-  void listenTab() {
-    if (widget.idx + 1 == widget.tabController.index) {
-      setState(() {});
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    if (widget.idx + 1 != widget.tabController.index) {
+    if (widget.tabController.offset == 0 && widget.tabController.index == 0) {
       return Container();
     }
     Map map = jsonDecode(schemaParams['params']['content']);

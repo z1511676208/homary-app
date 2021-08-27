@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-07 20:28:59
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-25 18:15:32
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-27 18:39:55
  */
 import 'dart:async';
 import 'dart:convert';
@@ -50,7 +50,6 @@ class _HomePageViewState extends State<HomePageView>
     if (current != 'null' && this.currentConfig != current) {
       this.currentConfig = current;
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-        print('111111111111111111111');
         Provider.of<GlobalConfig>(context, listen: false).getServiceTime();
         Provider.of<HomeCtrl>(context, listen: false).getAdvInfo();
         Provider.of<HomeCtrl>(context, listen: false).getProductModule();

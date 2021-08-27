@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-12 17:38:02
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-17 16:31:24
+ * @LastEditTime : 2021-08-27 17:22:09
  */
 import 'dart:convert';
 
@@ -59,7 +59,7 @@ class _ProductListViewState extends State<ProductListView> {
       this.currentConfig = current;
       Map<String, dynamic> channelMap =
           await Provider.of<HomeCtrl>(context, listen: false)
-              .getTopChannelCategory();
+              .getTopChannelCategory(params: {"category_type": 1});
       if (!mounted) {
         return;
       }

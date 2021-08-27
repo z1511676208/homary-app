@@ -11,6 +11,7 @@ import 'package:homary/common/utils/bus.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/requsetUrl.dart';
+import 'package:homary/common/utils/sale_page_list.dart';
 import 'package:homary/common/utils/schema2path.dart';
 import 'package:homary/common/utils/toast.dart';
 import 'package:homary/pages/webview/controller.dart';
@@ -23,12 +24,14 @@ class WebviewCtrl extends StatefulWidget {
   final Map<String, dynamic> content;
   final String showAppLoading;
   final bool isInWebviewPage;
+  final bool isSalePage;
   WebviewCtrl(
       {Key key,
       this.needLogin,
       this.content,
       this.source,
       this.isInWebviewPage = true,
+      this.isSalePage = false,
       this.showAppLoading = '1'})
       : super(key: key);
 
@@ -202,7 +205,14 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
         busEvent.subWebViewCtrl('switchSite', ctrlName, () {
           setWebviewCookies();
           isInitUrl = true;
-          controller.reload();
+          if (widget.isSalePage) {
+            String link = getSalePageLink();
+            controller.loadUrl(
+              urlRequest: URLRequest(url: Uri.parse(link)),
+            );
+          } else {
+            controller.reload();
+          }
         });
         // webview header 返回按钮
         busEvent.subWebViewCtrl('goback', ctrlName, () async {
@@ -343,6 +353,7 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
       },
       shouldOverrideUrlLoading: (controller, navigationAction) async {
         var url = navigationAction.request.url;
+
         if (url.scheme == 'homary') {
           //   // print("进来  ${widget.isInWebviewPage}");
           //   var params = getSchemaParams(url.toString());
@@ -380,11 +391,11 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
       },
       onUpdateVisitedHistory:
           (InAppWebViewController controller, Uri url, bool androidIsReload) {
-        print("路由跳转 ===》$url");
+        // print("路由跳转 ===》$url");
         changeHeadStatus(url);
       },
       onLoadError: (context, url, i, e) {
-        print('error====> $i   $e');
+        // print('error====> $i   $e');
         pullToRefreshController.endRefreshing();
       },
 

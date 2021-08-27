@@ -135,9 +135,8 @@ class GlobalConfig with ChangeNotifier {
     this.getCommonConfig();
     if (configType == 1) {
       Routes.goHome();
-    } else {
-      busEvent.pubWebViewCtrl('switchSite'); // 通知webview刷新页面
     }
+      busEvent.pubWebViewCtrl('switchSite'); // 通知webview刷新页面
   }
 
   //登出
