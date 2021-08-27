@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-06 10:11:04
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-23 19:32:05
+ * @LastEditTime : 2021-08-27 11:24:48
  */
 import 'dart:convert';
 
@@ -117,6 +117,7 @@ Handler actHandler = Handler(
 );
 Handler settingHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    return Setting();
+    String userID = params['userID']?.first ?? null;
+    return Setting(userID: userID);
   },
 );

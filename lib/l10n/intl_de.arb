@@ -99,5 +99,11 @@
   "new_user_orders_over": "Bestellungen über",
   "new_user_use_now": "JETZT BENUTZEN",
   "new_user_view_my_coupons": "Meine Gutscheine Anzeigen",
-  "new_user_received_all": "Sie haben einen neuen Benutzercoupon erhalten, bis zu {amount} Rabatt."
+  "new_user_received_all": "Sie haben einen neuen Benutzercoupon erhalten, bis zu {amount} Rabatt.",
+  "setting_upgrade": "Ihre App ist bereits die neueste Version.",
+  "setting_clearCache": "Cache leeren",
+  "setting_cleanCacheTip": "Alle temporären Bilder löschen, um Speicherplatz auf Ihrem Gerät freizugeben?",
+  "setting_version": "Ausführung",
+  "logout_successful": "Abmelden erfolgreich!",
+  "sign_out_btn": "Austragen"
 }

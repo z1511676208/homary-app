@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-13 11:36:43
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-26 15:44:52
+ * @LastEditTime : 2021-08-27 15:24:19
  */
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,10 +15,12 @@ import 'package:homary/common/storage/cookie.dart';
 import 'package:homary/api/main.dart';
 import 'package:homary/common/storage/webview-cookie.dart';
 import 'package:homary/common/utils/analytics.dart';
+import 'package:homary/common/utils/dialog.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/toast.dart';
 import 'package:flutter_twitter_login/flutter_twitter_login.dart';
+import 'package:homary/components/dialog/new_user_success_dialog.dart';
 // import 'package:twitter_login/twitter_login.dart';
 
 class SignInCtrl with ChangeNotifier {
@@ -251,7 +253,7 @@ class SignInCtrl with ChangeNotifier {
 
   //登录成功之后的回调
   void successCb(context, UserEmailLoginRes res, String method,
-      {String event = 'login'}) {
+      {String event = 'login'}) async {
     deleteCookie('isGuest');
     var userInfo = res.data;
     setToken(userInfo.token);
@@ -268,7 +270,18 @@ class SignInCtrl with ChangeNotifier {
       'user_propertys': userInfo.toJson()
     });
     Provider.of<GlobalConfig>(context, listen: false).getShoppingCartNumber();
+    bool isGot = userInfo.drawNewUserCoupon != null &&
+        double.parse(userInfo?.drawNewUserCoupon) != 0; //是否领过券
     if (goNewComerLanding(context)) return;
+    if (event == 'sign_up' && isGot) {
+      String totalAmountStr = Provider.of<GlobalConfig>(context, listen: false)
+          .commonAmountList
+          .couponNewuserAmountStr;
+      await AppDialog.show(
+          context: context,
+          widget: NewUserSuccessDialog(totalAmountStr: totalAmountStr));
+    }
+
     if (this.redirect != null) {
       Routes.pop(result: true);
     } else {

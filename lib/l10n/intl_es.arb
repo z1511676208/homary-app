@@ -28,7 +28,7 @@
   "register_title": "INSCRIBIRSE",
   "register_followTips": "Síguenos para recibir ofertas exclusivas y nuestras últimas novedades.",
   "register_agreeTips": "Al registrarse, usted acepta nuestra ",
-  "register_privacy": "PPolítica de privacidad y cookies",
+  "register_privacy": "Política de privacidad y cookies",
   "register_agreeTipsAnd": " y ",
   "register_terms": "Términos y condiciones.",
   "register_passwordError": "La longitud de la contraseña no debe ser inferior a 8 caracteres, debe incluir letras y números.",
@@ -99,5 +99,11 @@
   "new_user_orders_over": "En compras de",
   "new_user_use_now": "ÚSALO AHORA",
   "new_user_view_my_coupons": "Ver Mis Cupones",
-  "new_user_received_all": "Has recibido un cupón de usuario nuevo con un descuento de hasta {amount} ."
+  "new_user_received_all": "Has recibido un cupón de usuario nuevo con un descuento de hasta {amount} .",
+  "setting_upgrade": "Tu aplicación ya es la última versión.",
+  "setting_clearCache": "Limpiar cache",
+  "setting_cleanCacheTip": "¿Eliminar todas las imágenes temporales para liberar espacio en su dispositivo?",
+  "setting_version": "Versión",
+  "logout_successful": "¡Cierre la sesión con éxito!",
+  "sign_out_btn": "Desconectar"
 }

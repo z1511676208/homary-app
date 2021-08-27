@@ -99,5 +99,11 @@
   "new_user_orders_over": "Commandes de",
   "new_user_use_now": "APPLIQUER",
   "new_user_view_my_coupons": "Voir Mes Coupons",
-  "new_user_received_all": "Vous avez reçu les coupons pour les nouveaux utilisateurs, jusqu'à {amount} de rabais sur tous les articles."
+  "new_user_received_all": "Vous avez reçu les coupons pour les nouveaux utilisateurs, jusqu'à {amount} de rabais sur tous les articles.",
+  "setting_upgrade": "Votre application est déjà la dernière version.",
+  "setting_clearCache": "Vider le cache",
+  "setting_cleanCacheTip": "Supprimer toutes les images temporaires pour libérer de l'espace sur votre appareil ?",
+  "setting_version": "Version",
+  "logout_successful": "Déconnectez-vous avec succès !",
+  "sign_out_btn": "Se déconnecter"
 }

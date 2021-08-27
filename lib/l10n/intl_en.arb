@@ -99,5 +99,11 @@
   "new_user_orders_over": "Orders over",
   "new_user_use_now": "USE NOW",
   "new_user_view_my_coupons": "View My Coupons",
-  "new_user_received_all": "You have received all new user coupons，up to {amount} OFF for all items."
+  "new_user_received_all": "You have received all new user coupons，up to {amount} OFF for all items.",
+  "setting_upgrade": "Your app is already the latest version.",
+  "setting_clearCache": "Clear Cache",
+  "setting_cleanCacheTip": "Delete all temporary images to free up some space in your device?",
+  "setting_version": "Version",
+  "logout_successful": "Log out sucessfully!",
+  "sign_out_btn": "Sign Out"
 }

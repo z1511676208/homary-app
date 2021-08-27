@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-08-13 10:44:42
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-17 14:40:44
+ * @LastEditTime : 2021-08-27 15:11:36
  */
 import 'package:homary/common/utils/main.dart';
 
@@ -31,16 +31,25 @@ class CartAndNumber extends StatelessWidget {
                 child: Offstage(
                     offstage: cartNum == 0,
                     child: Container(
-                      padding: EdgeInsets.all(4.w),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle, color: Colors.red),
-                      child: Text(
-                        cartNum.toString(),
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
-                      ),
-                    ))),
+                        padding: EdgeInsets.all(4.w),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle, color: Colors.red),
+                        child: GestureDetector(
+                          onTap: () {
+                            Routes.push(context, '/webview', params: {
+                              "showAppLoading": '0',
+                              "content":
+                                  '{"url":"https://m.homary.com/shoppingcart"}'
+                            });
+                          },
+                          child: Text(
+                            cartNum.toString(),
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        )))),
             selector: (BuildContext context, GlobalConfig globalConfig) {
               return globalConfig.shopCartNumber;
             })
