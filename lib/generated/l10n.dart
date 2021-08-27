@@ -934,6 +934,116 @@ class S {
       args: [],
     );
   }
+
+  /// `WELCOME TO HOMARY`
+  String get new_user_welcome {
+    return Intl.message(
+      'WELCOME TO HOMARY',
+      name: 'new_user_welcome',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Exclusive for New User`
+  String get new_user_exclusive {
+    return Intl.message(
+      'Exclusive for New User',
+      name: 'new_user_exclusive',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SIGN IN TO GET ALL`
+  String get new_user_sign_get_all {
+    return Intl.message(
+      'SIGN IN TO GET ALL',
+      name: 'new_user_sign_get_all',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `GET ALL`
+  String get new_user_get_all {
+    return Intl.message(
+      'GET ALL',
+      name: 'new_user_get_all',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Free Shipping`
+  String get new_user_free_shipping {
+    return Intl.message(
+      'Free Shipping',
+      name: 'new_user_free_shipping',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Hassle Returns`
+  String get new_user_no_hassle_returns {
+    return Intl.message(
+      'No Hassle Returns',
+      name: 'new_user_no_hassle_returns',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `7*24 Service`
+  String get new_user_724 {
+    return Intl.message(
+      '7*24 Service',
+      name: 'new_user_724',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Orders over`
+  String get new_user_orders_over {
+    return Intl.message(
+      'Orders over',
+      name: 'new_user_orders_over',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `USE NOW`
+  String get new_user_use_now {
+    return Intl.message(
+      'USE NOW',
+      name: 'new_user_use_now',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View My Coupons`
+  String get new_user_view_my_coupons {
+    return Intl.message(
+      'View My Coupons',
+      name: 'new_user_view_my_coupons',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You have received all new user coupons，up to {amount} OFF for all items.`
+  String new_user_received_all(Object amount) {
+    return Intl.message(
+      'You have received all new user coupons，up to $amount OFF for all items.',
+      name: 'new_user_received_all',
+      desc: '',
+      args: [amount],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

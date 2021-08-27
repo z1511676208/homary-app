@@ -88,5 +88,16 @@
   "appBar_support": "Apoyo",
   "appBar_recentyle_views": "Vistas recientes",
   "help_center": "Centro de ayuda",
-  "address_book": "Directorio"
+  "address_book": "Directorio",
+  "new_user_welcome": "Bienvenido a Homary",
+  "new_user_exclusive": "Exclusivo para Usuarios Nuevos",
+  "new_user_sign_get_all": "INICIAR SESIÓN",
+  "new_user_get_all": "OBTENER TODA",
+  "new_user_free_shipping": "Envío Gratis",
+  "new_user_no_hassle_returns": "Devoluciones sin Problemas",
+  "new_user_724": "Servicio 7 * 24",
+  "new_user_orders_over": "En compras de",
+  "new_user_use_now": "ÚSALO AHORA",
+  "new_user_view_my_coupons": "Ver Mis Cupones",
+  "new_user_received_all": "Has recibido un cupón de usuario nuevo con un descuento de hasta {amount} ."
 }

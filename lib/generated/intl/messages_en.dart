@@ -19,6 +19,8 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
+  static m0(amount) => "You have received all new user coupons，up to ${amount} OFF for all items.";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "Home" : MessageLookupByLibrary.simpleMessage("Home"),
@@ -69,6 +71,17 @@ class MessageLookup extends MessageLookupByLibrary {
     "login_signIn" : MessageLookupByLibrary.simpleMessage("LOG IN"),
     "newUserCouponModal_forUser" : MessageLookupByLibrary.simpleMessage("OFF For New User"),
     "newUserCouponModal_upto" : MessageLookupByLibrary.simpleMessage("Up to"),
+    "new_user_724" : MessageLookupByLibrary.simpleMessage("7*24 Service"),
+    "new_user_exclusive" : MessageLookupByLibrary.simpleMessage("Exclusive for New User"),
+    "new_user_free_shipping" : MessageLookupByLibrary.simpleMessage("Free Shipping"),
+    "new_user_get_all" : MessageLookupByLibrary.simpleMessage("GET ALL"),
+    "new_user_no_hassle_returns" : MessageLookupByLibrary.simpleMessage("No Hassle Returns"),
+    "new_user_orders_over" : MessageLookupByLibrary.simpleMessage("Orders over"),
+    "new_user_received_all" : m0,
+    "new_user_sign_get_all" : MessageLookupByLibrary.simpleMessage("SIGN IN TO GET ALL"),
+    "new_user_use_now" : MessageLookupByLibrary.simpleMessage("USE NOW"),
+    "new_user_view_my_coupons" : MessageLookupByLibrary.simpleMessage("View My Coupons"),
+    "new_user_welcome" : MessageLookupByLibrary.simpleMessage("WELCOME TO HOMARY"),
     "register_agreeTips" : MessageLookupByLibrary.simpleMessage("By registering, you agree to our "),
     "register_agreeTipsAnd" : MessageLookupByLibrary.simpleMessage(" and "),
     "register_btn" : MessageLookupByLibrary.simpleMessage("CREATE AN ACCOUNT"),

@@ -19,6 +19,8 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'fr';
 
+  static m0(amount) => "Vous avez reçu les coupons pour les nouveaux utilisateurs, jusqu\'à ${amount} de rabais sur tous les articles.";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "Home" : MessageLookupByLibrary.simpleMessage("Domicile"),
@@ -69,6 +71,17 @@ class MessageLookup extends MessageLookupByLibrary {
     "login_signIn" : MessageLookupByLibrary.simpleMessage("CONNEXION"),
     "newUserCouponModal_forUser" : MessageLookupByLibrary.simpleMessage("de Rabais"),
     "newUserCouponModal_upto" : MessageLookupByLibrary.simpleMessage("Jusqu\'à"),
+    "new_user_724" : MessageLookupByLibrary.simpleMessage("Service Client Expert"),
+    "new_user_exclusive" : MessageLookupByLibrary.simpleMessage("Offre Exclusive Pour Les Nouveaux Utilisateurs"),
+    "new_user_free_shipping" : MessageLookupByLibrary.simpleMessage("Livraison Gratuite"),
+    "new_user_get_all" : MessageLookupByLibrary.simpleMessage("AVOIR TOUT"),
+    "new_user_no_hassle_returns" : MessageLookupByLibrary.simpleMessage("Retour Sans Tracas"),
+    "new_user_orders_over" : MessageLookupByLibrary.simpleMessage("Commandes de"),
+    "new_user_received_all" : m0,
+    "new_user_sign_get_all" : MessageLookupByLibrary.simpleMessage("SE CONNECTER"),
+    "new_user_use_now" : MessageLookupByLibrary.simpleMessage("APPLIQUER"),
+    "new_user_view_my_coupons" : MessageLookupByLibrary.simpleMessage("Voir Mes Coupons"),
+    "new_user_welcome" : MessageLookupByLibrary.simpleMessage("BIENVENUE CHEZ HOMARY"),
     "register_agreeTips" : MessageLookupByLibrary.simpleMessage("En vous inscrivant, vous acceptez notre "),
     "register_agreeTipsAnd" : MessageLookupByLibrary.simpleMessage(" et "),
     "register_btn" : MessageLookupByLibrary.simpleMessage("CRÉER UN COMPTE"),

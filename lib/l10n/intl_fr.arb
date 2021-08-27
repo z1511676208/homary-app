@@ -88,5 +88,16 @@
   "appBar_support": "Soutien",
   "appBar_recentyle_views": "Vues récentes",
   "help_center": "Centre d'aide",
-  "address_book": "Carnet d'adresses"
+  "address_book": "Carnet d'adresses",
+  "new_user_welcome": "BIENVENUE CHEZ HOMARY",
+  "new_user_exclusive": "Offre Exclusive Pour Les Nouveaux Utilisateurs",
+  "new_user_sign_get_all": "SE CONNECTER",
+  "new_user_get_all": "AVOIR TOUT",
+  "new_user_free_shipping": "Livraison Gratuite",
+  "new_user_no_hassle_returns": "Retour Sans Tracas",
+  "new_user_724": "Service Client Expert",
+  "new_user_orders_over": "Commandes de",
+  "new_user_use_now": "APPLIQUER",
+  "new_user_view_my_coupons": "Voir Mes Coupons",
+  "new_user_received_all": "Vous avez reçu les coupons pour les nouveaux utilisateurs, jusqu'à {amount} de rabais sur tous les articles."
 }
