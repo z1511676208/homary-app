@@ -23,7 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
-    "Home" : MessageLookupByLibrary.simpleMessage("Domicile"),
+    "Home" : MessageLookupByLibrary.simpleMessage("Accueil"),
     "HomePage_ServiceIcon1" : MessageLookupByLibrary.simpleMessage("Bénéficiez de"),
     "HomePage_ServiceIcon2" : MessageLookupByLibrary.simpleMessage("Livraison Gratuite"),
     "HomePage_ServiceIcon3" : MessageLookupByLibrary.simpleMessage("Retour et Échange"),

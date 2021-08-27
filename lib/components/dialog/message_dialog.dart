@@ -11,8 +11,10 @@ class MessageDialog extends StatelessWidget {
 
   /// 显示的文字信息
   final String message;
+
   /// 取消选择的文字，默认为No
   final String noStr;
+
   /// 选择的文字，默认为Yes
   final String yesStr;
 
@@ -66,16 +68,18 @@ class MessageDialog extends StatelessWidget {
       height: 36.w,
       child: ElevatedButton(
         onPressed: () => Navigator.pop(context, false),
-        style: ElevatedButton.styleFrom(
-          elevation: 0,
-          primary: Colors.white,
-          shape: StadiumBorder(
-            side: BorderSide(
-              color: AppColor.primaryColor,
-              width: 0.5.w,
-            ),
-          ),
-        ),
+        style: ButtonStyle(
+            elevation: MaterialStateProperty.all(0),
+            backgroundColor: MaterialStateProperty.all(Colors.white),
+            overlayColor: MaterialStateProperty.all(AppColor.whiteBtnPressed),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(36.0.w),
+              side: BorderSide(
+                width: 1.w,
+                color: AppColor.primaryColor,
+              ),
+            ))),
         child: Text(
           noStr,
           style: TextStyle(
@@ -93,10 +97,15 @@ class MessageDialog extends StatelessWidget {
       height: 36.w,
       child: ElevatedButton(
         onPressed: () => Navigator.pop(context, true),
-        style: ElevatedButton.styleFrom(
-          elevation: 0,
-          shape: StadiumBorder(),
-        ),
+        style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(AppColor.primaryColor),
+            elevation: MaterialStateProperty.all(0),
+            overlayColor: MaterialStateProperty.all(AppColor.primaryPressed),
+            foregroundColor: MaterialStateProperty.all(Colors.white),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(36.0.w),
+            ))),
         child: Text(
           yesStr,
           style: TextStyle(

@@ -61,6 +61,7 @@ class CategoryTabCtrl extends ChangeNotifier {
 
   @override
   void dispose() {
+    context = null;
     super.dispose();
     _isDispose = true;
   }
