@@ -122,12 +122,13 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
         color: AppColor.primaryColor,
       ),
       onRefresh: () async {
-        if (Platform.isAndroid) {
-          controller?.reload();
-        } else if (Platform.isIOS) {
-          controller?.loadUrl(
-              urlRequest: URLRequest(url: await controller?.getUrl()));
-        }
+        isInitUrl = true;
+        // if (Platform.isAndroid) {
+        controller?.reload();
+        // } else if (Platform.isIOS) {
+        //   controller?.loadUrl(
+        //       urlRequest: URLRequest(url: await controller?.getUrl()));
+        // }
       },
     );
     super.initState();
@@ -200,6 +201,7 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
         // 切换站点 语言 币种时，刷新webview
         busEvent.subWebViewCtrl('switchSite', ctrlName, () {
           setWebviewCookies();
+          isInitUrl = true;
           controller.reload();
         });
         // webview header 返回按钮
@@ -232,6 +234,7 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
               if (url != null && path != '/index') {
                 final result = await Routes.push(context, path, params: params);
                 if (result ?? false) {
+                  isInitUrl = true;
                   controller?.reload();
                 }
               } else if (path == '/index') {
