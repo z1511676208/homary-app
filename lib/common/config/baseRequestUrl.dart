@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-13 10:15:30
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-16 16:51:58
+ * @LastEditTime : 2021-08-27 10:30:50
  */
 Map<String, String> baseRequestUrl = {
   "homeReviewModule":

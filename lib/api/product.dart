@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-08-17 18:19:28
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-26 14:36:52
+ * @LastEditTime : 2021-08-27 10:34:24
  */
 import 'package:homary/api/category.dart';
 import 'package:homary/common/config/baseRequestUrl.dart';
@@ -38,8 +38,9 @@ class ProductApi {
   }
 
   static Future<DioResult> getEtaInfo({dynamic params}) async {
-    DioResult res =
-        await Request().post('/product/product/get-eta-info', params: params);
+    DioResult res = await Request().post(
+        urlMapList['etaInfo'] ?? baseRequestUrl['etaInfo'],
+        params: params);
     return res;
   }
 }

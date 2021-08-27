@@ -60,6 +60,7 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
   String source = '';
   Map<String, dynamic> content;
   String url;
+  bool isInitUrl = true; //记录当前是否是第一次进来的URL,用于shouldOverrideUrlLoading拦截判断
 
   InAppWebViewController controller;
   PullToRefreshController pullToRefreshController;
@@ -329,6 +330,13 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
               outline: none!important;
           }
         ''');
+        if (!widget.isInWebviewPage) {
+          controller.injectCSSCode(source: '''
+          body,html{
+            background:#ffffff;
+          }
+        ''');
+        }
       },
       shouldOverrideUrlLoading: (controller, navigationAction) async {
         var url = navigationAction.request.url;
@@ -353,6 +361,17 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
         } else if (url.toString().contains('my.yotpo.com')) {
           _launchURL(url.toString());
           return NavigationActionPolicy.CANCEL;
+        } else if (!widget.isInWebviewPage &&
+            !isInitUrl &&
+            (url.toString().contains('.homary.com/'))) {
+          Routes.push(context, '/webview',
+              params: {"content": '{"url":"${url.toString()}"}'});
+          return NavigationActionPolicy.CANCEL;
+        }
+        if (url.toString().contains('m.homary.com/') ||
+            url.toString().contains('muk.homary.com/')) {
+          // 排除PC站链接重定向
+          isInitUrl = false;
         }
         return NavigationActionPolicy.ALLOW;
       },
