@@ -71,7 +71,7 @@ class _TabBarWidgetState extends State<TabBarWidget>
                 color: AppColor.primaryBorderOutline,
               ),
               onTap: () {
-                Routes.goHome(pageIndex: 1);
+                Routes.goHome(pageIndex: 1, pageTabIndex: null);
               },
             ),
             width: 36.w,
