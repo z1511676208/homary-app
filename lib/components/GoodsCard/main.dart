@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-22 17:26:36
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-26 19:02:42
+ * @LastEditTime : 2021-08-30 17:12:22
  */
 import 'dart:async';
 import 'dart:io';
@@ -509,6 +509,7 @@ class _GoodsCardState extends State<GoodsCard> {
                                           color: AppColor.primarySubTitle),
                                       maxLines: 1,
                                       minFontSize: 10,
+                                      textAlign: TextAlign.right,
                                     ),
                                   ),
                                 ],
@@ -545,6 +546,7 @@ class _GoodsCardState extends State<GoodsCard> {
                                               color: AppColor.primarySubTitle),
                                           maxLines: 1,
                                           minFontSize: 10,
+                                          textAlign: TextAlign.right,
                                         ),
                                       ),
                                     ),

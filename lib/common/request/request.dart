@@ -45,8 +45,7 @@ class Request {
     // 设置自定携带 cookies
     // dio.interceptors.add(CookieManager(cookieJar));
     dio.interceptors.add(RrequsetHandler());
-    dio.interceptors
-        .add(dioCacheManager.interceptor);
+    dio.interceptors.add(dioCacheManager.interceptor);
     dio.interceptors.add(InterceptorsWrapper(
         onRequest: (RequestOptions options, RequestInterceptorHandler handler) {
       // do something before request is sent
@@ -102,6 +101,7 @@ class Request {
         }
       }
     }, onError: (DioError err, ErrorInterceptorHandler handler) {
+      Toast.clear();
       return handler.next(err);
     }));
     dio.interceptors.add(DioLogInterceptor());

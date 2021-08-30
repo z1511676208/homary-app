@@ -40,7 +40,7 @@ class HomeDialog {
     _lastTime = int.parse(list[1]);
   }
 
-  void dispose(){
+  void dispose() {
     context = null;
   }
 
