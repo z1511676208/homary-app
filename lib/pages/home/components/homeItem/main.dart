@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-19 16:50:47
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-17 16:39:27
+ * @LastEditTime : 2021-08-30 18:15:01
  */
 import 'package:exposure/exposure.dart';
 import 'package:flutter/material.dart';
@@ -83,7 +83,7 @@ class _HomeItemState extends State<HomeItem>
                     scrollDirection: Axis.vertical,
                     slivers: [
                       SliverPadding(
-                        padding: EdgeInsets.fromLTRB(12.w, 10.w, 12.w, 0),
+                        padding: EdgeInsets.fromLTRB(12.w, 5.w, 12.w, 0),
                         sliver: BannerList(),
                       ),
                       SliverPadding(
