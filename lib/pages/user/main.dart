@@ -1,6 +1,6 @@
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
-import 'package:homary/components/GoodsCard/main.dart';
+import 'package:homary/components/GoodsCard/goods_cart_grid.dart';
 import 'package:homary/generated/l10n.dart';
 import 'package:homary/widget/cartAndNumber.dart';
 import 'package:homary/widget/wishIconButton.dart';
@@ -246,7 +246,7 @@ class _UserPageViewState extends State<UserPageView> {
                             Container(
                               alignment: Alignment.centerLeft,
                               padding: const EdgeInsets.fromLTRB(
-                                  12.0, 16.0, 12.0, 16.0),
+                                  12, 16.0, 12.0, 4.0),
                               child: Text(
                                 S.of(context).usercenter_recentlyBrowsed,
                                 style: TextStyle(
@@ -309,35 +309,14 @@ class _UserPageViewState extends State<UserPageView> {
                                       ),
                                     ],
                                   )
-                                : Padding(
-                                    padding: EdgeInsets.fromLTRB(
-                                        10.w, 0, 10.w, 10.w),
-                                    child: GridView.builder(
-                                      physics: NeverScrollableScrollPhysics(),
-                                      scrollDirection: Axis.vertical,
-                                      shrinkWrap: true,
-                                      clipBehavior: Clip.none,
-                                      gridDelegate:
-                                          SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 2,
-                                        mainAxisSpacing: 8.w,
-                                        crossAxisSpacing: 8.w,
-                                        childAspectRatio:
-                                            ((1.sw - 24.w) / 2) / 268.w,
+                                : CustomScrollView(
+                                    shrinkWrap: true,
+                                    physics: NeverScrollableScrollPhysics(),
+                                    slivers: [
+                                      GoodsCartSliverGrid(
+                                        productList: data.recentlyList,
                                       ),
-                                      itemBuilder: (context, index) {
-                                        return GoodsCard(
-                                          key: UniqueKey(),
-                                          width: (1.sw - 24.w) / 2,
-                                          data: data.recentlyList[index],
-                                          showCorner: false,
-                                          showSkuList: false,
-                                          showFreeShipping: false,
-                                          showRating: false,
-                                        );
-                                      },
-                                      itemCount: data.recentlyList.length,
-                                    ),
+                                    ],
                                   ),
                             data.hasMorePage == 1
                                 ? Container(
