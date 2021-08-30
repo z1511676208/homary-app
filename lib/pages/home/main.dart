@@ -33,12 +33,11 @@ class _HomePageViewState extends State<HomePageView>
   @override
   void initState() {
     super.initState();
-    print('initState 111111111111111111111');
     _tabController = TabController(vsync: this, length: _tabValues.length);
     _subscription = EventBus.instance.on<GoHomeEvent>().listen((event) {
-      setState(() {
+      if(event.homeTabIndex != null){
         _tabController.animateTo(event.homeTabIndex ?? 0);
-      });
+      }
     });
   }
 

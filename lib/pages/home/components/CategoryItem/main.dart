@@ -32,7 +32,10 @@ class _CategoryItemState extends State<CategoryItem>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
+
   Map<String, dynamic> schemaParams = {"url": "", "params": {}};
+
+  bool isBuild = false;
 
   @override
   void initState() {
@@ -50,9 +53,14 @@ class _CategoryItemState extends State<CategoryItem>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    if (widget.tabController.offset == 0 && widget.tabController.index == 0) {
+    if (widget.tabController.offset == 0 &&
+        widget.tabController.index == 0 &&
+        !isBuild) {
       return Container();
     }
+
+    isBuild = true;
+
     Map map = jsonDecode(schemaParams['params']['content']);
     if (map.containsKey('url')) {
       String url = map['url'] as String;
