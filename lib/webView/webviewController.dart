@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:homary/common/storage/cookie.dart';
 import 'package:homary/common/storage/webview-cookie.dart';
+import 'package:homary/common/utils/analytics.dart';
 import 'package:homary/common/utils/bus.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
@@ -323,6 +324,12 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
             callback: (args) {
               Provider.of<GlobalConfig>(context, listen: false)
                   .getShoppingCartNumber();
+            });
+        // M站GTM上报
+        controller.addJavaScriptHandler(
+            handlerName: "AppSendGTMData",
+            callback: (args) {
+              sendGTMData(args[0]);
             });
       },
       onLoadStart: (InAppWebViewController controller, Uri url) {
