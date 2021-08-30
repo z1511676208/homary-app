@@ -105,5 +105,9 @@
   "setting_cleanCacheTip": "Delete all temporary images to free up some space in your device?",
   "setting_version": "Version",
   "logout_successful": "Log out sucessfully!",
-  "sign_out_btn": "Sign Out"
+  "sign_out_btn": "Sign Out",
+  "search_recentSearches": "Recent Searches",
+  "search_popularSearches": "Popular Searches",
+  "search_clearAll": "Clear All",
+  "search_findAnything": "Find anything home..."
 }

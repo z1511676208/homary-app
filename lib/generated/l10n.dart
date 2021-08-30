@@ -1104,6 +1104,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Recent Searches`
+  String get search_recentSearches {
+    return Intl.message(
+      'Recent Searches',
+      name: 'search_recentSearches',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Popular Searches`
+  String get search_popularSearches {
+    return Intl.message(
+      'Popular Searches',
+      name: 'search_popularSearches',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Clear All`
+  String get search_clearAll {
+    return Intl.message(
+      'Clear All',
+      name: 'search_clearAll',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Find anything home...`
+  String get search_findAnything {
+    return Intl.message(
+      'Find anything home...',
+      name: 'search_findAnything',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

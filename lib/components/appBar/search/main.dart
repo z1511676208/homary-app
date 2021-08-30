@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-07 20:04:36
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-20 13:50:02
+ * @LastEditTime : 2021-08-30 18:09:17
  */
 import 'package:homary/common/utils/main.dart';
 
@@ -50,7 +50,7 @@ class _AppbarSearchState extends State<AppbarSearch> {
                     filled: true,
                     fillColor: Colors.white,
                     hintStyle: TextStyle(color: AppColor.primaryLightSubTitle),
-                    hintText: 'Find anything home...'),
+                    hintText: S.of(context).search_findAnything),
               ),
               onTap: () => Routes.push(context, '/search')),
         ));

@@ -105,5 +105,9 @@
   "setting_cleanCacheTip": "Alle temporären Bilder löschen, um Speicherplatz auf Ihrem Gerät freizugeben?",
   "setting_version": "Ausführung",
   "logout_successful": "Abmelden erfolgreich!",
-  "sign_out_btn": "Austragen"
+  "sign_out_btn": "Austragen",
+  "search_recentSearches": "Letzte Suchen",
+  "search_popularSearches": "Beliebte Suchen",
+  "search_clearAll": "Alle Löschen",
+  "search_findAnything": "Lieblingsprodukte finden..."
 }
