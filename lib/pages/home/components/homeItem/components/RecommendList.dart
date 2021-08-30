@@ -7,11 +7,10 @@
 
 import 'dart:async';
 
-import 'package:exposure/exposure.dart';
 import 'package:flutter/material.dart';
 import 'package:homary/common/utils/analytics.dart';
 import 'package:homary/common/utils/main.dart';
-import 'package:homary/components/GoodsCard/main.dart';
+import 'package:homary/components/GoodsCard/goods_cart_grid.dart';
 import 'package:homary/entity/home.dart';
 import 'package:homary/pages/home/contorller.dart';
 
@@ -65,34 +64,16 @@ class _RecommendListState extends State<RecommendList> {
     return Selector<HomeCtrl, List<ModuleDataProductList>>(
       builder: (BuildContext context, List<ModuleDataProductList> data, child) {
         return data.length != 0
-            ? SliverGrid(
-                gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, //Grid按两列显示
-                  mainAxisSpacing: 8.w,
-                  crossAxisSpacing: 8.w,
-                  childAspectRatio: ((1.sw - 24.w) / 2) / 320.w,
-                ),
-                delegate: SliverChildBuilderDelegate(
-                    (BuildContext context, int index) => ExposureDetector(
-                          key: Key('RecommendList_$index'),
-                          child: GoodsCard(
-                            key: UniqueKey(),
-                            width: (1.sw - 24.w) / 2,
-                            data: data[index],
-                            showCorner: false,
-                            showSkuList: false,
-                            showFreeShipping: true,
-                            showRating: true,
-                          ),
-                          onExposure: (visibilityInfo) {
-                            print(
-                                '第$index 块曝光,展示比例为${visibilityInfo.visibleFraction}');
-                            Map<String, dynamic> item = data[index].toJson();
-                            pointList.add(item);
-                            _sendPointList();
-                          },
-                        ),
-                    childCount: data.length),
+            ? GoodsCartSliverGrid(
+                productList: data,
+                showCorner: false,
+                showSkuList: false,
+                showFreeShipping: true,
+                showRating: true,
+                onExposure: (list) {
+                  pointList.addAll(list);
+                  _sendPointList();
+                },
               )
             : SliverToBoxAdapter(
                 child: Container(),

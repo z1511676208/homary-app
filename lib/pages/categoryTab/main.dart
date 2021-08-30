@@ -1,10 +1,9 @@
 import 'dart:async';
 
-import 'package:exposure/exposure.dart';
+import 'package:flutter/rendering.dart';
 import 'package:homary/common/utils/analytics.dart';
 import 'package:homary/common/utils/main.dart';
-import 'package:homary/common/utils/utils.dart';
-import 'package:homary/components/GoodsCard/main.dart';
+import 'package:homary/components/GoodsCard/goods_cart_grid.dart';
 import 'package:homary/components/appBar/search/main.dart';
 import 'package:homary/components/goBackAppBar/main.dart';
 import 'package:homary/components/goTopMenu/main.dart';
@@ -186,41 +185,17 @@ class _CategoryTabState extends State<CategoryTab> {
   }
 
   Widget buildGridView(CategoryTabCtrl ctrl) {
-    return SliverPadding(
-      padding: EdgeInsets.fromLTRB(12.w, 12.w, 12.w, 0),
-      sliver: SliverGrid(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, //Grid按两列显示
-          mainAxisSpacing: 8.w,
-          crossAxisSpacing: 8.w,
-          childAspectRatio: isShowEtaInfo()
-              ? ((1.sw - 24.w) / 2) / 375.w
-              : ((1.sw - 24.w) / 2) / 354.w,
-        ),
-        delegate: SliverChildBuilderDelegate(
-          (BuildContext context, int index) {
-            return ExposureDetector(
-              key: Key('Category_$index'),
-              child: GoodsCard(
-                key: UniqueKey(),
-                width: (1.sw - 24.w) / 2,
-                data: ctrl.productList[index],
-                showCorner: false,
-                showSkuList: true,
-                showFreeShipping: true,
-                showRating: true,
-                showDispatch: true,
-              ),
-              onExposure: (visibilityInfo) {
-                Map<String, dynamic> item = ctrl.productList[index].toJson();
-                pointList.add(item);
-                _sendPointList();
-              },
-            );
-          },
-          childCount: ctrl.productList.length,
-        ),
-      ),
+    return GoodsCartSliverGrid(
+      productList: ctrl.productList,
+      showCorner: false,
+      showSkuList: true,
+      showFreeShipping: true,
+      showRating: true,
+      showDispatch: true,
+      onExposure: (list){
+        pointList.addAll(list);
+        _sendPointList();
+      },
     );
   }
 

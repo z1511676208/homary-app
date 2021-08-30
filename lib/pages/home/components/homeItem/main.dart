@@ -110,10 +110,7 @@ class _HomeItemState extends State<HomeItem>
                           ),
                         ),
                       ),
-                      SliverPadding(
-                        padding: EdgeInsets.fromLTRB(12.w, 12.w, 12.w, 0),
-                        sliver: RecommendList(),
-                      ),
+                      RecommendList(),
                       RecommendViewMoreButton(),
                     ],
                   ),

@@ -4,11 +4,8 @@
  * @LastEditors  : zhhjie
  * @LastEditTime : 2021-08-20 17:59:35
  */
-import 'dart:ffi';
-
 import 'package:hexcolor/hexcolor.dart';
 import 'package:homary/common/utils/main.dart';
-import 'package:homary/common/utils/schema2path.dart';
 import '../controller.dart';
 
 class DefaultView extends StatelessWidget {
@@ -66,16 +63,18 @@ class DefaultView extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    InkWell(
-                      onTap: () {
-                        Provider.of<SearchCtrl>(context, listen: false)
-                            .toProductList(context, list[index]['name'],
-                                list[index]['url'], 'search_recent_click');
-                      },
-                      child: Text(list[index]['name'],
-                          style: TextStyle(
-                              color: AppColor.primarySubTitle,
-                              fontSize: 14.sp)),
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          Provider.of<SearchCtrl>(context, listen: false)
+                              .toProductList(context, list[index]['name'],
+                                  list[index]['url'], 'search_recent_click');
+                        },
+                        child: Text(list[index]['name'],
+                            style: TextStyle(
+                                color: AppColor.primarySubTitle,
+                                fontSize: 14.sp)),
+                      ),
                     ),
                     IconButton(
                         onPressed: () {

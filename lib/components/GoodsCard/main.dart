@@ -43,6 +43,59 @@ class GoodsCard extends StatefulWidget {
 
   @override
   _GoodsCardState createState() => _GoodsCardState();
+
+  // 计算当前卡片高度
+  static double getHeight(
+    BuildContext context,
+    ModuleDataProductList data, {
+    double width,
+    bool showCorner,
+    bool showSkuList,
+    bool showFreeShipping,
+    bool showRating,
+    bool showDispatch,
+  }) {
+    bool isShowDispatch = false;
+
+    if (showDispatch) {
+      List<Map<String, dynamic>> productEtaList =
+          Provider.of<ProductEtaInfo>(context, listen: false).productEtaList;
+      var currentEtaInfo;
+      if (productEtaList.length > 0) {
+        for (var i = 0; i < productEtaList.length; i++) {
+          if (productEtaList[i]['skuCode'] == data.skuCode) {
+            currentEtaInfo = productEtaList[i];
+            break;
+          }
+        }
+        isShowDispatch = currentEtaInfo != null;
+      }
+    }
+
+    // 商品图 widget.width
+    // sku 商品图 ( 25 + 8 + 8 ).w
+    // 商品标题 44.w
+    // 价格 17.w
+    // 底部padding 18.w
+    double skuListHeight = showSkuList ? 33.w : 0;
+    double priceOffDesc =
+        data.priceOffDesc != null && data.priceOffDesc != '' ? 18.w : 0;
+    double ratingHeight =
+        (showRating && data.reviewScore != "" && data.reviewScore != 0)
+            ? 24.w
+            : 0;
+    double freeShippingHeight = showFreeShipping ? 22.w : 0;
+    double dispatchHeight = showDispatch && isShowDispatch ? 22.w : 0;
+    return width +
+        skuListHeight +
+        44.w +
+        17.w +
+        priceOffDesc +
+        ratingHeight +
+        freeShippingHeight +
+        dispatchHeight +
+        18.w;
+  }
 }
 
 class _GoodsCardState extends State<GoodsCard> {
@@ -127,6 +180,7 @@ class _GoodsCardState extends State<GoodsCard> {
           height: widget.height,
           margin: EdgeInsets.only(right: widget.marginRight),
           decoration: BoxDecoration(
+            color: Colors.white,
             boxShadow: [
               BoxShadow(
                 color: AppColor.primaryBorderShadow,
@@ -231,53 +285,25 @@ class _GoodsCardState extends State<GoodsCard> {
                           : Container()
                     ],
                   ),
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 8.w),
-                      color: Colors.white,
-                      child: Column(
-                        children: [
-                          widget.showSkuList == true
-                              ? widget.data?.mergeSkuList != null &&
-                                          widget.data.mergeSkuList.length > 0 ||
-                                      widget.data.totalSkuNum != ""
-                                  ? Container(
-                                      height: 25.w,
-                                      margin: EdgeInsets.only(top: 8.w),
-                                      child: ListView.builder(
-                                        scrollDirection: Axis.horizontal,
-                                        itemBuilder: (ctx, index) {
-                                          if (widget.data.totalSkuNum != "" &&
-                                              index ==
-                                                  widget.data.mergeSkuList
-                                                      .length) {
-                                            return GestureDetector(
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(3.w),
-                                                child: Container(
-                                                  width: 25.w,
-                                                  height: 25.w,
-                                                  alignment: Alignment.center,
-                                                  padding: EdgeInsets.all(2.w),
-                                                  margin: EdgeInsets.only(
-                                                      right: 2.w),
-                                                  color: AppColor
-                                                      .primaryNavBgColor,
-                                                  child: Text(
-                                                    widget.data.totalSkuNum,
-                                                    style: TextStyle(
-                                                        color: AppColor
-                                                            .primaryText),
-                                                  ),
-                                                ),
-                                              ),
-                                              onTap: () {
-                                                handleSchema(context,
-                                                    _currentData.jumpUrl);
-                                              },
-                                            );
-                                          }
+                  Container(
+                    padding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 8.w),
+                    color: Colors.white,
+                    child: Column(
+                      children: [
+                        widget.showSkuList == true
+                            ? widget.data?.mergeSkuList != null &&
+                                        widget.data.mergeSkuList.length > 0 ||
+                                    widget.data.totalSkuNum != ""
+                                ? Container(
+                                    height: 25.w,
+                                    margin: EdgeInsets.only(top: 8.w),
+                                    child: ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      itemBuilder: (ctx, index) {
+                                        if (widget.data.totalSkuNum != "" &&
+                                            index ==
+                                                widget
+                                                    .data.mergeSkuList.length) {
                                           return GestureDetector(
                                             child: ClipRRect(
                                               borderRadius:
@@ -285,202 +311,229 @@ class _GoodsCardState extends State<GoodsCard> {
                                               child: Container(
                                                 width: 25.w,
                                                 height: 25.w,
+                                                alignment: Alignment.center,
                                                 padding: EdgeInsets.all(2.w),
                                                 margin:
                                                     EdgeInsets.only(right: 2.w),
-                                                decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                        width: 1.w,
-                                                        color: _currentData
-                                                                    .skuId ==
-                                                                widget
-                                                                    .data
-                                                                    .mergeSkuList[
-                                                                        index]
-                                                                    .skuId
-                                                            ? AppColor
-                                                                .primaryColor
-                                                            : AppColor
-                                                                .primaryBorderOutline)),
-                                                child: CustomNetworkImage(widget
-                                                    .data
-                                                    .mergeSkuList[index]
-                                                    ?.imgUrl),
+                                                color:
+                                                    AppColor.primaryNavBgColor,
+                                                child: Text(
+                                                  widget.data.totalSkuNum,
+                                                  style: TextStyle(
+                                                      color:
+                                                          AppColor.primaryText),
+                                                ),
                                               ),
                                             ),
                                             onTap: () {
-                                              setState(() {
-                                                _currentData = widget
-                                                    .data.mergeSkuList[index];
-                                              });
+                                              handleSchema(context,
+                                                  _currentData.jumpUrl);
                                             },
                                           );
-                                        },
-                                        itemCount: widget.data.totalSkuNum != ""
-                                            ? widget.data.mergeSkuList.length +
-                                                1
-                                            : widget.data.mergeSkuList.length,
-                                      ),
-                                    )
-                                  : Container(
-                                      height: 25.w,
-                                      margin: EdgeInsets.only(top: 8.w),
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        widget.data.mergeSkuDesc,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                            color: AppColor.primarySubTitle,
-                                            fontSize: 12.sp),
-                                      ),
-                                    )
-                              : Container(),
-                          Container(
-                            height: 44.w,
-                            padding: EdgeInsets.symmetric(vertical: 6.w),
-                            alignment: Alignment.topLeft,
-                            child: Text(
-                              _currentData.title,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  color: AppColor.primaryText, fontSize: 12.sp),
-                            ),
+                                        }
+                                        return GestureDetector(
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(3.w),
+                                            child: Container(
+                                              width: 25.w,
+                                              height: 25.w,
+                                              padding: EdgeInsets.all(2.w),
+                                              margin:
+                                                  EdgeInsets.only(right: 2.w),
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      width: 1.w,
+                                                      color: _currentData
+                                                                  .skuId ==
+                                                              widget
+                                                                  .data
+                                                                  .mergeSkuList[
+                                                                      index]
+                                                                  .skuId
+                                                          ? AppColor
+                                                              .primaryColor
+                                                          : AppColor
+                                                              .primaryBorderOutline)),
+                                              child: CustomNetworkImage(widget
+                                                  .data
+                                                  .mergeSkuList[index]
+                                                  ?.imgUrl),
+                                            ),
+                                          ),
+                                          onTap: () {
+                                            setState(() {
+                                              _currentData = widget
+                                                  .data.mergeSkuList[index];
+                                            });
+                                          },
+                                        );
+                                      },
+                                      itemCount: widget.data.totalSkuNum != ""
+                                          ? widget.data.mergeSkuList.length + 1
+                                          : widget.data.mergeSkuList.length,
+                                    ),
+                                  )
+                                : Container(
+                                    height: 25.w,
+                                    margin: EdgeInsets.only(top: 8.w),
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      widget.data.mergeSkuDesc,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                          color: AppColor.primarySubTitle,
+                                          fontSize: 12.sp),
+                                    ),
+                                  )
+                            : Container(),
+                        Container(
+                          height: 44.w,
+                          padding: EdgeInsets.symmetric(vertical: 6.w),
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            _currentData.title,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                color: AppColor.primaryText, fontSize: 12.sp),
                           ),
-                          Container(
-                            // padding: EdgeInsets.only(bottom: 4.w),
+                        ),
+                        Container(
+                          // padding: EdgeInsets.only(bottom: 4.w),
+                          alignment: Alignment.centerLeft,
+                          child: RichText(
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            text: TextSpan(children: [
+                              TextSpan(
+                                text: _currentData.priceSymbol ??
+                                    _currentData.price,
+                                style: TextStyle(
+                                    color: _currentData.tagPriceSymbol != ''
+                                        ? AppColor.offPriceColor
+                                        : AppColor.primaryText,
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              TextSpan(
+                                text: ' ',
+                              ),
+                              _currentData.tagPriceSymbol != ''
+                                  ? TextSpan(
+                                      text: _currentData.tagPriceSymbol
+                                              ?.toString() ??
+                                          _currentData.tagPrice?.toString(),
+                                      style: TextStyle(
+                                        color: AppColor.primarySubTitle,
+                                        decoration: TextDecoration.lineThrough,
+                                      ),
+                                    )
+                                  : TextSpan(
+                                      text: '',
+                                    ),
+                            ]),
+                          ),
+                        ),
+                        Offstage(
+                          offstage: _currentData.priceOffDesc == null ||
+                              _currentData.priceOffDesc == '',
+                          child: Container(
+                            padding: EdgeInsets.only(top: 4.w),
                             alignment: Alignment.centerLeft,
                             child: RichText(
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               text: TextSpan(children: [
                                 TextSpan(
-                                  text: _currentData.priceSymbol ??
-                                      _currentData.price,
+                                  text: _currentData.priceOffDesc,
                                   style: TextStyle(
-                                      color: _currentData.tagPriceSymbol != ''
-                                          ? AppColor.offPriceColor
-                                          : AppColor.primaryText,
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w600),
+                                      color: AppColor.offPriceColor,
+                                      fontSize: 12.sp),
                                 ),
-                                TextSpan(
-                                  text: ' ',
-                                ),
-                                _currentData.tagPriceSymbol != ''
-                                    ? TextSpan(
-                                        text: _currentData.tagPriceSymbol
-                                                ?.toString() ??
-                                            _currentData.tagPrice?.toString(),
-                                        style: TextStyle(
-                                          color: AppColor.primarySubTitle,
-                                          decoration:
-                                              TextDecoration.lineThrough,
-                                        ),
-                                      )
-                                    : TextSpan(
-                                        text: '',
-                                      ),
                               ]),
                             ),
                           ),
-                          Offstage(
-                            offstage: _currentData.priceOffDesc == null ||
-                                _currentData.priceOffDesc == '',
-                            child: Container(
-                              padding: EdgeInsets.only(top: 4.w),
-                              alignment: Alignment.centerLeft,
-                              child: RichText(
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                text: TextSpan(children: [
-                                  TextSpan(
-                                    text: _currentData.priceOffDesc,
-                                    style: TextStyle(
-                                        color: AppColor.offPriceColor,
-                                        fontSize: 12.sp),
+                        ),
+                        Offstage(
+                          offstage: !(widget.showRating &&
+                              _currentData.reviewScore != "" &&
+                              _currentData.reviewScore != 0),
+                          child: Padding(
+                              padding: EdgeInsets.only(top: 8.w),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      RatingBarIndicator(
+                                        rating:
+                                            _currentData.reviewScore is int ||
+                                                    _currentData.reviewScore
+                                                        is double
+                                                ? _currentData.reviewScore
+                                                    .toDouble()
+                                                : 0,
+                                        itemBuilder: (context, index) => Icon(
+                                          Icons.star,
+                                          color: Color(0xFFFFB400),
+                                        ),
+                                        unratedColor: Color(0xFFE3E3E3),
+                                        itemCount: 5,
+                                        itemSize: 15.w,
+                                        direction: Axis.horizontal,
+                                      ),
+                                      SizedBox(
+                                        width: 2.w,
+                                      ),
+                                      Text(
+                                        _currentData.reviewNum != null
+                                            ? _currentData.reviewNum.toString()
+                                            : '0',
+                                        style: TextStyle(
+                                            color: AppColor.primarySubTitle,
+                                            fontSize: 12.sp),
+                                      ),
+                                    ],
                                   ),
-                                ]),
-                              ),
-                            ),
-                          ),
-                          Offstage(
-                            offstage: !(widget.showRating &&
-                                _currentData.reviewScore != "" &&
-                                _currentData.reviewScore != 0),
-                            child: Padding(
-                                padding: EdgeInsets.only(top: 8.w),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        RatingBarIndicator(
-                                          rating:
-                                              _currentData.reviewScore is int ||
-                                                      _currentData.reviewScore
-                                                          is double
-                                                  ? _currentData.reviewScore
-                                                      .toDouble()
-                                                  : 0,
-                                          itemBuilder: (context, index) => Icon(
-                                            Icons.star,
-                                            color: Color(0xFFFFB400),
-                                          ),
-                                          unratedColor: Color(0xFFE3E3E3),
-                                          itemCount: 5,
-                                          itemSize: 15.w,
-                                          direction: Axis.horizontal,
-                                        ),
-                                        SizedBox(
-                                          width: 2.w,
-                                        ),
-                                        Text(
-                                          _currentData.reviewNum != null
-                                              ? _currentData.reviewNum
-                                                  .toString()
-                                              : '0',
-                                          style: TextStyle(
-                                              color: AppColor.primarySubTitle,
-                                              fontSize: 13.sp),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      width: 2.w,
-                                    ),
-                                    AutoSizeText(
+                                  SizedBox(
+                                    width: 2.w,
+                                  ),
+                                  Expanded(
+                                    child: AutoSizeText(
                                       _currentData.spuSaleQuantityDesc ?? '',
                                       style: TextStyle(
                                           fontSize: 12.sp,
                                           color: AppColor.primarySubTitle),
                                       maxLines: 1,
                                       minFontSize: 10,
-                                    )
-                                  ],
-                                )),
-                          ),
-                          widget.showFreeShipping
-                              ? Container(
-                                  padding: EdgeInsets.only(top: 8.w),
-                                  alignment: Alignment.centerLeft,
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        S.of(context).home_freeShipping,
-                                        style: TextStyle(
-                                          color: AppColor.primaryText,
-                                          fontSize: 12.sp,
-                                        ),
+                                    ),
+                                  ),
+                                ],
+                              )),
+                        ),
+                        widget.showFreeShipping
+                            ? Container(
+                                padding: EdgeInsets.only(top: 8.w),
+                                alignment: Alignment.centerLeft,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      S.of(context).home_freeShipping,
+                                      style: TextStyle(
+                                        color: AppColor.primaryText,
+                                        fontSize: 12.sp,
                                       ),
-                                      SizedBox(
-                                        width: 2.w,
-                                      ),
-                                      Offstage(
+                                    ),
+                                    SizedBox(
+                                      width: 2.w,
+                                    ),
+                                    Expanded(
+                                      child: Offstage(
                                         offstage: widget.showRating &&
                                             _currentData.reviewScore != "" &&
                                             _currentData.reviewScore != 0,
@@ -493,40 +546,42 @@ class _GoodsCardState extends State<GoodsCard> {
                                           maxLines: 1,
                                           minFontSize: 10,
                                         ),
-                                      )
-                                    ],
-                                  ))
-                              : Container(),
-                          widget.showDispatch &&
-                                  _isShowDispatch(_currentData.skuCode)
-                              ? Container(
-                                  padding: EdgeInsets.only(top: 8.w),
-                                  alignment: Alignment.centerLeft,
-                                  child: Row(
-                                    children: [
-                                      Icon(
-                                        Iconfont.fastDispatch,
-                                        size: 16.sp,
                                       ),
-                                      SizedBox(
-                                        width: 5.w,
-                                      ),
-                                      Text(
+                                    ),
+                                  ],
+                                ))
+                            : Container(),
+                        widget.showDispatch &&
+                                _isShowDispatch(_currentData.skuCode)
+                            ? Container(
+                                padding: EdgeInsets.only(top: 8.w),
+                                alignment: Alignment.centerLeft,
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Iconfont.fastDispatch,
+                                      size: 16.sp,
+                                    ),
+                                    SizedBox(
+                                      width: 4.w,
+                                    ),
+                                    Expanded(
+                                      child: AutoSizeText(
                                         _currentEtaInfo['dispatchLabel'],
                                         maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
+                                        minFontSize: 10,
                                         style: TextStyle(
                                           color: AppColor.primaryText,
                                           fontSize: 12.sp,
                                         ),
                                       ),
-                                    ],
-                                  ))
-                              : Container()
-                        ],
-                      ),
+                                    ),
+                                  ],
+                                ))
+                            : Container()
+                      ],
                     ),
-                  )
+                  ),
                 ],
               )),
         ));

@@ -7,7 +7,6 @@
 import 'package:homary/api/common.dart';
 import 'package:homary/api/product.dart';
 import 'package:homary/common/request/request.dart';
-import 'package:homary/common/storage/cookie.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/utils.dart';
 import 'package:homary/entity/areaByIp.dart';
@@ -26,6 +25,10 @@ class ProductEtaInfo with ChangeNotifier {
       AreaByIpRes result = AreaByIpRes.fromJson(res.result);
       areaData = result.data;
     }
+  }
+
+  resetProductEtaList(){
+    productEtaList = [];
   }
 
   Future getEtaInfo(List<ModuleDataProductList> list) async {
