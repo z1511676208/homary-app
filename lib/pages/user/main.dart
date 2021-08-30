@@ -141,7 +141,6 @@ class _UserPageViewState extends State<UserPageView> {
                                         if (isLogin) {
                                           Routes.push(context, '/webview',
                                               params: {
-                                                "showAppLoading": '0',
                                                 "appBarTitle": 'My Orders',
                                                 "content":
                                                     '{"url":"https://m.homary.com/usercenter/order"}'

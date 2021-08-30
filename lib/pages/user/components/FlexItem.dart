@@ -30,7 +30,6 @@ class FlexItem extends StatelessWidget {
           if (this.url != null && isLogin || !this.needLogin) {
             Routes.push(context, '/webview', params: {
               "appBarTitle": this.title,
-              "showAppLoading": '0',
               "content": '{"url":"https://m.homary.com${this.url}"}'
             });
           } else {

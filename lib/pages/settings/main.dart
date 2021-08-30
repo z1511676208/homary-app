@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-08-23 10:55:22
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-27 17:46:15
+ * @LastEditTime : 2021-08-30 17:44:00
  */
 // import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:homary/common/config/packageInfo.dart';
@@ -79,7 +79,6 @@ class _SettingViewState extends State<SettingView> {
                     if (this.isLogin) {
                       Routes.push(context, '/webview', params: {
                         "appBarTitle": 'info',
-                        "showAppLoading": '0',
                         "content":
                             '{"url":"https://m.homary.com/usercenter/personal"}'
                       });
