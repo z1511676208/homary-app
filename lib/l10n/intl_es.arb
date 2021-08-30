@@ -105,5 +105,9 @@
   "setting_cleanCacheTip": "¿Eliminar todas las imágenes temporales para liberar espacio en su dispositivo?",
   "setting_version": "Versión",
   "logout_successful": "¡Cierre la sesión con éxito!",
-  "sign_out_btn": "Desconectar"
+  "sign_out_btn": "Desconectar",
+  "search_recentSearches": "Búsquedas Recientes",
+  "search_popularSearches": "Búsquedas Populares",
+  "search_clearAll": "Borrar Todo",
+  "search_findAnything": "Buscar tus productos favoritos..."
 }

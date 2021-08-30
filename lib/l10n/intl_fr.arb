@@ -105,5 +105,9 @@
   "setting_cleanCacheTip": "Supprimer toutes les images temporaires pour libérer de l'espace sur votre appareil ?",
   "setting_version": "Version",
   "logout_successful": "Déconnectez-vous avec succès !",
-  "sign_out_btn": "Se déconnecter"
+  "sign_out_btn": "Se déconnecter",
+  "search_recentSearches": "Recherches Récentes",
+  "search_popularSearches": "Souvent Recherchés",
+  "search_clearAll": "Tout Effacer",
+  "search_findAnything": "Découvrez tous les styles de meubles et déco..."
 }

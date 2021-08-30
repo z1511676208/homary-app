@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-19 16:21:04
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-20 17:59:35
+ * @LastEditTime : 2021-08-30 18:08:24
  */
 import 'package:hexcolor/hexcolor.dart';
 import 'package:homary/common/utils/main.dart';
@@ -31,7 +31,7 @@ class DefaultView extends StatelessWidget {
                       width: 7.5.w,
                     ),
                     Text(
-                      'Recent Searches',
+                      S.of(context).search_recentSearches,
                       style: TextStyle(
                           color: AppColor.primaryText,
                           fontSize: 16.sp,
@@ -45,7 +45,7 @@ class DefaultView extends StatelessWidget {
                           .clearAll();
                     },
                     child: Text(
-                      'Clear All',
+                      S.of(context).search_clearAll,
                       style: TextStyle(
                           color: AppColor.primarySubTitle, fontSize: 14.sp),
                     ))
@@ -110,7 +110,7 @@ class DefaultView extends StatelessWidget {
                   width: 7.5.w,
                 ),
                 Text(
-                  'Popular Searches',
+                  S.of(context).search_popularSearches,
                   style: TextStyle(
                       color: AppColor.primaryText,
                       fontSize: 16.sp,
