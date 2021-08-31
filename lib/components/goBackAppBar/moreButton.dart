@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-27 15:53:52
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-24 18:15:12
+ * @LastEditTime : 2021-08-31 13:44:03
  */
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
@@ -41,22 +41,26 @@ class ListItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List list = [
-      {'title': S.of(context).Home, 'icon': Icon(Iconfont.Home), 'url': '/'},
+      {
+        'title': S.of(context).Home,
+        'icon': Icon(Iconfont.More_home),
+        'url': '/'
+      },
       {
         'title': S.of(context).usercenter_wishlists,
-        'icon': Icon(Iconfont.Collect),
+        'icon': Icon(Iconfont.More_collect),
         'url': 'https://m.homary.com/usercenter/wishlists',
         'isNeedLogin': true
       },
       {
         'title': S.of(context).appBar_recentyle_views,
-        'icon': Icon(Iconfont.Recent),
+        'icon': Icon(Iconfont.More_recent),
         'url': 'https://m.homary.com/usercenter/viewed',
         'isNeedLogin': true
       },
       {
         'title': S.of(context).appBar_support,
-        'icon': Icon(Iconfont.Customer),
+        'icon': Icon(Iconfont.More_support),
         'url': 'https://m.homary.com/appPages/customerService',
         'isNeedLogin': false
       }

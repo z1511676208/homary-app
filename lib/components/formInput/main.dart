@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-13 10:15:30
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-19 14:48:01
+ * @LastEditTime : 2021-08-31 10:00:11
  */
 import 'package:homary/common/style/main.dart';
 import 'package:flutter/material.dart';
@@ -97,6 +97,7 @@ class _InputState extends State<Input> {
       clipBehavior: Clip.none,
       children: [
         Container(
+            height: 48.w,
             decoration: BoxDecoration(
               borderRadius: AppStyle.primaryBorderRaduis,
               border: Border.all(
@@ -119,7 +120,7 @@ class _InputState extends State<Input> {
                   labelText: widget.innerText,
                   // hintText: this.innerText,
                   contentPadding: EdgeInsets.only(
-                      top: 9.h, right: 12.w, bottom: 9.h, left: 12.w),
+                      top: 6.h, right: 12.w, bottom: 6.h, left: 12.w),
                   border: InputBorder.none),
               onSaved: (val) {
                 if (widget.validator != null) {
@@ -145,7 +146,7 @@ class _InputState extends State<Input> {
               // validator: (val) => widget.validator(val)
             )),
         Positioned(
-            top: 8.w,
+            top: 4.w,
             right: 2.w,
             child: Offstage(
               offstage: !showCloseIcon || widget.isPwd,
@@ -163,7 +164,7 @@ class _InputState extends State<Input> {
               ),
             )),
         Positioned(
-            top: 8.w,
+            top: 4.w,
             right: 8.w,
             child: Offstage(
               offstage: !widget.isPwd,
@@ -180,7 +181,7 @@ class _InputState extends State<Input> {
               ),
             )),
         Positioned(
-            top: 56.w,
+            top: 50.w,
             left: 0,
             child: Offstage(
               offstage: errorText == null,

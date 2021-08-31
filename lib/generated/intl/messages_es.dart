@@ -69,6 +69,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "login_passwordError" : MessageLookupByLibrary.simpleMessage("tu contraseña es incorrecta."),
     "login_quickAccessWith" : MessageLookupByLibrary.simpleMessage("Quick Access With"),
     "login_signIn" : MessageLookupByLibrary.simpleMessage("INICIAR SESIÓN"),
+    "login_successful" : MessageLookupByLibrary.simpleMessage("Iniciar sesión correctamente!"),
     "logout_successful" : MessageLookupByLibrary.simpleMessage("¡Cierre la sesión con éxito!"),
     "newUserCouponModal_forUser" : MessageLookupByLibrary.simpleMessage("de descuento"),
     "newUserCouponModal_upto" : MessageLookupByLibrary.simpleMessage("Hasta"),

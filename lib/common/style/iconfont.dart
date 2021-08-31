@@ -268,4 +268,28 @@ class Iconfont {
     fontFamily: 'Iconfont',
     matchTextDirection: true,
   );
+
+  static const More_home = IconData(
+    0xe6f7,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
+
+  static const More_recent = IconData(
+    0xe6f9,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
+
+  static const More_collect = IconData(
+    0xe6f8,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
+
+  static const More_support = IconData(
+    0xe6f6,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
 }
