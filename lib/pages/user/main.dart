@@ -73,7 +73,10 @@ class _UserPageViewState extends State<UserPageView> {
                                             .userCenterInfo?.userIdentification
                                       });
                                     },
-                                    icon: Icon(Iconfont.Setting))
+                                    icon: Icon(
+                                      Iconfont.Setting,
+                                      size: 20.w,
+                                    ))
                               ],
                             ),
                             Container(

@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-06 13:48:25
- * @LastEditors  : JHao
- * @LastEditTime : 2021-08-31 10:30:45
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-08-31 17:22:07
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +41,7 @@ class _WebviewPageViewState extends State<WebviewPageView> {
             Scaffold(
                 appBar: PreferredSize(
                   child: GoBackAppBar(
-                    showBorder: data.showBorder,
+                    showBorder: data.showBorder && data.isShowAppBar,
                     showCart: data.showCart,
                     showMore: data.showMore,
                     showCollet: data.showCollect,
