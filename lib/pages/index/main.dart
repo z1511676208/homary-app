@@ -2,9 +2,10 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-06 10:11:04
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-30 18:07:45
+ * @LastEditTime : 2021-08-31 16:34:50
  */
 import 'dart:async';
+import 'dart:io';
 
 import 'package:homary/common/event/go_home.dart';
 import 'package:homary/common/utils/event_bus.dart';
@@ -60,63 +61,65 @@ class _IndexPageState extends State<IndexPage> {
       indexPageCtrl.jumpToPage(_currentPageIndex);
     }
     return Scaffold(
-      appBar: this._pageList[_currentPageIndex]['is_show_app_bar']
-          ? PreferredSize(
-              child: GlobalAppbar(),
-              preferredSize:
-                  Size.fromHeight(_currentPageIndex == 0 ? 90.w : 96.5.w),
-            )
-          : null,
-      drawer: GlobalDrawer(),
-      body: PageView(
-          controller: indexPageCtrl,
-          physics: NeverScrollableScrollPhysics(),
-          onPageChanged: (int i) {
-            _currentPageIndex = i;
-          },
-          children:
-              _pageList.values.map((e) => e['component'] as Widget).toList()),
-      bottomNavigationBar: Theme(
-        data: Theme.of(context).copyWith(
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-        ),
-        child: BottomNavigationBar(
-          onTap: (int i) {
-            setState(() {
+        appBar: this._pageList[_currentPageIndex]['is_show_app_bar']
+            ? PreferredSize(
+                child: GlobalAppbar(),
+                preferredSize: Size.fromHeight(_currentPageIndex == 0
+                    ? Platform.isAndroid
+                        ? 96.5.w
+                        : 90.w
+                    : 96.5.w),
+              )
+            : null,
+        drawer: GlobalDrawer(),
+        body: PageView(
+            controller: indexPageCtrl,
+            physics: NeverScrollableScrollPhysics(),
+            onPageChanged: (int i) {
               _currentPageIndex = i;
-            });
-            indexPageCtrl.jumpToPage(i);
-          },
-          backgroundColor: Colors.white,
-          currentIndex: _currentPageIndex,
-          items: [
-            BottomNavigationBarItem(
-                icon: Icon(Iconfont.HomeBarItem),
-                activeIcon: Icon(Iconfont.ActiveHomeBarItem),
-                label: S.of(context).Home),
-            BottomNavigationBarItem(
-                icon: Icon(Iconfont.CategoryBarItem),
-                activeIcon: Icon(Iconfont.ActiveCategoryBarItem),
-                label: S.of(context).category),
-            BottomNavigationBarItem(
-                icon: Icon(Iconfont.SaleBarItem),
-                activeIcon: Icon(Iconfont.ActiveSaleBarItem),
-                label: S.of(context).Sale),
-            BottomNavigationBarItem(
-                icon: Icon(Iconfont.MeBarItem),
-                activeIcon: Icon(Iconfont.ActiveMeBarItem),
-                label: S.of(context).Me),
-          ],
-          fixedColor: AppColor.primaryColor,
-          unselectedFontSize: 12.sp,
-          selectedFontSize: 12.sp,
-          unselectedItemColor: AppColor.primaryText,
-          iconSize: 22.w,
-          unselectedLabelStyle: TextStyle(height: 1.2.w),
-          type: BottomNavigationBarType.fixed,
-        ),
-      )
-    );
+            },
+            children:
+                _pageList.values.map((e) => e['component'] as Widget).toList()),
+        bottomNavigationBar: Theme(
+          data: Theme.of(context).copyWith(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+          ),
+          child: BottomNavigationBar(
+            onTap: (int i) {
+              setState(() {
+                _currentPageIndex = i;
+              });
+              indexPageCtrl.jumpToPage(i);
+            },
+            backgroundColor: Colors.white,
+            currentIndex: _currentPageIndex,
+            items: [
+              BottomNavigationBarItem(
+                  icon: Icon(Iconfont.HomeBarItem),
+                  activeIcon: Icon(Iconfont.ActiveHomeBarItem),
+                  label: S.of(context).Home),
+              BottomNavigationBarItem(
+                  icon: Icon(Iconfont.CategoryBarItem),
+                  activeIcon: Icon(Iconfont.ActiveCategoryBarItem),
+                  label: S.of(context).category),
+              BottomNavigationBarItem(
+                  icon: Icon(Iconfont.SaleBarItem),
+                  activeIcon: Icon(Iconfont.ActiveSaleBarItem),
+                  label: S.of(context).Sale),
+              BottomNavigationBarItem(
+                  icon: Icon(Iconfont.MeBarItem),
+                  activeIcon: Icon(Iconfont.ActiveMeBarItem),
+                  label: S.of(context).Me),
+            ],
+            fixedColor: AppColor.primaryColor,
+            unselectedFontSize: 12.sp,
+            selectedFontSize: 12.sp,
+            unselectedItemColor: AppColor.primaryText,
+            iconSize: 22.w,
+            unselectedLabelStyle: TextStyle(height: 1.2.w),
+            type: BottomNavigationBarType.fixed,
+          ),
+        ));
   }
 }
