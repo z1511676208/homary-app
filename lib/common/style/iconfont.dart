@@ -79,22 +79,22 @@ class Iconfont {
     matchTextDirection: true,
   );
   static const SaleBarItem = IconData(
-    0xe6bd,
+    0xe6ef,
     fontFamily: 'Iconfont',
     matchTextDirection: true,
   );
   static const ActiveSaleBarItem = IconData(
-    0xe6bc,
+    0xe6f5,
     fontFamily: 'Iconfont',
     matchTextDirection: true,
   );
   static const MeBarItem = IconData(
-    0xe6b9,
+    0xe6f1,
     fontFamily: 'Iconfont',
     matchTextDirection: true,
   );
   static const ActiveMeBarItem = IconData(
-    0xe6be,
+    0xe6f3,
     fontFamily: 'Iconfont',
     matchTextDirection: true,
   );
@@ -259,7 +259,7 @@ class Iconfont {
     matchTextDirection: true,
   );
   static const Setting = IconData(
-    0xe6eb,
+    0xe6f2,
     fontFamily: 'Iconfont',
     matchTextDirection: true,
   );

@@ -70,6 +70,8 @@ dependencies:
   flutter_widget_from_html_core: ^0.6.2
   dio_http_cache: ^0.3.0
   sentry_flutter: ^5.1.0
+  pull_to_refresh: ^2.0.0
+  flutter_spinkit: 5.0.0
 
 dev_dependencies:
   flutter_test:
@@ -96,6 +98,7 @@ flutter:
     - assets/images/home/
     - assets/images/common/
     - assets/images/category/
+    - assets/images/user/
   # - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

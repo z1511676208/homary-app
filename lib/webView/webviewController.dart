@@ -125,7 +125,8 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
     url = _formatParams();
     pullToRefreshController = PullToRefreshController(
       options: PullToRefreshOptions(
-        color: AppColor.primaryColor,
+        backgroundColor: Colors.white,
+        color: Platform.isAndroid ? AppColor.primaryColor : null,
       ),
       onRefresh: () async {
         isInitUrl = true;

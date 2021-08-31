@@ -7,7 +7,7 @@ class PadingItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Container(
-      height: 10.h,
+      height: 10.w,
       color: Color.fromRGBO(244, 244, 244, 1),
     );
   }

@@ -23,7 +23,7 @@ class ExpandedItem extends StatelessWidget {
       child: Expanded(
         flex: 1,
         child: Container(
-            height: 100.h,
+            height: 100.w,
             // color: Colors.red,
             child: InkWell(
                 onTap: () {

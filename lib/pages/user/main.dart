@@ -121,8 +121,8 @@ class _UserPageViewState extends State<UserPageView> {
                             ),
                             PadingItem(),
                             Padding(
-                              padding: const EdgeInsets.fromLTRB(
-                                  12.0, 16.0, 12.0, 16.0),
+                              padding: EdgeInsets.fromLTRB(
+                                  12.0, 12.w, 12.0, 0),
                               child: Flex(
                                 direction: Axis.horizontal,
                                 mainAxisAlignment:
@@ -164,14 +164,22 @@ class _UserPageViewState extends State<UserPageView> {
                               children: [
                                 FlexItem(
                                   S.of(context).usercenter_unpaid,
-                                  Icon(Iconfont.Unpaid, size: 30.0),
+                                  Image.asset(
+                                    'assets/images/user/user_unpaid.png',
+                                    width: 34.w,
+                                    height: 34.w,
+                                  ),
                                   count: data.userCenterInfo?.unpaidOrderCount,
                                   url: '/usercenter/order?active=unpaid',
                                   title: S.of(context).usercenter_myOrder,
                                 ),
                                 FlexItem(
                                   S.of(context).usercenter_processing,
-                                  Icon(Iconfont.Processing, size: 30.0),
+                                  Image.asset(
+                                    'assets/images/user/user_processing.png',
+                                    width: 34.w,
+                                    height: 34.w,
+                                  ),
                                   count:
                                       data.userCenterInfo?.processingOrderCount,
                                   url: '/usercenter/order?active=undelivery',
@@ -179,14 +187,22 @@ class _UserPageViewState extends State<UserPageView> {
                                 ),
                                 FlexItem(
                                   S.of(context).usercenter_shipped,
-                                  Icon(Iconfont.Shipped, size: 30.0),
+                                  Image.asset(
+                                    'assets/images/user/user_shipped.png',
+                                    width: 34.w,
+                                    height: 34.w,
+                                  ),
                                   count: data.userCenterInfo?.shippedOrderCount,
                                   url: '/usercenter/order?active=shipped',
                                   title: S.of(context).usercenter_myOrder,
                                 ),
                                 FlexItem(
                                   S.of(context).usercenter_returns,
-                                  Icon(Iconfont.Returns, size: 30.0),
+                                  Image.asset(
+                                    'assets/images/user/user_returns.png',
+                                    width: 34.w,
+                                    height: 34.w,
+                                  ),
                                   count: data.userCenterInfo?.returnOrderCount,
                                   url: '/usercenter/order?active=returns',
                                   title: S.of(context).usercenter_myOrder,
@@ -195,8 +211,8 @@ class _UserPageViewState extends State<UserPageView> {
                             ),
                             PadingItem(),
                             Padding(
-                              padding: const EdgeInsets.fromLTRB(
-                                  12.0, 16.0, 12.0, 16.0),
+                              padding: EdgeInsets.fromLTRB(
+                                  12.0, 12.w, 12.0, 8.w),
                               child: Flex(
                                 direction: Axis.horizontal,
                                 mainAxisAlignment:
@@ -216,26 +232,26 @@ class _UserPageViewState extends State<UserPageView> {
                               children: [
                                 FlexItem(
                                   S.of(context).usercenter_customer,
-                                  Icon(Iconfont.Customer, size: 30.0),
+                                  Icon(Iconfont.Customer, size: 34.w),
                                   url: '/appPages/customerService',
                                   needLogin: false,
                                 ),
                                 FlexItem(
                                   S.of(context).usercenter_about,
-                                  Icon(Iconfont.About, size: 30.0),
+                                  Icon(Iconfont.About, size: 34.w),
                                   url: '/help-center/article-detail/64',
                                   title: S.of(context).help_center,
                                   needLogin: false,
                                 ),
                                 FlexItem(
                                   S.of(context).usercenter_address,
-                                  Icon(Iconfont.Address, size: 30.0),
+                                  Icon(Iconfont.Address, size: 34.w),
                                   url: '/address',
                                   title: S.of(context).address_book,
                                 ),
                                 FlexItem(
                                   S.of(context).usercenter_personal,
-                                  Icon(Iconfont.Personal, size: 30.0),
+                                  Icon(Iconfont.Personal, size: 34.w),
                                   url: '/usercenter/personal',
                                   title: 'Info',
                                 ),
@@ -244,8 +260,8 @@ class _UserPageViewState extends State<UserPageView> {
                             PadingItem(),
                             Container(
                               alignment: Alignment.centerLeft,
-                              padding: const EdgeInsets.fromLTRB(
-                                  12, 16.0, 12.0, 4.0),
+                              padding: EdgeInsets.fromLTRB(
+                                  12, 12.w, 12.0, 4.w),
                               child: Text(
                                 S.of(context).usercenter_recentlyBrowsed,
                                 style: TextStyle(
@@ -256,6 +272,7 @@ class _UserPageViewState extends State<UserPageView> {
                             data.recentlyList.length == 0
                                 ? Column(
                                     children: [
+                                      SizedBox(height: 24.w,),
                                       Text(
                                         S.of(context).usercenter_noRecently,
                                         style: TextStyle(

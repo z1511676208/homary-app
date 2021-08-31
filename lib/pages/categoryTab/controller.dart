@@ -9,6 +9,7 @@ import 'package:homary/entity/product_res.dart';
 import 'package:homary/entity/slideNav.dart';
 import 'package:homary/main.dart';
 import 'package:homary/provider/productEtaInfo.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class CategoryTabCtrl extends ChangeNotifier {
   bool _isDispose = false;
@@ -55,6 +56,8 @@ class CategoryTabCtrl extends ChangeNotifier {
 
   // context
   BuildContext context;
+
+  RefreshController refreshController = RefreshController(initialRefresh: false);
 
   CategoryTabCtrl(this.selectedCategoryId,
       {this.selectedCategoryName, this.context});
@@ -173,6 +176,9 @@ class CategoryTabCtrl extends ChangeNotifier {
       ProductRes res = ProductRes.fromJson(result.result);
       await Provider.of<ProductEtaInfo>(context, listen: false)
           .getEtaInfo(res.data.list);
+      if(isOnRefresh){
+        productList.clear();
+      }
       productList.addAll(res.data.list);
       productTotal = res.data.total;
       hasMorePage = res.data.hasMorePage;
@@ -181,17 +187,25 @@ class CategoryTabCtrl extends ChangeNotifier {
       } else {
         isShowEmpty = false;
       }
+      if(hasMorePage == 0){
+        refreshController.loadNoData();
+      } else {
+        refreshController.loadComplete();
+      }
     }
+    refreshController.refreshCompleted();
     Toast.clear();
     isLoading = false;
     _safeNotifyListeners();
   }
 
   /// 更换属性后重置列表
-  void _resetAttr() {
-    productList.clear();
+  void _resetAttr({bool isNeedClear = true}) {
+    if(isNeedClear){
+      productList.clear();
+      productTotal = 0;
+    }
     page = 1;
-    productTotal = 0;
     hasMorePage = 0;
     _safeNotifyListeners();
   }
@@ -267,7 +281,7 @@ class CategoryTabCtrl extends ChangeNotifier {
   }
 
   Future<void> onRefresh() async {
-    _resetAttr();
+    _resetAttr(isNeedClear: false);
     await getProductList(isOnRefresh: true);
   }
 }
