@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-15 11:35:54
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-25 15:28:39
+ * @LastEditTime : 2021-08-31 14:32:41
  */
 import 'package:flutter/material.dart';
 import 'package:homary/common/utils/main.dart';
@@ -28,11 +28,14 @@ class _ProductItemState extends State<ProductItem> {
       return GestureDetector(
         child: Container(
             width: 65.w,
-            margin: EdgeInsets.only(bottom: 14.5.h),
+            margin: EdgeInsets.only(bottom: 16.w),
             child: Column(children: [
               Container(
                   height: 65.w,
                   width: 65.w,
+                  clipBehavior: Clip.antiAlias,
+                  decoration:
+                      BoxDecoration(borderRadius: AppStyle.primaryBorderRaduis),
                   child: element.channelImgApp != ""
                       ? CustomNetworkImage(element.channelImgApp)
                       : Image.asset("assets/baseImage.png")),
@@ -42,7 +45,7 @@ class _ProductItemState extends State<ProductItem> {
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.center,
                   style:
-                      TextStyle(color: AppColor.primaryText, fontSize: 14.sp))
+                      TextStyle(color: AppColor.primaryText, fontSize: 12.sp))
             ])),
         onTap: () {
           handleSchema(context, element.jumpUrl);
@@ -70,9 +73,9 @@ class _ProductItemState extends State<ProductItem> {
                           ? widget.subList[widget.idx].categoryName
                           : '',
                       style: TextStyle(
-                          fontSize: 20.sp, fontWeight: FontWeight.bold))),
+                          fontSize: 16.sp, fontWeight: FontWeight.bold))),
             ),
-            SizedBox(height: 16.w),
+            SizedBox(height: 12.w),
             Align(
                 alignment: Alignment.centerLeft,
                 child: Wrap(
@@ -92,7 +95,7 @@ class _ProductItemState extends State<ProductItem> {
           return;
         }
         double currentOffsetHeight = 0;
-        double bannerHeight = 110.w; // 顶部banner
+        double bannerHeight = 102.w; // 顶部banner
         double height = context?.size?.height;
         Watcher.productListItemHeight.add(height);
         int leng = Watcher.productListItemHeight.length;

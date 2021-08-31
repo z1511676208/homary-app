@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-21 10:42:50
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-16 10:55:36
+ * @LastEditTime : 2021-08-31 13:50:58
  */
 /*
  * @Author       : zhhjie
@@ -35,7 +35,7 @@ class HomeCtrl with ChangeNotifier {
   ReviewData reviewList;
   // 推荐商品流
   List<ModuleDataProductList> recommendList = [];
-  int hasMorePage = 1;
+  int hasMorePage = 0;
   bool recommendLoading = false;
   Map<String, int> recommendParams = {"page": 1, "page_size": 20};
   // 一级分类列表
@@ -66,8 +66,10 @@ class HomeCtrl with ChangeNotifier {
   }
 
   handleGetMoreProduct() {
-    recommendParams['page'] += 1;
-    getRecommendList(params: recommendParams);
+    if (recommendLoading == false) {
+      recommendParams['page'] += 1;
+      getRecommendList(params: recommendParams);
+    }
   }
 
   // 获取一级分类列表

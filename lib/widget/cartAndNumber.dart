@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-08-13 10:44:42
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-27 15:11:36
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-31 14:35:03
  */
 import 'package:homary/common/utils/main.dart';
 
@@ -17,7 +17,10 @@ class CartAndNumber extends StatelessWidget {
       children: [
         IconButton(
             color: Colors.black,
-            icon: Icon(Iconfont.Cart),
+            icon: Icon(
+              Iconfont.Cart,
+              size: 19.sp,
+            ),
             onPressed: () {
               Routes.push(context, '/webview', params: {
                 "showAppLoading": '0',

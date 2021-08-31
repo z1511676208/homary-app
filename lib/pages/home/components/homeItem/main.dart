@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-19 16:50:47
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-30 18:15:01
+ * @LastEditTime : 2021-08-31 14:41:19
  */
 import 'package:exposure/exposure.dart';
 import 'package:flutter/material.dart';
@@ -67,10 +67,7 @@ class _HomeItemState extends State<HomeItem>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    ExposureDetectorController.instance.exposureTime = 100; //设置曝光时长 (ms)
-    ExposureDetectorController.instance.exposureFraction = 0.5; // 设置曝光比例
-    ExposureDetectorController.instance.updateInterval =
-        Duration(milliseconds: 200); // 设置延时检测时间
+
     return Scaffold(
       body: RefreshIndicator(
         child: Stack(

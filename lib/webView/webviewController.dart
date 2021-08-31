@@ -74,6 +74,7 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
     bool showCollect = true;
     bool showCart = true;
     bool isShowAppBar = true;
+    bool showBorder = true;
     String appBarTitle = '';
     if (url.path.contains('/item')) {
       showMore = true;
@@ -95,6 +96,7 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
     Provider.of<WebviewAppBarCtrl>(context, listen: false).setAppBarStatus(
         showMore: showMore,
         showCart: showCart,
+        showBorder: showBorder,
         showCollect: showCollect,
         isShowAppBar: isShowAppBar,
         appBarTitle: appBarTitle);

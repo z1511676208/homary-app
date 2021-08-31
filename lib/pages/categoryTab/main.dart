@@ -133,20 +133,22 @@ class _CategoryTabState extends State<CategoryTab> {
 
   PreferredSize buildAppBar() {
     return PreferredSize(
-      preferredSize: Size.fromHeight(96.w),
+      preferredSize: Size.fromHeight(84.w),
       child: Selector<CategoryTabCtrl, String>(
         selector: (context, ctrl) => ctrl.selectedCategoryName,
         builder: (context, value, _) {
           return Column(
             children: [
               GoBackAppBar(
-                showBorder: true,
+                showBorder: false,
                 showCart: true,
                 showMore: false,
                 showCollet: true,
                 title: value,
               ),
-              AppbarSearch(),
+              AppbarSearch(
+                marginTop: 0,
+              ),
             ],
           );
         },
@@ -192,7 +194,7 @@ class _CategoryTabState extends State<CategoryTab> {
       showFreeShipping: true,
       showRating: true,
       showDispatch: true,
-      onExposure: (list){
+      onExposure: (list) {
         pointList.addAll(list);
         _sendPointList();
       },
