@@ -27,6 +27,10 @@ class GoodsCartSliverGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ExposureDetectorController.instance.exposureTime = 100; //设置曝光时长 (ms)
+    ExposureDetectorController.instance.exposureFraction = 0.5; // 设置曝光比例
+    ExposureDetectorController.instance.updateInterval =
+        Duration(milliseconds: 200); // 设置延时检测时间
     return SliverPadding(
       padding: EdgeInsets.fromLTRB(12.w, 12.w, 12.w, 0),
       sliver: SliverList(

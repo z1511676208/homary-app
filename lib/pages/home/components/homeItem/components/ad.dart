@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-20 15:12:17
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-02 16:40:37
+ * @LastEditTime : 2021-08-31 10:19:04
  */
 import 'package:flutter/material.dart';
 import 'package:homary/common/utils/main.dart';
@@ -34,15 +34,16 @@ class AD extends StatelessWidget {
                       width: double.infinity,
                       height: 34.w,
                       color: Colors.white,
-                      child: Center(
-                          child: Text(
+                      alignment: Alignment.centerLeft,
+                      padding: EdgeInsets.symmetric(horizontal: 8.w),
+                      child: Text(
                         item.title,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 12.sp, color: AppColor.primaryText),
-                      )))
+                      ))
                 ])),
             borderRadius: BorderRadius.circular(6.w),
           ),

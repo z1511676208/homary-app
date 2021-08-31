@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-14 15:05:20
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-05 18:38:21
+ * @LastEditTime : 2021-08-31 14:27:07
  */
 import 'package:flutter/rendering.dart';
 import 'package:homary/common/utils/main.dart';
@@ -72,8 +72,9 @@ class _RightListLayoutState extends State<RightListLayout>
       child: Container(
         width: 248.w,
         height: 86.w,
-        margin: EdgeInsets.only(bottom: 12.w, top: 12.w, right: 6.5.w),
+        margin: EdgeInsets.only(bottom: 16.w, top: 0.w, right: 6.5.w),
         decoration: BoxDecoration(borderRadius: AppStyle.primaryBorderRaduis),
+        clipBehavior: Clip.antiAlias,
         child: Selector<CategoryCtrl, Map<String, String>>(
           builder: (BuildContext context, Map<String, String> data, child) {
             return GestureDetector(
@@ -129,10 +130,11 @@ class _RightListLayoutState extends State<RightListLayout>
             controller: _scorllCtrl,
             slivers: [
               _banner(),
-
               if (data.isEmpty)
                 SliverToBoxAdapter(
-                  child: ListEmptyWidget(marginTop: 90.w,),
+                  child: ListEmptyWidget(
+                    marginTop: 90.w,
+                  ),
                 )
               else ...[
                 TopNav(

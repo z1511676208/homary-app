@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-08 10:21:44
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-02 15:33:17
+ * @LastEditTime : 2021-08-31 14:09:03
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/toast.dart';
@@ -32,12 +32,16 @@ class LeftNav extends StatelessWidget {
               color: categoryCtrl.activeCategoryId == data.categoryId
                   ? Colors.white
                   : Colors.transparent,
-              padding: EdgeInsets.fromLTRB(12.w, 16.w, 12.w, 16.w),
+              alignment: Alignment.centerLeft,
+              padding: EdgeInsets.fromLTRB(12.w, 0.w, 12.w, 0.w),
+              height: 52.w,
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(data.categoryName,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                      fontSize: 14.sp,
+                      fontSize: 13.sp,
                       color: Colors.black,
                       fontWeight:
                           categoryCtrl.activeCategoryId == data.categoryId

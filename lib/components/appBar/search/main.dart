@@ -1,13 +1,14 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-07 20:04:36
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-30 18:09:17
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-31 11:38:06
  */
 import 'package:homary/common/utils/main.dart';
 
 class AppbarSearch extends StatefulWidget {
-  AppbarSearch({Key key}) : super(key: key);
+  final double marginTop;
+  AppbarSearch({Key key, this.marginTop}) : super(key: key);
 
   @override
   _AppbarSearchState createState() => _AppbarSearchState();
@@ -20,38 +21,42 @@ class _AppbarSearchState extends State<AppbarSearch> {
         constraints: BoxConstraints(minHeight: 34.w),
         child: Container(
           height: 34.w,
-          margin: EdgeInsets.only(top: 6.w),
+          margin: EdgeInsets.only(top: widget.marginTop ?? 6.w),
           width: MediaQuery.of(context).size.width - 24.w,
           decoration: BoxDecoration(color: Colors.white),
           child: GestureDetector(
-              child: TextField(
-                enabled: false,
-                maxLines: 1,
-                cursorColor: AppColor.primaryColor,
-                style: TextStyle(
-                    color: AppColor.primaryBorderHard, fontSize: 14.sp),
-                decoration: InputDecoration(
-                    isCollapsed: true,
-                    contentPadding: EdgeInsets.only(top: 9.w),
-                    prefixIcon: Icon(
-                      Iconfont.search,
-                      size: 18.sp,
-                    ),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        width: 2.w,
-                        color: AppColor.primaryBorderHard,
-                        style: BorderStyle.none,
-                      ),
+              child: Container(
+                  decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(
-                        Radius.circular(4.0),
+                        Radius.circular(4.w),
                       ),
-                    ),
-                    filled: true,
-                    fillColor: Colors.white,
-                    hintStyle: TextStyle(color: AppColor.primaryLightSubTitle),
-                    hintText: S.of(context).search_findAnything),
-              ),
+                      border: Border.all(
+                          color: AppColor.primaryBorderHard, width: 1.w)),
+                  child: TextField(
+                    enabled: false,
+                    maxLines: 1,
+                    cursorColor: AppColor.primaryColor,
+                    style: TextStyle(
+                        color: AppColor.primaryBorderHard, fontSize: 14.sp),
+                    decoration: InputDecoration(
+                        isCollapsed: true,
+                        contentPadding: EdgeInsets.only(top: 9.w),
+                        prefixIcon: Icon(
+                          Iconfont.search,
+                          size: 17.sp,
+                          color: AppColor.primaryLightSubTitle,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(4.0),
+                          ),
+                        ),
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintStyle:
+                            TextStyle(color: AppColor.primaryLightSubTitle),
+                        hintText: S.of(context).search_findAnything),
+                  )),
               onTap: () => Routes.push(context, '/search')),
         ));
   }

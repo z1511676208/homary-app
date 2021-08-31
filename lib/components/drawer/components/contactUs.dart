@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-23 17:28:26
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-26 11:52:19
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-31 14:04:20
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/generated/l10n.dart';
@@ -73,9 +73,7 @@ class ContactUs extends StatelessWidget {
           child: Text(
             S.of(context).bottom_contact_title,
             style: TextStyle(
-                fontSize: 13.sp,
-                color: AppColor.primaryText,
-                fontWeight: FontWeight.bold),
+                color: AppColor.primaryText, fontWeight: FontWeight.bold),
           ),
         ),
         children: list

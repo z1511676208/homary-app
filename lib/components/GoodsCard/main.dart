@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-22 17:26:36
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-30 17:12:22
+ * @LastEditTime : 2021-08-31 11:42:25
  */
 import 'dart:async';
 import 'dart:io';
@@ -181,6 +181,7 @@ class _GoodsCardState extends State<GoodsCard> {
           margin: EdgeInsets.only(right: widget.marginRight),
           decoration: BoxDecoration(
             color: Colors.white,
+            borderRadius: AppStyle.primaryBorderRaduis,
             boxShadow: [
               BoxShadow(
                 color: AppColor.primaryBorderShadow,
