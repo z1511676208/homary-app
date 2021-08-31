@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-13 11:36:43
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-31 13:59:35
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-08-31 14:48:38
  */
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -254,7 +254,7 @@ class SignInCtrl with ChangeNotifier {
   //登录成功之后的回调
   void successCb(context, UserEmailLoginRes res, String method,
       {String event = 'login'}) async {
-    Toast.message(S.of(context).logout_successful,
+    Toast.message(S.of(context).login_successful,
         duration: const Duration(milliseconds: 1000));
     deleteCookie('isGuest');
     var userInfo = res.data;
