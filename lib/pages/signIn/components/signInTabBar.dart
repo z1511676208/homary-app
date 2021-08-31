@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-23 14:32:22
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-28 10:34:47
+ * @LastEditTime : 2021-08-31 10:20:10
  */
 
 import 'package:homary/common/utils/main.dart';
@@ -19,8 +19,7 @@ class SignInTabBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40.h,
-      margin: EdgeInsets.only(bottom: 16.5.h),
+      height: 48.w,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,

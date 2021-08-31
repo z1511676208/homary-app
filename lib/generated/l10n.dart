@@ -305,10 +305,10 @@ class S {
     );
   }
 
-  /// `Follow us to receive exclusive offers and our latest news`
+  /// `Follow us to receive exclusive offers and our latest news.`
   String get register_followTips {
     return Intl.message(
-      'Follow us to receive exclusive offers and our latest news',
+      'Follow us to receive exclusive offers and our latest news.',
       name: 'register_followTips',
       desc: '',
       args: [],
@@ -1080,6 +1080,16 @@ class S {
     return Intl.message(
       'Version',
       name: 'setting_version',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login sucessfully!`
+  String get login_successful {
+    return Intl.message(
+      'Login sucessfully!',
+      name: 'login_successful',
       desc: '',
       args: [],
     );

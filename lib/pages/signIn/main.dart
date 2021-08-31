@@ -74,7 +74,7 @@ class _SignInViewState extends State<SignInView> {
         ),
         body: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.only(left: 24.w, right: 24.w),
+            padding: EdgeInsets.only(left: 20.w, right: 20.w),
             color: Colors.white,
             child: Column(
               children: [
@@ -90,6 +90,9 @@ class _SignInViewState extends State<SignInView> {
                               _switchTab(ctx, idx);
                             },
                             currentTab: _currentTab,
+                          ),
+                          SizedBox(
+                            height: this._currentTab != 1 ? 16.5.w : 8.5.w,
                           ),
                           Offstage(
                             offstage: this._currentTab != 1,
@@ -195,15 +198,15 @@ class _SignInViewState extends State<SignInView> {
                               )
                             ],
                           ),
-                          SizedBox(height: 36.w),
+                          SizedBox(height: this._currentTab != 1 ? 36.w : 28.w),
                           Offstage(
                               offstage: this._currentTab != 1,
                               child: Row(children: [
                                 Container(
-                                  width: 15.w,
-                                  height: 15.h,
+                                  width: 12.w,
+                                  height: 12.w,
                                   margin:
-                                      EdgeInsets.only(right: 10.w, left: 10.w),
+                                      EdgeInsets.only(right: 8.w, bottom: 12.w),
                                   child: Checkbox(
                                       value: subscribe,
                                       onChanged: (val) => this.setState(() {
@@ -211,17 +214,17 @@ class _SignInViewState extends State<SignInView> {
                                           })),
                                 ),
                                 Container(
-                                  width: 290.w,
+                                  margin: EdgeInsets.only(bottom: 12.w),
                                   child: Text(S.of(context).register_followTips,
                                       maxLines: 3,
                                       style: TextStyle(
+                                          fontSize: 12.sp,
                                           color: AppColor.primaryText)),
                                 ),
                               ])),
-                          SizedBox(height: 12.h),
                           Container(
                               width: 335.w,
-                              height: 48.h,
+                              height: 48.w,
                               child: Builder(builder: (ctx) {
                                 return ElevatedButton.icon(
                                   style: ButtonStyle(
@@ -262,7 +265,7 @@ class _SignInViewState extends State<SignInView> {
                           Offstage(
                               offstage: this._currentTab != 1,
                               child: Container(
-                                  margin: EdgeInsets.only(top: 28.h),
+                                  margin: EdgeInsets.only(top: 28.w),
                                   child: RichText(
                                     textAlign: TextAlign.center,
                                     text: TextSpan(
@@ -327,38 +330,41 @@ class _SignInViewState extends State<SignInView> {
                                         ]),
                                   ))),
                           Container(
-                              margin: EdgeInsets.only(top: 32.w),
+                              margin: EdgeInsets.only(
+                                  top: this._currentTab == 0 ? 22.w : 36.w),
                               child: Column(
                                 children: [
                                   Offstage(
                                     offstage: this._currentTab == 1,
                                     child: TextButton(
-                                        onPressed: () {
-                                          Routes.push(
-                                              context, '/resetPassword');
-                                        },
-                                        child: Container(
-                                          child: Text(
-                                            S.of(context).login_forget,
-                                            style: TextStyle(
-                                                color: AppColor.primaryText,
-                                                fontSize: 15.sp,
-                                                decoration:
-                                                    TextDecoration.underline),
-                                          ),
-                                        )),
+                                      onPressed: () {
+                                        Routes.push(context, '/resetPassword');
+                                      },
+                                      style: ButtonStyle(
+                                        padding: MaterialStateProperty.all(
+                                            EdgeInsets.zero),
+                                      ),
+                                      child: Text(
+                                        S.of(context).login_forget,
+                                        style: TextStyle(
+                                            color: AppColor.primaryText,
+                                            fontSize: 15.sp,
+                                            decoration:
+                                                TextDecoration.underline),
+                                      ),
+                                    ),
                                   ),
                                   Offstage(
                                     offstage: this._currentTab == 1,
                                     child: SizedBox(
-                                      height: 28.w,
+                                      height: 24.w,
                                     ),
                                   ),
                                   Text(S.of(context).login_quickAccessWith,
                                       style: TextStyle(
                                           color: AppColor.primaryText)),
                                   SizedBox(
-                                    height: 16.5.h,
+                                    height: 16.5.w,
                                   ),
                                   Wrap(
                                     spacing: 21.5.w,
@@ -454,7 +460,7 @@ class _SignInViewState extends State<SignInView> {
                         ],
                       ),
                       Positioned(
-                          top: this._currentTab != 1 ? 132.w : 178.w,
+                          top: this._currentTab != 1 ? 114.w : 156.w,
                           left: 0,
                           child: Offstage(
                             offstage: !controller.showEmailTip,
