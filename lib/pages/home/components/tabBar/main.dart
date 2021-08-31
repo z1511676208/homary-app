@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-09 19:31:26
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-31 10:13:06
+ * @LastEditTime : 2021-08-31 17:19:18
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/pages/home/components/tabBar/CustomUnderlineTabIndicator.dart';
@@ -31,7 +31,7 @@ class _TabBarWidgetState extends State<TabBarWidget>
           child: TabBar(
             controller: widget._tabController,
             tabs: widget._tabValues
-                .map((e) => Text(e, style: TextStyle(fontSize: 16.sp)))
+                .map((e) => Text(e, style: TextStyle(fontSize: 14.sp)))
                 .toList(),
             isScrollable: true,
             labelPadding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 2.w),

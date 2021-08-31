@@ -203,7 +203,7 @@ class Iconfont {
     matchTextDirection: true,
   );
   static const Cart =
-      IconData(0xe635, fontFamily: 'Iconfont', matchTextDirection: true);
+      IconData(0xe6fd, fontFamily: 'Iconfont', matchTextDirection: true);
 
   static const ArrowUp = IconData(
     0xe63b,
@@ -292,4 +292,7 @@ class Iconfont {
     fontFamily: 'Iconfont',
     matchTextDirection: true,
   );
+
+  static const wishIcon =
+      IconData(0xe6fc, fontFamily: 'Iconfont', matchTextDirection: true);
 }

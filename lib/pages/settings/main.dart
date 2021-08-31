@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-08-23 10:55:22
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-30 17:44:00
+ * @LastEditTime : 2021-08-31 17:56:39
  */
 // import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:homary/common/config/packageInfo.dart';
@@ -241,7 +241,7 @@ class _SettingViewState extends State<SettingView> {
                   child: Offstage(
                 offstage: !this.isLogin,
                 child: Container(
-                  padding: EdgeInsets.all(12.w),
+                  margin: EdgeInsets.fromLTRB(60.w, 12.w, 60.w, 12.w),
                   child: OutlinedButton(
                       onPressed: () async {
                         await Provider.of<GlobalConfig>(context, listen: false)
@@ -256,9 +256,17 @@ class _SettingViewState extends State<SettingView> {
                       style: ButtonStyle(
                           padding: MaterialStateProperty.all(
                               EdgeInsets.symmetric(vertical: 16.w)),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(36.0.w),
+                          )),
                           side: MaterialStateProperty.all(
                               BorderSide(color: AppColor.primaryColor))),
-                      child: Text(S.of(context).sign_out_btn)),
+                      child: Text(
+                        S.of(context).sign_out_btn,
+                        style: TextStyle(fontSize: 14.sp),
+                      )),
                 ),
               )),
             ]),

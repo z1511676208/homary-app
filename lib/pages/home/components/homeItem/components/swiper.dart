@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-19 18:31:26
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-02 16:02:51
+ * @LastEditTime : 2021-08-31 17:18:50
  */
 import 'package:flutter/material.dart';
 import 'package:homary/common/utils/main.dart';
@@ -22,7 +22,7 @@ class BannerList extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(6.w),
         child: Container(
-          height: 186.w,
+          height: 216.w,
           child: Selector<HomeCtrl, AdvDatum>(
             builder: (BuildContext context, AdvDatum data, child) {
               return data?.moduleData != null && data?.moduleData?.length != 0
@@ -38,8 +38,8 @@ class BannerList extends StatelessWidget {
                         builder: HomeSwiperPaginationBuilder(
                           color: Color(0x99FFFFFF),
                           activeColor: Colors.white,
-                          size: Size(17.w,4.w),
-                          activeSize: Size(17.w,4.w),
+                          size: Size(17.w, 4.w),
+                          activeSize: Size(17.w, 4.w),
                           space: 3.w,
                         ),
                       ),

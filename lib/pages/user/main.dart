@@ -121,8 +121,7 @@ class _UserPageViewState extends State<UserPageView> {
                             ),
                             PadingItem(),
                             Padding(
-                              padding: EdgeInsets.fromLTRB(
-                                  12.0, 12.w, 12.0, 0),
+                              padding: EdgeInsets.fromLTRB(12.0, 12.w, 12.0, 0),
                               child: Flex(
                                 direction: Axis.horizontal,
                                 mainAxisAlignment:
@@ -211,8 +210,8 @@ class _UserPageViewState extends State<UserPageView> {
                             ),
                             PadingItem(),
                             Padding(
-                              padding: EdgeInsets.fromLTRB(
-                                  12.0, 12.w, 12.0, 8.w),
+                              padding:
+                                  EdgeInsets.fromLTRB(12.0, 18.w, 12.0, 8.w),
                               child: Flex(
                                 direction: Axis.horizontal,
                                 mainAxisAlignment:
@@ -260,8 +259,7 @@ class _UserPageViewState extends State<UserPageView> {
                             PadingItem(),
                             Container(
                               alignment: Alignment.centerLeft,
-                              padding: EdgeInsets.fromLTRB(
-                                  12, 12.w, 12.0, 4.w),
+                              padding: EdgeInsets.fromLTRB(12, 18.w, 12.0, 4.w),
                               child: Text(
                                 S.of(context).usercenter_recentlyBrowsed,
                                 style: TextStyle(
@@ -272,7 +270,9 @@ class _UserPageViewState extends State<UserPageView> {
                             data.recentlyList.length == 0
                                 ? Column(
                                     children: [
-                                      SizedBox(height: 24.w,),
+                                      SizedBox(
+                                        height: 24.w,
+                                      ),
                                       Text(
                                         S.of(context).usercenter_noRecently,
                                         style: TextStyle(
@@ -295,8 +295,8 @@ class _UserPageViewState extends State<UserPageView> {
                                         ),
                                         style: ButtonStyle(
                                             padding: MaterialStateProperty.all(
-                                                EdgeInsets.symmetric(
-                                                    horizontal: 20.w)),
+                                                EdgeInsets.fromLTRB(
+                                                    30.w, 12.w, 30.w, 12.w)),
                                             overlayColor:
                                                 MaterialStateProperty.all(
                                                     AppColor.primaryPressed),
@@ -310,7 +310,7 @@ class _UserPageViewState extends State<UserPageView> {
                                                     RoundedRectangleBorder>(
                                                 RoundedRectangleBorder(
                                               borderRadius:
-                                                  BorderRadius.circular(20.0),
+                                                  BorderRadius.circular(36.w),
                                             ))),
                                         onPressed: () {
                                           if (isLogin) {
@@ -372,7 +372,6 @@ class _UserPageViewState extends State<UserPageView> {
                                     ),
                                   )
                                 : Container(),
-                            PadingItem()
                           ],
                         )))));
   }

@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-28 16:10:53
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-30 17:48:01
+ * @LastEditTime : 2021-08-31 17:44:58
  */
 import 'package:flutter/material.dart';
 import 'package:homary/common/utils/localstorage.dart';
@@ -23,7 +23,7 @@ class ExpandedItem extends StatelessWidget {
       child: Expanded(
         flex: 1,
         child: Container(
-            height: 100.w,
+            height: 90.w,
             // color: Colors.red,
             child: InkWell(
                 onTap: () {

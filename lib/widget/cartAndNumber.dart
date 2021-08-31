@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-08-13 10:44:42
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-31 14:35:03
+ * @LastEditTime : 2021-08-31 17:33:27
  */
 import 'package:homary/common/utils/main.dart';
 
@@ -19,7 +19,6 @@ class CartAndNumber extends StatelessWidget {
             color: Colors.black,
             icon: Icon(
               Iconfont.Cart,
-              size: 19.sp,
             ),
             onPressed: () {
               Routes.push(context, '/webview', params: {

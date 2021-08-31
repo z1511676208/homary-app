@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-28 16:10:53
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-17 15:40:21
+ * @LastEditTime : 2021-08-31 17:40:47
  */
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +39,7 @@ class FlexItem extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              height: 16.w,
+              height: 8.w,
             ),
             Stack(
               clipBehavior: Clip.none,
@@ -70,7 +70,7 @@ class FlexItem extends StatelessWidget {
             ),
             Container(
               height: 30.w,
-              margin: EdgeInsets.only(top: 14.w),
+              margin: EdgeInsets.only(top: 8.w),
               alignment: Alignment.topCenter,
               child: Text(
                 this.text,
