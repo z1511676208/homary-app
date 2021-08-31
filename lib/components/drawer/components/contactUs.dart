@@ -4,7 +4,10 @@
  * @LastEditors  : JHao
  * @LastEditTime : 2021-08-31 14:04:20
  */
+import 'package:homary/common/storage/cookie.dart';
 import 'package:homary/common/utils/main.dart';
+import 'package:homary/common/utils/site-contact.dart';
+import 'package:homary/entity/commonConfig.dart';
 import 'package:homary/generated/l10n.dart';
 import 'slideNav/noBorderExpansionTile/main.dart';
 
@@ -50,13 +53,12 @@ class ContactUs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List list = [];
-    for (var i = 0; i < 3; i++) {
-      list.add({
-        "label": S.of(context).bottom_contact_label.split('|')[i],
-        "content": S.of(context).bottom_contact_content.split('|')[i],
-        "introduction": S.of(context).bottom_contact_introduction.split('|')[i]
-      });
-    }
+    Map<String, dynamic> currentConfig = getCurrentConfig();
+    String site = currentConfig['site'];
+    String language = currentConfig['language'];
+
+    list = siteContact[site][language]['contactList'] ?? [];
+
     return SliverToBoxAdapter(
         child: Container(
       color: backgroud ?? AppColor.primaryBackground,

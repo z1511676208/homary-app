@@ -1,8 +1,13 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-13 11:36:43
+<<<<<<< HEAD
  * @LastEditors  : JHao
  * @LastEditTime : 2021-08-31 14:48:38
+=======
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-08-31 13:59:35
+>>>>>>> 7e8978a (bugfix：登录注册页，购物车商详ui调整,侧边栏联系方式与地址多站点多语言修复)
  */
 
 import 'package:firebase_auth/firebase_auth.dart';

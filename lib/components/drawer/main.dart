@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-06 10:11:04
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-27 15:22:40
+ * @LastEditTime : 2021-08-31 17:46:39
  */
 
 import 'package:flutter/material.dart';
@@ -129,7 +129,7 @@ class _GlobalDrawerViewState extends State<GlobalDrawerView> {
                         child: Offstage(
                             offstage: !Localstorage().getBool('isLogin'),
                             child: Container(
-                              height: 40.h,
+                              height: 40.w,
                               padding: EdgeInsets.only(left: 16.w, right: 16.w),
                               margin: EdgeInsets.only(top: 16.w, bottom: 16.w),
                               child: OutlinedButton(
@@ -146,6 +146,11 @@ class _GlobalDrawerViewState extends State<GlobalDrawerView> {
                                   S.of(context).sign_out_btn,
                                   style: TextStyle(color: AppColor.primaryText),
                                 ),
+                                style: ButtonStyle(
+                                    shape: MaterialStateProperty.all(
+                                        RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(50))))),
                               ),
                             )),
                       ),
