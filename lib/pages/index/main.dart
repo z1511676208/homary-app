@@ -76,41 +76,47 @@ class _IndexPageState extends State<IndexPage> {
           },
           children:
               _pageList.values.map((e) => e['component'] as Widget).toList()),
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: (int i) {
-          setState(() {
-            _currentPageIndex = i;
-          });
-          indexPageCtrl.jumpToPage(i);
-        },
-        backgroundColor: Colors.white,
-        currentIndex: _currentPageIndex,
-        items: [
-          BottomNavigationBarItem(
-              icon: Icon(Iconfont.HomeBarItem),
-              activeIcon: Icon(Iconfont.ActiveHomeBarItem),
-              label: S.of(context).Home),
-          BottomNavigationBarItem(
-              icon: Icon(Iconfont.CategoryBarItem),
-              activeIcon: Icon(Iconfont.ActiveCategoryBarItem),
-              label: S.of(context).category),
-          BottomNavigationBarItem(
-              icon: Icon(Iconfont.SaleBarItem),
-              activeIcon: Icon(Iconfont.ActiveSaleBarItem),
-              label: S.of(context).Sale),
-          BottomNavigationBarItem(
-              icon: Icon(Iconfont.MeBarItem),
-              activeIcon: Icon(Iconfont.ActiveMeBarItem),
-              label: S.of(context).Me),
-        ],
-        fixedColor: AppColor.primaryColor,
-        unselectedFontSize: 12.sp,
-        selectedFontSize: 12.sp,
-        unselectedItemColor: AppColor.primaryText,
-        iconSize: 22.sp,
-        unselectedLabelStyle: TextStyle(height: 1.2.w),
-        type: BottomNavigationBarType.fixed,
-      ),
+      bottomNavigationBar: Theme(
+        data: Theme.of(context).copyWith(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+        ),
+        child: BottomNavigationBar(
+          onTap: (int i) {
+            setState(() {
+              _currentPageIndex = i;
+            });
+            indexPageCtrl.jumpToPage(i);
+          },
+          backgroundColor: Colors.white,
+          currentIndex: _currentPageIndex,
+          items: [
+            BottomNavigationBarItem(
+                icon: Icon(Iconfont.HomeBarItem),
+                activeIcon: Icon(Iconfont.ActiveHomeBarItem),
+                label: S.of(context).Home),
+            BottomNavigationBarItem(
+                icon: Icon(Iconfont.CategoryBarItem),
+                activeIcon: Icon(Iconfont.ActiveCategoryBarItem),
+                label: S.of(context).category),
+            BottomNavigationBarItem(
+                icon: Icon(Iconfont.SaleBarItem),
+                activeIcon: Icon(Iconfont.ActiveSaleBarItem),
+                label: S.of(context).Sale),
+            BottomNavigationBarItem(
+                icon: Icon(Iconfont.MeBarItem),
+                activeIcon: Icon(Iconfont.ActiveMeBarItem),
+                label: S.of(context).Me),
+          ],
+          fixedColor: AppColor.primaryColor,
+          unselectedFontSize: 12.sp,
+          selectedFontSize: 12.sp,
+          unselectedItemColor: AppColor.primaryText,
+          iconSize: 22.w,
+          unselectedLabelStyle: TextStyle(height: 1.2.w),
+          type: BottomNavigationBarType.fixed,
+        ),
+      )
     );
   }
 }

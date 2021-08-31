@@ -4,7 +4,7 @@ import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/toast.dart';
 import 'package:homary/entity/home.dart';
 import 'package:homary/entity/topic_flow_res.dart';
-import 'package:homary/provider/productEtaInfo.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ChannelTabCtrl extends ChangeNotifier {
   bool _isDispose = false;
@@ -38,6 +38,8 @@ class ChannelTabCtrl extends ChangeNotifier {
 
   // context
   BuildContext context;
+
+  RefreshController refreshController = RefreshController(initialRefresh: false);
 
   ChannelTabCtrl(this.channelId, {this.type, this.activityId, this.context});
 
@@ -103,7 +105,13 @@ class ChannelTabCtrl extends ChangeNotifier {
       } else {
         isShowEmpty = false;
       }
+      if(hasMorePage == 0){
+        refreshController.loadNoData();
+      } else {
+        refreshController.loadComplete();
+      }
     }
+    refreshController.refreshCompleted();
     Toast.clear();
     isLoading = false;
     _safeNotifyListeners();

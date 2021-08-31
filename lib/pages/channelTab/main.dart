@@ -6,6 +6,7 @@ import 'package:homary/components/GoodsCard/goods_cart_grid.dart';
 import 'package:homary/components/appBar/search/main.dart';
 import 'package:homary/components/goBackAppBar/main.dart';
 import 'package:homary/components/goTopMenu/main.dart';
+import 'package:homary/components/pullToRefresh/pull_to_refresh.dart';
 import 'package:homary/pages/categoryTab/components/view_more_button.dart';
 import 'package:homary/components/empty/list_empty.dart';
 import 'package:homary/pages/channelTab/components/channel_list_widget.dart';
@@ -117,35 +118,38 @@ class _ChannelTabState extends State<ChannelTab> {
         body: Selector<ChannelTabCtrl, bool>(
           selector: (context, ctrl) => ctrl.isShowEmpty,
           builder: (context, value, _) {
+            ChannelTabCtrl ctrl = context.read<ChannelTabCtrl>();
             return LayoutBuilder(
               builder: (_, constraints) {
-                return RefreshIndicator(
-                  onRefresh: context.read<ChannelTabCtrl>().onRefresh,
-                  child: value
-                      ? SingleChildScrollView(
-                          physics: AlwaysScrollableScrollPhysics(),
-                          child: Container(
-                            height: constraints.maxHeight,
-                            child: ListEmptyWidget(
-                              isShowGoHome: true,
-                            ),
-                          ),
-                        )
-                      : Stack(
-                          children: [
-                            CustomScrollView(
+                return Stack(
+                  children: [
+                    PullToRefresh(
+                      controller: ctrl.refreshController,
+                      onRefresh: ctrl.onRefresh,
+                      onLoading: ctrl.getTopicFlow,
+                      child: value
+                          ? SingleChildScrollView(
+                              physics: AlwaysScrollableScrollPhysics(),
+                              child: Container(
+                                height: constraints.maxHeight,
+                                child: ListEmptyWidget(
+                                  isShowGoHome: true,
+                                ),
+                              ),
+                            )
+                          : CustomScrollView(
                               controller: _scrollController,
                               scrollDirection: Axis.vertical,
                               slivers: [
                                 buildBanner(),
                                 ChannelListWidget(),
                                 buildGridView(),
-                                buildViewMore(),
+                                // buildViewMore(),
                               ],
                             ),
-                            buildGoTop(),
-                          ],
-                        ),
+                    ),
+                    buildGoTop(),
+                  ],
                 );
               },
             );

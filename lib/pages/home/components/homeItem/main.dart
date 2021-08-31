@@ -8,13 +8,14 @@ import 'package:exposure/exposure.dart';
 import 'package:flutter/material.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/components/goTopMenu/main.dart';
+import 'package:homary/components/pullToRefresh/pull_to_refresh.dart';
 import 'package:homary/generated/l10n.dart';
 import 'package:homary/pages/home/components/homeItem/components/RecommendList.dart';
 import 'package:homary/pages/home/components/homeItem/components/ad.dart';
 import 'package:homary/pages/home/components/homeItem/components/kingkong.dart';
 import 'package:homary/pages/home/components/homeItem/components/title.dart';
 import 'package:homary/pages/home/contorller.dart';
-import 'components/RecommendViewMoreButton.dart';
+// import 'components/RecommendViewMoreButton.dart';
 import 'components/ReviewsList.dart';
 import 'components/serviveItems.dart';
 import 'components/swiper.dart';
@@ -67,71 +68,67 @@ class _HomeItemState extends State<HomeItem>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-
+    HomeCtrl ctrl = Provider.of<HomeCtrl>(context, listen: false);
     return Scaffold(
-      body: RefreshIndicator(
-        child: Stack(
-          children: [
-            Column(
-              children: [
-                Expanded(
-                  child: CustomScrollView(
-                    controller: _scrollController,
-                    scrollDirection: Axis.vertical,
-                    slivers: [
-                      SliverPadding(
-                        padding: EdgeInsets.fromLTRB(12.w, 5.w, 12.w, 0),
-                        sliver: BannerList(),
-                      ),
-                      SliverPadding(
-                        padding: EdgeInsets.fromLTRB(12.w, 8.w, 12.w, 0),
-                        sliver: ServiceItems(),
-                      ),
-                      KingKong(),
-                      AD(),
-                      GoodsList(
-                        moduleName: 'favoredList',
-                        showCorner: true,
-                      ),
-                      GoodsList(
-                        moduleName: 'deaksList',
-                        showCorner: false,
-                      ),
-                      ReviewsList(),
-                      SliverPadding(
-                        padding: EdgeInsets.fromLTRB(12.w, 20.w, 12.w, 0),
-                        sliver: SliverToBoxAdapter(
-                          child: ContentTitle(
-                            title: S.of(context).HomePage_recommendTitle,
-                            showViewAll: false,
-                          ),
-                        ),
-                      ),
-                      RecommendList(),
-                      RecommendViewMoreButton(),
-                    ],
+      body: Stack(
+        children: [
+          PullToRefresh(
+            child: CustomScrollView(
+              controller: _scrollController,
+              scrollDirection: Axis.vertical,
+              slivers: [
+                SliverPadding(
+                  padding: EdgeInsets.fromLTRB(12.w, 5.w, 12.w, 0),
+                  sliver: BannerList(),
+                ),
+                SliverPadding(
+                  padding: EdgeInsets.fromLTRB(12.w, 8.w, 12.w, 0),
+                  sliver: ServiceItems(),
+                ),
+                KingKong(),
+                AD(),
+                GoodsList(
+                  moduleName: 'favoredList',
+                  showCorner: true,
+                ),
+                GoodsList(
+                  moduleName: 'deaksList',
+                  showCorner: false,
+                ),
+                ReviewsList(),
+                SliverPadding(
+                  padding: EdgeInsets.fromLTRB(12.w, 20.w, 12.w, 0),
+                  sliver: SliverToBoxAdapter(
+                    child: ContentTitle(
+                      title: S.of(context).HomePage_recommendTitle,
+                      showViewAll: false,
+                    ),
                   ),
-                )
+                ),
+                RecommendList(),
+                // RecommendViewMoreButton(),
               ],
             ),
-            showBackTopButton
-                ? Positioned(
-                    bottom: 100.w,
-                    right: 20.w,
-                    child: GoTopMenu(
-                      scrollController: _scrollController,
-                    ))
-                : Container()
-          ],
-        ),
-        onRefresh: () async {
-          await Provider.of<GlobalConfig>(context, listen: false)
-              .getServiceTime();
-          Provider.of<HomeCtrl>(context, listen: false).getAdvInfo();
-          Provider.of<HomeCtrl>(context, listen: false).getProductModule();
-          Provider.of<HomeCtrl>(context, listen: false).getReviewModule();
-          Provider.of<HomeCtrl>(context, listen: false).getRecommendList();
-        },
+            controller: ctrl.refreshController,
+            onLoading: ctrl.handleGetMoreProduct,
+            onRefresh: () async {
+              Provider.of<GlobalConfig>(context, listen: false)
+                  .getServiceTime();
+              ctrl.getProductModule();
+              ctrl.getReviewModule();
+              ctrl.getRecommendList();
+              await ctrl.getAdvInfo(isShowLoading: false);
+            },
+          ),
+          showBackTopButton
+              ? Positioned(
+                  bottom: 100.w,
+                  right: 20.w,
+                  child: GoTopMenu(
+                    scrollController: _scrollController,
+                  ))
+              : Container()
+        ],
       ),
     );
   }

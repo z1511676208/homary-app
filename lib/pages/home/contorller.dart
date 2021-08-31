@@ -21,6 +21,7 @@ import 'package:homary/entity/homeProductModule.dart';
 import 'package:homary/entity/homeReviewModule.dart';
 import 'package:homary/entity/recommend.dart';
 import 'package:homary/entity/topChannelCategory.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class HomeCtrl with ChangeNotifier {
   // 首页广告区
@@ -42,6 +43,8 @@ class HomeCtrl with ChangeNotifier {
   List<TopChannelDatum> topChannelList = [];
   List<String> topChannelNameList = [];
 
+  RefreshController refreshController = RefreshController(initialRefresh: false);
+
   // 获取首页推荐商品流
   Future<void> getRecommendList({params}) async {
     recommendLoading = true;
@@ -61,15 +64,18 @@ class HomeCtrl with ChangeNotifier {
         recommendList = [...recommendList, ...newResilt];
       }
       hasMorePage = result?.data?.hasMorePage ?? 1;
+      if(hasMorePage == 0){
+        refreshController.loadNoData();
+      } else {
+        refreshController.loadComplete();
+      }
       notifyListeners();
     }
   }
 
-  handleGetMoreProduct() {
-    if (recommendLoading == false) {
-      recommendParams['page'] += 1;
-      getRecommendList(params: recommendParams);
-    }
+  Future handleGetMoreProduct() async {
+    recommendParams['page'] += 1;
+    await getRecommendList(params: recommendParams);
   }
 
   // 获取一级分类列表
@@ -88,8 +94,10 @@ class HomeCtrl with ChangeNotifier {
   }
 
   // 获取首页广告
-  Future<void> getAdvInfo({params}) async {
-    Toast.loading();
+  Future<void> getAdvInfo({params,bool isShowLoading = true}) async {
+    if(isShowLoading){
+      Toast.loading();
+    }
     DioResult res = await HomeApi.getAdvInfo(params: params);
     Toast.clear();
     if (res.error == null) {
@@ -108,6 +116,7 @@ class HomeCtrl with ChangeNotifier {
       kingKongList = moduleType4.length > 0 ? moduleType4[0] : new AdvDatum();
       notifyListeners();
     }
+    refreshController.refreshCompleted();
   }
 
   // 获取商品模块

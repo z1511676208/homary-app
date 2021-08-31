@@ -89,8 +89,7 @@ class _MyAppState extends State<MyApp> {
                 primarySwatch: AppColor.primaryMaterialColor,
                 primaryColor: AppColor.primaryColor,
                 accentColor: AppColor.primaryColor,
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent),
+            ),
             // 配置路由
             onGenerateRoute: Routes.router.generator,
             navigatorKey: navigatorKey,

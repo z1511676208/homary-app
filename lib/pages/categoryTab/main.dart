@@ -7,6 +7,7 @@ import 'package:homary/components/GoodsCard/goods_cart_grid.dart';
 import 'package:homary/components/appBar/search/main.dart';
 import 'package:homary/components/goBackAppBar/main.dart';
 import 'package:homary/components/goTopMenu/main.dart';
+import 'package:homary/components/pullToRefresh/pull_to_refresh.dart';
 import 'package:homary/pages/categoryTab/components/category_menu_bar.dart';
 import 'package:homary/pages/categoryTab/components/filter_drawer.dart';
 import 'package:homary/pages/categoryTab/components/product_empty.dart';
@@ -161,8 +162,10 @@ class _CategoryTabState extends State<CategoryTab> {
       builder: (BuildContext context, ctrl, _) {
         return LayoutBuilder(
           builder: (_, constraints) {
-            return RefreshIndicator(
+            return PullToRefresh(
+              controller: ctrl.refreshController,
               onRefresh: ctrl.onRefresh,
+              onLoading: ctrl.getProductList,
               child: ctrl.isShowEmpty
                   ? SingleChildScrollView(
                       physics: AlwaysScrollableScrollPhysics(),
@@ -176,7 +179,7 @@ class _CategoryTabState extends State<CategoryTab> {
                       scrollDirection: Axis.vertical,
                       slivers: [
                         buildGridView(ctrl),
-                        buildViewMore(),
+                        // buildViewMore(),
                       ],
                     ),
             );
