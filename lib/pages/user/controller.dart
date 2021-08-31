@@ -12,6 +12,7 @@ import 'package:homary/common/utils/main.dart';
 import 'package:homary/entity/home.dart';
 import 'package:homary/entity/recentlyBrowsed.dart' hide Data;
 import 'package:homary/entity/userCenter.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class UserCtrl with ChangeNotifier {
   Data userCenterInfo;
@@ -20,6 +21,8 @@ class UserCtrl with ChangeNotifier {
   Map<String, int> recentlyBrowsedParams = {"page": 1, "page_size": 10};
   List<ModuleDataProductList> recentlyList = [];
   bool _isDispose = false;
+
+  RefreshController refreshController = RefreshController(initialRefresh: false);
 
   @override
   void dispose() {
@@ -67,12 +70,17 @@ class UserCtrl with ChangeNotifier {
         recentlyList = [...recentlyList, ...newResilt];
       }
       hasMorePage = result?.data?.hasMorePage ?? 1;
+      if(hasMorePage == 0){
+        refreshController.loadNoData();
+      } else {
+        refreshController.loadComplete();
+      }
       _safeNotifyListeners();
     }
   }
 
-  handleGetMoreProduct() {
+  Future handleGetMoreProduct() async {
     recentlyBrowsedParams['page'] += 1;
-    getRecentlyBrowsed(params: recentlyBrowsedParams);
+    await getRecentlyBrowsed(params: recentlyBrowsedParams);
   }
 }

@@ -10,12 +10,16 @@ class PullToRefresh extends StatelessWidget {
     this.controller,
     this.onRefresh,
     this.onLoading,
+    this.enablePullDown: true,
+    this.enablePullUp: true,
     this.child,
   }) : super(key: key);
   final RefreshController controller;
   final VoidCallback onRefresh;
   final VoidCallback onLoading;
   final Widget child;
+  final bool enablePullDown;
+  final bool enablePullUp;
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +27,13 @@ class PullToRefresh extends StatelessWidget {
       controller: controller,
       child: child,
       header: Platform.isAndroid ? MaterialClassicHeader() : AppClassicHeader(),
-      enablePullDown: true,
-      enablePullUp: true,
+      footer: ClassicFooter(
+        loadingText: '',
+        idleText: '',
+        canLoadingText: '',
+      ),
+      enablePullDown: enablePullDown,
+      enablePullUp: enablePullUp,
       onRefresh: onRefresh,
       onLoading: onLoading,
     );
