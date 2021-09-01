@@ -7,6 +7,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:homary/common/event/go_home.dart';
+import 'package:homary/common/event/refresh_tab.dart';
 import 'package:homary/common/utils/event_bus.dart';
 import 'package:homary/common/utils/home_dialog.dart';
 import 'package:homary/common/utils/main.dart';
@@ -29,6 +30,7 @@ class _HomePageViewState extends State<HomePageView>
   TabController _tabController;
   var currentConfig;
   StreamSubscription _subscription;
+  StreamSubscription _subscriptionTab;
 
   @override
   void initState() {
@@ -39,13 +41,18 @@ class _HomePageViewState extends State<HomePageView>
         _tabController.animateTo(event.homeTabIndex ?? 0);
       }
     });
+    _subscriptionTab = EventBus.instance.on<RefreshTabEvent>().listen((event) {
+      if (event.channelMap != null) {
+        refreshTab(event.channelMap);
+      }
+    });
   }
 
   @override
   void didChangeDependencies() async {
     var current =
         jsonEncode(Provider.of<GlobalConfig>(context).currentConfig?.toJson());
-    int tabIndex = _tabController.index;
+
     if (current != 'null' && this.currentConfig != current) {
       this.currentConfig = current;
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
@@ -57,29 +64,34 @@ class _HomePageViewState extends State<HomePageView>
         Map<String, dynamic> channelMap =
             await Provider.of<HomeCtrl>(context, listen: false)
                 .getTopChannelCategory();
+        refreshTab(channelMap);
 
         // 显示首页弹窗
         HomeDialog.instance.getAppPopUp(context);
-
-        setState(() {
-          _tabValues = [
-            ...[S.of(context).Home],
-            ...channelMap['topChannelNameList']
-          ];
-          _tabWebview = channelMap['topChannelList'];
-          _tabController =
-              TabController(vsync: this, length: _tabValues.length);
-          _tabController.animateTo(tabIndex);
-        });
       });
     }
     super.didChangeDependencies();
+  }
+
+  void refreshTab(Map<String, dynamic> channelMap){
+    int tabIndex = _tabController.index;
+    setState(() {
+      _tabValues = [
+        ...[S.of(context).Home],
+        ...channelMap['topChannelNameList']
+      ];
+      _tabWebview = channelMap['topChannelList'];
+      _tabController =
+          TabController(vsync: this, length: _tabValues.length);
+      _tabController.animateTo(tabIndex);
+    });
   }
 
   @override
   void dispose() {
     _tabController.dispose();
     _subscription?.cancel();
+    _subscriptionTab?.cancel();
     HomeDialog.instance.dispose();
     super.dispose();
   }
