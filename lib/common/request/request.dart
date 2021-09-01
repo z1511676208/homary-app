@@ -107,25 +107,20 @@ class Request {
     dio.interceptors.add(DioLogInterceptor());
 
     /// 开启抓包 proxy 代理，禁用 https 证书
-    // if (openProxy) {
-    (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-        (client) {
-      // the proxy value likes:  {port: 8899, host: 127.0.0.1}
-      var systemProxyIp = PROXY_IP;
-      var systemProxyProxy = PROXY_PORT;
+    if(proxy != null){
+      (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+          (client) {
+        // the proxy value likes:  {port: 8899, host: 127.0.0.1}
+        var systemProxyIp = proxy['host'];
+        var systemProxyProxy = int.parse(proxy['port']);
 
-      if (proxy != null) {
-        systemProxyIp = proxy['host'];
-        systemProxyProxy = int.parse(proxy['port']);
-      }
-
-      client.findProxy = (uri) {
-        return "PROXY $systemProxyIp:$systemProxyProxy";
+        client.findProxy = (uri) {
+          return "PROXY $systemProxyIp:$systemProxyProxy";
+        };
+        client.badCertificateCallback =
+            (X509Certificate cert, String host, int port) => true;
       };
-      client.badCertificateCallback =
-          (X509Certificate cert, String host, int port) => true;
-    };
-    // }
+    }
   }
 
   /// refresh 是否强制刷新 默认 false
