@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-06 10:11:04
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-31 17:46:39
+ * @LastEditTime : 2021-09-01 18:07:21
  */
 
 import 'package:flutter/material.dart';
@@ -98,8 +98,8 @@ class _GlobalDrawerViewState extends State<GlobalDrawerView> {
                                     bottom: BorderSide(
                                         width: 0.5.w,
                                         color: AppColor.primaryBorderOutline))),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 16.w, vertical: 16.w),
+                            padding:
+                                EdgeInsets.fromLTRB(16.w, 16.w, 12.w, 16.w),
                             child: InkWell(
                               onTap: () {
                                 Routes.push(context, '/webview', params: {

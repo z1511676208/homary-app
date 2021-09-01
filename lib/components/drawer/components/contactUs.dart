@@ -7,7 +7,6 @@
 import 'package:homary/common/storage/cookie.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/site-contact.dart';
-import 'package:homary/entity/commonConfig.dart';
 import 'package:homary/generated/l10n.dart';
 import 'slideNav/noBorderExpansionTile/main.dart';
 
@@ -64,7 +63,7 @@ class ContactUs extends StatelessWidget {
       color: backgroud ?? AppColor.primaryBackground,
       child: NoBorderExpansionTile(
         icon: this.icon,
-        iconColor: AppColor.primaryBorderLight,
+        iconColor: this.iconColor,
         tilePadding: padding,
         tileMargin: margin,
         expandedAlignment: Alignment.centerLeft,
