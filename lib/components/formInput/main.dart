@@ -181,7 +181,7 @@ class _InputState extends State<Input> {
               ),
             )),
         Positioned(
-            top: 50.w,
+            top: 45.w,
             left: 0,
             child: Offstage(
               offstage: errorText == null,

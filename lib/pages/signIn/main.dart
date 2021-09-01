@@ -88,6 +88,8 @@ class _SignInViewState extends State<SignInView> {
                           SignInTabBar(
                             switchTab: (ctx, idx) {
                               _switchTab(ctx, idx);
+                              controller.setLoginInEmailErrNull();
+                              controller.setloginInPassErrNull();
                             },
                             currentTab: _currentTab,
                           ),
@@ -198,7 +200,7 @@ class _SignInViewState extends State<SignInView> {
                               )
                             ],
                           ),
-                          SizedBox(height: this._currentTab != 1 ? 36.w : 28.w),
+                          SizedBox(height: this._currentTab != 1 ? 36.w : 46.w),
                           Offstage(
                               offstage: this._currentTab != 1,
                               child: Row(children: [
@@ -214,6 +216,7 @@ class _SignInViewState extends State<SignInView> {
                                           })),
                                 ),
                                 Container(
+                                  width: 1.sw - 60.w,
                                   margin: EdgeInsets.only(bottom: 12.w),
                                   child: Text(S.of(context).register_followTips,
                                       maxLines: 3,
