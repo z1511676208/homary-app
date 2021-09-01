@@ -95,7 +95,12 @@ class SignInCtrl with ChangeNotifier {
   //登录
   Future signIn(context, email, password) async {
     Toast.loading();
-    String firebaseMessageToken = await FirebaseMessaging.instance.getToken();
+    String firebaseMessageToken;
+    try {
+      firebaseMessageToken = await FirebaseMessaging.instance.getToken();
+    } catch (e) {
+      print(e);
+    }
     UserEmailLoginReq params = UserEmailLoginReq(
         email: email, password: password, deviceNumber: firebaseMessageToken);
     DioResult res = await UserApi.emailLogin(params: params);
@@ -120,7 +125,12 @@ class SignInCtrl with ChangeNotifier {
   Future userRegister(context, email, password, subscribeParam) async {
     Toast.loading();
     int subscribe = subscribeParam ? 1 : 0;
-    String firebaseMessageToken = await FirebaseMessaging.instance.getToken();
+    String firebaseMessageToken;
+    try {
+      firebaseMessageToken = await FirebaseMessaging.instance.getToken();
+    } catch (e) {
+      print(e);
+    }
     UserRegisterReq params = UserRegisterReq(
         email: email,
         password: password,
