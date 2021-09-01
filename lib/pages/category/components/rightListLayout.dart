@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-14 15:05:20
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-31 14:27:07
+ * @LastEditTime : 2021-09-01 11:13:18
  */
 import 'package:flutter/rendering.dart';
 import 'package:homary/common/utils/main.dart';
@@ -69,34 +69,37 @@ class _RightListLayoutState extends State<RightListLayout>
 
   Widget _banner() {
     return SliverToBoxAdapter(
-      child: Container(
-        width: 248.w,
-        height: 86.w,
-        margin: EdgeInsets.only(bottom: 16.w, top: 0.w, right: 6.5.w),
-        decoration: BoxDecoration(borderRadius: AppStyle.primaryBorderRaduis),
-        clipBehavior: Clip.antiAlias,
-        child: Selector<CategoryCtrl, Map<String, String>>(
-          builder: (BuildContext context, Map<String, String> data, child) {
-            return GestureDetector(
-              child: data['app_category_banner'] != ""
-                  ? CustomNetworkImage(data['app_category_banner'])
-                  : Image.asset(
-                      'assets/baseImage.png',
-                      width: 248.w,
-                      fit: BoxFit.cover,
-                    ),
-              onTap: () {
-                handleSchema(context, data['jump_url']);
-              },
-            );
-          },
-          selector: (BuildContext context, CategoryCtrl category) {
-            return category.categoryBannerMap;
-          },
-          shouldRebuild: (pre, next) {
-            return pre != next;
-          },
-        ),
+      child: Selector<CategoryCtrl, Map<String, String>>(
+        builder: (BuildContext context, Map<String, String> data, child) {
+          return data['app_category_banner'] != ""
+              ? Container(
+                  width: 248.w,
+                  height: 86.w,
+                  margin: EdgeInsets.only(bottom: 16.w, top: 0.w, right: 6.5.w),
+                  decoration:
+                      BoxDecoration(borderRadius: AppStyle.primaryBorderRaduis),
+                  clipBehavior: Clip.antiAlias,
+                  child: GestureDetector(
+                    child: data['app_category_banner'] != ""
+                        ? CustomNetworkImage(data['app_category_banner'])
+                        : Image.asset(
+                            'assets/baseImage.png',
+                            width: 248.w,
+                            fit: BoxFit.cover,
+                          ),
+                    onTap: () {
+                      handleSchema(context, data['jump_url']);
+                    },
+                  ),
+                )
+              : Container();
+        },
+        selector: (BuildContext context, CategoryCtrl category) {
+          return category.categoryBannerMap;
+        },
+        shouldRebuild: (pre, next) {
+          return pre != next;
+        },
       ),
     );
   }

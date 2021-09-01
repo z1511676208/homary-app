@@ -2,13 +2,14 @@
  * @Author       : JHao
  * @Date         : 2021-07-15 11:35:54
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-31 14:32:41
+ * @LastEditTime : 2021-09-01 11:15:46
  */
 import 'package:flutter/material.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/schema2path.dart';
 import 'package:homary/entity/category.dart';
 import 'package:homary/pages/category/Watcher.dart';
+import 'package:homary/pages/category/controller.dart';
 import 'package:homary/widget/networkImg.dart';
 
 class ProductItem extends StatefulWidget {
@@ -94,8 +95,12 @@ class _ProductItemState extends State<ProductItem> {
         if (Watcher.productListItemHeight.length == widget.subList.length) {
           return;
         }
+        Map<String, String> categoryBannerMap =
+            Provider.of<CategoryCtrl>(context, listen: false).categoryBannerMap;
         double currentOffsetHeight = 0;
-        double bannerHeight = 102.w; // 顶部banner
+        double bannerHeight = categoryBannerMap['app_category_banner'] != ""
+            ? 102.w
+            : 0; // 顶部banner
         double height = context?.size?.height;
         Watcher.productListItemHeight.add(height);
         int leng = Watcher.productListItemHeight.length;
