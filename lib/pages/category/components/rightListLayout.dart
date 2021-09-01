@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-14 15:05:20
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-01 11:13:18
+ * @LastEditTime : 2021-09-01 14:42:33
  */
 import 'package:flutter/rendering.dart';
 import 'package:homary/common/utils/main.dart';
@@ -115,7 +115,10 @@ class _RightListLayoutState extends State<RightListLayout>
       },
       builder: (context, List<Data> data, child) {
         _topNavScrollCtrl = TabController(vsync: this, length: data.length);
-        _topNavScrollCtrl.animateTo(_curTopNavItem);
+        if (_curTopNavItem < data.length) {
+          _topNavScrollCtrl.animateTo(_curTopNavItem);
+        }
+
         print("_curTopNavItem  $_curTopNavItem");
         String activeCategoryId =
             Provider.of<CategoryCtrl>(context, listen: false).activeCategoryId;
