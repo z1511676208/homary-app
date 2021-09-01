@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-07 20:04:36
- * @LastEditors  : JHao
- * @LastEditTime : 2021-08-31 11:38:06
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-09-01 17:50:56
  */
 import 'package:homary/common/utils/main.dart';
 
@@ -33,6 +33,7 @@ class _AppbarSearchState extends State<AppbarSearch> {
                       border: Border.all(
                           color: AppColor.primaryBorderHard, width: 1.w)),
                   child: TextField(
+                    textAlignVertical: TextAlignVertical.center,
                     enabled: false,
                     maxLines: 1,
                     cursorColor: AppColor.primaryColor,
@@ -40,7 +41,6 @@ class _AppbarSearchState extends State<AppbarSearch> {
                         color: AppColor.primaryBorderHard, fontSize: 14.sp),
                     decoration: InputDecoration(
                         isCollapsed: true,
-                        contentPadding: EdgeInsets.only(top: 9.w),
                         prefixIcon: Icon(
                           Iconfont.search,
                           size: 17.sp,

@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-13 10:15:30
- * @LastEditors  : JHao
- * @LastEditTime : 2021-08-27 10:30:50
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-09-01 17:33:13
  */
 Map<String, String> baseRequestUrl = {
   "homeReviewModule":
@@ -71,5 +71,12 @@ Map<String, String> baseRequestUrl = {
   "userInfo": "https://frontapi.homary.com/user/user/info",
   "fireBaseLogin": "https://frontapi.homary.com/user/login/fire-base-login",
   "sendEmail": "https://frontapi.homary.com/user/login/send-email",
-  "getCartNums": "https://frontapi.homary.com/order/cart/get-item-nums"
+  "getCartNums": "https://frontapi.homary.com/order/cart/get-item-nums",
+  "getServiceTime": "https://frontapi.homary.com/common/site/get-service-time",
+  "pushInfo": "https://frontapi.homary.com/common/device/push-info",
+  "upgrade": "https://frontapi.homary.com/api/app/upgrade",
+  "getAreaByIp": "https://frontapi.homary.com/user/user-no-auth/get-area-by-ip",
+  "getinitconfig": "https://frontapi.homary.com/common/site/getinitconfig",
+  "userCenter": "https://frontapi.homary.com/user/user/user-center",
+  "getList": "https://frontapi.homary.com/user/browse-footprint/get-list"
 };

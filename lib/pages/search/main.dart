@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-19 11:35:26
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-30 18:08:45
+ * @LastEditTime : 2021-09-01 17:52:35
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/toast.dart';
@@ -56,6 +56,7 @@ class _SearchViewState extends State<SearchView> {
                       height: 34.w,
                       width: MediaQuery.of(context).size.width - 84.w,
                       child: TextField(
+                          textAlignVertical: TextAlignVertical.center,
                           onChanged: (val) {
                             Provider.of<SearchCtrl>(context, listen: false)
                                 .inputChange(val);
@@ -69,10 +70,9 @@ class _SearchViewState extends State<SearchView> {
                               color: AppColor.primaryText, fontSize: 14.sp),
                           decoration: InputDecoration(
                               isCollapsed: true,
-                              contentPadding:
-                                  EdgeInsets.symmetric(vertical: 10.w),
                               prefixIcon: Icon(
                                 Iconfont.search,
+                                size: 17.sp,
                                 color: AppColor.primaryBorderLight,
                               ),
                               border: OutlineInputBorder(
