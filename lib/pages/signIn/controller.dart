@@ -2,8 +2,8 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-13 11:36:43
 <<<<<<< HEAD
- * @LastEditors  : JHao
- * @LastEditTime : 2021-08-31 14:48:38
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-09-01 17:02:30
 =======
  * @LastEditors  : zhhjie
  * @LastEditTime : 2021-08-31 13:59:35
@@ -253,7 +253,12 @@ class SignInCtrl with ChangeNotifier {
 
   //第三方登录请求获取信息
   void thridLogin(context, idTokenResult, oauthVerifier) async {
-    String firebaseMessageToken = await FirebaseMessaging.instance.getToken();
+    String firebaseMessageToken;
+    try {
+      firebaseMessageToken = await FirebaseMessaging.instance.getToken();
+    } catch (e) {
+      print(e);
+    }
     UserThirdLoginReq params = UserThirdLoginReq(
         idToken: idTokenResult,
         oauthVerifier: oauthVerifier,
