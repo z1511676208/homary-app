@@ -7,6 +7,7 @@ import 'package:homary/common/utils/dialog.dart';
 import 'package:homary/common/utils/entrance.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:fluro/fluro.dart';
+import 'package:homary/components/dialog/update_dialog.dart';
 import 'package:homary/entity/appUpgrade.dart';
 import 'package:homary/pages/home/contorller.dart';
 import 'package:homary/provider/productEtaInfo.dart';
@@ -17,8 +18,6 @@ import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/analytics.dart' as Analytics;
 import 'package:homary/pages/index/main.dart';
 import 'package:homary/common/utils/navigateWatcher.dart';
-// import 'package:flutter_html/flutter_html.dart';
-import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
@@ -136,87 +135,15 @@ class _MainPageState extends State<MainPage> {
           await Provider.of<GlobalConfig>(context, listen: false)
               .getAppUpgradeInfo();
       if (upGradeInfo != null && upGradeInfo.data.isUpgrade != 0) {
-        Widget content = HtmlWidget(upGradeInfo.data.content ?? '');
-        Widget popup = Container(
-          decoration: BoxDecoration(
-              borderRadius: AppStyle.primaryBorderRaduis, color: Colors.white),
-          padding: EdgeInsets.all(16.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Update Available:',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
-              ),
-              SizedBox(
-                width: double.infinity,
-                height: 12.w,
-              ),
-              Text(
-                'Latest version:v${upGradeInfo.data.upgradeVersion}',
-                style: TextStyle(fontSize: 14.sp),
-              ),
-              SizedBox(
-                width: double.infinity,
-                height: 12.w,
-              ),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: content,
-                ),
-              ),
-              SizedBox(
-                width: double.infinity,
-                height: 12.w,
-              ),
-              Container(
-                  width: double.infinity,
-                  height: 40.w,
-                  child: Builder(builder: (ctx) {
-                    return OutlinedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(AppColor.primaryColor),
-                          elevation: MaterialStateProperty.all(0),
-                          overlayColor: MaterialStateProperty.all(
-                              AppColor.primaryPressed),
-                          foregroundColor:
-                              MaterialStateProperty.all(Colors.white),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(36.0.w),
-                          ))),
-                      onPressed: () async {},
-                      child: Text('Update',
-                          style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white)),
-                    );
-                  })),
-              Offstage(
-                  offstage: upGradeInfo.data.isUpgrade == 1,
-                  child: Container(
-                    alignment: Alignment.center,
-                    child: TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Text(
-                          'No thanks',
-                          style: TextStyle(
-                              decoration: TextDecoration.underline,
-                              color: AppColor.primaryText),
-                        )),
-                  ))
-            ],
-          ),
-        );
         AppDialog.show(
-            context: context,
-            widget: Container(width: 0.76.sw, height: 280.w, child: popup),
-            canCancel: upGradeInfo.data.isUpgrade == 2);
+          context: context,
+          widget: Container(
+            width: 0.76.sw,
+            height: 280.w,
+            child: UpdateDialog(upGradeInfo: upGradeInfo),
+          ),
+          canCancel: upGradeInfo.data.isUpgrade == 2,
+        );
       }
     });
 
