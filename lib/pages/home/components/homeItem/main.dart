@@ -4,8 +4,9 @@
  * @LastEditors  : JHao
  * @LastEditTime : 2021-08-31 14:41:19
  */
-import 'package:exposure/exposure.dart';
 import 'package:flutter/material.dart';
+import 'package:homary/common/event/refresh_tab.dart';
+import 'package:homary/common/utils/event_bus.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/components/goTopMenu/main.dart';
 import 'package:homary/components/pullToRefresh/pull_to_refresh.dart';
@@ -118,6 +119,8 @@ class _HomeItemState extends State<HomeItem>
               ctrl.getReviewModule();
               ctrl.getRecommendList();
               await ctrl.getAdvInfo(isShowLoading: false);
+              final channelMap = await ctrl.getTopChannelCategory();
+              EventBus.instance.emit(RefreshTabEvent(channelMap));
             },
           ),
           showBackTopButton
