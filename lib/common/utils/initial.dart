@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-06-21 18:40:47
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-25 10:23:09
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-09-02 17:23:02
  */
 import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -21,12 +21,12 @@ import 'package:homary/entity/initConfig.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:system_proxy/system_proxy.dart';
 
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // If you're going to use other Firebase services in the background, such as Firestore,
-  // make sure you call `initializeApp` before using other Firebase services.
-  await Firebase.initializeApp();
-  print("Handling a background message ${message.messageId}");
-}
+// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+//   // If you're going to use other Firebase services in the background, such as Firestore,
+//   // make sure you call `initializeApp` before using other Firebase services.
+//   // await Firebase.initializeApp();
+//   print("Handling a background message ${message.messageId}");
+// }
 
 /// Create a [AndroidNotificationChannel] for heads up notifications
 AndroidNotificationChannel channel;
@@ -45,7 +45,7 @@ class Global {
 
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
     if (!kIsWeb) {
       channel = const AndroidNotificationChannel(

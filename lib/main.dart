@@ -1,12 +1,17 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:homary/common/config/appConfig.dart';
+import 'package:homary/common/config/proxyConfig.dart';
 import 'package:homary/common/utils/dialog.dart';
 import 'package:homary/common/utils/entrance.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:fluro/fluro.dart';
+import 'package:homary/common/utils/firebaseMessageHandler.dart';
+import 'package:homary/common/utils/schema2path.dart';
+import 'package:homary/common/utils/toast.dart';
 import 'package:homary/components/dialog/update_dialog.dart';
 import 'package:homary/entity/appUpgrade.dart';
 import 'package:homary/pages/home/contorller.dart';
@@ -23,12 +28,17 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 
 void main() async {
-  await SentryFlutter.init(
-    (options) {
-      options.dsn = AppConfig.SENTRY_DSN;
-    },
-    appRunner: () => Global.init().then((e) => runApp(MyApp())),
-  );
+  if (isRelease) {
+    await SentryFlutter.init(
+      (options) {
+        options.dsn = AppConfig.SENTRY_DSN;
+      },
+      appRunner: () => Global.init().then((e) => runApp(MyApp())),
+    );
+  } else {
+    Global.init().then((e) => runApp(MyApp()));
+  }
+
   EasyLoading.instance
     ..displayDuration = const Duration(milliseconds: 3000)
     ..indicatorType = EasyLoadingIndicatorType.ring
@@ -84,10 +94,10 @@ class _MyAppState extends State<MyApp> {
               const Locale('es', 'ES'),
             ],
             theme: ThemeData(
-                scaffoldBackgroundColor: Colors.white,
-                primarySwatch: AppColor.primaryMaterialColor,
-                primaryColor: AppColor.primaryColor,
-                accentColor: AppColor.primaryColor,
+              scaffoldBackgroundColor: Colors.white,
+              primarySwatch: AppColor.primaryMaterialColor,
+              primaryColor: AppColor.primaryColor,
+              accentColor: AppColor.primaryColor,
             ),
             // 配置路由
             onGenerateRoute: Routes.router.generator,
@@ -147,33 +157,14 @@ class _MainPageState extends State<MainPage> {
       }
     });
 
-    // 當 app 處於開啟狀態時，監聽推撥訊息用
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-      RemoteNotification notification = message.notification;
-      AndroidNotification android = message.notification?.android;
+    // APP未启动时,启动后获取 firebase meeage
+    FirebaseMessageHandler.getInitialMessage();
 
-      if (notification != null && android != null) {
-        await flutterLocalNotificationsPlugin.show(
-            notification.hashCode,
-            notification.title,
-            notification.body,
-            NotificationDetails(
-              android: AndroidNotificationDetails(
-                channel.id,
-                channel.name,
-                channel.description,
-                icon: 'launcher_small',
-                color: AppColor.primaryColor,
-                largeIcon: DrawableResourceAndroidBitmap('launcher_icon'),
-              ),
-            ));
-      }
-    });
+    // 當app 處於開啟狀態時，監聽推撥訊息用
+    FirebaseMessageHandler.onMessage();
 
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      print('A new onMessageOpenedApp event was published!');
-      // 這邊可以寫在 app 關閉狀態，點通知訊息時，打開 app 後要做的事情
-    });
+    // APP在后台运行时 點通知訊息后要做的事情
+    FirebaseMessageHandler.onMessageOpenedApp();
   }
 
   Future<void> initPlatformState() async {
