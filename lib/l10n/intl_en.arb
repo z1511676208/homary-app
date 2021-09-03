@@ -114,5 +114,6 @@
   "home_OnSalenow": "On Sale now",
   "home_Upcoming": "Upcoming",
   "home_Startsin": "Starts in",
-  "home_StartsAt": "Starts at"
+  "home_StartsAt": "Starts at",
+  "home_Onlyonsale": "Only {total} on sale!"
 }

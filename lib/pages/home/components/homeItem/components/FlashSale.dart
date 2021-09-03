@@ -2,10 +2,11 @@
  * @Author       : JHao
  * @Date         : 2021-07-20 15:12:17
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-03 16:57:36
+ * @LastEditTime : 2021-09-03 18:56:47
  */
 
 import 'package:flutter/material.dart';
+import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/components/GoodsCard/main.dart';
 import 'package:homary/entity/flashModule.dart';
@@ -21,9 +22,22 @@ class FlashSale extends StatefulWidget {
 
 class _FlashSaleState extends State<FlashSale> {
   bool _isOnSaleNow = true;
+  String _currentSite;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    var currentConfig = Localstorage().getJSON('currentConfig') ?? {};
+    _currentSite = currentConfig['site'];
+  }
 
   @override
   Widget build(BuildContext context) {
+    var config = Localstorage().getJSON('currentConfig') ?? {};
+    if (config['site'] != _currentSite) {
+      _currentSite = config['site'];
+      _isOnSaleNow = true;
+    }
     return SliverToBoxAdapter(
         child: Selector<HomeCtrl, FlashData>(
       builder: (BuildContext context, FlashData data, child) {
@@ -189,7 +203,7 @@ class _FlashSaleState extends State<FlashSale> {
                     padding: EdgeInsets.fromLTRB(12.w, 0, 12.w, 12.w),
                     color: AppColor.flashSaleBackgroundColor,
                     child: Container(
-                      height: 230.w,
+                      height: _isOnSaleNow ? 230.w : 246.w,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         // shrinkWrap: true,

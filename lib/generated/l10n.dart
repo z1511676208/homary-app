@@ -1194,6 +1194,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Only {total} on sale!`
+  String home_Onlyonsale(Object total) {
+    return Intl.message(
+      'Only $total on sale!',
+      name: 'home_Onlyonsale',
+      desc: '',
+      args: [total],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

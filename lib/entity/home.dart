@@ -39,6 +39,7 @@ class ModuleDataProductList {
       this.mergeSkuList,
       this.mergeSkuDesc,
       this.totalSkuNum,
+      this.activityStockTotal,
       this.spuSaleQuantityDesc});
 
   String title;
@@ -75,6 +76,7 @@ class ModuleDataProductList {
   String mergeSkuDesc;
   String totalSkuNum;
   String spuSaleQuantityDesc;
+  String activityStockTotal;
 
   factory ModuleDataProductList.fromRawJson(String str) =>
       ModuleDataProductList.fromJson(json.decode(str));
@@ -112,6 +114,7 @@ class ModuleDataProductList {
           activityStartTimeStamp: json["activity_start_time_stamp"],
           activityEndTime: json["activity_end_time"],
           activityStartTime: json["activity_start_time"],
+          activityStockTotal: json['activity_stock_total'],
           priceOffDesc: json["price_off_desc"],
           mergeSkuList: List<ModuleDataProductList>.from(json["merge_sku_list"]
               ?.map((x) => ModuleDataProductList.fromJson(x))),
@@ -149,6 +152,7 @@ class ModuleDataProductList {
         "activity_start_time_stamp": activityStartTimeStamp,
         "activity_end_time": activityEndTime,
         "activity_start_time": activityStartTime,
+        "activity_stock_total": activityStockTotal,
         "price_off_desc": priceOffDesc,
         "merge_sku_list":
             List<dynamic>.from(mergeSkuList.map((x) => x.toJson())),

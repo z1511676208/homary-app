@@ -114,5 +114,6 @@
   "home_OnSalenow": "maintenant en Vente",
   "home_Upcoming": "À Venir",
   "home_Startsin": "Commence dans",
-  "home_StartsAt": "Commence à"
+  "home_StartsAt": "Commence à",
+  "home_Onlyonsale": "Seulement {total} en vente!"
 }

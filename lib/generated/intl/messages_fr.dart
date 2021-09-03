@@ -19,7 +19,9 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'fr';
 
-  static m0(amount) => "Vous avez reçu les coupons pour les nouveaux utilisateurs, jusqu\'à ${amount} de rabais sur tous les articles.";
+  static m0(total) => "Seulement ${total} en vente!";
+
+  static m1(amount) => "Vous avez reçu les coupons pour les nouveaux utilisateurs, jusqu\'à ${amount} de rabais sur tous les articles.";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
@@ -61,6 +63,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "endsSoon" : MessageLookupByLibrary.simpleMessage("Vente Flash"),
     "help_center" : MessageLookupByLibrary.simpleMessage("Centre d\'aide"),
     "home_OnSalenow" : MessageLookupByLibrary.simpleMessage("maintenant en Vente"),
+    "home_Onlyonsale" : m0,
     "home_StartsAt" : MessageLookupByLibrary.simpleMessage("Commence à"),
     "home_Startsin" : MessageLookupByLibrary.simpleMessage("Commence dans"),
     "home_Upcoming" : MessageLookupByLibrary.simpleMessage("À Venir"),
@@ -83,7 +86,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "new_user_get_all" : MessageLookupByLibrary.simpleMessage("AVOIR TOUT"),
     "new_user_no_hassle_returns" : MessageLookupByLibrary.simpleMessage("Retour Sans Tracas"),
     "new_user_orders_over" : MessageLookupByLibrary.simpleMessage("Commandes de"),
-    "new_user_received_all" : m0,
+    "new_user_received_all" : m1,
     "new_user_sign_get_all" : MessageLookupByLibrary.simpleMessage("SE CONNECTER"),
     "new_user_use_now" : MessageLookupByLibrary.simpleMessage("APPLIQUER"),
     "new_user_view_my_coupons" : MessageLookupByLibrary.simpleMessage("Voir Mes Coupons"),

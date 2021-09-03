@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-22 17:26:36
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-03 17:02:02
+ * @LastEditTime : 2021-09-03 18:56:19
  */
 import 'dart:async';
 import 'dart:io';
@@ -34,7 +34,7 @@ class GoodsCard extends StatefulWidget {
       this.height,
       this.data,
       this.moduleName,
-      this.showCorner = true,
+      this.showCorner = false,
       this.showSkuList = false,
       this.showFreeShipping = false,
       this.showRating = false,
@@ -291,6 +291,7 @@ class _GoodsCardState extends State<GoodsCard> {
                                     children: [
                                       Container(
                                         width: widget.width / 2,
+                                        alignment: Alignment.center,
                                         child: AutoSizeText(
                                           _isShowUpcomingStartInText(
                                                   _currentData
@@ -310,6 +311,7 @@ class _GoodsCardState extends State<GoodsCard> {
                                       ),
                                       Container(
                                         width: widget.width / 2,
+                                        alignment: Alignment.center,
                                         child: AutoSizeText(
                                           _isShowUpcomingStartInText(
                                                   _currentData
@@ -538,6 +540,19 @@ class _GoodsCardState extends State<GoodsCard> {
                             ),
                           ),
                         ),
+                        Offstage(
+                            offstage: _currentData.activityStatus != 2,
+                            child: Container(
+                              alignment: Alignment.centerLeft,
+                              padding: EdgeInsets.only(top: 5.w),
+                              child: Text(
+                                S.of(context).home_Onlyonsale(
+                                    _currentData.activityStockTotal),
+                                style: TextStyle(
+                                    color: AppColor.primaryText,
+                                    fontSize: 12.sp),
+                              ),
+                            )),
                         Offstage(
                           offstage: !(widget.showRating &&
                               _currentData.reviewScore != "" &&

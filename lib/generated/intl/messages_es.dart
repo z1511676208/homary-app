@@ -19,7 +19,9 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'es';
 
-  static m0(amount) => "Has recibido un cupón de usuario nuevo con un descuento de hasta ${amount} .";
+  static m0(total) => "¡ ${total} en Oferta!";
+
+  static m1(amount) => "Has recibido un cupón de usuario nuevo con un descuento de hasta ${amount} .";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
@@ -61,6 +63,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "endsSoon" : MessageLookupByLibrary.simpleMessage("Termina Pronto"),
     "help_center" : MessageLookupByLibrary.simpleMessage("Centro de ayuda"),
     "home_OnSalenow" : MessageLookupByLibrary.simpleMessage("Está en Ventas"),
+    "home_Onlyonsale" : m0,
     "home_StartsAt" : MessageLookupByLibrary.simpleMessage("Empieza en"),
     "home_Startsin" : MessageLookupByLibrary.simpleMessage("Empieza en"),
     "home_Upcoming" : MessageLookupByLibrary.simpleMessage("Próximo"),
@@ -83,7 +86,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "new_user_get_all" : MessageLookupByLibrary.simpleMessage("OBTENER TODA"),
     "new_user_no_hassle_returns" : MessageLookupByLibrary.simpleMessage("Devoluciones sin Problemas"),
     "new_user_orders_over" : MessageLookupByLibrary.simpleMessage("En compras de"),
-    "new_user_received_all" : m0,
+    "new_user_received_all" : m1,
     "new_user_sign_get_all" : MessageLookupByLibrary.simpleMessage("INICIAR SESIÓN"),
     "new_user_use_now" : MessageLookupByLibrary.simpleMessage("ÚSALO AHORA"),
     "new_user_view_my_coupons" : MessageLookupByLibrary.simpleMessage("Ver Mis Cupones"),

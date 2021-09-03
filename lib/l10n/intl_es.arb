@@ -114,5 +114,6 @@
   "home_OnSalenow": "Está en Ventas",
   "home_Upcoming": "Próximo",
   "home_Startsin": "Empieza en",
-  "home_StartsAt": "Empieza en"
+  "home_StartsAt": "Empieza en",
+  "home_Onlyonsale": "¡ {total} en Oferta!"
 }
