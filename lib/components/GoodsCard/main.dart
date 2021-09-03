@@ -2,12 +2,13 @@
  * @Author       : JHao
  * @Date         : 2021-07-22 17:26:36
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-31 11:42:25
+ * @LastEditTime : 2021-09-03 15:59:23
  */
 import 'dart:async';
 import 'dart:io';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:homary/common/utils/formatDate.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -104,6 +105,7 @@ class _GoodsCardState extends State<GoodsCard> {
   Timer _timer;
   String _activityTime = 'Ends Soon';
   dynamic _currentEtaInfo;
+  String _upComingTime = "";
 
   @override
   void initState() {
@@ -127,6 +129,25 @@ class _GoodsCardState extends State<GoodsCard> {
               endTime -= 1;
               _activityTime = CountdownUtils.second2HMS(endTime);
               if (_activityTime == '00:00:00') {
+                _timer.cancel();
+              }
+            });
+          });
+        }
+      }
+    }
+    if (_currentData.activityStatus == 2) {
+      int serviceTime =
+          Provider.of<GlobalConfig>(context, listen: false).serviceTime;
+      if (serviceTime != this._serviceTime) {
+        _serviceTime = serviceTime;
+        int time = _currentData.activityStartTimeStamp - _serviceTime;
+        if (_isShowUpcomingStartInText(_currentData.activityStartTimeStamp)) {
+          _timer = Timer.periodic(Duration(milliseconds: 1000), (t) {
+            setState(() {
+              time -= 1;
+              _upComingTime = CountdownUtils.second2HMS(time);
+              if (_upComingTime == '00:00:00') {
                 _timer.cancel();
               }
             });
@@ -167,6 +188,14 @@ class _GoodsCardState extends State<GoodsCard> {
       return _currentEtaInfo != null;
     }
     return false;
+  }
+
+  // 开始时间距离服务器时间小于24小时
+  bool _isShowUpcomingStartInText(int timestamp) {
+    print("timestamp $timestamp");
+    int serviceTime =
+        Provider.of<GlobalConfig>(context, listen: false).serviceTime;
+    return timestamp - serviceTime <= 24 * 60 * 60;
   }
 
   @override
@@ -244,6 +273,45 @@ class _GoodsCardState extends State<GoodsCard> {
                                   ],
                                 ),
                               ))
+                          : Container(),
+                      _currentData.activityStatus == 2
+                          ? Positioned(
+                              bottom: 0,
+                              left: 0,
+                              child: Container(
+                                  width: widget.width,
+                                  height: 24.w,
+                                  decoration: BoxDecoration(
+                                      gradient: LinearGradient(colors: [
+                                    Color(0xFF309D33),
+                                    Color(0xFF56AF38)
+                                  ])),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        _isShowUpcomingStartInText(_currentData
+                                                .activityStartTimeStamp)
+                                            ? S.of(context).home_Startsin
+                                            : S.of(context).home_StartsAt,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 12.sp),
+                                      ),
+                                      SizedBox(
+                                        width: 4.w,
+                                      ),
+                                      Text(
+                                        _isShowUpcomingStartInText(_currentData
+                                                .activityStartTimeStamp)
+                                            ? _upComingTime
+                                            : _currentData.activityStartTime,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 12.sp),
+                                      )
+                                    ],
+                                  )))
                           : Container(),
                       widget.showCorner == true &&
                               _currentData.cornerBgUrl != null

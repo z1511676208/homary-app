@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-07 20:04:36
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-18 19:51:36
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-09-03 13:51:06
  */
 import 'dart:ui';
 
@@ -78,4 +78,10 @@ class AppColor {
 
   //注册新人礼券提示语颜色
   static const Color primaryNewUserTipColor = Color(0xFFFF9800);
+
+  // 首页秒杀背景色
+  static const Color flashSaleBackgroundColor = Color(0xFFFEFBF5);
+
+  // 首页秒杀文字颜色
+  static const Color flashSaleFontColor = Color(0xFFEC1B1E);
 }

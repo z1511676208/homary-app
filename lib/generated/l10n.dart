@@ -1154,6 +1154,46 @@ class S {
       args: [],
     );
   }
+
+  /// `On Sale now`
+  String get home_OnSalenow {
+    return Intl.message(
+      'On Sale now',
+      name: 'home_OnSalenow',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upcoming`
+  String get home_Upcoming {
+    return Intl.message(
+      'Upcoming',
+      name: 'home_Upcoming',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Starts in`
+  String get home_Startsin {
+    return Intl.message(
+      'Starts in',
+      name: 'home_Startsin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Starts at`
+  String get home_StartsAt {
+    return Intl.message(
+      'Starts at',
+      name: 'home_StartsAt',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

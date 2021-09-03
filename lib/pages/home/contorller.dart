@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-21 10:42:50
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-31 13:50:58
+ * @LastEditTime : 2021-09-03 11:38:30
  */
 /*
  * @Author       : zhhjie
@@ -15,6 +15,7 @@ import 'package:homary/api/home.dart';
 import 'package:homary/common/request/request.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/toast.dart';
+import 'package:homary/entity/flashModule.dart';
 import 'package:homary/entity/home.dart';
 import 'package:homary/entity/homeAdvInfo.dart';
 import 'package:homary/entity/homeProductModule.dart';
@@ -43,7 +44,11 @@ class HomeCtrl with ChangeNotifier {
   List<TopChannelDatum> topChannelList = [];
   List<String> topChannelNameList = [];
 
-  RefreshController refreshController = RefreshController(initialRefresh: false);
+  // 秒杀模块
+  FlashData flashData;
+
+  RefreshController refreshController =
+      RefreshController(initialRefresh: false);
 
   // 获取首页推荐商品流
   Future<void> getRecommendList({params}) async {
@@ -64,7 +69,7 @@ class HomeCtrl with ChangeNotifier {
         recommendList = [...recommendList, ...newResilt];
       }
       hasMorePage = result?.data?.hasMorePage ?? 1;
-      if(hasMorePage == 0){
+      if (hasMorePage == 0) {
         refreshController.loadNoData();
       } else {
         refreshController.loadComplete();
@@ -94,8 +99,8 @@ class HomeCtrl with ChangeNotifier {
   }
 
   // 获取首页广告
-  Future<void> getAdvInfo({params,bool isShowLoading = true}) async {
-    if(isShowLoading){
+  Future<void> getAdvInfo({params, bool isShowLoading = true}) async {
+    if (isShowLoading) {
       Toast.loading();
     }
     DioResult res = await HomeApi.getAdvInfo(params: params);
@@ -136,6 +141,16 @@ class HomeCtrl with ChangeNotifier {
     if (res.error == null) {
       HomeReviewModuleRes result = HomeReviewModuleRes.fromJson(res.result);
       reviewList = result.data;
+      notifyListeners();
+    }
+  }
+
+  // 获取秒杀商品模块
+  Future<void> getFlashSaleModule({params}) async {
+    DioResult res = await HomeApi.getFlashSaleModule(params: params);
+    if (res.error == null) {
+      FlashModuleRes result = FlashModuleRes.fromJson(res.result);
+      flashData = result.data;
       notifyListeners();
     }
   }

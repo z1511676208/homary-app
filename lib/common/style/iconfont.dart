@@ -295,4 +295,7 @@ class Iconfont {
 
   static const wishIcon =
       IconData(0xe6fc, fontFamily: 'Iconfont', matchTextDirection: true);
+
+  static const flashIcon =
+      IconData(0xe6fe, fontFamily: 'Iconfont', matchTextDirection: true);
 }

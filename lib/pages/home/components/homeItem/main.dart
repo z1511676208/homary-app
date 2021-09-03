@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-19 16:50:47
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-31 14:41:19
+ * @LastEditTime : 2021-09-03 13:46:32
  */
 import 'package:flutter/material.dart';
 import 'package:homary/common/event/refresh_tab.dart';
@@ -17,6 +17,7 @@ import 'package:homary/pages/home/components/homeItem/components/kingkong.dart';
 import 'package:homary/pages/home/components/homeItem/components/title.dart';
 import 'package:homary/pages/home/contorller.dart';
 // import 'components/RecommendViewMoreButton.dart';
+import 'components/FlashSale.dart';
 import 'components/ReviewsList.dart';
 import 'components/serviveItems.dart';
 import 'components/swiper.dart';
@@ -88,6 +89,7 @@ class _HomeItemState extends State<HomeItem>
                 ),
                 KingKong(),
                 AD(),
+                FlashSale(),
                 GoodsList(
                   moduleName: 'favoredList',
                   showCorner: true,
@@ -115,6 +117,7 @@ class _HomeItemState extends State<HomeItem>
             onRefresh: () async {
               Provider.of<GlobalConfig>(context, listen: false)
                   .getServiceTime();
+              ctrl.getFlashSaleModule();
               ctrl.getProductModule();
               ctrl.getReviewModule();
               ctrl.getRecommendList();

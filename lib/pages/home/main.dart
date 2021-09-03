@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-07 20:28:59
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-27 18:39:55
+ * @LastEditTime : 2021-09-03 11:17:23
  */
 import 'dart:async';
 import 'dart:convert';
@@ -37,7 +37,7 @@ class _HomePageViewState extends State<HomePageView>
     super.initState();
     _tabController = TabController(vsync: this, length: _tabValues.length);
     _subscription = EventBus.instance.on<GoHomeEvent>().listen((event) {
-      if(event.homeTabIndex != null){
+      if (event.homeTabIndex != null) {
         _tabController.animateTo(event.homeTabIndex ?? 0);
       }
     });
@@ -58,6 +58,8 @@ class _HomePageViewState extends State<HomePageView>
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
         Provider.of<GlobalConfig>(context, listen: false).getServiceTime();
         Provider.of<HomeCtrl>(context, listen: false).getAdvInfo();
+        Provider.of<HomeCtrl>(context, listen: false)
+            .getFlashSaleModule(params: {'pf': "m"});
         Provider.of<HomeCtrl>(context, listen: false).getProductModule();
         Provider.of<HomeCtrl>(context, listen: false).getReviewModule();
         Provider.of<HomeCtrl>(context, listen: false).getRecommendList();
@@ -73,7 +75,7 @@ class _HomePageViewState extends State<HomePageView>
     super.didChangeDependencies();
   }
 
-  void refreshTab(Map<String, dynamic> channelMap){
+  void refreshTab(Map<String, dynamic> channelMap) {
     int tabIndex = _tabController.index;
     setState(() {
       _tabValues = [
@@ -81,8 +83,7 @@ class _HomePageViewState extends State<HomePageView>
         ...channelMap['topChannelNameList']
       ];
       _tabWebview = channelMap['topChannelList'];
-      _tabController =
-          TabController(vsync: this, length: _tabValues.length);
+      _tabController = TabController(vsync: this, length: _tabValues.length);
       _tabController.animateTo(tabIndex);
     });
   }

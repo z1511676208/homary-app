@@ -32,6 +32,9 @@ class ModuleDataProductList {
       this.cornerText,
       this.cornerBgUrl,
       this.activityEndTimeStamp,
+      this.activityStartTimeStamp,
+      this.activityEndTime,
+      this.activityStartTime,
       this.priceOffDesc,
       this.mergeSkuList,
       this.mergeSkuDesc,
@@ -63,7 +66,10 @@ class ModuleDataProductList {
   dynamic purchaseRate;
   String cornerText;
   String cornerBgUrl;
+  int activityStartTimeStamp;
   int activityEndTimeStamp;
+  String activityStartTime;
+  String activityEndTime;
   String priceOffDesc;
   List<ModuleDataProductList> mergeSkuList;
   String mergeSkuDesc;
@@ -103,6 +109,9 @@ class ModuleDataProductList {
           cornerText: json["corner_text"],
           cornerBgUrl: json["corner_bg_url"],
           activityEndTimeStamp: json["activity_end_time_stamp"],
+          activityStartTimeStamp: json["activity_start_time_stamp"],
+          activityEndTime: json["activity_end_time"],
+          activityStartTime: json["activity_start_time"],
           priceOffDesc: json["price_off_desc"],
           mergeSkuList: List<ModuleDataProductList>.from(json["merge_sku_list"]
               ?.map((x) => ModuleDataProductList.fromJson(x))),
@@ -137,6 +146,9 @@ class ModuleDataProductList {
         "corner_text": cornerText,
         "corner_bg_url": cornerBgUrl,
         "activity_end_time_stamp": activityEndTimeStamp,
+        "activity_start_time_stamp": activityStartTimeStamp,
+        "activity_end_time": activityEndTime,
+        "activity_start_time": activityStartTime,
         "price_off_desc": priceOffDesc,
         "merge_sku_list":
             List<dynamic>.from(mergeSkuList.map((x) => x.toJson())),

@@ -110,5 +110,9 @@
   "search_recentSearches": "Letzte Suchen",
   "search_popularSearches": "Beliebte Suchen",
   "search_clearAll": "Alle Löschen",
-  "search_findAnything": "Lieblingsprodukte finden..."
+  "search_findAnything": "Lieblingsprodukte finden...",
+  "home_OnSalenow": "Im Sonderangebot",
+  "home_Upcoming": "Bevorstehende",
+  "home_Startsin": "Beginnt in",
+  "home_StartsAt": "Beginnt um"
 }

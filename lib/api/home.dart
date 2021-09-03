@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-21 10:46:35
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-03 10:38:02
+ * @LastEditTime : 2021-09-03 11:20:13
  */
 
 import 'package:homary/common/config/baseRequestUrl.dart';
@@ -45,19 +45,28 @@ class HomeApi {
     return res;
   }
 
-  static Future<DioResult> getAppPopUp(
-      {Map<String, dynamic> params}) async {
+  static Future<DioResult> getAppPopUp({Map<String, dynamic> params}) async {
     DioResult res = await Request().get(
-        urlMapList['indexPopUp'] ??
-            baseRequestUrl['indexPopUp'],
+        urlMapList['indexPopUp'] ?? baseRequestUrl['indexPopUp'],
         params: params);
     return res;
   }
 
   static Future<DioResult> getAllNewCoupons(
       {Map<String, dynamic> params}) async {
-    DioResult res = await Request().post('/market/coupon/batch-get-coupon',
-        params: params, isRequire: true);
+    DioResult res = await Request().post(
+        urlMapList['batchGetCoupon'] ?? baseRequestUrl['batchGetCoupon'],
+        params: params,
+        isRequire: true);
+    return res;
+  }
+
+  static Future<DioResult> getFlashSaleModule(
+      {Map<String, dynamic> params}) async {
+    DioResult res = await Request().get(
+      '/product/product/get-home-flash-sale-module',
+      params: params,
+    );
     return res;
   }
 }

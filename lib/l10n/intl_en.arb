@@ -110,5 +110,9 @@
   "search_recentSearches": "Recent Searches",
   "search_popularSearches": "Popular Searches",
   "search_clearAll": "Clear All",
-  "search_findAnything": "Find anything home..."
+  "search_findAnything": "Find anything home...",
+  "home_OnSalenow": "On Sale now",
+  "home_Upcoming": "Upcoming",
+  "home_Startsin": "Starts in",
+  "home_StartsAt": "Starts at"
 }
