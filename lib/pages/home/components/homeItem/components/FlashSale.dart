@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-20 15:12:17
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-03 16:04:19
+ * @LastEditTime : 2021-09-03 16:57:36
  */
 
 import 'package:flutter/material.dart';
@@ -95,28 +95,25 @@ class _FlashSaleState extends State<FlashSale> {
                               offstage:
                                   data.onSaleProduct.productList.length == 0,
                               child: GestureDetector(
-                                child: Container(
-                                  width: 100.w,
-                                  child: Text(S.of(context).home_OnSalenow,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        fontSize: 15.sp,
-                                        color: Colors.transparent,
-                                        fontWeight: _isOnSaleNow
-                                            ? FontWeight.bold
-                                            : FontWeight.normal,
-                                        shadows: [
-                                          Shadow(
-                                              color: AppColor.primaryText,
-                                              offset: Offset(0, -4))
-                                        ],
-                                        decoration: _isOnSaleNow
-                                            ? TextDecoration.underline
-                                            : null,
-                                        decorationColor: AppColor.primaryText,
-                                      )),
-                                ),
+                                child: Text(S.of(context).home_OnSalenow,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontSize: 15.sp,
+                                      color: Colors.transparent,
+                                      fontWeight: _isOnSaleNow
+                                          ? FontWeight.bold
+                                          : FontWeight.normal,
+                                      shadows: [
+                                        Shadow(
+                                            color: AppColor.primaryText,
+                                            offset: Offset(0, -4))
+                                      ],
+                                      decoration: _isOnSaleNow
+                                          ? TextDecoration.underline
+                                          : null,
+                                      decorationColor: AppColor.primaryText,
+                                    )),
                                 onTap: () {
                                   setState(() {
                                     _isOnSaleNow = true;
@@ -131,28 +128,25 @@ class _FlashSaleState extends State<FlashSale> {
                               offstage:
                                   data.upComingProduct.productList.length == 0,
                               child: GestureDetector(
-                                  child: Container(
-                                    width: 100.w,
-                                    child: Text(S.of(context).home_Upcoming,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                          fontSize: 15.sp,
-                                          color: Colors.transparent,
-                                          fontWeight: _isOnSaleNow
-                                              ? FontWeight.normal
-                                              : FontWeight.bold,
-                                          shadows: [
-                                            Shadow(
-                                                color: AppColor.primaryText,
-                                                offset: Offset(0, -4))
-                                          ],
-                                          decoration: _isOnSaleNow
-                                              ? null
-                                              : TextDecoration.underline,
-                                          decorationColor: AppColor.primaryText,
-                                        )),
-                                  ),
+                                  child: Text(S.of(context).home_Upcoming,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        fontSize: 15.sp,
+                                        color: Colors.transparent,
+                                        fontWeight: _isOnSaleNow
+                                            ? FontWeight.normal
+                                            : FontWeight.bold,
+                                        shadows: [
+                                          Shadow(
+                                              color: AppColor.primaryText,
+                                              offset: Offset(0, -4))
+                                        ],
+                                        decoration: _isOnSaleNow
+                                            ? null
+                                            : TextDecoration.underline,
+                                        decorationColor: AppColor.primaryText,
+                                      )),
                                   onTap: () {
                                     setState(() {
                                       _isOnSaleNow = false;

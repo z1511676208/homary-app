@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-22 17:26:36
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-03 15:59:23
+ * @LastEditTime : 2021-09-03 17:02:02
  */
 import 'dart:async';
 import 'dart:io';
@@ -289,27 +289,40 @@ class _GoodsCardState extends State<GoodsCard> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text(
-                                        _isShowUpcomingStartInText(_currentData
-                                                .activityStartTimeStamp)
-                                            ? S.of(context).home_Startsin
-                                            : S.of(context).home_StartsAt,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 12.sp),
+                                      Container(
+                                        width: widget.width / 2,
+                                        child: AutoSizeText(
+                                          _isShowUpcomingStartInText(
+                                                  _currentData
+                                                      .activityStartTimeStamp)
+                                              ? S.of(context).home_Startsin
+                                              : S.of(context).home_StartsAt,
+                                          minFontSize: 10,
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 12.sp),
+                                        ),
                                       ),
                                       SizedBox(
                                         width: 4.w,
                                       ),
-                                      Text(
-                                        _isShowUpcomingStartInText(_currentData
-                                                .activityStartTimeStamp)
-                                            ? _upComingTime
-                                            : _currentData.activityStartTime,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 12.sp),
-                                      )
+                                      Container(
+                                        width: widget.width / 2,
+                                        child: AutoSizeText(
+                                          _isShowUpcomingStartInText(
+                                                  _currentData
+                                                      .activityStartTimeStamp)
+                                              ? _upComingTime
+                                              : _currentData.activityStartTime,
+                                          minFontSize: 10,
+                                          maxLines: 1,
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 12.sp),
+                                        ),
+                                      ),
                                     ],
                                   )))
                           : Container(),
