@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-22 17:26:36
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-03 18:56:19
+ * @LastEditTime : 2021-09-03 19:29:18
  */
 import 'dart:async';
 import 'dart:io';
@@ -548,6 +548,8 @@ class _GoodsCardState extends State<GoodsCard> {
                               child: Text(
                                 S.of(context).home_Onlyonsale(
                                     _currentData.activityStockTotal),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                     color: AppColor.primaryText,
                                     fontSize: 12.sp),

@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-20 15:12:17
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-03 18:56:47
+ * @LastEditTime : 2021-09-03 19:42:25
  */
 
 import 'package:flutter/material.dart';
@@ -113,16 +113,11 @@ class _FlashSaleState extends State<FlashSale> {
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
-                                      fontSize: 15.sp,
-                                      color: Colors.transparent,
+                                      fontSize: 14.sp,
+                                      color: AppColor.primaryText,
                                       fontWeight: _isOnSaleNow
                                           ? FontWeight.bold
                                           : FontWeight.normal,
-                                      shadows: [
-                                        Shadow(
-                                            color: AppColor.primaryText,
-                                            offset: Offset(0, -4))
-                                      ],
                                       decoration: _isOnSaleNow
                                           ? TextDecoration.underline
                                           : null,
@@ -146,16 +141,11 @@ class _FlashSaleState extends State<FlashSale> {
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
-                                        fontSize: 15.sp,
-                                        color: Colors.transparent,
+                                        fontSize: 14.sp,
+                                        color: AppColor.primaryText,
                                         fontWeight: _isOnSaleNow
                                             ? FontWeight.normal
                                             : FontWeight.bold,
-                                        shadows: [
-                                          Shadow(
-                                              color: AppColor.primaryText,
-                                              offset: Offset(0, -4))
-                                        ],
                                         decoration: _isOnSaleNow
                                             ? null
                                             : TextDecoration.underline,
