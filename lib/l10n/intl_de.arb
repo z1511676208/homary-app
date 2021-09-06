@@ -116,5 +116,11 @@
   "home_Startsin": "Beginnt in",
   "home_StartsAt": "Beginnt um",
   "home_Onlyonsale": "Nur {total} im Angebot!",
-  "search_see_also": "Ähnliche Suchen:"
+  "search_see_also": "Ähnliche Suchen:",
+  "user_viewed": "Meine Ansicht",
+  "user_viewed_nodata": "Sie haben derzeit keine Marke",
+  "user_viewed_explore_btn": "Jetzt entdecken",
+  "user_viewed_del_tips": "Sind Sie sicher, dass Sie diese Artikel löschen möchten?",
+  "cancelButtonText": "ABSTIMMUNG",
+  "deleteButtonText": "Lösche"
 }

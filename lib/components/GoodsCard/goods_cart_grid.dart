@@ -8,7 +8,7 @@ class GoodsCartSliverGrid extends StatelessWidget {
     Key key,
     @required this.productList,
     this.onExposure,
-    this.showCorner = true,
+    this.showCorner = false,
     this.showSkuList = false,
     this.showFreeShipping = false,
     this.showRating = false,

@@ -116,5 +116,11 @@
   "home_Startsin": "Starts in",
   "home_StartsAt": "Starts at",
   "home_Onlyonsale": "Only {total} on sale!",
-  "search_see_also": "See Also:"
+  "search_see_also": "See Also:",
+  "user_viewed": "My Viewed",
+  "user_viewed_nodata": "You currently don’t have any mark",
+  "user_viewed_explore_btn": "Explore Now",
+  "user_viewed_del_tips": "Are you sure to delete this item?",
+  "cancelButtonText": "Cancel",
+  "deleteButtonText": "Delete"
 }

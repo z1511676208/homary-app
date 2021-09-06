@@ -1214,6 +1214,66 @@ class S {
       args: [],
     );
   }
+
+  /// `My Viewed`
+  String get user_viewed {
+    return Intl.message(
+      'My Viewed',
+      name: 'user_viewed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You currently don’t have any mark`
+  String get user_viewed_nodata {
+    return Intl.message(
+      'You currently don’t have any mark',
+      name: 'user_viewed_nodata',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Explore Now`
+  String get user_viewed_explore_btn {
+    return Intl.message(
+      'Explore Now',
+      name: 'user_viewed_explore_btn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure to delete this item?`
+  String get user_viewed_del_tips {
+    return Intl.message(
+      'Are you sure to delete this item?',
+      name: 'user_viewed_del_tips',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get cancelButtonText {
+    return Intl.message(
+      'Cancel',
+      name: 'cancelButtonText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete`
+  String get deleteButtonText {
+    return Intl.message(
+      'Delete',
+      name: 'deleteButtonText',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

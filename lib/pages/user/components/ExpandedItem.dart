@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-28 16:10:53
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-31 17:44:58
+ * @LastEditTime : 2021-09-06 15:17:08
  */
 import 'package:flutter/material.dart';
 import 'package:homary/common/utils/localstorage.dart';
@@ -29,14 +29,22 @@ class ExpandedItem extends StatelessWidget {
                 onTap: () {
                   bool isLogin = Localstorage().getBool(StorageKey.IS_LOGIN);
                   if (this.url != null && isLogin) {
-                    Routes.push(context, '/webview', params: {
-                      "appBarTitle": this.appBarTitle,
-                      "showAppLoading":
-                          this.url.indexOf('/usercenter/coupons') != -1
-                              ? '1'
-                              : '0',
-                      "content": '{"url":"https://m.homary.com${this.url}"}'
-                    });
+                    if (url.startsWith('https://')) {
+                      Routes.push(context, '/webview', params: {
+                        "appBarTitle": this.appBarTitle,
+                        "showAppLoading":
+                            this.url.indexOf('/usercenter/coupons') != -1
+                                ? '1'
+                                : '0',
+                        "content": '{"url":"https://m.homary.com${this.url}"}'
+                      });
+                    } else {
+                      if (url == '/') {
+                        Routes.goHome();
+                      } else {
+                        Routes.push(context, url);
+                      }
+                    }
                   } else {
                     Routes.push(context, '/signIn');
                   }

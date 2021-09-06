@@ -1,3 +1,9 @@
+/*
+ * @Author       : JHao
+ * @Date         : 2021-08-23 14:39:51
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-09-06 18:24:16
+ */
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/components/dialog/message_dialog.dart';
 
@@ -28,6 +34,8 @@ class AppDialog {
   static Future<bool> showMessage({
     @required BuildContext context,
     String message,
+    String noStr = "No",
+    String yesStr = "Yes",
     bool canCancel = true,
   }) {
     return show<bool>(
@@ -35,6 +43,8 @@ class AppDialog {
       canCancel: canCancel,
       widget: MessageDialog(
         message: message,
+        noStr: noStr,
+        yesStr: yesStr,
       ),
     );
   }
