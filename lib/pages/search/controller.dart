@@ -108,9 +108,9 @@ class SearchCtrl with ChangeNotifier {
       if (url != null && url != '') {
         handleSchema(context, url);
       } else {
-        Routes.push(context, '/webview', params: {
-          "content":
-              '{"url":"https://m.homary.com/category?keyword=${Uri.encodeComponent(keyName)}"}'
+        Routes.push(context, Routes.category, params: {
+          'isSearchPage': 'true',
+          'keyword': keyName,
         });
       }
       notifyListeners();
@@ -152,9 +152,9 @@ class SearchCtrl with ChangeNotifier {
     if (url != null && url != '') {
       handleSchema(context, url);
     } else {
-      Routes.push(context, '/webview', params: {
-        "content":
-            '{"url":"https://m.homary.com/category?keyword=${Uri.encodeComponent(name)}"}'
+      Routes.push(context, Routes.category, params: {
+        'isSearchPage': 'true',
+        'keyword': name,
       });
     }
     notifyListeners();

@@ -90,6 +90,8 @@ Handler categoryHandler = Handler(
       isPage: true,
       categoryId: params['categoryId']?.first,
       appBarTitle: params['appBarTitle']?.first ?? '',
+      isSearchPage: params['isSearchPage']?.first == null ? false : true,
+      keyword: params['keyword']?.first,
     );
   },
 );

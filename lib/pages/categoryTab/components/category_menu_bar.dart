@@ -9,7 +9,9 @@ import 'package:homary/pages/categoryTab/components/drop_menu_sort.dart';
 import 'package:homary/pages/categoryTab/controller.dart';
 
 class CategoryMenuBar extends StatefulWidget {
-  const CategoryMenuBar({Key key}) : super(key: key);
+  const CategoryMenuBar({Key key, this.isSearchPage = false}) : super(key: key);
+
+  final bool isSearchPage;
 
   @override
   _CategoryMenuBarState createState() => _CategoryMenuBarState();
@@ -51,7 +53,7 @@ class _CategoryMenuBarState extends State<CategoryMenuBar> {
                   if(url == null){
                     return;
                   }
-                  if (url.contains('/category/')) {
+                  if (!widget.isSearchPage && url.contains('/category/')) {
                     ctrl.changeCategory(datum);
                     return;
                   }
@@ -106,9 +108,15 @@ class _CategoryMenuBarState extends State<CategoryMenuBar> {
               ),
               buildSelectWidget(
                   S.of(context).category,
-                  AppColor.primaryColor,
-                  buildIcon(_isCategoryOpen ? Iconfont.Less : Iconfont.More2,
-                      AppColor.primaryColor),
+                  ctrl.selectedCategoryId != null
+                      ? AppColor.primaryColor
+                      : AppColor.primaryText,
+                  buildIcon(
+                    _isCategoryOpen ? Iconfont.Less : Iconfont.More2,
+                    ctrl.selectedCategoryId != null
+                        ? AppColor.primaryColor
+                        : AppColor.primaryText,
+                  ),
                   () => controlMenu(0)),
               SizedBox(
                 width: 20.w,

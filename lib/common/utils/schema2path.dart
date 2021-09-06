@@ -32,7 +32,11 @@ if(paramsMap['content'] != null){
   Map contentMap = jsonDecode(paramsMap['content']);
   String contentUrl = contentMap['url'];
   if(contentUrl != null){
-    if(contentUrl.contains('/category/')){
+    if(contentUrl.contains('/category?') && contentUrl.contains('keyword=')){
+      url = Routes.category;
+      paramsMap['isSearchPage'] = 'true';
+      paramsMap['keyword'] = contentUrl.split('keyword=')[1];
+    } else if(contentUrl.contains('/category/')){
       url = Routes.category;
       paramsMap['categoryId'] = getIdFromUrl(contentUrl);
     } else if (contentUrl.contains('/channel/')){

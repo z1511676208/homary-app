@@ -43,4 +43,11 @@ class ProductApi {
         params: params);
     return res;
   }
+
+  static Future<DioResult> getSearchList({dynamic params}) async {
+    DioResult res = await Request().get(
+        urlMapList['search'] ?? baseRequestUrl['search'],
+        params: params);
+    return res;
+  }
 }

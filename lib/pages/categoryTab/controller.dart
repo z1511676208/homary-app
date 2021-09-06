@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:homary/api/product.dart';
+import 'package:homary/common/request/request.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/toast.dart';
 import 'package:homary/entity/home.dart';
@@ -59,8 +60,14 @@ class CategoryTabCtrl extends ChangeNotifier {
 
   RefreshController refreshController = RefreshController(initialRefresh: false);
 
-  CategoryTabCtrl(this.selectedCategoryId,
-      {this.selectedCategoryName, this.context});
+  /// 搜索结果页See Also
+  List<SeeAlsoData> seeAlsoList;
+
+  /// 搜索内容
+  String keyword;
+
+  CategoryTabCtrl(
+      {this.selectedCategoryId,this.selectedCategoryName, this.context,this.keyword});
 
   @override
   void dispose() {
@@ -81,6 +88,10 @@ class CategoryTabCtrl extends ChangeNotifier {
 
   /// 进入页面时，设置默认选中的类目
   void _setDefaultCategory() {
+    if(selectedCategoryId == null){
+      // 搜索页没有默认选中的类目
+      return;
+    }
     categoryList.forEach((element) {
       int tag = _getSelectedIndex(element);
       if (tag == 1) {
@@ -119,8 +130,8 @@ class CategoryTabCtrl extends ChangeNotifier {
 
   /// 获取筛选属性和排序规则
   Future<void> getProductAttrList(String channelId) async {
-    final result =
-        await ProductApi.getProductAttrList(params: {'channel_id': channelId});
+    final result = await ProductApi.getProductAttrList(
+        params: {'channel_id': channelId, 'keyword': keyword});
     if (result.error == null) {
       ProductAttrRes res = ProductAttrRes.fromJson(result.result);
       filterList.clear();
@@ -164,14 +175,27 @@ class CategoryTabCtrl extends ChangeNotifier {
       isLoading = true;
       _safeNotifyListeners();
     }
-    final result = await ProductApi.getProductList(params: {
+
+    DioResult result;
+
+    final params = {
       'channel_id': selectedCategoryId,
       'page': page++,
       'page_size': size,
       'attr': filterStr,
       'sort': sort,
       'order_sort': orderSort,
-    });
+      'keyword' : keyword,
+    };
+
+    if(selectedCategoryId == null){
+      // 当前为搜索页，使用搜索接口
+      result = await ProductApi.getSearchList(params: params);
+    } else {
+      // 当前为类目页
+      result = await ProductApi.getProductList(params: params);
+    }
+
     if (result.error == null) {
       ProductRes res = ProductRes.fromJson(result.result);
       await Provider.of<ProductEtaInfo>(context, listen: false)
@@ -192,6 +216,8 @@ class CategoryTabCtrl extends ChangeNotifier {
       } else {
         refreshController.loadComplete();
       }
+
+      seeAlsoList = res.data.seeAlsoData;
     }
     refreshController.refreshCompleted();
     Toast.clear();

@@ -115,5 +115,6 @@
   "home_Upcoming": "Upcoming",
   "home_Startsin": "Starts in",
   "home_StartsAt": "Starts at",
-  "home_Onlyonsale": "Only {total} on sale!"
+  "home_Onlyonsale": "Only {total} on sale!",
+  "search_see_also": "See Also:"
 }

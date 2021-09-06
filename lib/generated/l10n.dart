@@ -1204,6 +1204,16 @@ class S {
       args: [total],
     );
   }
+
+  /// `See Also:`
+  String get search_see_also {
+    return Intl.message(
+      'See Also:',
+      name: 'search_see_also',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
