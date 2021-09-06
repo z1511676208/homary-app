@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-27 15:53:52
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-31 13:44:03
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-09-06 15:15:14
  */
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
@@ -55,7 +55,7 @@ class ListItems extends StatelessWidget {
       {
         'title': S.of(context).appBar_recentyle_views,
         'icon': Icon(Iconfont.More_recent),
-        'url': 'https://m.homary.com/usercenter/viewed',
+        'url': '/usercenter/viewed',
         'isNeedLogin': true
       },
       {
@@ -83,7 +83,8 @@ class ListItems extends StatelessWidget {
                         DropMenuManager.instance.hide();
                         String url = e['url'];
                         if (url.startsWith('https://')) {
-                          bool isLogin = Localstorage().getBool(StorageKey.IS_LOGIN);
+                          bool isLogin =
+                              Localstorage().getBool(StorageKey.IS_LOGIN);
                           if (e['isNeedLogin'] && !isLogin) {
                             Routes.push(context, '/signIn');
                           } else {
@@ -93,7 +94,11 @@ class ListItems extends StatelessWidget {
                             });
                           }
                         } else {
-                          Routes.goHome();
+                          if (url == '/') {
+                            Routes.goHome();
+                          } else {
+                            Routes.push(context, url);
+                          }
                         }
                       },
                       child: Container(

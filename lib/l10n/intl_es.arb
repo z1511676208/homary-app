@@ -116,5 +116,11 @@
   "home_Startsin": "Empieza en",
   "home_StartsAt": "Empieza en",
   "home_Onlyonsale": "¡ {total} en Oferta!",
-  "search_see_also": "Recomendar:"
+  "search_see_also": "Recomendar:",
+  "user_viewed": "Mi vista",
+  "user_viewed_nodata": "Actualmente no tienes ninguna marca",
+  "user_viewed_explore_btn": "Explorar ahora",
+  "user_viewed_del_tips": "¿Está seguro que desea eliminar estos elementos?",
+  "cancelButtonText": "CANCAR",
+  "deleteButtonText": "BORRAR"
 }

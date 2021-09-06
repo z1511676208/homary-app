@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-06 10:11:04
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-27 11:24:48
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-09-06 15:11:14
  */
 import 'dart:convert';
 
@@ -14,6 +14,7 @@ import 'package:homary/pages/index/main.dart';
 import 'package:homary/pages/reviewDetail/main.dart';
 import 'package:homary/pages/settings/main.dart';
 import 'package:homary/pages/signIn/main.dart';
+import 'package:homary/pages/viewed/main.dart';
 import 'package:homary/pages/webview/main.dart';
 import 'package:homary/pages/resetPassword/main.dart';
 import 'package:homary/pages/search/main.dart';
@@ -121,5 +122,10 @@ Handler settingHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     String userID = params['userID']?.first ?? null;
     return Setting(userID: userID);
+  },
+);
+Handler viewedHandler = Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return ViewedPage();
   },
 );

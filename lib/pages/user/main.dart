@@ -46,7 +46,7 @@ class _UserPageViewState extends State<UserPageView> {
     return SafeArea(
       child: PullToRefresh(
         controller: data.refreshController,
-        enablePullUp: this.isLogin,
+        enablePullUp: this.isLogin && data.recentlyList.length > 0,
         onLoading: () async {
           await data.handleGetMoreProduct();
         },
@@ -108,7 +108,7 @@ class _UserPageViewState extends State<UserPageView> {
                   ExpandedItem(
                     data.userCenterInfo?.couponCount ?? 0,
                     S.of(context).usercenter_coupons,
-                    url: '/usercenter/coupons',
+                    url: 'https://m.homary.com/usercenter/coupons',
                     appBarTitle: S.of(context).usercenter_coupons,
                   ),
                   ExpandedItem(
@@ -136,7 +136,8 @@ class _UserPageViewState extends State<UserPageView> {
                     ),
                     TextButton(
                         onPressed: () {
-                          bool isLogin = Localstorage().getBool(StorageKey.IS_LOGIN);
+                          bool isLogin =
+                              Localstorage().getBool(StorageKey.IS_LOGIN);
                           if (isLogin) {
                             Routes.push(context, '/webview', params: {
                               "appBarTitle": 'My Orders',

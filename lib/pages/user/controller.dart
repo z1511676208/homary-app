@@ -1,14 +1,15 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-30 10:05:06
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-27 15:24:24
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-09-06 18:15:34
  */
 import 'dart:async';
 
 import 'package:homary/api/main.dart';
 import 'package:homary/common/request/request.dart';
 import 'package:homary/common/utils/main.dart';
+import 'package:homary/common/utils/toast.dart';
 import 'package:homary/entity/home.dart';
 import 'package:homary/entity/recentlyBrowsed.dart' hide Data;
 import 'package:homary/entity/userCenter.dart';
@@ -22,7 +23,8 @@ class UserCtrl with ChangeNotifier {
   List<ModuleDataProductList> recentlyList = [];
   bool _isDispose = false;
 
-  RefreshController refreshController = RefreshController(initialRefresh: false);
+  RefreshController refreshController =
+      RefreshController(initialRefresh: false);
 
   @override
   void dispose() {
@@ -47,7 +49,9 @@ class UserCtrl with ChangeNotifier {
   }
 
   Future userCenter() async {
+    Toast.loading();
     DioResult res = await UserCenterApi.userCenter();
+    Toast.clear();
     if (res.error == null) {
       UserCenterRes result = UserCenterRes.fromJson(res.result);
       this.userCenterInfo = result.data;
@@ -57,6 +61,9 @@ class UserCtrl with ChangeNotifier {
 
   Future<void> getRecentlyBrowsed({params}) async {
     isLoading = true;
+    if (params == null) {
+      recentlyBrowsedParams = {"page": 1, "page_size": 10};
+    }
     _safeNotifyListeners();
     DioResult res = await UserCenterApi.getRecentlyBrowsed(
         params: params ?? recentlyBrowsedParams);
@@ -70,7 +77,7 @@ class UserCtrl with ChangeNotifier {
         recentlyList = [...recentlyList, ...newResilt];
       }
       hasMorePage = result?.data?.hasMorePage ?? 1;
-      if(hasMorePage == 0){
+      if (hasMorePage == 0) {
         refreshController.loadNoData();
       } else {
         refreshController.loadComplete();
@@ -82,5 +89,13 @@ class UserCtrl with ChangeNotifier {
   Future handleGetMoreProduct() async {
     recentlyBrowsedParams['page'] += 1;
     await getRecentlyBrowsed(params: recentlyBrowsedParams);
+  }
+
+  Future handleDelFootPrint({params}) async {
+    DioResult res = await UserCenterApi.delFootPrintItem(params: params);
+    if (res.error == null) {
+      Toast.success('Cancel Success');
+      getRecentlyBrowsed();
+    }
   }
 }

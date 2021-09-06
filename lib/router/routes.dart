@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-07 20:28:59
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-23 11:06:14
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-09-06 15:20:04
  */
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
@@ -46,6 +46,10 @@ class Routes {
 
   /// 设置
   static String setting = '/setting';
+
+  /// 用户足迹
+  static String viewed = '/usercenter/viewed';
+
   // 配置route
   static void configureRoutes(FluroRouter router) {
     router.notFoundHandler = Handler(
@@ -64,6 +68,7 @@ class Routes {
     router.define(channel, handler: channelHandler);
     router.define(act, handler: actHandler);
     router.define(setting, handler: settingHandler);
+    router.define(viewed, handler: viewedHandler);
   }
 
   static String formatQueryParams(Map<String, dynamic> params) {
