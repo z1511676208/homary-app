@@ -2,9 +2,12 @@
  * @Author       : JHao
  * @Date         : 2021-07-19 18:31:26
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-31 17:18:50
+ * @LastEditTime : 2021-09-06 10:05:52
  */
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:homary/common/utils/schema2path.dart';
@@ -25,8 +28,10 @@ class BannerList extends StatelessWidget {
           height: 216.w,
           child: Selector<HomeCtrl, AdvDatum>(
             builder: (BuildContext context, AdvDatum data, child) {
+              var config = Localstorage().getJSON('currentConfig') ?? {};
               return data?.moduleData != null && data?.moduleData?.length != 0
                   ? Swiper(
+                      key: ValueKey(jsonEncode(config)),
                       itemBuilder: (BuildContext context, int index) {
                         return CustomNetworkImage(
                           data.moduleData[index]?.imgUrl,
