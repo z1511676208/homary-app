@@ -11,6 +11,7 @@ import 'package:homary/common/utils/dialog.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/toast.dart';
+import 'package:homary/components/dialog/update_dialog.dart';
 import 'package:homary/components/drawer/components/contactUs.dart';
 import 'package:homary/components/drawer/components/navItem.dart';
 import 'package:homary/components/drawer/components/slideNav/expansionItem.dart';
@@ -37,7 +38,6 @@ class _SettingViewState extends State<SettingView> {
   String cacheSize = '';
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       Provider.of<SlideNavCtrl>(context, listen: false).initBottomLink(context);
@@ -229,6 +229,15 @@ class _SettingViewState extends State<SettingView> {
                     Toast.clear();
                     if (result != null) {
                       if (result.data.isUpgrade != 0) {
+                        AppDialog.show(
+                          context: context,
+                          widget: Container(
+                            width: 0.76.sw,
+                            height: 280.w,
+                            child: UpdateDialog(upGradeInfo: result),
+                          ),
+                          canCancel: result.data.isUpgrade == 2,
+                        );
                       } else {
                         Toast.message(S.of(context).setting_upgrade,
                             duration: const Duration(milliseconds: 1000));
