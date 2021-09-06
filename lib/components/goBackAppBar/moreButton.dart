@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-27 15:53:52
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-06 15:15:14
+ * @LastEditTime : 2021-09-06 19:30:16
  */
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
@@ -49,7 +49,7 @@ class ListItems extends StatelessWidget {
       {
         'title': S.of(context).usercenter_wishlists,
         'icon': Icon(Iconfont.More_collect),
-        'url': 'https://m.homary.com/usercenter/wishlists',
+        'url': '/usercenter/wishlists',
         'isNeedLogin': true
       },
       {

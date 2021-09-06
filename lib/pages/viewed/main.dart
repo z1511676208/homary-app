@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-09-06 14:23:41
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-06 18:27:22
+ * @LastEditTime : 2021-09-06 19:15:53
  */
 import 'package:flutter/material.dart';
 import 'package:homary/common/utils/dialog.dart';
@@ -64,7 +64,16 @@ class _UserViewedState extends State<UserViewed> {
                     child: CustomScrollView(
                       slivers: [
                         GoodsCartSliverGrid(
+                          showDelete: true,
                           productList: data.recentlyList,
+                          onDelete: (id) async {
+                            bool res = await AppDialog.showMessage(
+                                context: context,
+                                message: S.of(context).user_viewed_del_tips);
+                            if (res ?? false) {
+                              data.handleDelFootPrint(params: {"sku_id": id});
+                            }
+                          },
                         ),
                       ],
                     ))

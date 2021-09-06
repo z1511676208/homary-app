@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-30 10:05:06
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-06 18:15:34
+ * @LastEditTime : 2021-09-06 19:25:07
  */
 import 'dart:async';
 
@@ -49,9 +49,7 @@ class UserCtrl with ChangeNotifier {
   }
 
   Future userCenter() async {
-    Toast.loading();
     DioResult res = await UserCenterApi.userCenter();
-    Toast.clear();
     if (res.error == null) {
       UserCenterRes result = UserCenterRes.fromJson(res.result);
       this.userCenterInfo = result.data;
@@ -92,10 +90,11 @@ class UserCtrl with ChangeNotifier {
   }
 
   Future handleDelFootPrint({params}) async {
+    Toast.loading();
     DioResult res = await UserCenterApi.delFootPrintItem(params: params);
     if (res.error == null) {
-      Toast.success('Cancel Success');
-      getRecentlyBrowsed();
+      await getRecentlyBrowsed();
+      Toast.clear();
     }
   }
 }

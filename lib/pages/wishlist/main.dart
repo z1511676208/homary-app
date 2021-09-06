@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-09-06 14:10:56
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-09-06 18:49:14
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-09-06 19:28:57
  */
 import 'dart:async';
 
@@ -125,25 +125,74 @@ class _WishlistViewState extends State<WishlistView> {
               controller.getList();
               controller.refreshController.refreshCompleted();
             },
-            child: CustomScrollView(
-              slivers: <Widget>[
-                GoodsCartSliverGrid(
-                  productList: controller.list,
-                  onDelete: (id) async {
-                    bool res = await AppDialog.showMessage(
-                        context: context,
-                        message: 'Are you sure to delete this item?');
-                    if (res ?? false) {
-                      deleteItem(controller, id);
-                    }
-                  },
-                  onExposure: (list) {
-                    pointList.addAll(list);
-                    _sendPointList();
-                  },
-                ),
-              ],
-            ),
+            child: controller.list.isNotEmpty
+                ? CustomScrollView(
+                    slivers: <Widget>[
+                      GoodsCartSliverGrid(
+                        showDelete: true,
+                        productList: controller.list,
+                        onDelete: (id) async {
+                          bool res = await AppDialog.showMessage(
+                              context: context,
+                              message: S.of(context).user_viewed_del_tips);
+                          if (res ?? false) {
+                            deleteItem(controller, id);
+                          }
+                        },
+                        onExposure: (list) {
+                          pointList.addAll(list);
+                          _sendPointList();
+                        },
+                      ),
+                    ],
+                  )
+                : Container(
+                    width: 1.sw,
+                    padding: EdgeInsets.all(20.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/images/user/no_favorites.png',
+                          width: 100.w,
+                        ),
+                        SizedBox(
+                          height: 10.w,
+                        ),
+                        Text(S.of(context).user_viewed_nodata,
+                            style: TextStyle(
+                                color: AppColor.primaryText, fontSize: 14.sp)),
+                        SizedBox(
+                          height: 10.w,
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            Routes.goHome();
+                          },
+                          style: ButtonStyle(
+                              padding: MaterialStateProperty.all(
+                                  EdgeInsets.fromLTRB(30.w, 12.w, 30.w, 12.w)),
+                              elevation: MaterialStateProperty.all(0),
+                              backgroundColor: MaterialStateProperty.all(
+                                  AppColor.primaryColor),
+                              overlayColor: MaterialStateProperty.all(
+                                  AppColor.primaryPressed),
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(36.0.w),
+                              ))),
+                          child: Text(
+                            S.of(context).user_viewed_explore_btn,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 13.sp,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
           ),
         ));
   }

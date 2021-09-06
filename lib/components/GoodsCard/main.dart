@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-22 17:26:36
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-09-06 18:26:32
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-09-06 19:24:04
  */
 import 'dart:async';
 import 'dart:io';
@@ -714,17 +714,17 @@ class _GoodsCardState extends State<GoodsCard> {
                   )),
             ),
             Positioned(
-                bottom: 0,
-                right: 0,
+                bottom: 10.w,
+                right: 6.w,
                 child: Offstage(
-                  offstage: !widget.showDelete,
-                  child: IconButton(
-                    onPressed: () {
-                      widget.onDelete();
-                    },
-                    icon: Icon(Iconfont.Wish_delete),
-                  ),
-                ))
+                    offstage: !widget.showDelete,
+                    child: GestureDetector(
+                      onTap: () {
+                        widget.onDelete();
+                      },
+                      child: Image.asset('assets/images/user/delete.png',
+                          width: 24.w),
+                    )))
           ],
         ));
   }

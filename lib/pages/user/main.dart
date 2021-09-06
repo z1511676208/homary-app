@@ -1,5 +1,7 @@
+import 'package:homary/common/utils/dialog.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
+import 'package:homary/common/utils/toast.dart';
 import 'package:homary/components/GoodsCard/goods_cart_grid.dart';
 import 'package:homary/components/pullToRefresh/pull_to_refresh.dart';
 import 'package:homary/generated/l10n.dart';
@@ -27,10 +29,12 @@ class _UserPageViewState extends State<UserPageView> {
     var isLoginConfig = Provider.of<GlobalConfig>(context).isLogin;
     if (isLoginConfig != null && this.isLogin != isLoginConfig) {
       this.isLogin = isLoginConfig;
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
         if (mounted) {
           if (this.isLogin) {
-            Provider.of<UserCtrl>(context, listen: false).userCenter();
+            Toast.loading();
+            await Provider.of<UserCtrl>(context, listen: false).userCenter();
+            Toast.clear();
             Provider.of<UserCtrl>(context, listen: false).getRecentlyBrowsed();
           } else {
             Provider.of<UserCtrl>(context, listen: false).init();
@@ -314,7 +318,16 @@ class _UserPageViewState extends State<UserPageView> {
                       physics: NeverScrollableScrollPhysics(),
                       slivers: [
                         GoodsCartSliverGrid(
+                          showDelete: true,
                           productList: data.recentlyList,
+                          onDelete: (id) async {
+                            bool res = await AppDialog.showMessage(
+                                context: context,
+                                message: S.of(context).user_viewed_del_tips);
+                            if (res ?? false) {
+                              data.handleDelFootPrint(params: {"sku_id": id});
+                            }
+                          },
                         ),
                       ],
                     ),
