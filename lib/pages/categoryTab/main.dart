@@ -11,18 +11,27 @@ import 'package:homary/components/pullToRefresh/pull_to_refresh.dart';
 import 'package:homary/pages/categoryTab/components/category_menu_bar.dart';
 import 'package:homary/pages/categoryTab/components/filter_drawer.dart';
 import 'package:homary/pages/categoryTab/components/product_empty.dart';
+import 'package:homary/pages/categoryTab/components/see_also.dart';
 import 'package:homary/pages/categoryTab/components/view_more_button.dart';
 import 'package:homary/pages/categoryTab/controller.dart';
 import 'package:tuple/tuple.dart';
 
+/// 首页类目Tab栏，类目页，搜索结果页
 class CategoryTab extends StatefulWidget {
-  const CategoryTab(
-      {Key key, this.categoryId, this.isPage = false, this.appBarTitle})
-      : super(key: key);
+  const CategoryTab({
+    Key key,
+    this.categoryId,
+    this.isPage = false,
+    this.appBarTitle,
+    this.isSearchPage = false,
+    this.keyword,
+  }) : super(key: key);
 
   final String categoryId;
   final bool isPage;
   final String appBarTitle;
+  final bool isSearchPage;
+  final String keyword;
 
   @override
   _CategoryTabState createState() => _CategoryTabState();
@@ -101,8 +110,11 @@ class _CategoryTabState extends State<CategoryTab> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProxyProvider<GlobalConfig, CategoryTabCtrl>(
-      create: (context) => CategoryTabCtrl(widget.categoryId,
-          selectedCategoryName: widget.appBarTitle, context: context),
+      create: (context) => CategoryTabCtrl(
+          keyword: widget.keyword,
+          selectedCategoryId: widget.categoryId,
+          selectedCategoryName: widget.appBarTitle,
+          context: context),
       update: (context, config, ctrl) {
         if (this.config != config.currentConfig.hashCode) {
           this.config = config.currentConfig.hashCode;
@@ -116,8 +128,10 @@ class _CategoryTabState extends State<CategoryTab> {
         appBar: widget.isPage ? buildAppBar() : null,
         endDrawer: FilterDrawer(),
         body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CategoryMenuBar(),
+            if (widget.isSearchPage) SeeAlso(),
+            CategoryMenuBar(isSearchPage: widget.isSearchPage),
             Expanded(
               child: Stack(
                 children: [
@@ -145,10 +159,11 @@ class _CategoryTabState extends State<CategoryTab> {
                 showCart: true,
                 showMore: false,
                 showCollet: true,
-                title: value,
+                title: value ?? '',
               ),
               AppbarSearch(
                 marginTop: 0,
+                searchContent: widget.keyword,
               ),
             ],
           );

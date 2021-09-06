@@ -116,6 +116,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "search_findAnything" : MessageLookupByLibrary.simpleMessage("Find anything home..."),
     "search_popularSearches" : MessageLookupByLibrary.simpleMessage("Popular Searches"),
     "search_recentSearches" : MessageLookupByLibrary.simpleMessage("Recent Searches"),
+    "search_see_also" : MessageLookupByLibrary.simpleMessage("See Also:"),
     "setting_cleanCacheTip" : MessageLookupByLibrary.simpleMessage("Delete all temporary images to free up some space in your device?"),
     "setting_clearCache" : MessageLookupByLibrary.simpleMessage("Clear Cache"),
     "setting_upgrade" : MessageLookupByLibrary.simpleMessage("Your app is already the latest version."),

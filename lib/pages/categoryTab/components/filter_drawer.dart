@@ -23,7 +23,9 @@ class _FilterDrawerState extends State<FilterDrawer> {
               return FilterProperty(productAttrMain: e);
             }).toList(),
           ),
-          bottomNavigationBar: buildBottom(ctrl,context),
+          bottomNavigationBar: SafeArea(
+            child: buildBottom(ctrl,context),
+          ),
         ),
       ),
     );

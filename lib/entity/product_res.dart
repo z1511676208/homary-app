@@ -42,6 +42,7 @@ class ProductResData {
     this.totalPage,
     this.seoData,
     this.appCategoryBanner,
+    this.seeAlsoData,
   });
 
   List<ModuleDataProductList> list;
@@ -50,6 +51,7 @@ class ProductResData {
   int totalPage;
   SeoData seoData;
   String appCategoryBanner;
+  List<SeeAlsoData> seeAlsoData;
 
   factory ProductResData.fromRawJson(String str) => ProductResData.fromJson(json.decode(str));
 
@@ -62,6 +64,7 @@ class ProductResData {
     totalPage: json["total_page"],
     seoData: SeoData.fromJson(json["seo_data"]),
     appCategoryBanner: json["app_category_banner"],
+    seeAlsoData:List<SeeAlsoData>.from(json["see_also"].map((x) => SeeAlsoData.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -71,6 +74,7 @@ class ProductResData {
     "total_page": totalPage,
     "seo_data": seoData.toJson(),
     "app_category_banner": appCategoryBanner,
+    "see_also": List<dynamic>.from(seeAlsoData.map((x) => x.toJson())),
   };
 }
 
@@ -99,5 +103,33 @@ class SeoData {
     "seo_title": seoTitle,
     "seo_keyword": seoKeyword,
     "seo_description": seoDescription,
+  };
+}
+
+class SeeAlsoData {
+  SeeAlsoData({
+    this.channelId,
+    this.channelName,
+    this.channelUrl,
+  });
+
+  String channelId;
+  String channelName;
+  String channelUrl;
+
+  factory SeeAlsoData.fromRawJson(String str) => SeeAlsoData.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory SeeAlsoData.fromJson(Map<String, dynamic> json) => SeeAlsoData(
+    channelId: json["channel_id"] == null ? null : json["channel_id"],
+    channelName: json["channel_name"] == null ? null : json["channel_name"],
+    channelUrl: json["channel_url"] == null ? null : json["channel_url"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "channel_id": channelId == null ? null : channelId,
+    "channel_name": channelName == null ? null : channelName,
+    "channel_url": channelUrl == null ? null : channelUrl,
   };
 }
