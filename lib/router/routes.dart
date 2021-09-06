@@ -1,8 +1,13 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-07 20:28:59
- * @LastEditors  : JHao
- * @LastEditTime : 2021-09-06 15:20:04
+<<<<<<< HEAD
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-09-06 18:59:24
+=======
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-09-06 15:08:42
+>>>>>>> 2981602 (feat: 收藏页面)
  */
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
@@ -44,6 +49,9 @@ class Routes {
   /// act页
   static String act = '/act';
 
+  /// 收藏页
+  static String wishlist = '/usercenter/wishlists';
+
   /// 设置
   static String setting = '/setting';
 
@@ -69,6 +77,7 @@ class Routes {
     router.define(act, handler: actHandler);
     router.define(setting, handler: settingHandler);
     router.define(viewed, handler: viewedHandler);
+    router.define(wishlist, handler: wishlistHandler);
   }
 
   static String formatQueryParams(Map<String, dynamic> params) {

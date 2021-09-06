@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-22 17:26:36
- * @LastEditors  : JHao
- * @LastEditTime : 2021-09-03 19:29:18
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-09-06 18:26:32
  */
 import 'dart:async';
 import 'dart:io';
@@ -28,6 +28,8 @@ class GoodsCard extends StatefulWidget {
   final bool showFreeShipping; // 是否显示Free Shipping
   final bool showRating; // 是否显示评分
   final bool showDispatch; // 是否显示48小时配送
+  final bool showDelete;
+  final Function onDelete;
   GoodsCard(
       {Key key,
       this.width,
@@ -39,6 +41,8 @@ class GoodsCard extends StatefulWidget {
       this.showFreeShipping = false,
       this.showRating = false,
       this.showDispatch = false,
+      this.showDelete = false,
+      this.onDelete,
       this.marginRight = 0})
       : super(key: key);
 
@@ -204,439 +208,422 @@ class _GoodsCardState extends State<GoodsCard> {
         onTap: () {
           handleSchema(context, _currentData.jumpUrl);
         },
-        child: Container(
-          width: widget.width,
-          height: widget.height,
-          margin: EdgeInsets.only(right: widget.marginRight),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: AppStyle.primaryBorderRaduis,
-            boxShadow: [
-              BoxShadow(
-                color: AppColor.primaryBorderShadow,
-                blurRadius: 4.w,
-                spreadRadius: 1.w,
-                offset: Offset(1.w, 1.w),
-              )
-            ],
-          ),
-          child: ClipRRect(
-              borderRadius: AppStyle.primaryBorderRaduis,
-              child: Column(
-                children: [
-                  Stack(
-                    alignment: Alignment.center,
+        child: Stack(
+          children: [
+            Container(
+              width: widget.width,
+              height: widget.height,
+              margin: EdgeInsets.only(right: widget.marginRight),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: AppStyle.primaryBorderRaduis,
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColor.primaryBorderShadow,
+                    blurRadius: 4.w,
+                    spreadRadius: 1.w,
+                    offset: Offset(1.w, 1.w),
+                  )
+                ],
+              ),
+              child: ClipRRect(
+                  borderRadius: AppStyle.primaryBorderRaduis,
+                  child: Column(
                     children: [
-                      CustomNetworkImage(
-                        _currentData.imgUrl,
-                        width: widget.width,
-                        height: widget.width,
-                      ),
-                      _currentData.activityStatus == 1
-                          ? Positioned(
-                              bottom: 0,
-                              left: 0,
-                              child: Container(
-                                width: widget.width,
-                                height: 24.w,
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: AssetImage(
-                                          'assets/images/common/goods_card_bg.png',
+                      Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          CustomNetworkImage(
+                            _currentData.imgUrl,
+                            width: widget.width,
+                            height: widget.width,
+                          ),
+                          _currentData.activityStatus == 1
+                              ? Positioned(
+                                  bottom: 0,
+                                  left: 0,
+                                  child: Container(
+                                    width: widget.width,
+                                    height: 24.w,
+                                    decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                            image: AssetImage(
+                                              'assets/images/common/goods_card_bg.png',
+                                            ),
+                                            fit: BoxFit.cover)),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          width: widget.width / 2,
+                                          child: Center(
+                                              child: Text(
+                                                  _currentData.priceSymbol,
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 12.sp))),
                                         ),
-                                        fit: BoxFit.cover)),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      width: widget.width / 2,
-                                      child: Center(
-                                          child: Text(_currentData.priceSymbol,
+                                        Container(
+                                            width: widget.width / 2,
+                                            margin: EdgeInsets.only(
+                                                bottom:
+                                                    Platform.isIOS ? 2.w : 0),
+                                            alignment: Alignment.bottomCenter,
+                                            child: AutoSizeText(
+                                              _activityTime,
+                                              style: TextStyle(
+                                                  fontSize: 12.sp,
+                                                  color: Colors.white),
+                                              maxLines: 1,
+                                              minFontSize: 10,
+                                            )),
+                                      ],
+                                    ),
+                                  ))
+                              : Container(),
+                          _currentData.activityStatus == 2
+                              ? Positioned(
+                                  bottom: 0,
+                                  left: 0,
+                                  child: Container(
+                                      width: widget.width,
+                                      height: 24.w,
+                                      decoration: BoxDecoration(
+                                          gradient: LinearGradient(colors: [
+                                        Color(0xFF309D33),
+                                        Color(0xFF56AF38)
+                                      ])),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            width: widget.width / 2,
+                                            alignment: Alignment.center,
+                                            child: AutoSizeText(
+                                              _isShowUpcomingStartInText(
+                                                      _currentData
+                                                          .activityStartTimeStamp)
+                                                  ? S.of(context).home_Startsin
+                                                  : S.of(context).home_StartsAt,
+                                              minFontSize: 10,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
                                               style: TextStyle(
                                                   color: Colors.white,
-                                                  fontSize: 12.sp))),
-                                    ),
-                                    Container(
-                                        width: widget.width / 2,
-                                        margin: EdgeInsets.only(
-                                            bottom: Platform.isIOS ? 2.w : 0),
-                                        alignment: Alignment.bottomCenter,
-                                        child: AutoSizeText(
-                                          _activityTime,
+                                                  fontSize: 12.sp),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 4.w,
+                                          ),
+                                          Container(
+                                            width: widget.width / 2,
+                                            alignment: Alignment.center,
+                                            child: AutoSizeText(
+                                              _isShowUpcomingStartInText(
+                                                      _currentData
+                                                          .activityStartTimeStamp)
+                                                  ? _upComingTime
+                                                  : _currentData
+                                                      .activityStartTime,
+                                              minFontSize: 10,
+                                              maxLines: 1,
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 12.sp),
+                                            ),
+                                          ),
+                                        ],
+                                      )))
+                              : Container(),
+                          widget.showCorner == true &&
+                                  _currentData.cornerBgUrl != null
+                              ? Positioned(
+                                  left: 0,
+                                  top: 0,
+                                  child: Container(
+                                      width: widget.moduleName == 'favoredList'
+                                          ? 36.w
+                                          : 38.w,
+                                      height: widget.moduleName == 'favoredList'
+                                          ? 16.w
+                                          : 36.w,
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image: NetworkImage(
+                                                  _currentData.cornerBgUrl),
+                                              fit: BoxFit.cover)),
+                                      child: Center(
+                                        child: Text(
+                                          _currentData.cornerText,
                                           style: TextStyle(
-                                              fontSize: 12.sp,
-                                              color: Colors.white),
-                                          maxLines: 1,
-                                          minFontSize: 10,
-                                        )),
-                                  ],
-                                ),
-                              ))
-                          : Container(),
-                      _currentData.activityStatus == 2
-                          ? Positioned(
-                              bottom: 0,
-                              left: 0,
-                              child: Container(
-                                  width: widget.width,
-                                  height: 24.w,
+                                              color: Colors.white,
+                                              fontSize: 10.sp),
+                                        ),
+                                      )))
+                              : Container(),
+                          _currentData.status != 1
+                              ? Container(
+                                  width: 90.w,
+                                  height: 90.w,
+                                  alignment: Alignment.center,
                                   decoration: BoxDecoration(
-                                      gradient: LinearGradient(colors: [
-                                    Color(0xFF309D33),
-                                    Color(0xFF56AF38)
-                                  ])),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        width: widget.width / 2,
-                                        alignment: Alignment.center,
-                                        child: AutoSizeText(
-                                          _isShowUpcomingStartInText(
-                                                  _currentData
-                                                      .activityStartTimeStamp)
-                                              ? S.of(context).home_Startsin
-                                              : S.of(context).home_StartsAt,
-                                          minFontSize: 10,
+                                      shape: BoxShape.circle,
+                                      color: Colors.black.withOpacity(0.4)),
+                                  child: Text(
+                                    'Sold Out',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 14.sp),
+                                  ))
+                              : Container()
+                        ],
+                      ),
+                      Container(
+                        padding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 8.w),
+                        color: Colors.white,
+                        child: Column(
+                          children: [
+                            widget.showSkuList == true
+                                ? widget.data?.mergeSkuList != null &&
+                                            widget.data.mergeSkuList.length >
+                                                0 ||
+                                        widget.data.totalSkuNum != ""
+                                    ? Container(
+                                        height: 25.w,
+                                        margin: EdgeInsets.only(top: 8.w),
+                                        child: ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          itemBuilder: (ctx, index) {
+                                            if (widget.data.totalSkuNum != "" &&
+                                                index ==
+                                                    widget.data.mergeSkuList
+                                                        .length) {
+                                              return GestureDetector(
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          3.w),
+                                                  child: Container(
+                                                    width: 25.w,
+                                                    height: 25.w,
+                                                    alignment: Alignment.center,
+                                                    padding:
+                                                        EdgeInsets.all(2.w),
+                                                    margin: EdgeInsets.only(
+                                                        right: 2.w),
+                                                    color: AppColor
+                                                        .primaryNavBgColor,
+                                                    child: Text(
+                                                      widget.data.totalSkuNum,
+                                                      style: TextStyle(
+                                                          color: AppColor
+                                                              .primaryText),
+                                                    ),
+                                                  ),
+                                                ),
+                                                onTap: () {
+                                                  handleSchema(context,
+                                                      _currentData.jumpUrl);
+                                                },
+                                              );
+                                            }
+                                            return GestureDetector(
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(3.w),
+                                                child: Container(
+                                                  width: 25.w,
+                                                  height: 25.w,
+                                                  padding: EdgeInsets.all(2.w),
+                                                  margin: EdgeInsets.only(
+                                                      right: 2.w),
+                                                  decoration: BoxDecoration(
+                                                      border: Border.all(
+                                                          width: 1.w,
+                                                          color: _currentData
+                                                                      .skuId ==
+                                                                  widget
+                                                                      .data
+                                                                      .mergeSkuList[
+                                                                          index]
+                                                                      .skuId
+                                                              ? AppColor
+                                                                  .primaryColor
+                                                              : AppColor
+                                                                  .primaryBorderOutline)),
+                                                  child: CustomNetworkImage(
+                                                      widget
+                                                          .data
+                                                          .mergeSkuList[index]
+                                                          ?.imgUrl),
+                                                ),
+                                              ),
+                                              onTap: () {
+                                                setState(() {
+                                                  _currentData = widget
+                                                      .data.mergeSkuList[index];
+                                                });
+                                              },
+                                            );
+                                          },
+                                          itemCount:
+                                              widget.data.totalSkuNum != ""
+                                                  ? widget.data.mergeSkuList
+                                                          .length +
+                                                      1
+                                                  : widget
+                                                      .data.mergeSkuList.length,
+                                        ),
+                                      )
+                                    : Container(
+                                        height: 25.w,
+                                        margin: EdgeInsets.only(top: 8.w),
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          widget.data.mergeSkuDesc,
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
-                                              color: Colors.white,
+                                              color: AppColor.primarySubTitle,
                                               fontSize: 12.sp),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        width: 4.w,
-                                      ),
-                                      Container(
-                                        width: widget.width / 2,
-                                        alignment: Alignment.center,
-                                        child: AutoSizeText(
-                                          _isShowUpcomingStartInText(
-                                                  _currentData
-                                                      .activityStartTimeStamp)
-                                              ? _upComingTime
-                                              : _currentData.activityStartTime,
-                                          minFontSize: 10,
-                                          maxLines: 1,
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 12.sp),
-                                        ),
-                                      ),
-                                    ],
-                                  )))
-                          : Container(),
-                      widget.showCorner == true &&
-                              _currentData.cornerBgUrl != null
-                          ? Positioned(
-                              left: 0,
-                              top: 0,
-                              child: Container(
-                                  width: widget.moduleName == 'favoredList'
-                                      ? 36.w
-                                      : 38.w,
-                                  height: widget.moduleName == 'favoredList'
-                                      ? 16.w
-                                      : 36.w,
-                                  decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          image: NetworkImage(
-                                              _currentData.cornerBgUrl),
-                                          fit: BoxFit.cover)),
-                                  child: Center(
-                                    child: Text(
-                                      _currentData.cornerText,
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 10.sp),
-                                    ),
-                                  )))
-                          : Container(),
-                      _currentData.status != 1
-                          ? Container(
-                              width: 90.w,
-                              height: 90.w,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.black.withOpacity(0.4)),
+                                      )
+                                : Container(),
+                            Container(
+                              height: 44.w,
+                              padding: EdgeInsets.symmetric(vertical: 6.w),
+                              alignment: Alignment.topLeft,
                               child: Text(
-                                'Sold Out',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 14.sp),
-                              ))
-                          : Container()
-                    ],
-                  ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 8.w),
-                    color: Colors.white,
-                    child: Column(
-                      children: [
-                        widget.showSkuList == true
-                            ? widget.data?.mergeSkuList != null &&
-                                        widget.data.mergeSkuList.length > 0 ||
-                                    widget.data.totalSkuNum != ""
-                                ? Container(
-                                    height: 25.w,
-                                    margin: EdgeInsets.only(top: 8.w),
-                                    child: ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                      itemBuilder: (ctx, index) {
-                                        if (widget.data.totalSkuNum != "" &&
-                                            index ==
-                                                widget
-                                                    .data.mergeSkuList.length) {
-                                          return GestureDetector(
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(3.w),
-                                              child: Container(
-                                                width: 25.w,
-                                                height: 25.w,
-                                                alignment: Alignment.center,
-                                                padding: EdgeInsets.all(2.w),
-                                                margin:
-                                                    EdgeInsets.only(right: 2.w),
-                                                color:
-                                                    AppColor.primaryNavBgColor,
-                                                child: Text(
-                                                  widget.data.totalSkuNum,
-                                                  style: TextStyle(
-                                                      color:
-                                                          AppColor.primaryText),
-                                                ),
-                                              ),
-                                            ),
-                                            onTap: () {
-                                              handleSchema(context,
-                                                  _currentData.jumpUrl);
-                                            },
-                                          );
-                                        }
-                                        return GestureDetector(
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(3.w),
-                                            child: Container(
-                                              width: 25.w,
-                                              height: 25.w,
-                                              padding: EdgeInsets.all(2.w),
-                                              margin:
-                                                  EdgeInsets.only(right: 2.w),
-                                              decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      width: 1.w,
-                                                      color: _currentData
-                                                                  .skuId ==
-                                                              widget
-                                                                  .data
-                                                                  .mergeSkuList[
-                                                                      index]
-                                                                  .skuId
-                                                          ? AppColor
-                                                              .primaryColor
-                                                          : AppColor
-                                                              .primaryBorderOutline)),
-                                              child: CustomNetworkImage(widget
-                                                  .data
-                                                  .mergeSkuList[index]
-                                                  ?.imgUrl),
-                                            ),
-                                          ),
-                                          onTap: () {
-                                            setState(() {
-                                              _currentData = widget
-                                                  .data.mergeSkuList[index];
-                                            });
-                                          },
-                                        );
-                                      },
-                                      itemCount: widget.data.totalSkuNum != ""
-                                          ? widget.data.mergeSkuList.length + 1
-                                          : widget.data.mergeSkuList.length,
-                                    ),
-                                  )
-                                : Container(
-                                    height: 25.w,
-                                    margin: EdgeInsets.only(top: 8.w),
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      widget.data.mergeSkuDesc,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                          color: AppColor.primarySubTitle,
-                                          fontSize: 12.sp),
-                                    ),
-                                  )
-                            : Container(),
-                        Container(
-                          height: 44.w,
-                          padding: EdgeInsets.symmetric(vertical: 6.w),
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            _currentData.title,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                color: AppColor.primaryText, fontSize: 12.sp),
-                          ),
-                        ),
-                        Container(
-                          // padding: EdgeInsets.only(bottom: 4.w),
-                          alignment: Alignment.centerLeft,
-                          child: RichText(
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            text: TextSpan(children: [
-                              TextSpan(
-                                text: _currentData.priceSymbol ??
-                                    _currentData.price,
-                                style: TextStyle(
-                                    color: _currentData.tagPriceSymbol != ''
-                                        ? AppColor.offPriceColor
-                                        : AppColor.primaryText,
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                              TextSpan(
-                                text: ' ',
-                              ),
-                              _currentData.tagPriceSymbol != ''
-                                  ? TextSpan(
-                                      text: _currentData.tagPriceSymbol
-                                              ?.toString() ??
-                                          _currentData.tagPrice?.toString(),
-                                      style: TextStyle(
-                                        color: AppColor.primarySubTitle,
-                                        decoration: TextDecoration.lineThrough,
-                                      ),
-                                    )
-                                  : TextSpan(
-                                      text: '',
-                                    ),
-                            ]),
-                          ),
-                        ),
-                        Offstage(
-                          offstage: _currentData.priceOffDesc == null ||
-                              _currentData.priceOffDesc == '',
-                          child: Container(
-                            padding: EdgeInsets.only(top: 4.w),
-                            alignment: Alignment.centerLeft,
-                            child: RichText(
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              text: TextSpan(children: [
-                                TextSpan(
-                                  text: _currentData.priceOffDesc,
-                                  style: TextStyle(
-                                      color: AppColor.offPriceColor,
-                                      fontSize: 12.sp),
-                                ),
-                              ]),
-                            ),
-                          ),
-                        ),
-                        Offstage(
-                            offstage: _currentData.activityStatus != 2,
-                            child: Container(
-                              alignment: Alignment.centerLeft,
-                              padding: EdgeInsets.only(top: 5.w),
-                              child: Text(
-                                S.of(context).home_Onlyonsale(
-                                    _currentData.activityStockTotal),
-                                maxLines: 1,
+                                _currentData.title,
+                                maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                     color: AppColor.primaryText,
                                     fontSize: 12.sp),
                               ),
-                            )),
-                        Offstage(
-                          offstage: !(widget.showRating &&
-                              _currentData.reviewScore != "" &&
-                              _currentData.reviewScore != 0),
-                          child: Padding(
-                              padding: EdgeInsets.only(top: 8.w),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
+                            ),
+                            Container(
+                              // padding: EdgeInsets.only(bottom: 4.w),
+                              alignment: Alignment.centerLeft,
+                              child: RichText(
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                text: TextSpan(children: [
+                                  TextSpan(
+                                    text: _currentData.priceSymbol ??
+                                        _currentData.price,
+                                    style: TextStyle(
+                                        color: _currentData.tagPriceSymbol != ''
+                                            ? AppColor.offPriceColor
+                                            : AppColor.primaryText,
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  TextSpan(
+                                    text: ' ',
+                                  ),
+                                  _currentData.tagPriceSymbol != ''
+                                      ? TextSpan(
+                                          text: _currentData.tagPriceSymbol
+                                                  ?.toString() ??
+                                              _currentData.tagPrice?.toString(),
+                                          style: TextStyle(
+                                            color: AppColor.primarySubTitle,
+                                            decoration:
+                                                TextDecoration.lineThrough,
+                                          ),
+                                        )
+                                      : TextSpan(
+                                          text: '',
+                                        ),
+                                ]),
+                              ),
+                            ),
+                            Offstage(
+                              offstage: _currentData.priceOffDesc == null ||
+                                  _currentData.priceOffDesc == '',
+                              child: Container(
+                                padding: EdgeInsets.only(top: 4.w),
+                                alignment: Alignment.centerLeft,
+                                child: RichText(
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  text: TextSpan(children: [
+                                    TextSpan(
+                                      text: _currentData.priceOffDesc,
+                                      style: TextStyle(
+                                          color: AppColor.offPriceColor,
+                                          fontSize: 12.sp),
+                                    ),
+                                  ]),
+                                ),
+                              ),
+                            ),
+                            Offstage(
+                                offstage: _currentData.activityStatus != 2,
+                                child: Container(
+                                  alignment: Alignment.centerLeft,
+                                  padding: EdgeInsets.only(top: 5.w),
+                                  child: Text(
+                                    S.of(context).home_Onlyonsale(
+                                        _currentData.activityStockTotal),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        color: AppColor.primaryText,
+                                        fontSize: 12.sp),
+                                  ),
+                                )),
+                            Offstage(
+                              offstage: !(widget.showRating &&
+                                  _currentData.reviewScore != "" &&
+                                  _currentData.reviewScore != 0),
+                              child: Padding(
+                                  padding: EdgeInsets.only(top: 8.w),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      RatingBarIndicator(
-                                        rating:
-                                            _currentData.reviewScore is int ||
+                                      Row(
+                                        children: [
+                                          RatingBarIndicator(
+                                            rating: _currentData.reviewScore
+                                                        is int ||
                                                     _currentData.reviewScore
                                                         is double
                                                 ? _currentData.reviewScore
                                                     .toDouble()
                                                 : 0,
-                                        itemBuilder: (context, index) => Icon(
-                                          Icons.star,
-                                          color: Color(0xFFFFB400),
-                                        ),
-                                        unratedColor: Color(0xFFE3E3E3),
-                                        itemCount: 5,
-                                        itemSize: 15.w,
-                                        direction: Axis.horizontal,
+                                            itemBuilder: (context, index) =>
+                                                Icon(
+                                              Icons.star,
+                                              color: Color(0xFFFFB400),
+                                            ),
+                                            unratedColor: Color(0xFFE3E3E3),
+                                            itemCount: 5,
+                                            itemSize: 15.w,
+                                            direction: Axis.horizontal,
+                                          ),
+                                          SizedBox(
+                                            width: 2.w,
+                                          ),
+                                          Text(
+                                            _currentData.reviewNum != null
+                                                ? _currentData.reviewNum
+                                                    .toString()
+                                                : '0',
+                                            style: TextStyle(
+                                                color: AppColor.primarySubTitle,
+                                                fontSize: 12.sp),
+                                          ),
+                                        ],
                                       ),
                                       SizedBox(
                                         width: 2.w,
                                       ),
-                                      Text(
-                                        _currentData.reviewNum != null
-                                            ? _currentData.reviewNum.toString()
-                                            : '0',
-                                        style: TextStyle(
-                                            color: AppColor.primarySubTitle,
-                                            fontSize: 12.sp),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    width: 2.w,
-                                  ),
-                                  Expanded(
-                                    child: AutoSizeText(
-                                      _currentData.spuSaleQuantityDesc ?? '',
-                                      style: TextStyle(
-                                          fontSize: 12.sp,
-                                          color: AppColor.primarySubTitle),
-                                      maxLines: 1,
-                                      minFontSize: 10,
-                                      textAlign: TextAlign.right,
-                                    ),
-                                  ),
-                                ],
-                              )),
-                        ),
-                        widget.showFreeShipping
-                            ? Container(
-                                padding: EdgeInsets.only(top: 8.w),
-                                alignment: Alignment.centerLeft,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      S.of(context).home_freeShipping,
-                                      style: TextStyle(
-                                        color: AppColor.primaryText,
-                                        fontSize: 12.sp,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 2.w,
-                                    ),
-                                    Expanded(
-                                      child: Offstage(
-                                        offstage: widget.showRating &&
-                                            _currentData.reviewScore != "" &&
-                                            _currentData.reviewScore != 0,
+                                      Expanded(
                                         child: AutoSizeText(
                                           _currentData.spuSaleQuantityDesc ??
                                               '',
@@ -648,43 +635,97 @@ class _GoodsCardState extends State<GoodsCard> {
                                           textAlign: TextAlign.right,
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                ))
-                            : Container(),
-                        widget.showDispatch &&
-                                _isShowDispatch(_currentData.skuCode)
-                            ? Container(
-                                padding: EdgeInsets.only(top: 8.w),
-                                alignment: Alignment.centerLeft,
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Iconfont.fastDispatch,
-                                      size: 16.sp,
-                                    ),
-                                    SizedBox(
-                                      width: 4.w,
-                                    ),
-                                    Expanded(
-                                      child: AutoSizeText(
-                                        _currentEtaInfo['dispatchLabel'],
-                                        maxLines: 1,
-                                        minFontSize: 10,
-                                        style: TextStyle(
-                                          color: AppColor.primaryText,
-                                          fontSize: 12.sp,
+                                    ],
+                                  )),
+                            ),
+                            widget.showFreeShipping
+                                ? Container(
+                                    padding: EdgeInsets.only(top: 8.w),
+                                    alignment: Alignment.centerLeft,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          S.of(context).home_freeShipping,
+                                          style: TextStyle(
+                                            color: AppColor.primaryText,
+                                            fontSize: 12.sp,
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                  ],
-                                ))
-                            : Container()
-                      ],
-                    ),
+                                        SizedBox(
+                                          width: 2.w,
+                                        ),
+                                        Expanded(
+                                          child: Offstage(
+                                            offstage: widget.showRating &&
+                                                _currentData.reviewScore !=
+                                                    "" &&
+                                                _currentData.reviewScore != 0,
+                                            child: AutoSizeText(
+                                              _currentData
+                                                      .spuSaleQuantityDesc ??
+                                                  '',
+                                              style: TextStyle(
+                                                  fontSize: 12.sp,
+                                                  color:
+                                                      AppColor.primarySubTitle),
+                                              maxLines: 1,
+                                              minFontSize: 10,
+                                              textAlign: TextAlign.right,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ))
+                                : Container(),
+                            widget.showDispatch &&
+                                    _isShowDispatch(_currentData.skuCode)
+                                ? Container(
+                                    padding: EdgeInsets.only(top: 8.w),
+                                    alignment: Alignment.centerLeft,
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Iconfont.fastDispatch,
+                                          size: 16.sp,
+                                        ),
+                                        SizedBox(
+                                          width: 4.w,
+                                        ),
+                                        Expanded(
+                                          child: AutoSizeText(
+                                            _currentEtaInfo['dispatchLabel'],
+                                            maxLines: 1,
+                                            minFontSize: 10,
+                                            style: TextStyle(
+                                              color: AppColor.primaryText,
+                                              fontSize: 12.sp,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ))
+                                : Container()
+                          ],
+                        ),
+                      ),
+                    ],
+                  )),
+            ),
+            Positioned(
+                bottom: 0,
+                right: 0,
+                child: Offstage(
+                  offstage: !widget.showDelete,
+                  child: IconButton(
+                    onPressed: () {
+                      widget.onDelete();
+                    },
+                    icon: Icon(Iconfont.Wish_delete),
                   ),
-                ],
-              )),
+                ))
+          ],
         ));
   }
 }

@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-13 10:15:30
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-25 18:50:22
+ * @LastEditTime : 2021-09-06 18:07:01
  */
 
 import 'package:flutter/material.dart';
@@ -22,6 +22,7 @@ class GoBackAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool showBorder;
   final Function handleGoBackFn;
   final bool showSearch;
+  final Widget rightWidget;
   const GoBackAppBar(
       {Key key,
       this.title = "",
@@ -30,7 +31,8 @@ class GoBackAppBar extends StatelessWidget implements PreferredSizeWidget {
       this.showCollet = false,
       this.showMore = false,
       this.showBorder = true,
-      this.showSearch = false})
+      this.showSearch = false,
+      this.rightWidget})
       : super(key: key);
 
   @override
@@ -68,6 +70,10 @@ class GoBackAppBar extends StatelessWidget implements PreferredSizeWidget {
             Offstage(
               offstage: !this.showMore,
               child: MoreButton(),
+            ),
+            Offstage(
+              offstage: this.rightWidget == null,
+              child: this.rightWidget,
             ),
           ],
         ));

@@ -13,6 +13,8 @@ class GoodsCartSliverGrid extends StatelessWidget {
     this.showFreeShipping = false,
     this.showRating = false,
     this.showDispatch = false,
+    this.showDelete = false,
+    this.onDelete,
   }) : super(key: key);
 
   final List<ModuleDataProductList> productList;
@@ -24,7 +26,8 @@ class GoodsCartSliverGrid extends StatelessWidget {
   final bool showFreeShipping; // 是否显示Free Shipping
   final bool showRating; // 是否显示评分
   final bool showDispatch; // 是否显示48小时配送
-
+  final bool showDelete; //是否显示删除图标
+  final Function onDelete;
   @override
   Widget build(BuildContext context) {
     ExposureDetectorController.instance.exposureTime = 100; //设置曝光时长 (ms)
@@ -77,31 +80,39 @@ class GoodsCartSliverGrid extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     GoodsCard(
-                      key: UniqueKey(),
-                      width: width,
-                      height: height,
-                      data: productList[leftIndex],
-                      showCorner: showCorner,
-                      showSkuList: showSkuList,
-                      showFreeShipping: showFreeShipping,
-                      showRating: showRating,
-                      showDispatch: showDispatch,
-                    ),
-                    SizedBox(
-                      width: 8.w,
-                    ),
-                    if (hasRight)
-                      GoodsCard(
                         key: UniqueKey(),
                         width: width,
                         height: height,
-                        data: productList[rightIndex],
+                        data: productList[leftIndex],
                         showCorner: showCorner,
                         showSkuList: showSkuList,
                         showFreeShipping: showFreeShipping,
                         showRating: showRating,
                         showDispatch: showDispatch,
-                      ),
+                        onDelete: () {
+                          if (onDelete != null) {
+                            onDelete(productList[leftIndex].skuId);
+                          }
+                        }),
+                    SizedBox(
+                      width: 8.w,
+                    ),
+                    if (hasRight)
+                      GoodsCard(
+                          key: UniqueKey(),
+                          width: width,
+                          height: height,
+                          data: productList[rightIndex],
+                          showCorner: showCorner,
+                          showSkuList: showSkuList,
+                          showFreeShipping: showFreeShipping,
+                          showRating: showRating,
+                          showDispatch: showDispatch,
+                          onDelete: () {
+                            if (onDelete != null) {
+                              onDelete(productList[rightIndex].skuId);
+                            }
+                          }),
                   ],
                 ),
                 onExposure: (visibilityInfo) {

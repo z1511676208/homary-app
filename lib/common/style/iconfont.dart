@@ -298,4 +298,15 @@ class Iconfont {
 
   static const flashIcon =
       IconData(0xe6fe, fontFamily: 'Iconfont', matchTextDirection: true);
+
+  static const Wish_filter = IconData(
+    0xe659,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
+  static const Wish_delete = IconData(
+    0xe658,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
 }

@@ -64,6 +64,8 @@
   "usercenter_recentlyBrowsed": "Kürzlich durchsucht",
   "usercenter_noRecently": "Sie haben vor kurzem nichts gespeichert.",
   "usercenter_goShopping": "Shoppen",
+  "usercenter_wishlist_title": "Meine Wunschliste",
+  "usercenter_wishlist_empty_tip": "Du hast derzeit keine Favoriten.",
   "category": "Kategorie",
   "category_sortBy": "Sortieren nach",
   "category_filter": "FILTER",

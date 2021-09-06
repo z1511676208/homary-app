@@ -1,8 +1,13 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-30 09:48:32
- * @LastEditors  : JHao
- * @LastEditTime : 2021-09-06 18:09:39
+<<<<<<< HEAD
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-09-06 18:58:47
+=======
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-09-06 15:44:52
+>>>>>>> 2981602 (feat: 收藏页面)
  */
 import 'package:homary/common/config/baseRequestUrl.dart';
 import 'package:homary/common/config/storage.dart';
@@ -36,6 +41,17 @@ class UserCenterApi {
         "/user/browse-footprint/delete-footprint",
         params: params,
         isRequire: true);
+  }
+
+  static Future<DioResult> getWistList({Map<String, dynamic> params}) async {
+    DioResult res = await Request()
+        .post('/user/favorate/sku-list', params: params, isRequire: true);
+    return res;
+  }
+
+  static Future<DioResult> wishCancel({Map<String, dynamic> params}) async {
+    DioResult res = await Request()
+        .post('/user/favorate/sku-cancel', params: params, isRequire: true);
     return res;
   }
 }

@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-06 10:11:04
- * @LastEditors  : JHao
- * @LastEditTime : 2021-08-31 16:34:50
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-09-06 13:53:08
  */
 import 'dart:async';
 import 'dart:io';
@@ -72,6 +72,11 @@ class _IndexPageState extends State<IndexPage> {
               )
             : null,
         drawer: GlobalDrawer(),
+        onDrawerChanged: (show) {
+          if (show) {
+            Provider.of<GlobalConfig>(context, listen: false).getNavList();
+          }
+        },
         body: PageView(
             controller: indexPageCtrl,
             physics: NeverScrollableScrollPhysics(),
