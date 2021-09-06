@@ -127,7 +127,7 @@ class _GlobalDrawerViewState extends State<GlobalDrawerView> {
                       ),
                       SliverToBoxAdapter(
                         child: Offstage(
-                            offstage: !Localstorage().getBool('isLogin'),
+                            offstage: !Localstorage().getBool(StorageKey.IS_LOGIN),
                             child: Container(
                               height: 40.w,
                               padding: EdgeInsets.only(left: 16.w, right: 16.w),

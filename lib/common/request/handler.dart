@@ -30,9 +30,9 @@ class RrequsetHandler extends Interceptor {
     Map<String, dynamic> finalParams = {};
     finalParams.addAll(replaceParams);
     var dynamicData = Localstorage().getJSON(
-        DYNAMIC_DATA); // 动参 从后端接口https://frontapi.homary.com/api/app/init-config获取
-    var currentConfig = Localstorage().getJSON('currentConfig') ?? {};
-    _publicParams['token'] = Localstorage().getString('token') ?? '';
+        StorageKey.DYNAMIC_DATA); // 动参 从后端接口https://frontapi.homary.com/api/app/init-config获取
+    var currentConfig = Localstorage().getJSON(StorageKey.CURRENT_CONFIG) ?? {};
+    _publicParams['token'] = Localstorage().getString(StorageKey.TOKEN) ?? '';
     _publicParams['eid'] = getEquipmentIdentification();
     _publicParams['site'] = currentConfig['site'] ?? 'us';
     _publicParams['language'] = currentConfig['language'] ?? 'en';

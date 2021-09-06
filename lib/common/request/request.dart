@@ -61,7 +61,8 @@ class Request {
           if (isSendGTM) {
             Map<String, dynamic> gaData = res.data['data']['__ga'];
             // 判断是否有用户信息
-            Map<String, dynamic> userInfo = Localstorage().getJSON('userInfo');
+            Map<String, dynamic> userInfo =
+                Localstorage().getJSON(StorageKey.USER_INFO);
             if (userInfo != null) {
               gaData.addAll({'user_propertys': userInfo});
             }
@@ -80,7 +81,7 @@ class Request {
               DioError(requestOptions: res.requestOptions, error: res.data);
           return handler.reject(errData);
         } else if (res.data['code'] == 401) {
-          Localstorage().remove('token');
+          Localstorage().remove(StorageKey.TOKEN);
           DioError errData =
               DioError(requestOptions: res.requestOptions, error: res.data);
 

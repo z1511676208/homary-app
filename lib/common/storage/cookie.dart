@@ -6,33 +6,34 @@
  * APP本地数据存储
  */
 
+import 'package:homary/common/config/storage.dart';
 import 'package:homary/common/utils/localstorage.dart';
 
 Future<void> setCurrentConfig(dynamic data) async {
-  await Localstorage().setJSON('currentConfig', data);
+  await Localstorage().setJSON(StorageKey.CURRENT_CONFIG, data);
 }
 
 Future<void> setToken(String token) async {
-  await Localstorage().setString('token', token);
+  await Localstorage().setString(StorageKey.TOKEN, token);
 }
 
 Future<void> setUserInfo(dynamic data) async {
-  await Localstorage().setJSON('userInfo', data);
+  await Localstorage().setJSON(StorageKey.USER_INFO, data);
 }
 
 getCurrentConfig() {
-  return Localstorage().getJSON('currentConfig');
+  return Localstorage().getJSON(StorageKey.CURRENT_CONFIG);
 }
 
 String getToken() {
-  String token = Localstorage().getString('token');
+  String token = Localstorage().getString(StorageKey.TOKEN);
   return token;
 }
 
 String getUserInfo() {
-  return Localstorage().getString('userInfo');
+  return Localstorage().getString(StorageKey.USER_INFO);
 }
 
 String getEid() {
-  return Localstorage().getString('EID');
+  return Localstorage().getString(StorageKey.EID);
 }

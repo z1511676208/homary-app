@@ -32,7 +32,7 @@ class SettingView extends StatefulWidget {
 class _SettingViewState extends State<SettingView> {
   bool subListToggle = false;
   String title = 'Setting';
-  bool isLogin = Localstorage().getBool('isLogin');
+  bool isLogin = Localstorage().getBool(StorageKey.IS_LOGIN);
   String user;
   String cacheSize = '';
   @override

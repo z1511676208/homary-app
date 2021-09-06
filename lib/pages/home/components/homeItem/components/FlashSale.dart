@@ -27,13 +27,13 @@ class _FlashSaleState extends State<FlashSale> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    var currentConfig = Localstorage().getJSON('currentConfig') ?? {};
+    var currentConfig = Localstorage().getJSON(StorageKey.CURRENT_CONFIG) ?? {};
     _currentSite = currentConfig['site'];
   }
 
   @override
   Widget build(BuildContext context) {
-    var config = Localstorage().getJSON('currentConfig') ?? {};
+    var config = Localstorage().getJSON(StorageKey.CURRENT_CONFIG) ?? {};
     if (config['site'] != _currentSite) {
       _currentSite = config['site'];
       _isOnSaleNow = true;

@@ -28,7 +28,7 @@ class BannerList extends StatelessWidget {
           height: 216.w,
           child: Selector<HomeCtrl, AdvDatum>(
             builder: (BuildContext context, AdvDatum data, child) {
-              var config = Localstorage().getJSON('currentConfig') ?? {};
+              var config = Localstorage().getJSON(StorageKey.CURRENT_CONFIG) ?? {};
               return data?.moduleData != null && data?.moduleData?.length != 0
                   ? Swiper(
                       key: ValueKey(jsonEncode(config)),

@@ -279,7 +279,7 @@ class SignInCtrl with ChangeNotifier {
     deleteCookie('isGuest');
     var userInfo = res.data;
     setToken(userInfo.token);
-    Localstorage().setBool('isLogin', true);
+    Localstorage().setBool(StorageKey.IS_LOGIN, true);
     Provider.of<GlobalConfig>(context, listen: false).setIsLogin(true);
     userInfo.token = null;
     setUserInfo(userInfo);

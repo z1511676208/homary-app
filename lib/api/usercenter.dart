@@ -9,7 +9,7 @@ import 'package:homary/common/config/storage.dart';
 import 'package:homary/common/request/request.dart';
 import 'package:homary/common/utils/localstorage.dart';
 
-var requestUrl = Localstorage().getJSON(REQUEST_URL);
+var requestUrl = Localstorage().getJSON(StorageKey.REQUEST_URL);
 
 class UserCenterApi {
   Map<String, int> recommendParams = {"page": 1, "page_size": 10};

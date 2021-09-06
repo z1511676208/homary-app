@@ -53,13 +53,13 @@ class SearchCtrl with ChangeNotifier {
 
   void clearAll() {
     this.recentSearchs = [];
-    Localstorage().remove('recent_list');
+    Localstorage().remove(StorageKey.RECENT_LIST);
     notifyListeners();
   }
 
   void removeItem(index) {
     this.recentSearchs.removeAt(index);
-    Localstorage().setJSON('recent_list', this.recentSearchs);
+    Localstorage().setJSON(StorageKey.RECENT_LIST, this.recentSearchs);
     notifyListeners();
   }
 
@@ -99,7 +99,7 @@ class SearchCtrl with ChangeNotifier {
         'url': url,
         'searchTime': DateTime.now().toString()
       });
-      Localstorage().setJSON('recent_list', this.recentSearchs);
+      Localstorage().setJSON(StorageKey.RECENT_LIST, this.recentSearchs);
       sendGTMData({
         // 埋点
         'event': event,
@@ -121,7 +121,7 @@ class SearchCtrl with ChangeNotifier {
 
   //获取缓存中最近搜索的词汇
   getStore() {
-    List list = Localstorage().getJSON('recent_list');
+    List list = Localstorage().getJSON(StorageKey.RECENT_LIST);
     DateTime now = DateTime.now();
     if (list != null && list.isNotEmpty) {
       list
@@ -129,7 +129,7 @@ class SearchCtrl with ChangeNotifier {
               now.difference(DateTime.parse(element['searchTime'])).inDays > 7)
           .toList();
       this.recentSearchs = list;
-      Localstorage().setJSON('recent_list', this.recentSearchs);
+      Localstorage().setJSON(StorageKey.RECENT_LIST, this.recentSearchs);
     }
   }
 
@@ -143,7 +143,7 @@ class SearchCtrl with ChangeNotifier {
       this.recentSearchs.removeLast();
     }
     this.recentSearchs.insert(0, map);
-    Localstorage().setJSON('recent_list', this.recentSearchs);
+    Localstorage().setJSON(StorageKey.RECENT_LIST, this.recentSearchs);
     sendGTMData({
       // 埋点
       "event": event,

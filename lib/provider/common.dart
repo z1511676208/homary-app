@@ -30,7 +30,7 @@ class GlobalConfig with ChangeNotifier {
   CommonAmountList commonAmountList = new CommonAmountList();
   int shopCartNumber = 0; //购物车有效商品数量
   int serviceTime; // 服务器时间
-  bool isLogin = Localstorage().getBool('isLogin') ?? false;
+  bool isLogin = Localstorage().getBool(StorageKey.IS_LOGIN) ?? false;
 
   get curLocale => _locale;
 
@@ -120,7 +120,7 @@ class GlobalConfig with ChangeNotifier {
         this.currentConfig.language = configData.languageCode;
         this.currentConfig.currency = configData.currencyCode;
         this.currentConfig.countryCode = configData.countryCode;
-        Localstorage().remove('recent_list');
+        Localstorage().remove(StorageKey.RECENT_LIST);
         break;
       case 2:
         this.currentConfig.language = configData.code;
@@ -145,8 +145,8 @@ class GlobalConfig with ChangeNotifier {
     DioResult res = await UserApi.signOut();
     Toast.clear();
     if (res.error == null) {
-      Localstorage().remove('token');
-      Localstorage().setBool('isLogin', false);
+      Localstorage().remove(StorageKey.TOKEN);
+      Localstorage().setBool(StorageKey.IS_LOGIN, false);
       Toast.message(S.of(context).logout_successful,
           duration: const Duration(milliseconds: 1000));
       setWebviewCookies();
@@ -167,10 +167,10 @@ class GlobalConfig with ChangeNotifier {
 
   // 上报设备ID
   Future<void> pushDeviceInfo({Map<String, dynamic> params}) async {
-    if (Localstorage().getBool('isPushDeviceId') == false) {
+    if (Localstorage().getBool(StorageKey.IS_PUSH_DEVICE_ID) == false) {
       DioResult res = await CommonApi.pushDeviceInfo(params: params);
       if (res.error == null) {
-        Localstorage().setBool('isPushDeviceId', true);
+        Localstorage().setBool(StorageKey.IS_PUSH_DEVICE_ID, true);
       }
     }
   }

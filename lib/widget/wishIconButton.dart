@@ -19,7 +19,7 @@ class WishIconButton extends StatelessWidget {
           size: 20.sp,
         ),
         onPressed: () {
-          bool isLogin = Localstorage().getBool('isLogin');
+          bool isLogin = Localstorage().getBool(StorageKey.IS_LOGIN);
           if (isLogin) {
             Routes.push(context, '/webview', params: {
               "content": '{"url":"http://m.homary.com/usercenter/wishlists"}'

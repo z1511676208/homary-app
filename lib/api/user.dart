@@ -11,7 +11,7 @@ import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/entity/main.dart';
 import 'package:homary/common/request/request.dart';
 
-var requestUrl = Localstorage().getJSON(REQUEST_URL);
+var requestUrl = Localstorage().getJSON(StorageKey.REQUEST_URL);
 
 class UserApi {
   static Future<DioResult> emailLogin({UserEmailLoginReq params}) async {
