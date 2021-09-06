@@ -10,7 +10,7 @@ import 'package:homary/common/config/storage.dart';
 import 'package:homary/common/request/request.dart';
 import 'package:homary/common/utils/localstorage.dart';
 
-var urlMapList = Localstorage().getJSON(REQUEST_URL);
+var urlMapList = Localstorage().getJSON(StorageKey.REQUEST_URL);
 
 class HomeApi {
   static Future<DioResult> getProductModule(

@@ -150,8 +150,8 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
     String url = Uri.decodeComponent(content['url']) ?? 'https://m.homary.com';
     Map<String, dynamic> urlData = getRealUrlNParams(url);
     Map<String, dynamic> finalParams = {};
-    var currentConfig = Localstorage().getJSON('currentConfig') ?? {};
-    var dynamicData = Localstorage().getJSON('dynamicData') ?? {};
+    var currentConfig = Localstorage().getJSON(StorageKey.CURRENT_CONFIG) ?? {};
+    var dynamicData = Localstorage().getJSON(StorageKey.DYNAMIC_DATA) ?? {};
     urlData['params'].forEach((key, value) {
       finalParams
           .addAll({key: dynamicData[key] ?? currentConfig[key] ?? value ?? ''});
@@ -311,7 +311,7 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
               handlerName: "AppGuestLogin",
               callback: (args) {
                 setToken(args[0]);
-                Localstorage().setBool('isLogin', true);
+                Localstorage().setBool(StorageKey.IS_LOGIN, true);
                 args[1]['token'] = null;
                 setUserInfo(args[1]);
                 setWebviewCookies();

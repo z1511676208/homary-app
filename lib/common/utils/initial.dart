@@ -95,14 +95,14 @@ class Global {
     // 请求 init 接口，获取基础配置
     InitConfigRes result;
     final commonResult = await CommonApi.getInitConfig();
-    await Localstorage().setJSON(REQUEST_URL, {});
+    await Localstorage().setJSON(StorageKey.REQUEST_URL, {});
     if (commonResult.error == null) {
       result = InitConfigRes.fromJson(commonResult.result);
       if (result?.data?.urlMapData != null) {
-        await Localstorage().setJSON(REQUEST_URL, result.data.urlMapData);
+        await Localstorage().setJSON(StorageKey.REQUEST_URL, result.data.urlMapData);
       }
       if (result?.data?.dynamicData != null) {
-        await Localstorage().setJSON(DYNAMIC_DATA, result.data.dynamicData);
+        await Localstorage().setJSON(StorageKey.DYNAMIC_DATA, result.data.dynamicData);
       }
     }
 

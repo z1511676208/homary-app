@@ -11,7 +11,7 @@ import 'package:homary/common/config/storage.dart';
 /// 获取请求url
 String getRequsetUrl(String target) {
   String targetUrl;
-  var storage = Localstorage().getJSON(REQUEST_URL);
+  var storage = Localstorage().getJSON(StorageKey.REQUEST_URL);
   // 如果本地存储没有请求列表，使用固定的请求列表
   if (storage != null && storage[target] != null)
     targetUrl = storage[target];

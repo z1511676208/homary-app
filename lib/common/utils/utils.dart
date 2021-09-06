@@ -6,6 +6,7 @@
  */
 import 'dart:async';
 
+import 'package:homary/common/config/storage.dart';
 import 'package:homary/common/storage/cookie.dart';
 import 'package:homary/common/storage/webview-cookie.dart';
 import 'package:homary/common/utils/localstorage.dart';
@@ -18,12 +19,12 @@ String getUuid() {
 
 // 生成唯一id
 String getEquipmentIdentification() {
-  String eid = Localstorage().getString('EID');
+  String eid = Localstorage().getString(StorageKey.EID);
   if (eid != '') {
     return eid;
   } else {
     String newEid = getUuid();
-    Localstorage().setString('EID', newEid);
+    Localstorage().setString(StorageKey.EID, newEid);
     setEidCookie(); // 同步APP EID 到 webview里
     return newEid;
   }

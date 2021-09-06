@@ -28,8 +28,8 @@ class HomeDialog {
   bool _isLogin;
 
   void _init() {
-    _isLogin = Localstorage().getBool('isLogin') ?? false;
-    String str = Localstorage().getString('new_user_coupon');
+    _isLogin = Localstorage().getBool(StorageKey.IS_LOGIN) ?? false;
+    String str = Localstorage().getString(StorageKey.NEW_USER_COUPON);
     if (str == null || str.isEmpty) {
       _count = 0;
       _lastTime = 0;
@@ -101,7 +101,7 @@ class HomeDialog {
 
     if (_isLogin) {
       // 如果已登陆，判断是否符合新人条件
-      final userInfoStr = Localstorage().getJSON('userInfo');
+      final userInfoStr = Localstorage().getJSON(StorageKey.USER_INFO);
       Data userInfo = Data.fromJson(userInfoStr);
       if (userInfo.isOldUser != '0' || userInfo.drawNewUserCoupon != '0') {
         //如果非新人 或者 已领取了新人券，则不予显示
@@ -137,7 +137,7 @@ class HomeDialog {
     );
 
     // 保存关闭状态，次数+1
-    Localstorage().setString('new_user_coupon',
+    Localstorage().setString(StorageKey.NEW_USER_COUPON,
         '${_count + 1},${DateTime.now().millisecondsSinceEpoch}');
   }
 

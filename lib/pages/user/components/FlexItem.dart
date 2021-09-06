@@ -26,7 +26,7 @@ class FlexItem extends StatelessWidget {
     return Expanded(
       child: InkWell(
         onTap: () {
-          bool isLogin = Localstorage().getBool('isLogin');
+          bool isLogin = Localstorage().getBool(StorageKey.IS_LOGIN);
           if (this.url != null && isLogin || !this.needLogin) {
             Routes.push(context, '/webview', params: {
               "appBarTitle": this.title,

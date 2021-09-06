@@ -83,7 +83,7 @@ class ListItems extends StatelessWidget {
                         DropMenuManager.instance.hide();
                         String url = e['url'];
                         if (url.startsWith('https://')) {
-                          bool isLogin = Localstorage().getBool('isLogin');
+                          bool isLogin = Localstorage().getBool(StorageKey.IS_LOGIN);
                           if (e['isNeedLogin'] && !isLogin) {
                             Routes.push(context, '/signIn');
                           } else {

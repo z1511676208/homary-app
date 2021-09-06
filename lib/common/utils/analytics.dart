@@ -7,6 +7,7 @@
 
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
+import 'package:homary/common/config/storage.dart';
 import 'package:homary/common/utils/localstorage.dart';
 
 //统计
@@ -46,7 +47,7 @@ Future<void> sendGTMData(Map<String, dynamic> data) async {
 }
 
 getUserInfo() {
-  var userInfo = Localstorage().getJSON('userInfo');
+  var userInfo = Localstorage().getJSON(StorageKey.USER_INFO);
   if (userInfo != null) {
     userInfo = {
       "email": userInfo["email"],
