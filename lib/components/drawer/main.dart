@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-06 10:11:04
  * @LastEditors  : zhhjie
- * @LastEditTime : 2021-09-01 18:07:21
+ * @LastEditTime : 2021-09-06 13:47:16
  */
 
 import 'package:flutter/material.dart';
@@ -30,8 +30,8 @@ class _GlobalDrawerViewState extends State<GlobalDrawerView> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      await Provider.of<GlobalConfig>(context, listen: false).getNavList();
       Provider.of<SlideNavCtrl>(context, listen: false).initBottomLink(context);
+      await Provider.of<GlobalConfig>(context, listen: false).getNavList();
     });
   }
 

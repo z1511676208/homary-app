@@ -685,6 +685,26 @@ class S {
     );
   }
 
+  /// `My Wishlist`
+  String get usercenter_wishlist_title {
+    return Intl.message(
+      'My Wishlist',
+      name: 'usercenter_wishlist_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You currently don’t have any favorites.`
+  String get usercenter_wishlist_empty_tip {
+    return Intl.message(
+      'You currently don’t have any favorites.',
+      name: 'usercenter_wishlist_empty_tip',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Category`
   String get category {
     return Intl.message(

@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-06 10:11:04
- * @LastEditors  : JHao
- * @LastEditTime : 2021-09-06 15:11:14
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-09-06 18:59:11
  */
 import 'dart:convert';
 
@@ -18,6 +18,7 @@ import 'package:homary/pages/viewed/main.dart';
 import 'package:homary/pages/webview/main.dart';
 import 'package:homary/pages/resetPassword/main.dart';
 import 'package:homary/pages/search/main.dart';
+import 'package:homary/pages/wishlist/main.dart';
 
 Map<String, dynamic> _getContent(dynamic content) {
   String contentString = content ?? '{}';
@@ -125,7 +126,11 @@ Handler settingHandler = Handler(
   },
 );
 Handler viewedHandler = Handler(
+    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+  return ViewedPage();
+});
+Handler wishlistHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    return ViewedPage();
+    return Wishlist();
   },
 );

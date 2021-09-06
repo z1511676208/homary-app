@@ -147,6 +147,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "usercenter_unpaid" : MessageLookupByLibrary.simpleMessage("Unpaid"),
     "usercenter_viewAll" : MessageLookupByLibrary.simpleMessage("View All"),
     "usercenter_views" : MessageLookupByLibrary.simpleMessage("Views"),
+    "usercenter_wishlist_empty_tip" : MessageLookupByLibrary.simpleMessage("You currently don’t have any favorites."),
+    "usercenter_wishlist_title" : MessageLookupByLibrary.simpleMessage("My Wishlist"),
     "usercenter_wishlists" : MessageLookupByLibrary.simpleMessage("Wishlists"),
     "viewAll" : MessageLookupByLibrary.simpleMessage("View All")
   };

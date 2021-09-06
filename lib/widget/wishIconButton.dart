@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-08-19 10:27:07
- * @LastEditors  : JHao
- * @LastEditTime : 2021-08-31 17:35:20
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-09-06 15:20:32
  */
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
@@ -21,9 +21,10 @@ class WishIconButton extends StatelessWidget {
         onPressed: () {
           bool isLogin = Localstorage().getBool(StorageKey.IS_LOGIN);
           if (isLogin) {
-            Routes.push(context, '/webview', params: {
-              "content": '{"url":"http://m.homary.com/usercenter/wishlists"}'
-            });
+            // Routes.push(context, '/webview', params: {
+            //   "content": '{"url":"http://m.homary.com/usercenter/wishlists"}'
+            // });
+            Routes.push(context, '/usercenter/wishlists');
           } else {
             Routes.push(context, '/signIn');
           }
