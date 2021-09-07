@@ -35,7 +35,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "address_book" : MessageLookupByLibrary.simpleMessage("Adressbuch"),
     "appBar_recentyle_views" : MessageLookupByLibrary.simpleMessage("Kürzlich Aufrufe"),
     "appBar_support" : MessageLookupByLibrary.simpleMessage("Unterstützung"),
-    "bottom_b2b_list" : MessageLookupByLibrary.simpleMessage("Handelsprogramm,Affiliate-Programm"),
+    "bottom_b2b_list" : MessageLookupByLibrary.simpleMessage("Sonderangebot,Handelsprogramm,Affiliate-Programm,Influencer-Program"),
     "bottom_b2b_title" : MessageLookupByLibrary.simpleMessage("B2B-Programm"),
     "bottom_contact_content" : MessageLookupByLibrary.simpleMessage("service@homary.com|+1-888-903-3332 |4501 E Flughafen Dr. Unit BOntario"),
     "bottom_contact_introduction" : MessageLookupByLibrary.simpleMessage("service@b2b.homary.com (B2B-Anfrage)|Montag bis Samstag 5:00 - 14:00 am Berlin Zeit| Kalifornien 91761Vereinigte Staaten"),

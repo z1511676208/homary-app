@@ -35,7 +35,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "address_book" : MessageLookupByLibrary.simpleMessage("Directorio"),
     "appBar_recentyle_views" : MessageLookupByLibrary.simpleMessage("Vistas recientes"),
     "appBar_support" : MessageLookupByLibrary.simpleMessage("Apoyo"),
-    "bottom_b2b_list" : MessageLookupByLibrary.simpleMessage("Programa Comercial,Programa de Afiliados"),
+    "bottom_b2b_list" : MessageLookupByLibrary.simpleMessage("Oferta Especial,Programa Comercial,Programa de Afiliados,Programa de Influencer"),
     "bottom_b2b_title" : MessageLookupByLibrary.simpleMessage("Programas B2B\'"),
     "bottom_contact_content" : MessageLookupByLibrary.simpleMessage("service@homary.com|+1-888-903-3332|4501 E Airport Dr. Unit B"),
     "bottom_contact_introduction" : MessageLookupByLibrary.simpleMessage("service@b2b.homary.com (consulta B2B)|de lunes a sábado de 2:00 a.m. a 11:30 a.m., hora de Madrid|Ontario, California 91761 United States"),
