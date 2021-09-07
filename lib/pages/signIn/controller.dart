@@ -1,13 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-13 11:36:43
-<<<<<<< HEAD
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-09-01 17:02:30
-=======
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-31 13:59:35
->>>>>>> 7e8978a (bugfix：登录注册页，购物车商详ui调整,侧边栏联系方式与地址多站点多语言修复)
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-09-07 17:01:58
  */
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -95,7 +90,7 @@ class SignInCtrl with ChangeNotifier {
   //登录
   Future signIn(context, email, password) async {
     Toast.loading();
-    String firebaseMessageToken;
+    String firebaseMessageToken = "";
     try {
       firebaseMessageToken = await FirebaseMessaging.instance.getToken();
     } catch (e) {
@@ -125,7 +120,7 @@ class SignInCtrl with ChangeNotifier {
   Future userRegister(context, email, password, subscribeParam) async {
     Toast.loading();
     int subscribe = subscribeParam ? 1 : 0;
-    String firebaseMessageToken;
+    String firebaseMessageToken = "";
     try {
       firebaseMessageToken = await FirebaseMessaging.instance.getToken();
     } catch (e) {
@@ -253,7 +248,7 @@ class SignInCtrl with ChangeNotifier {
 
   //第三方登录请求获取信息
   void thridLogin(context, idTokenResult, oauthVerifier) async {
-    String firebaseMessageToken;
+    String firebaseMessageToken = "";
     try {
       firebaseMessageToken = await FirebaseMessaging.instance.getToken();
     } catch (e) {

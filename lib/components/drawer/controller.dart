@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-09 13:41:42
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-09-07 12:07:12
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-09-07 15:30:41
  */
 import 'package:flutter/material.dart';
 import 'package:homary/common/storage/cookie.dart';
@@ -102,7 +102,7 @@ class SlideNavCtrl with ChangeNotifier {
         influencerProgramUrk
       ]
     ];
-    if (currentConfig['site'] == 'us') {
+    if (currentConfig['site'] != 'us') {
       linkURL[2].removeAt(0);
     }
   }
@@ -115,7 +115,7 @@ class SlideNavCtrl with ChangeNotifier {
       bottomLinkChildList = [];
       List arr = childList[i].split(',');
       print(arr);
-      if (currentConfig['site'] == 'us' && i == 2) {
+      if (currentConfig['site'] != 'us' && i == 2) {
         arr.removeAt(0);
       }
       for (var j = 0; j < arr.length; j++) {

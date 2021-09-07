@@ -25,6 +25,8 @@ import 'package:homary/pages/index/main.dart';
 import 'package:homary/common/utils/navigateWatcher.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
+import 'common/utils/device.dart';
+
 final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 
 void main() async {
@@ -135,10 +137,19 @@ class _MainPageState extends State<MainPage> {
       Provider.of<GlobalConfig>(context, listen: false).getShoppingCartNumber();
       Provider.of<GlobalConfig>(context, listen: false).getNavList();
       Provider.of<ProductEtaInfo>(context, listen: false).getAreaByIp();
-
-      String firebaseMessageToken = await FirebaseMessaging.instance.getToken();
-      Provider.of<GlobalConfig>(context, listen: false)
-          .pushDeviceInfo(params: {"device_number": firebaseMessageToken});
+      String firebaseMessageToken = "";
+      try {
+        firebaseMessageToken = await FirebaseMessaging.instance.getToken();
+      } catch (e) {
+        print(e);
+      }
+      String deviceId = await DeviveInfo.getDeviceId();
+      Map<String, dynamic> deviceInfo = await DeviveInfo.getDeviceInfo();
+      Provider.of<GlobalConfig>(context, listen: false).pushDeviceInfo(params: {
+        "device_number": firebaseMessageToken,
+        'device_id': deviceId,
+        'device_info': deviceInfo.toString()
+      });
 
       //获取app升级信息，判断是否弹出升级提示框
       UpgradeRes upGradeInfo =
