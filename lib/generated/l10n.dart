@@ -165,10 +165,10 @@ class S {
     );
   }
 
-  /// `Trade Program,Affiliate Program`
+  /// `Special Offer,Trade Program,Affiliate Program,Influencer Program`
   String get bottom_b2b_list {
     return Intl.message(
-      'Trade Program,Affiliate Program',
+      'Special Offer,Trade Program,Affiliate Program,Influencer Program',
       name: 'bottom_b2b_list',
       desc: '',
       args: [],
