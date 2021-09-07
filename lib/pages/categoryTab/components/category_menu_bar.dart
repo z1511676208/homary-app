@@ -89,6 +89,7 @@ class _CategoryMenuBarState extends State<CategoryMenuBar> {
     return Column(
       children: [
         Container(
+          color: Colors.white,
           height: 46.5.w,
           padding: EdgeInsets.symmetric(horizontal: 12.w),
           child: Row(

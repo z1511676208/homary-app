@@ -66,6 +66,9 @@ class CategoryTabCtrl extends ChangeNotifier {
   /// 搜索内容
   String keyword;
 
+  /// banner图片
+  String bannerImage;
+
   CategoryTabCtrl(
       {this.selectedCategoryId,this.selectedCategoryName, this.context,this.keyword});
 
@@ -218,6 +221,7 @@ class CategoryTabCtrl extends ChangeNotifier {
       }
 
       seeAlsoList = res.data.seeAlsoData;
+      bannerImage = res.data.appCategoryBanner;
     }
     refreshController.refreshCompleted();
     Toast.clear();

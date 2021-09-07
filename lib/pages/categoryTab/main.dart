@@ -8,12 +8,14 @@ import 'package:homary/components/appBar/search/main.dart';
 import 'package:homary/components/goBackAppBar/main.dart';
 import 'package:homary/components/goTopMenu/main.dart';
 import 'package:homary/components/pullToRefresh/pull_to_refresh.dart';
+import 'package:homary/components/sticky/sticky_delegate.dart';
 import 'package:homary/pages/categoryTab/components/category_menu_bar.dart';
 import 'package:homary/pages/categoryTab/components/filter_drawer.dart';
 import 'package:homary/pages/categoryTab/components/product_empty.dart';
 import 'package:homary/pages/categoryTab/components/see_also.dart';
 import 'package:homary/pages/categoryTab/components/view_more_button.dart';
 import 'package:homary/pages/categoryTab/controller.dart';
+import 'package:homary/widget/networkImg.dart';
 import 'package:tuple/tuple.dart';
 
 /// 首页类目Tab栏，类目页，搜索结果页
@@ -127,19 +129,10 @@ class _CategoryTabState extends State<CategoryTab> {
       child: Scaffold(
         appBar: widget.isPage ? buildAppBar() : null,
         endDrawer: FilterDrawer(),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        body: Stack(
           children: [
-            if (widget.isSearchPage) SeeAlso(),
-            CategoryMenuBar(isSearchPage: widget.isSearchPage),
-            Expanded(
-              child: Stack(
-                children: [
-                  buildProduct(),
-                  buildGoTop(),
-                ],
-              ),
-            ),
+            buildProduct(),
+            buildGoTop(),
           ],
         ),
       ),
@@ -175,30 +168,36 @@ class _CategoryTabState extends State<CategoryTab> {
   Widget buildProduct() {
     return Consumer<CategoryTabCtrl>(
       builder: (BuildContext context, ctrl, _) {
-        return LayoutBuilder(
-          builder: (_, constraints) {
-            return PullToRefresh(
-              controller: ctrl.refreshController,
-              onRefresh: ctrl.onRefresh,
-              onLoading: ctrl.getProductList,
-              child: ctrl.isShowEmpty
-                  ? SingleChildScrollView(
-                      physics: AlwaysScrollableScrollPhysics(),
+        return PullToRefresh(
+          controller: ctrl.refreshController,
+          onRefresh: ctrl.onRefresh,
+          onLoading: ctrl.getProductList,
+          enablePullUp: !ctrl.isShowEmpty,
+          child: CustomScrollView(
+            controller: _scrollController,
+            slivers: [
+              if (!widget.isSearchPage)
+                SliverToBoxAdapter(child: buildBanner()),
+              if (widget.isSearchPage) SliverToBoxAdapter(child: SeeAlso()),
+              SliverPersistentHeader(
+                pinned: true,
+                delegate: StickyDelegate(
+                  child: PreferredSize(
+                    child: CategoryMenuBar(isSearchPage: widget.isSearchPage),
+                    preferredSize: Size.fromHeight(47.w),
+                  ),
+                ),
+              ),
+              ctrl.isShowEmpty
+                  ? SliverToBoxAdapter(
                       child: Container(
-                        height: constraints.maxHeight,
+                        margin: EdgeInsets.only(top: 80.w),
                         child: ProductEmptyWidget(),
                       ),
                     )
-                  : CustomScrollView(
-                      controller: _scrollController,
-                      scrollDirection: Axis.vertical,
-                      slivers: [
-                        buildGridView(ctrl),
-                        // buildViewMore(),
-                      ],
-                    ),
-            );
-          },
+                  : buildGridView(ctrl),
+            ],
+          ),
         );
       },
     );
@@ -252,6 +251,32 @@ class _CategoryTabState extends State<CategoryTab> {
       child: GoTopMenu(
         scrollController: _scrollController,
       ),
+    );
+  }
+
+  Widget buildBanner() {
+    return Selector<CategoryTabCtrl, String>(
+      selector: (context, ctrl) => ctrl.bannerImage,
+      builder: (context, value, _) {
+        if (value == null || value.isEmpty) {
+          return Container();
+        }
+        return Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: 4.w,
+          ),
+          child: Center(
+            child: ClipRRect(
+              borderRadius: AppStyle.primaryBorderRaduis,
+              child: CustomNetworkImage(
+                value,
+                width: 351.w,
+                height: 119.w,
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

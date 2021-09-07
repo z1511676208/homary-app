@@ -36,7 +36,7 @@ class ExpandedItem extends StatelessWidget {
                             this.url.indexOf('/usercenter/coupons') != -1
                                 ? '1'
                                 : '0',
-                        "content": '{"url":"https://m.homary.com${this.url}"}'
+                        "content": '{"url":"${this.url}"}'
                       });
                     } else {
                       if (url == '/') {
