@@ -150,6 +150,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "usercenter_wishlist_empty_tip" : MessageLookupByLibrary.simpleMessage("Actualmente no tienes ningún favorito."),
     "usercenter_wishlist_title" : MessageLookupByLibrary.simpleMessage("mi lista de deseos"),
     "usercenter_wishlists" : MessageLookupByLibrary.simpleMessage("Listas de deseos"),
-    "viewAll" : MessageLookupByLibrary.simpleMessage("Ver todo")
+    "viewAll" : MessageLookupByLibrary.simpleMessage("Ver todo"),
+    "wishlist_most_popular" : MessageLookupByLibrary.simpleMessage("Más popular"),
+    "wishlist_price_high_to_low" : MessageLookupByLibrary.simpleMessage("Precio de mayor a menor"),
+    "wishlist_price_low_to_high" : MessageLookupByLibrary.simpleMessage("Precios de barato a caro"),
+    "wishlist_recently_added" : MessageLookupByLibrary.simpleMessage("Recientemente añadido")
   };
 }

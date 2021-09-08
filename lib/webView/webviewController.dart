@@ -185,18 +185,18 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
       },
       child: InAppWebView(
         gestureRecognizers: Set()
-          ..add(Factory<VerticalDragGestureRecognizer>(
-                  () => verticalRecognizer))
+          ..add(
+              Factory<VerticalDragGestureRecognizer>(() => verticalRecognizer))
           ..add(Factory<HorizontalDragGestureRecognizer>(
-                  () => HorizontalDragGestureRecognizer())),
+              () => HorizontalDragGestureRecognizer())),
         initialOptions: options,
         key: webViewKey,
         // initialFile: "assets/webview.html",
         initialUrlRequest: URLRequest(url: Uri.parse(url)),
-        onScrollChanged: (InAppWebViewController controller, int x, int y){
-          if(y == 0){
+        onScrollChanged: (InAppWebViewController controller, int x, int y) {
+          if (y == 0) {
             verticalRecognizer.isAtTop = true;
-          }else{
+          } else {
             verticalRecognizer.isAtTop = false;
           }
         },
@@ -248,7 +248,8 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
                 Uri _paramsUri = Uri.parse(url);
                 Map<String, String> params = _paramsUri.queryParameters;
                 if (url != null && path != '/index') {
-                  final result = await Routes.push(context, path, params: params);
+                  final result =
+                      await Routes.push(context, path, params: params);
                   if (result ?? false) {
                     isInitUrl = true;
                     controller?.reload();
@@ -267,7 +268,7 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
                     amount: jsonData['amount'].toString());
                 // Toast.loading();
                 BraintreePaymentMethodNonce result =
-                await Braintree.requestPaypalNonce(
+                    await Braintree.requestPaypalNonce(
                   jsonData['token'],
                   request,
                 );

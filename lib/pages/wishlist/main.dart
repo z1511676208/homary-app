@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-09-06 14:10:56
- * @LastEditors  : JHao
- * @LastEditTime : 2021-09-08 15:22:58
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-09-08 15:40:47
  */
 import 'dart:async';
 
@@ -111,6 +111,7 @@ class _WishlistViewState extends State<WishlistView> {
                     this.controlMenu();
                   },
                   icon: Icon(Iconfont.Wish_filter,
+                      size: 20.sp,
                       color: Provider.of<WishlistCtrl>(context).sort == ''
                           ? AppColor.primaryText
                           : AppColor.primaryColor),

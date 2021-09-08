@@ -150,6 +150,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "usercenter_wishlist_empty_tip" : MessageLookupByLibrary.simpleMessage("You currently don’t have any favorites."),
     "usercenter_wishlist_title" : MessageLookupByLibrary.simpleMessage("My Wishlist"),
     "usercenter_wishlists" : MessageLookupByLibrary.simpleMessage("Wishlists"),
-    "viewAll" : MessageLookupByLibrary.simpleMessage("View All")
+    "viewAll" : MessageLookupByLibrary.simpleMessage("View All"),
+    "wishlist_most_popular" : MessageLookupByLibrary.simpleMessage("Most Popular"),
+    "wishlist_price_high_to_low" : MessageLookupByLibrary.simpleMessage("Price High to Low"),
+    "wishlist_price_low_to_high" : MessageLookupByLibrary.simpleMessage("Price Low to High"),
+    "wishlist_recently_added" : MessageLookupByLibrary.simpleMessage("Recently Added")
   };
 }

@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-09-06 14:22:32
- * @LastEditors  : JHao
- * @LastEditTime : 2021-09-08 15:24:33
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-09-08 15:40:58
  */
 import 'package:homary/api/usercenter.dart';
 import 'package:homary/common/request/request.dart';
@@ -10,6 +10,7 @@ import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/toast.dart';
 import 'package:homary/entity/home.dart';
 import 'package:homary/entity/wishlist.dart';
+import 'package:homary/main.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class WishlistCtrl with ChangeNotifier {
@@ -51,10 +52,25 @@ class WishlistCtrl with ChangeNotifier {
   void initOrderByList() {
     this.orderByList = [
       WishlistOrderBy(
-          name: 'Recently Added', key: 'created_at', orderBy: 'desc'),
-      WishlistOrderBy(name: 'Most Popular', key: 'created_at', orderBy: 'asc'),
-      WishlistOrderBy(name: 'Price High to Low', key: 'price', orderBy: 'desc'),
-      WishlistOrderBy(name: 'Price Low to High', key: 'price', orderBy: 'asc')
+          name: S.of(navigatorKey.currentState.context).wishlist_recently_added,
+          key: 'created_at',
+          orderBy: 'desc'),
+      WishlistOrderBy(
+          name: S.of(navigatorKey.currentState.context).wishlist_most_popular,
+          key: 'created_at',
+          orderBy: 'asc'),
+      WishlistOrderBy(
+          name: S
+              .of(navigatorKey.currentState.context)
+              .wishlist_price_high_to_low,
+          key: 'price',
+          orderBy: 'desc'),
+      WishlistOrderBy(
+          name: S
+              .of(navigatorKey.currentState.context)
+              .wishlist_price_low_to_high,
+          key: 'price',
+          orderBy: 'asc')
     ];
   }
 
