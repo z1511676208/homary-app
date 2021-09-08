@@ -1294,6 +1294,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Recently Added`
+  String get wishlist_recently_added {
+    return Intl.message(
+      'Recently Added',
+      name: 'wishlist_recently_added',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Most Popular`
+  String get wishlist_most_popular {
+    return Intl.message(
+      'Most Popular',
+      name: 'wishlist_most_popular',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Price High to Low`
+  String get wishlist_price_high_to_low {
+    return Intl.message(
+      'Price High to Low',
+      name: 'wishlist_price_high_to_low',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Price Low to High`
+  String get wishlist_price_low_to_high {
+    return Intl.message(
+      'Price Low to High',
+      name: 'wishlist_price_low_to_high',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

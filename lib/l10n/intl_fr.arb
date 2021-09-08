@@ -124,5 +124,9 @@
   "user_viewed_explore_btn": "Explorer maintenant",
   "user_viewed_del_tips": "Êtes-vous sûr de vouloir supprimer ces éléments?",
   "cancelButtonText": "ANNULER",
-  "deleteButtonText": "SUPPRIMER"
+  "deleteButtonText": "SUPPRIMER",
+  "wishlist_recently_added": "Récemment ajouté",
+  "wishlist_most_popular": "Le plus populaire",
+  "wishlist_price_high_to_low": "Prix décroissant",
+  "wishlist_price_low_to_high": "Prix croissant"
 }
