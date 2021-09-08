@@ -85,6 +85,7 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
           child: Text(subList[i].categoryName,
               style: TextStyle(
                   fontSize: 13.sp,
+                  fontFamily: 'Urbanist',
                   color: _topNavScorllCtrl.index == i
                       ? AppColor.primaryColor
                       : AppColor.primaryLightSubTitle)),
