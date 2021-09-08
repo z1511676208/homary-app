@@ -44,6 +44,16 @@ class Global {
     // 运行初始
 
     WidgetsFlutterBinding.ensureInitialized();
+
+    /// android 初始化
+    if (Platform.isAndroid) {
+      SystemChrome.setSystemUIOverlayStyle(
+          SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+    }
+
+    /// IOS 初始化
+    if (Platform.isIOS) {}
+
     await Firebase.initializeApp();
     // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
@@ -106,14 +116,5 @@ class Global {
       }
     }
 
-    /// android 初始化
-    if (Platform.isAndroid) {
-      SystemUiOverlayStyle systemUiOverlayStyle =
-          SystemUiOverlayStyle(statusBarColor: Colors.transparent);
-      SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
-    }
-
-    /// IOS 初始化
-    if (Platform.isIOS) {}
   }
 }

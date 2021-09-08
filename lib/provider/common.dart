@@ -5,14 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:homary/api/cart.dart';
 import 'package:homary/api/common.dart';
 import 'package:homary/api/main.dart';
-import 'package:homary/common/config/packageInfo.dart';
 import 'package:homary/common/request/request.dart';
 import 'package:homary/common/storage/cookie.dart';
 import 'package:homary/common/storage/webview-cookie.dart';
 import 'package:homary/common/utils/bus.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
-import 'package:homary/entity/appUpgrade.dart';
 import 'package:homary/entity/cartNumber.dart';
 import 'package:homary/entity/serviceTimeRes.dart';
 
@@ -182,19 +180,5 @@ class GlobalConfig with ChangeNotifier {
       this.shopCartNumber = CartNumberRes.fromJson(res.result).data.num;
       notifyListeners();
     }
-  }
-
-  //获取应用升级信息
-  Future<UpgradeRes> getAppUpgradeInfo() async {
-    UpgradeRes result;
-    UpgradeReq upGradeParams = UpgradeReq(
-        version: packageInfo.version,
-        language:
-            getCurrentConfig() != null ? getCurrentConfig()['language'] : 'en');
-    DioResult res = await CommonApi.appUpgrade(params: upGradeParams);
-    if (res.error == null) {
-      result = UpgradeRes.fromJson(res.result);
-    }
-    return result;
   }
 }

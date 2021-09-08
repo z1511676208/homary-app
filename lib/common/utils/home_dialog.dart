@@ -1,14 +1,20 @@
+import 'package:homary/api/common.dart';
 import 'package:homary/api/home.dart';
+import 'package:homary/common/config/packageInfo.dart';
 import 'package:homary/common/request/request.dart';
+import 'package:homary/common/storage/cookie.dart';
 import 'package:homary/common/utils/dialog.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/toast.dart';
 import 'package:homary/components/dialog/new_user_dialog.dart';
 import 'package:homary/components/dialog/new_user_success_dialog.dart';
+import 'package:homary/components/dialog/update_dialog.dart';
+import 'package:homary/entity/appUpgrade.dart' hide Data;
 import 'package:homary/entity/home_pop_up.dart';
 import 'package:homary/entity/user.dart';
 
+/// 首页弹窗
 class HomeDialog {
   static HomeDialog instance = HomeDialog._internal();
 
@@ -53,6 +59,10 @@ class HomeDialog {
     this.context = context;
     _init();
 
+    // 优先弹出APP升级弹窗
+    await getAppUpgrade();
+
+    // 再弹出首页弹窗
     DioResult res = await HomeApi.getAppPopUp();
     HomePopUpRes result;
     if (res.error == null) {
@@ -61,6 +71,73 @@ class HomeDialog {
         process(result.data);
       }
     }
+  }
+
+  /// 获取app升级信息，判断是否弹出升级提示框
+  /// [isFromSetting] 是否来自设置页，设置页调起会有 Loading 和 Toast，同时弹出不受时间限制
+  Future<void> getAppUpgrade({
+    bool isFromSetting = false,
+  }) async {
+    if (isFromSetting) {
+      Toast.loading();
+    }
+    DioResult upgradeRes = await CommonApi.appUpgrade(
+      params: UpgradeReq(
+          version: packageInfo.version,
+          language: getCurrentConfig() != null
+              ? getCurrentConfig()['language']
+              : 'en'),
+    );
+    if (isFromSetting) {
+      Toast.clear();
+    }
+    if (upgradeRes.error != null) {
+      return;
+    }
+
+    UpgradeRes result = UpgradeRes.fromJson(upgradeRes.result);
+
+    if ((result == null || result.data.isUpgrade == 0)) {
+      // 无需升级
+      if (isFromSetting) {
+        Toast.message(S.of(context).setting_upgrade);
+      }
+      return;
+    }
+
+    if (result.data.isUpgrade == 2 && !isFromSetting && !_canPopUpgrade()) {
+      // 在首页时，非强制更新，会判断弹窗打开时间,在设定的时间内，不再弹出
+      return;
+    }
+
+    await AppDialog.show(
+      context: context,
+      widget: Container(
+        width: 0.76.sw,
+        height: 280.w,
+        child: UpdateDialog(upGradeInfo: result),
+      ),
+      canCancel: result.data.isUpgrade == 2,
+    );
+    await Localstorage().setInt(
+        StorageKey.UPGRADE_POP_TIME, DateTime.now().millisecondsSinceEpoch);
+  }
+
+  /// 判断能否弹出更新弹窗
+  bool _canPopUpgrade() {
+    int popTime = Localstorage().getInt(StorageKey.UPGRADE_POP_TIME);
+    if (popTime == 0) {
+      return true;
+    }
+
+    // 是否超过一天
+    bool isADay =
+        (DateTime.now().millisecondsSinceEpoch - popTime) > 1000 * 60 * 60 * 24;
+
+    if (isADay) {
+      return true;
+    }
+    return false;
   }
 
   /// 处理弹窗逻辑

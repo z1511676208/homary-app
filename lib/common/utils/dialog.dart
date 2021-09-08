@@ -22,7 +22,12 @@ class AppDialog {
       context: context,
       barrierDismissible: canCancel,
       builder: (context) {
-        return Center(child: widget);
+        return WillPopScope(
+          onWillPop: () async {
+            return Future.value(canCancel);
+          },
+          child: Center(child: widget),
+        );
       },
     );
   }
