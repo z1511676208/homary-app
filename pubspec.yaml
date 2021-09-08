@@ -128,9 +128,11 @@ flutter:
       fonts:
         - asset: assets/iconfont.ttf
     # 自定义字体
-    - family: Lazer84
+    - family: Urbanist
       fonts:
-        - asset: assets/Lazer84.ttf
+        - asset: assets/Urbanist-Regular.ttf
+        - asset: assets/Urbanist-Bold.ttf
+          weight: 700
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 flutter_intl:

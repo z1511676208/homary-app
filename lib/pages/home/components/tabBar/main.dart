@@ -37,8 +37,14 @@ class _TabBarWidgetState extends State<TabBarWidget>
             labelPadding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 2.w),
             labelColor: AppColor.primaryText,
             unselectedLabelColor: AppColor.primarySubTitle,
-            unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
-            labelStyle: TextStyle(fontWeight: FontWeight.bold),
+            unselectedLabelStyle: TextStyle(
+              fontWeight: FontWeight.normal,
+              fontFamily: 'Urbanist',
+            ),
+            labelStyle: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Urbanist',
+            ),
             indicator: CustomUnderlineTabIndicator(
                 width: 24.w,
                 insets: EdgeInsets.fromLTRB(0, 0, 0, 4.w),
