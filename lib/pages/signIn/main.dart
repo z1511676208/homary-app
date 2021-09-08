@@ -317,6 +317,8 @@ class _SignInViewState extends State<SignInView> {
                                                 showModalBottomSheet<void>(
                                                     context: context,
                                                     isScrollControlled: true,
+                                                    clipBehavior: Clip
+                                                        .antiAliasWithSaveLayer,
                                                     backgroundColor:
                                                         Colors.white,
                                                     shape:
