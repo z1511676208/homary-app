@@ -56,7 +56,7 @@ class Localstorage {
   /// 获取 int 值
   int getInt(String key) {
     int val = _prefs.getInt(key);
-    return val == null ? false : val;
+    return val == null ? 0 : val;
   }
 
   /// 设置 json 对象

@@ -1,19 +1,12 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:homary/common/config/appConfig.dart';
 import 'package:homary/common/config/proxyConfig.dart';
-import 'package:homary/common/utils/dialog.dart';
 import 'package:homary/common/utils/entrance.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:fluro/fluro.dart';
 import 'package:homary/common/utils/firebaseMessageHandler.dart';
-import 'package:homary/common/utils/schema2path.dart';
-import 'package:homary/common/utils/toast.dart';
-import 'package:homary/components/dialog/update_dialog.dart';
-import 'package:homary/entity/appUpgrade.dart';
 import 'package:homary/pages/home/contorller.dart';
 import 'package:homary/provider/productEtaInfo.dart';
 
@@ -150,22 +143,6 @@ class _MainPageState extends State<MainPage> {
         'device_id': deviceId,
         'device_info': deviceInfo.toString()
       });
-
-      //获取app升级信息，判断是否弹出升级提示框
-      UpgradeRes upGradeInfo =
-          await Provider.of<GlobalConfig>(context, listen: false)
-              .getAppUpgradeInfo();
-      if (upGradeInfo != null && upGradeInfo.data.isUpgrade != 0) {
-        AppDialog.show(
-          context: context,
-          widget: Container(
-            width: 0.76.sw,
-            height: 280.w,
-            child: UpdateDialog(upGradeInfo: upGradeInfo),
-          ),
-          canCancel: upGradeInfo.data.isUpgrade == 2,
-        );
-      }
     });
 
     // APP未启动时,启动后获取 firebase meeage

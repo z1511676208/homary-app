@@ -28,4 +28,7 @@ class StorageKey {
 
   /// 语言站点货币配置项
   static const String CURRENT_CONFIG = 'currentConfig';
+
+  /// 更新弹窗打开时间
+  static const String UPGRADE_POP_TIME = 'upgradePopTime';
 }

@@ -8,17 +8,15 @@
 import 'package:homary/common/config/packageInfo.dart';
 import 'package:homary/common/utils/cache_clean.dart';
 import 'package:homary/common/utils/dialog.dart';
+import 'package:homary/common/utils/home_dialog.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
-import 'package:homary/common/utils/toast.dart';
-import 'package:homary/components/dialog/update_dialog.dart';
 import 'package:homary/components/drawer/components/contactUs.dart';
 import 'package:homary/components/drawer/components/navItem.dart';
 import 'package:homary/components/drawer/components/slideNav/expansionItem.dart';
 import 'package:homary/components/drawer/components/slideNav/main.dart';
 import 'package:homary/components/drawer/controller.dart';
 import 'package:homary/components/goBackAppBar/main.dart';
-import 'package:homary/entity/appUpgrade.dart';
 import 'package:homary/pages/signIn/controller.dart';
 import 'package:homary/widget/listTileItem.dart';
 
@@ -222,27 +220,7 @@ class _SettingViewState extends State<SettingView> {
                           fontWeight: FontWeight.bold)),
                   desc: Text('v${packageInfo.version}'),
                   onTap: () async {
-                    Toast.loading();
-                    UpgradeRes result =
-                        await Provider.of<GlobalConfig>(context, listen: false)
-                            .getAppUpgradeInfo();
-                    Toast.clear();
-                    if (result != null) {
-                      if (result.data.isUpgrade != 0) {
-                        AppDialog.show(
-                          context: context,
-                          widget: Container(
-                            width: 0.76.sw,
-                            height: 280.w,
-                            child: UpdateDialog(upGradeInfo: result),
-                          ),
-                          canCancel: result.data.isUpgrade == 2,
-                        );
-                      } else {
-                        Toast.message(S.of(context).setting_upgrade,
-                            duration: const Duration(milliseconds: 1000));
-                      }
-                    }
+                    HomeDialog.instance.getAppUpgrade(isFromSetting: true);
                   },
                 ),
               )),
