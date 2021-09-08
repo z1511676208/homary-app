@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-20 15:12:17
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-20 17:11:48
+ * @LastEditTime : 2021-09-08 14:52:44
  */
 
 import 'dart:async';
@@ -70,6 +70,7 @@ class _RecommendListState extends State<RecommendList> {
                 showSkuList: false,
                 showFreeShipping: true,
                 showRating: true,
+                itemListName: 'Home - Recommend Goods',
                 onExposure: (list) {
                   pointList.addAll(list);
                   _sendPointList();

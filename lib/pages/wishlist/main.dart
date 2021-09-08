@@ -2,13 +2,14 @@
  * @Author       : zhhjie
  * @Date         : 2021-09-06 14:10:56
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-06 19:28:57
+ * @LastEditTime : 2021-09-08 15:22:58
  */
 import 'dart:async';
 
 import 'package:homary/common/utils/analytics.dart';
 import 'package:homary/common/utils/dialog.dart';
 import 'package:homary/common/utils/main.dart';
+import 'package:homary/common/utils/toast.dart';
 import 'package:homary/components/GoodsCard/goods_cart_grid.dart';
 import 'package:homary/components/dropMenu/drop_menu.dart';
 import 'package:homary/components/goBackAppBar/main.dart';
@@ -29,8 +30,10 @@ class _WishlistViewState extends State<WishlistView> {
   Timer _timer;
   bool _debounce = false;
   void deleteItem(WishlistCtrl controller, id) async {
+    Toast.loading();
     await controller.wishCancel({"sku_id": id});
     await controller.getList();
+    Toast.clear();
   }
 
   @override
@@ -38,7 +41,9 @@ class _WishlistViewState extends State<WishlistView> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       Provider.of<WishlistCtrl>(context, listen: false).initOrderByList();
+      Toast.loading();
       await Provider.of<WishlistCtrl>(context, listen: false).getList();
+      Toast.clear();
     });
   }
 
@@ -131,6 +136,7 @@ class _WishlistViewState extends State<WishlistView> {
                       GoodsCartSliverGrid(
                         showDelete: true,
                         productList: controller.list,
+                        itemListName: 'Wishlist',
                         onDelete: (id) async {
                           bool res = await AppDialog.showMessage(
                               context: context,
@@ -159,7 +165,7 @@ class _WishlistViewState extends State<WishlistView> {
                         SizedBox(
                           height: 10.w,
                         ),
-                        Text(S.of(context).user_viewed_nodata,
+                        Text(S.of(context).usercenter_wishlist_empty_tip,
                             style: TextStyle(
                                 color: AppColor.primaryText, fontSize: 14.sp)),
                         SizedBox(

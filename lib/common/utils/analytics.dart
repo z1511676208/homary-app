@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-06-28 14:41:10
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-23 19:30:50
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-09-08 14:04:53
  */
 
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -10,30 +10,40 @@ import 'package:firebase_analytics/observer.dart';
 import 'package:homary/common/config/storage.dart';
 import 'package:homary/common/utils/localstorage.dart';
 
+// 曝光埋点name
+Map<String, String> itemListName = {
+  "HomeFlashSale": 'Home Flash Sale',
+  "SeckillingFlashSale": 'Seckilling Flash Sale',
+  "HomeFavoredbyCustomers": 'Home Favored by Customers',
+  "HomeHomaryStyle": 'Home Homary Style',
+  "Lego": 'Lego Page',
+  "ProductDetailsCustomersAlsoViewed": 'Product Details Customers Also Viewed',
+  "Activity": 'Activity',
+  "wishlist": 'Wishlist',
+  "Tracks": 'Tracks',
+  "HomeReviews": 'Real Reviews From Real Customers',
+  "TodaysDeals": "Today's Deals",
+  "MarketActivity": 'Market Activity',
+  "combineBuyGoods": 'Combine Buy Goods',
+  "ShoppingcartJustForYou": 'Shoppingcart Just For You'
+};
+
 //统计
 FirebaseAnalytics analytics = FirebaseAnalytics();
 FirebaseAnalyticsObserver observer =
     FirebaseAnalyticsObserver(analytics: analytics);
 
 Future<void> sendGTMData(Map<String, dynamic> data) async {
-  String event = data['event'] ?? '';
-  bool hasEvent = [
-    'view_search_results',
-    'view_item_list',
-    'view_item',
-    'view_to_cart',
-    'purchase'
-  ].contains(event);
   Map<String, dynamic> eventData = {};
-  if (hasEvent) {
-    if (data['data'] != null) {
-      eventData.addAll(data['data']);
-      eventData["google_business_vertical"] = "retail";
-    }
-    if (data['ecommerce'] != null) {
-      eventData.addAll(data['ecommerce']);
-      eventData["google_business_vertical"] = "retail";
-    }
+  if (data['data'] != null) {
+    eventData.addAll(data['data']);
+  }
+  if (data['ecommerce'] != null) {
+    eventData.addAll(data['ecommerce']);
+  }
+  eventData["google_business_vertical"] = "retail";
+  if (eventData['value'] != null) {
+    eventData['value'] = double.parse(eventData['value'].toString());
   }
   Map<String, dynamic> sendData = {
     ...data,

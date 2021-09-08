@@ -14,6 +14,7 @@ class GoodsCartSliverGrid extends StatelessWidget {
     this.showRating = false,
     this.showDispatch = false,
     this.showDelete = false,
+    this.itemListName = '',
     this.onDelete,
   }) : super(key: key);
 
@@ -28,6 +29,7 @@ class GoodsCartSliverGrid extends StatelessWidget {
   final bool showDispatch; // 是否显示48小时配送
   final bool showDelete; //是否显示删除图标
   final Function onDelete;
+  final String itemListName;
   @override
   Widget build(BuildContext context) {
     ExposureDetectorController.instance.exposureTime = 100; //设置曝光时长 (ms)
@@ -90,6 +92,7 @@ class GoodsCartSliverGrid extends StatelessWidget {
                         showFreeShipping: showFreeShipping,
                         showRating: showRating,
                         showDispatch: showDispatch,
+                        itemListName: itemListName,
                         onDelete: () {
                           if (onDelete != null) {
                             onDelete(productList[leftIndex].skuId);
@@ -110,6 +113,7 @@ class GoodsCartSliverGrid extends StatelessWidget {
                           showFreeShipping: showFreeShipping,
                           showRating: showRating,
                           showDispatch: showDispatch,
+                          itemListName: itemListName,
                           onDelete: () {
                             if (onDelete != null) {
                               onDelete(productList[rightIndex].skuId);

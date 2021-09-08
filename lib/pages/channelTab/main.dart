@@ -225,7 +225,9 @@ class _ChannelTabState extends State<ChannelTab> {
           showSkuList: true,
           showFreeShipping: true,
           showRating: true,
-          onExposure: (list){
+          itemListName:
+              widget.activityId != null ? 'Market Activity' : 'Activity',
+          onExposure: (list) {
             pointList.addAll(list);
             _sendPointList();
           },

@@ -2,13 +2,13 @@
  * @Author       : JHao
  * @Date         : 2021-07-22 17:26:36
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-06 19:24:04
+ * @LastEditTime : 2021-09-08 14:45:39
  */
 import 'dart:async';
 import 'dart:io';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:homary/common/utils/analytics.dart';
 import 'package:homary/common/utils/formatDate.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -30,6 +30,7 @@ class GoodsCard extends StatefulWidget {
   final bool showDispatch; // 是否显示48小时配送
   final bool showDelete;
   final Function onDelete;
+  final String itemListName;
   GoodsCard(
       {Key key,
       this.width,
@@ -43,7 +44,8 @@ class GoodsCard extends StatefulWidget {
       this.showDispatch = false,
       this.showDelete = false,
       this.onDelete,
-      this.marginRight = 0})
+      this.marginRight = 0,
+      this.itemListName = ""})
       : super(key: key);
 
   @override
@@ -206,6 +208,11 @@ class _GoodsCardState extends State<GoodsCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
+          sendProductItemGTM(
+              data: [_currentData.toJson()],
+              itemListName: widget.itemListName,
+              eventName: 'select_item',
+              extraParms: {"event_label": _currentData.eventLabel});
           handleSchema(context, _currentData.jumpUrl);
         },
         child: Stack(

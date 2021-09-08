@@ -211,6 +211,7 @@ class _CategoryTabState extends State<CategoryTab> {
       showFreeShipping: true,
       showRating: true,
       showDispatch: true,
+      itemListName: 'Category Products',
       onExposure: (list) {
         pointList.addAll(list);
         _sendPointList();

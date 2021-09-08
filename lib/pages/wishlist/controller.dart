@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-09-06 14:22:32
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-09-06 18:31:24
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-09-08 15:24:33
  */
 import 'package:homary/api/usercenter.dart';
 import 'package:homary/common/request/request.dart';
@@ -19,8 +19,7 @@ class WishlistCtrl with ChangeNotifier {
   List<WishlistOrderBy> orderByList = [];
 
   /// 页码
-  int page = 1;
-  int size = 8;
+  Map<String, int> wishlistParams = {"page": 1, "page_size": 10};
 
   //排序
   String sort = "";
@@ -45,7 +44,7 @@ class WishlistCtrl with ChangeNotifier {
 
   void reset() {
     this.list = [];
-    this.page = 1;
+    this.wishlistParams = {"page": 1, "page_size": 10};
     this.hasMorePage = 0;
   }
 
@@ -59,15 +58,16 @@ class WishlistCtrl with ChangeNotifier {
     ];
   }
 
-  Future getList() async {
-    Toast.loading();
+  Future getList({params}) async {
+    if (params == null) {
+      wishlistParams = {"page": 1, "page_size": 10};
+    }
     DioResult res = await UserCenterApi.getWistList(params: {
-      "page": page,
-      "page_size": size,
+      "page": wishlistParams['page'],
+      "page_size": wishlistParams['size'],
       "sort": sort,
       "order_sort": orderSort
     });
-    Toast.clear();
     if (res.error == null) {
       WishlistRes result = WishlistRes.fromJson(res.result);
       this.list.addAll(result.data.skuList);
@@ -90,11 +90,11 @@ class WishlistCtrl with ChangeNotifier {
   }
 
   Future handleGetMoreWish() async {
-    this.page += 1;
-    await getList();
+    wishlistParams['page'] += 1;
+    await getList(params: wishlistParams);
   }
 
-  void changeSortBy() {
+  Future<void> changeSortBy() async {
     orderByList.forEach((element) {
       if (element.isSelect) {
         sort = element.key;
@@ -102,6 +102,8 @@ class WishlistCtrl with ChangeNotifier {
       }
     });
     reset();
-    getList();
+    Toast.loading();
+    await getList();
+    Toast.clear();
   }
 }

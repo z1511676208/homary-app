@@ -39,6 +39,7 @@ class ModuleDataProductList {
       this.mergeSkuList,
       this.mergeSkuDesc,
       this.totalSkuNum,
+      this.eventLabel,
       this.activityStockTotal,
       this.spuSaleQuantityDesc});
 
@@ -77,6 +78,7 @@ class ModuleDataProductList {
   String totalSkuNum;
   String spuSaleQuantityDesc;
   String activityStockTotal;
+  String eventLabel;
 
   factory ModuleDataProductList.fromRawJson(String str) =>
       ModuleDataProductList.fromJson(json.decode(str));
@@ -87,6 +89,7 @@ class ModuleDataProductList {
       ModuleDataProductList(
           title: json["title"],
           price: json["price"],
+          eventLabel: json['event_label'],
           priceSymbol: json["price_symbol"],
           tagPrice: json["tag_price"],
           tagPriceSymbol: json["tag_price_symbol"],
@@ -125,6 +128,7 @@ class ModuleDataProductList {
   Map<String, dynamic> toJson() => {
         "title": title,
         "price": price,
+        "event_label": eventLabel,
         "price_symbol": priceSymbol,
         "tag_price": tagPrice,
         "tag_price_symbol": tagPriceSymbol,
