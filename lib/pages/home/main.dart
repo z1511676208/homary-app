@@ -32,6 +32,8 @@ class _HomePageViewState extends State<HomePageView>
   StreamSubscription _subscription;
   StreamSubscription _subscriptionTab;
 
+  bool isLoaded = false;
+
   @override
   void initState() {
     super.initState();
@@ -57,7 +59,7 @@ class _HomePageViewState extends State<HomePageView>
       this.currentConfig = current;
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
         Provider.of<GlobalConfig>(context, listen: false).getServiceTime();
-        Provider.of<HomeCtrl>(context, listen: false).getAdvInfo();
+        Provider.of<HomeCtrl>(context, listen: false).getAdvInfo(isShowLoading: isLoaded);
         Provider.of<HomeCtrl>(context, listen: false)
             .getFlashSaleModule(params: {'pf': "m"});
         Provider.of<HomeCtrl>(context, listen: false).getProductModule();
@@ -70,6 +72,7 @@ class _HomePageViewState extends State<HomePageView>
 
         // 显示首页弹窗
         HomeDialog.instance.getAppPopUp(context);
+        isLoaded = true;
       });
     }
     super.didChangeDependencies();

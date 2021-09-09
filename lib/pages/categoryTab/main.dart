@@ -141,7 +141,7 @@ class _CategoryTabState extends State<CategoryTab> {
 
   PreferredSize buildAppBar() {
     return PreferredSize(
-      preferredSize: Size.fromHeight(84.w),
+      preferredSize: Size.fromHeight(kToolbarHeight + 35.w),
       child: Selector<CategoryTabCtrl, String>(
         selector: (context, ctrl) => ctrl.selectedCategoryName,
         builder: (context, value, _) {

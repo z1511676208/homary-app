@@ -339,6 +339,11 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
               });
         },
         onLoadStart: (InAppWebViewController controller, Uri url) {
+          if (url.toString().contains('m.homary.com/') ||
+              url.toString().contains('muk.homary.com/')) {
+            // 排除PC站链接重定向
+            isInitUrl = false;
+          }
           changeHeadStatus(url);
         },
         onProgressChanged: (InAppWebViewController controller, int progress) {
@@ -368,21 +373,6 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
           var url = navigationAction.request.url;
 
           if (url.scheme == 'homary') {
-            //   // print("进来  ${widget.isInWebviewPage}");
-            //   var params = getSchemaParams(url.toString());
-            //   var content = jsonDecode(params['params']['content']);
-            //   if (widget.isInWebviewPage) {
-            //     // 如果在 原生webview路由下 则在当前webviewCtrl跳转，否则打开新的/webview路由
-            //     var link = Uri.decodeComponent(content['url']);
-            //     controller.loadUrl(
-            //       urlRequest: URLRequest(url: Uri.parse(link)),
-            //     );
-            //     return NavigationActionPolicy.CANCEL;
-            //   } else {
-            //     handleSchema(context, url.toString());
-            //     return NavigationActionPolicy.CANCEL;
-            //   }
-            // bugfix: 为了解决屏幕右滑 webview不能返回上一页的问题
             handleSchema(context, url.toString());
             return NavigationActionPolicy.CANCEL;
           } else if (url.toString().contains('my.yotpo.com')) {
@@ -395,11 +385,7 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
                 params: {"content": '{"url":"${url.toString()}"}'});
             return NavigationActionPolicy.CANCEL;
           }
-          if (url.toString().contains('m.homary.com/') ||
-              url.toString().contains('muk.homary.com/')) {
-            // 排除PC站链接重定向
-            isInitUrl = false;
-          }
+
           return NavigationActionPolicy.ALLOW;
         },
         onUpdateVisitedHistory:

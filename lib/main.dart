@@ -7,6 +7,7 @@ import 'package:homary/common/utils/entrance.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:fluro/fluro.dart';
 import 'package:homary/common/utils/firebaseMessageHandler.dart';
+import 'package:homary/components/behavior/app_scroll_behavior.dart';
 import 'package:homary/pages/home/contorller.dart';
 import 'package:homary/provider/productEtaInfo.dart';
 
@@ -104,7 +105,14 @@ class _MyAppState extends State<MyApp> {
             ],
             //加入路由统计
             home: MainPage(),
-            builder: EasyLoading.init(),
+            builder: EasyLoading.init(
+              builder: (BuildContext context, Widget child) {
+                return ScrollConfiguration(
+                  behavior: AppScrollBehavior(),
+                  child: child,
+                );
+              },
+            ),
           );
         },
       ),
