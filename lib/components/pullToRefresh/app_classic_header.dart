@@ -1,14 +1,16 @@
 import 'dart:math' as math;
 import 'package:flutter/cupertino.dart';
 import 'package:homary/common/style/color.dart';
+import 'package:lottie/lottie.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppClassicHeader extends RefreshIndicator {
   AppClassicHeader()
       : super(
           refreshStyle:RefreshStyle.UnFollow,
           completeDuration: Duration(milliseconds: 600),
-          height: 60,
+          height: 80.w,
         );
 
   @override
@@ -23,7 +25,7 @@ class _AppClassicHeaderState extends RefreshIndicatorState<AppClassicHeader> {
     return Container(
       height: widget.height,
       alignment: Alignment.center,
-      child: CupertinoActivityIndicator(radius: 15,),
+      child: Lottie.asset('assets/data.json',height: 60.w)
     );
   }
 }

@@ -73,6 +73,7 @@ dependencies:
   pull_to_refresh: ^2.0.0
   flutter_spinkit: 5.0.0
   device_apps: ^2.1.1
+  lottie: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -130,7 +131,7 @@ flutter:
     # 自定义字体
     - family: Urbanist
       fonts:
-        - asset: assets/Urbanist-Regular.ttf
+        - asset: assets/Urbanist-Medium.ttf
         - asset: assets/Urbanist-Bold.ttf
           weight: 700
   # For details regarding fonts from package dependencies,

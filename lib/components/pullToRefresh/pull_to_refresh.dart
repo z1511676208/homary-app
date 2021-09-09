@@ -28,8 +28,7 @@ class PullToRefresh extends StatelessWidget {
       child: SmartRefresher(
         controller: controller,
         child: child,
-        header:
-            Platform.isAndroid ? MaterialClassicHeader() : AppClassicHeader(),
+        header: AppClassicHeader(),
         footer: ClassicFooter(
           loadingText: '',
           idleText: '',
