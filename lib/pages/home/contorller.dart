@@ -110,7 +110,7 @@ class HomeCtrl with ChangeNotifier {
 
   // 获取首页广告
   Future<void> getAdvInfo({params, bool isShowLoading = true}) async {
-    if (isShowLoading && homeAdvInfoMap == null) {
+    if (isShowLoading || homeAdvInfoMap == null) {
       Toast.loading();
     }
     DioResult res = await HomeApi.getAdvInfo(params: params);
