@@ -1,3 +1,9 @@
+/*
+ * @Author       : JHao
+ * @Date         : 2021-09-08 15:30:57
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-09-09 11:03:27
+ */
 class StorageKey {
   /// requset api 本地存储
   static const String REQUEST_URL = 'storage_request_url';
@@ -31,4 +37,7 @@ class StorageKey {
 
   /// 更新弹窗打开时间
   static const String UPGRADE_POP_TIME = 'upgradePopTime';
+
+  // 首页广告区
+  static const String HOME_ADV_CACHE = "home_adv";
 }

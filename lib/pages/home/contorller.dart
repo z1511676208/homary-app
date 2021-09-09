@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-21 10:42:50
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-03 11:38:30
+ * @LastEditTime : 2021-09-09 11:09:20
  */
 /*
  * @Author       : zhhjie
@@ -13,6 +13,7 @@
 import 'package:homary/api/category.dart';
 import 'package:homary/api/home.dart';
 import 'package:homary/common/request/request.dart';
+import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/toast.dart';
 import 'package:homary/entity/flashModule.dart';
@@ -49,6 +50,15 @@ class HomeCtrl with ChangeNotifier {
 
   RefreshController refreshController =
       RefreshController(initialRefresh: false);
+
+  var homeAdvInfoMap = Localstorage().getJSON(StorageKey.HOME_ADV_CACHE);
+
+  HomeCtrl() {
+    if (homeAdvInfoMap != null) {
+      AppAdvInfoRes result = AppAdvInfoRes.fromJson(homeAdvInfoMap);
+      setHomeAdvInfo(result);
+    }
+  }
 
   // 获取首页推荐商品流
   Future<void> getRecommendList({params}) async {
@@ -100,28 +110,33 @@ class HomeCtrl with ChangeNotifier {
 
   // 获取首页广告
   Future<void> getAdvInfo({params, bool isShowLoading = true}) async {
-    if (isShowLoading) {
+    if (isShowLoading && homeAdvInfoMap == null) {
       Toast.loading();
     }
     DioResult res = await HomeApi.getAdvInfo(params: params);
     Toast.clear();
     if (res.error == null) {
       AppAdvInfoRes result = AppAdvInfoRes.fromJson(res.result);
-      var moduleType1 =
-          result.data.where((item) => item.moduleType == 1).toList();
-      bannerList = moduleType1.length > 0 ? moduleType1[0] : new AdvDatum();
-      var moduleType2 =
-          result.data.where((item) => item.moduleType == 2).toList();
-      leftAd = moduleType2.length > 0 ? moduleType2[0] : new AdvDatum();
-      var moduleType3 =
-          result.data.where((item) => item.moduleType == 3).toList();
-      rightAd = moduleType3.length > 0 ? moduleType3[0] : new AdvDatum();
-      var moduleType4 =
-          result.data.where((item) => item.moduleType == 4).toList();
-      kingKongList = moduleType4.length > 0 ? moduleType4[0] : new AdvDatum();
-      notifyListeners();
+      Localstorage().setJSON(StorageKey.HOME_ADV_CACHE, res.result);
+      setHomeAdvInfo(result);
     }
     refreshController.refreshCompleted();
+  }
+
+  setHomeAdvInfo(AppAdvInfoRes result) {
+    var moduleType1 =
+        result.data.where((item) => item.moduleType == 1).toList();
+    bannerList = moduleType1.length > 0 ? moduleType1[0] : new AdvDatum();
+    var moduleType2 =
+        result.data.where((item) => item.moduleType == 2).toList();
+    leftAd = moduleType2.length > 0 ? moduleType2[0] : new AdvDatum();
+    var moduleType3 =
+        result.data.where((item) => item.moduleType == 3).toList();
+    rightAd = moduleType3.length > 0 ? moduleType3[0] : new AdvDatum();
+    var moduleType4 =
+        result.data.where((item) => item.moduleType == 4).toList();
+    kingKongList = moduleType4.length > 0 ? moduleType4[0] : new AdvDatum();
+    notifyListeners();
   }
 
   // 获取商品模块

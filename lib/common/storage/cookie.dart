@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-05 14:38:55
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-16 14:16:35
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-09-09 11:22:03
  * APP本地数据存储
  */
 
@@ -22,7 +22,8 @@ Future<void> setUserInfo(dynamic data) async {
 }
 
 getCurrentConfig() {
-  return Localstorage().getJSON(StorageKey.CURRENT_CONFIG);
+  return Localstorage().getJSON(StorageKey.CURRENT_CONFIG) ??
+      {"site": 'us', "language": 'en', "currency": 'usd', "isDefault": true};
 }
 
 String getToken() {

@@ -39,9 +39,7 @@ class GlobalConfig with ChangeNotifier {
 
   //获取公共配置
   Future getCommonConfig() async {
-    Toast.loading();
     DioResult res = await SlideNavApi.getGlobalConfig();
-    Toast.clear();
     if (res.error == null) {
       GlobalConfigRes result = GlobalConfigRes.fromJson(res.result);
       List siteList = result?.data?.siteList;
@@ -50,11 +48,13 @@ class GlobalConfig with ChangeNotifier {
       this.commonAmountList = result?.data?.commonAmountList;
       CurrentConfig config;
       //假如本地有缓存配置，优先取本地缓存，否则取接口返回配置
-      if (getCurrentConfig() == null) {
+      var localStroageCurrentConfig = getCurrentConfig();
+      if (localStroageCurrentConfig['isDefault'] != null &&
+          localStroageCurrentConfig['isDefault']) {
         config = result?.data?.currentConfig;
         setCurrentConfig(config.toJson());
       } else {
-        config = CurrentConfig.fromJson(getCurrentConfig());
+        config = CurrentConfig.fromJson(localStroageCurrentConfig);
       }
       this.currentConfig = config;
       setCurrentConfigCookie();
