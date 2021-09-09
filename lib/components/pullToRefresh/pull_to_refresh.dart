@@ -1,3 +1,9 @@
+/*
+ * @Author       : JHao
+ * @Date         : 2021-09-09 15:49:51
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-09-09 15:58:23
+ */
 import 'dart:io';
 
 import 'package:homary/common/utils/main.dart';
@@ -24,7 +30,7 @@ class PullToRefresh extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshConfiguration(
-      headerTriggerDistance: 55,
+      headerTriggerDistance: 80.w,
       child: SmartRefresher(
         controller: controller,
         child: child,
