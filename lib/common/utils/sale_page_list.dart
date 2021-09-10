@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-08-27 18:11:57
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-03 16:25:10
+ * @LastEditTime : 2021-09-10 10:46:25
  */
 
 import 'package:homary/common/storage/cookie.dart';
@@ -19,6 +19,17 @@ Map<String, String> _siteLink = {
   "global":
       "https://mglobal.homary.com/channel/hot-sales-2.html?pageFrom=HomaryApp"
 };
+
+List<String> hostList = [
+  'https://m.homary.com',
+  "https://muk.homary.com",
+  "https://mfr.homary.com",
+  "https://mde.homary.com",
+  "https://mes.homary.com",
+  "https://mau.homary.com",
+  "https://mca.homary.com",
+  "https://mglobal.homary.com"
+];
 
 String getSalePageLink() {
   String _site = getCurrentConfig()['site'] ?? 'us';

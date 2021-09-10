@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-29 18:34:23
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-27 18:37:06
+ * @LastEditTime : 2021-09-10 11:16:14
  */
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -72,6 +72,11 @@ class _CategoryItemState extends State<CategoryItem>
       }
       if (url.contains('/act/')) {
         return ChannelTab(activityId: getIdFromUrl(url));
+      }
+      if (url.indexOf("?") != -1) {
+        map['url'] = "$url&pageFrom=HomaryApp";
+      } else {
+        map['url'] = "$url?pageFrom=HomaryApp";
       }
     }
     return Scaffold(

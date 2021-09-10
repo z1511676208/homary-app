@@ -46,6 +46,7 @@ class WebviewCtrl extends StatefulWidget {
 class _WebviewCtrlState extends State<WebviewCtrl> {
   InAppWebViewGroupOptions options = InAppWebViewGroupOptions(
       crossPlatform: InAppWebViewOptions(
+        transparentBackground: true,
         useShouldOverrideUrlLoading: true,
         // https://github.com/pichillilorenzo/flutter_inappwebview/pull/860
         // applicationNameForUserAgent: "Homary"
@@ -339,9 +340,8 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
               });
         },
         onLoadStart: (InAppWebViewController controller, Uri url) {
-          if (url.toString().contains('m.homary.com/') ||
-              url.toString().contains('muk.homary.com/')) {
-            // 排除PC站链接重定向
+          if (hostList.contains(url.origin)) {
+            // 安卓首次进入不掉用shouldOverrideUrlLoading 在此处将 isInitUrl 设为false
             isInitUrl = false;
           }
           changeHeadStatus(url);
@@ -370,7 +370,7 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
           }
         },
         shouldOverrideUrlLoading: (controller, navigationAction) async {
-          var url = navigationAction.request.url;
+          Uri url = navigationAction.request.url;
 
           if (url.scheme == 'homary') {
             handleSchema(context, url.toString());
@@ -384,6 +384,11 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
             Routes.push(context, '/webview',
                 params: {"content": '{"url":"${url.toString()}"}'});
             return NavigationActionPolicy.CANCEL;
+          }
+          if (hostList.contains(url.origin)) {
+            // 安卓首次进入不掉用shouldOverrideUrlLoading 在此处将 isInitUrl 设为false
+            // 排除PC站链接重定向
+            isInitUrl = false;
           }
 
           return NavigationActionPolicy.ALLOW;
