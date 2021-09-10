@@ -88,8 +88,7 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
     } else if (url.path.contains('/place') ||
         url.path.contains('/payfail') ||
         url.path.contains('/paysuccess') ||
-        url.path.contains('/customerService') ||
-        url.path.contains('/wishlists')) {
+        url.path.contains('/customerService')) {
       isShowAppBar = false;
     } else if (url.path.contains('/shoppingcart')) {
       showCart = false;
@@ -301,13 +300,7 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
                 Provider.of<GlobalConfig>(context, listen: false)
                     .getShoppingCartNumber();
               });
-          //跳转到登录页
-          controller.addJavaScriptHandler(
-              handlerName: "AppJumpToSignIn",
-              callback: (args) {
-                Provider.of<GlobalConfig>(context, listen: false)
-                    .getShoppingCartNumber();
-              });
+
           //跳转到登录页
           controller.addJavaScriptHandler(
               handlerName: "AppGuestLogin",
@@ -325,18 +318,17 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
                 Provider.of<GlobalConfig>(context, listen: false)
                     .getShoppingCartNumber();
               });
-          //跳转到登录页
-          controller.addJavaScriptHandler(
-              handlerName: "AppJumpToSignIn",
-              callback: (args) {
-                Provider.of<GlobalConfig>(context, listen: false)
-                    .getShoppingCartNumber();
-              });
           // M站GTM上报
           controller.addJavaScriptHandler(
               handlerName: "AppSendGTMData",
               callback: (args) {
                 sendGTMData(args[0]);
+              });
+
+          controller.addJavaScriptHandler(
+              handlerName: "scollerInPopup",
+              callback: (args) {
+                verticalRecognizer.isAtTop = false;
               });
         },
         onLoadStart: (InAppWebViewController controller, Uri url) {
@@ -395,7 +387,6 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
         },
         onUpdateVisitedHistory:
             (InAppWebViewController controller, Uri url, bool androidIsReload) {
-          // print("路由跳转 ===》$url");
           changeHeadStatus(url);
         },
         onLoadError: (context, url, i, e) {
