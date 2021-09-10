@@ -30,34 +30,17 @@ class PullToRefresh extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshConfiguration(
-      headerTriggerDistance: 80.w,
+      headerTriggerDistance: 60.w,
       child: SmartRefresher(
         controller: controller,
         child: child,
         header: AppClassicHeader(),
-        footer: ClassicFooter(
-          loadingText: '',
-          idleText: '',
-          canLoadingText: '',
-          canLoadingIcon: loadingIcon(),
-          idleIcon: loadingIcon(),
-          loadingIcon: loadingIcon(),
-        ),
+        footer: AppClassicFooter(),
         enablePullDown: enablePullDown,
         enablePullUp: enablePullUp,
         onRefresh: onRefresh,
         onLoading: onLoading,
       ),
     );
-  }
-
-  Widget loadingIcon() {
-    return Platform.isAndroid
-        ? SizedBox(
-            width: 18,
-            height: 18,
-            child: CircularProgressIndicator(strokeWidth: 2),
-          )
-        : CupertinoActivityIndicator();
   }
 }
