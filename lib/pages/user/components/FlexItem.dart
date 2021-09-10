@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-28 16:10:53
- * @LastEditors  : JHao
- * @LastEditTime : 2021-08-31 17:40:47
+ * @LastEditors  : zhhjie
+ * @LastEditTime : 2021-09-10 17:06:13
  */
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';

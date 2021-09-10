@@ -17,6 +17,7 @@ import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/analytics.dart' as Analytics;
 import 'package:homary/pages/index/main.dart';
 import 'package:homary/common/utils/navigateWatcher.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 import 'common/utils/device.dart';
@@ -77,6 +78,7 @@ class _MyAppState extends State<MyApp> {
         builder: (context, GlobalConfig value, child) {
           return MaterialApp(
             localizationsDelegates: [
+              RefreshLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
@@ -90,12 +92,11 @@ class _MyAppState extends State<MyApp> {
               const Locale('es', 'ES'),
             ],
             theme: ThemeData(
-              scaffoldBackgroundColor: Colors.white,
-              primarySwatch: AppColor.primaryMaterialColor,
-              primaryColor: AppColor.primaryColor,
-              accentColor: AppColor.primaryColor,
-              fontFamily: 'Urbanist'
-            ),
+                scaffoldBackgroundColor: Colors.white,
+                primarySwatch: AppColor.primaryMaterialColor,
+                primaryColor: AppColor.primaryColor,
+                accentColor: AppColor.primaryColor,
+                fontFamily: 'Urbanist'),
             // 配置路由
             onGenerateRoute: Routes.router.generator,
             navigatorKey: navigatorKey,
