@@ -13,7 +13,7 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:icon="@mipmap/launcher_icon"
-        android:label="Homary"
+        android:label="${APP_NAME}"
         android:networkSecurityConfig="@xml/network_security_config"
         tools:replace="android:label">
         <activity

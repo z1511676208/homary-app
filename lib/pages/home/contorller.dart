@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-21 10:42:50
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-09 11:09:20
+ * @LastEditTime : 2021-09-13 18:06:58
  */
 /*
  * @Author       : zhhjie
@@ -117,6 +117,7 @@ class HomeCtrl with ChangeNotifier {
     Toast.clear();
     if (res.error == null) {
       AppAdvInfoRes result = AppAdvInfoRes.fromJson(res.result);
+      homeAdvInfoMap = res.result;
       Localstorage().setJSON(StorageKey.HOME_ADV_CACHE, res.result);
       setHomeAdvInfo(result);
     }

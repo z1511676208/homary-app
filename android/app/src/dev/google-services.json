@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "274432502381",
+    "project_id": "firebase-317612",
+    "storage_bucket": "firebase-317612.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:274432502381:android:7ef4bf8aa38f3bb22f6d64",
+        "android_client_info": {
+          "package_name": "com.popicorns.homary.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "274432502381-qsjsqk263c9tqb8d5a6fivsla1r8jhav.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCx4s0Utj8-9hZclS4bNSZF9klcDphye-Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "274432502381-qsjsqk263c9tqb8d5a6fivsla1r8jhav.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "274432502381-phqqhdrj9bskupgu8j0grtdtn6blqfdv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.popicorns.homary.dev"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

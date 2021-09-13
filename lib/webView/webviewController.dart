@@ -363,7 +363,6 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
         },
         shouldOverrideUrlLoading: (controller, navigationAction) async {
           Uri url = navigationAction.request.url;
-
           if (url.scheme == 'homary') {
             handleSchema(context, url.toString());
             return NavigationActionPolicy.CANCEL;
@@ -375,6 +374,9 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
               (url.toString().contains('.homary.com/'))) {
             Routes.push(context, '/webview',
                 params: {"content": '{"url":"${url.toString()}"}'});
+            return NavigationActionPolicy.CANCEL;
+          } else if (url.toString().contains('www.affirm.com/apps/prequal')) {
+            _launchURL(url.toString());
             return NavigationActionPolicy.CANCEL;
           }
           if (hostList.contains(url.origin)) {

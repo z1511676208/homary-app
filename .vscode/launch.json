@@ -7,7 +7,8 @@
     {
       "name": "homary",
       "request": "launch",
-      "type": "dart"
+      "type": "dart",
+      "args": ["--flavor", "dev"]
     },
     {
       "name": "homary (profile mode)",
@@ -19,7 +20,8 @@
       "name": "homary Release",
       "request": "launch",
       "type": "dart",
-      "flutterMode": "release"
+      "flutterMode": "release",
+      "args": ["--flavor", "dev"]
     }
   ]
 }

@@ -1,0 +1,70 @@
+{
+  "project_info": {
+    "project_number": "1053109877152",
+    "project_id": "mellon88-login",
+    "storage_bucket": "mellon88-login.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1053109877152:android:6d2ffb2c781bc0e2f68cc5",
+        "android_client_info": {
+          "package_name": "com.popicorns.homary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1053109877152-1507m68ptjbnmhsmq10fb6iag4s5rp92.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.popicorns.homary",
+            "certificate_hash": "4a5fd624e72243be391c2b04b5898d350604b798"
+          }
+        },
+        {
+          "client_id": "1053109877152-hrvk434ig0rb495v190grj6acjl9l9oe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.popicorns.homary",
+            "certificate_hash": "9ff764d095ee72ddedea5d5a9c3c95910f4f4918"
+          }
+        },
+        {
+          "client_id": "1053109877152-jkve3v62pdn6s1eujdqok35qkmft2np6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.popicorns.homary",
+            "certificate_hash": "d66369d9f63408c1cc0d4a44528c50600ea1f220"
+          }
+        },
+        {
+          "client_id": "1053109877152-ftqj3guk5l60qi0c4o04260djptaro5c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDa6nOB5DGybrKfPp075zKpkA3O8z7zgnw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1053109877152-49ug7qsnh46imv0v899i027407akq6f4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1053109877152-lvg1mu0vbavjlvg70pkmmun21abuuhe9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.popicorns.homary"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

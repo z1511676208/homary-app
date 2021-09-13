@@ -84,6 +84,7 @@ class _MyAppState extends State<MyApp> {
               GlobalCupertinoLocalizations.delegate,
               S.delegate
             ],
+            title: 'Homary',
             locale: value.curLocale,
             supportedLocales: [
               const Locale('en', 'UK'),
