@@ -35,6 +35,18 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
     compileSdkVersion 30
+    flavorDimensions "HomaryApp"
+    productFlavors {
+        dev {
+            dimension "HomaryApp"
+            applicationIdSuffix ".dev"
+            addManifestPlaceholders([APP_NAME: "Homary_Dev"])
+        }
+
+        product {
+            dimension "HomaryApp"
+        }
+    }
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -52,7 +64,7 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
-
+        addManifestPlaceholders([APP_NAME: "Homary"])
     }
     signingConfigs {
        release {

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1053109877152-lvg1mu0vbavjlvg70pkmmun21abuuhe9.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1053109877152-lvg1mu0vbavjlvg70pkmmun21abuuhe9</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>1053109877152-1507m68ptjbnmhsmq10fb6iag4s5rp92.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBpjsX24bIfEvGCWL6ZIc0EbuCRMgZyjuo</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1053109877152</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.popicorns.homary</string>
+	<key>PROJECT_ID</key>
+	<string>mellon88-login</string>
+	<key>STORAGE_BUCKET</key>
+	<string>mellon88-login.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1053109877152:ios:91416335001c86def68cc5</string>
+</dict>
+</plist>

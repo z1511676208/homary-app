@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-06-21 18:40:47
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-02 17:23:02
+ * @LastEditTime : 2021-09-13 15:49:35
  */
 import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -55,6 +55,7 @@ class Global {
     if (Platform.isIOS) {}
 
     await Firebase.initializeApp();
+    print(Firebase.apps[0].options);
     // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
     if (!kIsWeb) {
@@ -109,12 +110,13 @@ class Global {
     if (commonResult.error == null) {
       result = InitConfigRes.fromJson(commonResult.result);
       if (result?.data?.urlMapData != null) {
-        await Localstorage().setJSON(StorageKey.REQUEST_URL, result.data.urlMapData);
+        await Localstorage()
+            .setJSON(StorageKey.REQUEST_URL, result.data.urlMapData);
       }
       if (result?.data?.dynamicData != null) {
-        await Localstorage().setJSON(StorageKey.DYNAMIC_DATA, result.data.dynamicData);
+        await Localstorage()
+            .setJSON(StorageKey.DYNAMIC_DATA, result.data.dynamicData);
       }
     }
-
   }
 }
