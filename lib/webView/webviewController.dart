@@ -179,9 +179,11 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async {
-        return await goback(this.controller);
-      },
+      onWillPop: Platform.isAndroid
+          ? () async {
+              return await goback(this.controller);
+            }
+          : null,
       child: PullToRefresh(
         controller: refreshController,
         enablePullUp: false,

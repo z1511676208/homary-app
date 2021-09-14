@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-08-23 10:55:22
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-31 17:56:39
+ * @LastEditTime : 2021-09-14 11:35:34
  */
 // import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:homary/common/config/packageInfo.dart';
@@ -146,9 +146,9 @@ class _SettingViewState extends State<SettingView> {
                       ),
                       showTickerModeBottomBorder: true,
                       childrenPadding: EdgeInsets.symmetric(vertical: 10.w),
-                      childrenStyle: TextStyle(
-                          color: AppColor.primaryText,
-                          fontWeight: FontWeight.bold),
+                      // childrenStyle: TextStyle(
+                      //     color: AppColor.primaryText,
+                      //     fontWeight: FontWeight.bold),
                       childBorder: Border(),
                       needPop: false,
                       padding: EdgeInsets.only(
