@@ -332,11 +332,13 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
                 callback: (args) {
                   sendGTMData(args[0]);
                 });
-
             controller.addJavaScriptHandler(
                 handlerName: "scollerInPopup",
                 callback: (args) {
                   verticalRecognizer.isAtTop = false;
+                  // affirm 弹窗会使页面滚回顶部 故延迟1s再设置isAtTop
+                  Future.delayed(Duration(milliseconds: 1000))
+                      .then((value) => verticalRecognizer.isAtTop = false);
                 });
           },
           onLoadStart: (InAppWebViewController controller, Uri url) {
