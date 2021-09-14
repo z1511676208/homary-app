@@ -19,9 +19,15 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'fr';
 
-  static m0(total) => "Seulement ${total} en vente!";
+  static m0(count) => "Disponible(${count})";
 
-  static m1(amount) => "Vous avez reçu les coupons pour les nouveaux utilisateurs, jusqu\'à ${amount} de rabais sur tous les articles.";
+  static m1(count) => "Indisponible(${count})";
+
+  static m2(total) => "Seulement ${total} en vente!";
+
+  static m3(amount) => "Vous avez reçu les coupons pour les nouveaux utilisateurs, jusqu\'à ${amount} de rabais sur tous les articles.";
+
+  static m4(result) => "Résultats pour \"${result}\"";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
@@ -60,12 +66,20 @@ class MessageLookup extends MessageLookupByLibrary {
     "channel_returnHome" : MessageLookupByLibrary.simpleMessage("Rentrer à la maison"),
     "channel_shopByDepartment" : MessageLookupByLibrary.simpleMessage("Magasiner par catégorie"),
     "close_drawer" : MessageLookupByLibrary.simpleMessage("Close Drawer 123"),
+    "coupons_apply" : MessageLookupByLibrary.simpleMessage("Appliquer"),
+    "coupons_available" : m0,
+    "coupons_code" : MessageLookupByLibrary.simpleMessage("Entrer le code"),
+    "coupons_empty" : MessageLookupByLibrary.simpleMessage("Vous n\'avez pas encore de coupons"),
+    "coupons_expired" : MessageLookupByLibrary.simpleMessage("Expiré"),
+    "coupons_orders_over" : MessageLookupByLibrary.simpleMessage("Commandes de"),
+    "coupons_unavailable" : m1,
+    "coupons_use_now" : MessageLookupByLibrary.simpleMessage("Appliquez"),
     "deleteButtonText" : MessageLookupByLibrary.simpleMessage("SUPPRIMER"),
     "drawer_tip" : MessageLookupByLibrary.simpleMessage("This is the Drawer"),
     "endsSoon" : MessageLookupByLibrary.simpleMessage("Vente Flash"),
     "help_center" : MessageLookupByLibrary.simpleMessage("Centre d\'aide"),
     "home_OnSalenow" : MessageLookupByLibrary.simpleMessage("maintenant en Vente"),
-    "home_Onlyonsale" : m0,
+    "home_Onlyonsale" : m2,
     "home_StartsAt" : MessageLookupByLibrary.simpleMessage("Commence à"),
     "home_Startsin" : MessageLookupByLibrary.simpleMessage("Commence dans"),
     "home_Upcoming" : MessageLookupByLibrary.simpleMessage("À Venir"),
@@ -88,7 +102,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "new_user_get_all" : MessageLookupByLibrary.simpleMessage("AVOIR TOUT"),
     "new_user_no_hassle_returns" : MessageLookupByLibrary.simpleMessage("Retour Sans Tracas"),
     "new_user_orders_over" : MessageLookupByLibrary.simpleMessage("Commandes de"),
-    "new_user_received_all" : m1,
+    "new_user_received_all" : m3,
     "new_user_sign_get_all" : MessageLookupByLibrary.simpleMessage("SE CONNECTER"),
     "new_user_use_now" : MessageLookupByLibrary.simpleMessage("APPLIQUER"),
     "new_user_view_my_coupons" : MessageLookupByLibrary.simpleMessage("Voir Mes Coupons"),
@@ -119,12 +133,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "search_popularSearches" : MessageLookupByLibrary.simpleMessage("Souvent Recherchés"),
     "search_recentSearches" : MessageLookupByLibrary.simpleMessage("Recherches Récentes"),
     "search_see_also" : MessageLookupByLibrary.simpleMessage("Voir Aussi:"),
+    "search_showing_results" : m4,
     "setting_cleanCacheTip" : MessageLookupByLibrary.simpleMessage("Supprimer toutes les images temporaires pour libérer de l\'espace sur votre appareil ?"),
     "setting_clearCache" : MessageLookupByLibrary.simpleMessage("Vider le cache"),
     "setting_upgrade" : MessageLookupByLibrary.simpleMessage("Votre application est déjà la dernière version."),
     "setting_version" : MessageLookupByLibrary.simpleMessage("Version"),
     "signIn_guest_button" : MessageLookupByLibrary.simpleMessage("Continuer en tant qu\'invité"),
     "sign_out_btn" : MessageLookupByLibrary.simpleMessage("Se déconnecter"),
+    "success" : MessageLookupByLibrary.simpleMessage("Succès"),
     "title" : MessageLookupByLibrary.simpleMessage("Localization Demo"),
     "user_viewed" : MessageLookupByLibrary.simpleMessage("Mes vues"),
     "user_viewed_del_tips" : MessageLookupByLibrary.simpleMessage("Êtes-vous sûr de vouloir supprimer ces éléments?"),

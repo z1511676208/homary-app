@@ -1,5 +1,4 @@
 import 'package:homary/common/utils/main.dart';
-import 'package:homary/components/formInput/main.dart';
 import 'package:homary/entity/product_attr_res.dart';
 import 'package:homary/pages/categoryTab/controller.dart';
 import 'package:homary/widget/networkImg.dart';
@@ -79,7 +78,7 @@ class __PropertyWidgetState extends State<_PropertyWidget> {
 
   Widget getFilterWidget() {
     Map<String, Widget> filterWidgetList = {
-      "1": filterImageWidget(),
+      "1": filterCheckboxWidget(),
       "2": filterInputWidget(pvId: widget.productAttrMain.pnId.toString()),
       "3": filterInputWidget(pvId: "Price"),
       "4": filterImageWidget(),
@@ -274,10 +273,12 @@ class __PropertyWidgetState extends State<_PropertyWidget> {
               color: AppColor.primaryText,
             ),
           ),
-          value: ctrl.selectedFilterIdList.contains(_propertyList[index].pvId),
+          value: ctrl.selectedFilterIdList.contains("${widget.productAttrMain.pnValue}_${_propertyList[index].pvId}"),
           onChanged: (value) {
             Map<String, dynamic> _currentItem = _propertyList[index].toJson();
             _currentItem.addAll({
+              "pv_id": "${widget.productAttrMain.pnValue}_${_propertyList[index].pvId}",
+              "origin_pv_id": _propertyList[index].pvId,
               "is_channel": widget.productAttrMain.isChannel,
               'pn_value': widget.productAttrMain.pnValue,
               'type': widget.productAttrMain.type.toString()
@@ -345,9 +346,10 @@ class __PropertyWidgetState extends State<_PropertyWidget> {
 
           return GestureDetector(
               onTap: () {
-                Map<String, dynamic> _currentItem =
-                    _propertyList[index].toJson();
+                Map<String, dynamic> _currentItem = _propertyList[index].toJson();
                 _currentItem.addAll({
+                  "pv_id": "${widget.productAttrMain.pnValue}_${_propertyList[index].pvId}",
+                  "origin_pv_id": _propertyList[index].pvId,
                   "is_channel": widget.productAttrMain.isChannel,
                   'pn_value': widget.productAttrMain.pnValue,
                   'type': widget.productAttrMain.type.toString()
@@ -364,7 +366,7 @@ class __PropertyWidgetState extends State<_PropertyWidget> {
                     ),
                     border: Border.all(
                         width: 1.w,
-                        color: ctrl.selectedFilterIdList.contains(property.pvId)
+                        color: ctrl.selectedFilterIdList.contains("${widget.productAttrMain.pnValue}_${_propertyList[index].pvId}")
                             ? AppColor.primaryText
                             : AppColor.primaryBorderOutline)),
                 child: Column(

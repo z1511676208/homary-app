@@ -33,11 +33,16 @@ class CategoryTabCtrl extends ChangeNotifier {
   /// 是否选择了筛选条件
   bool hasFilter = false;
 
-  /// 筛选语句
-  String filterStr;
+  /// 筛选 Query
+  Map<String,String> filterQueryMap;
+
+  String filterPrice;
+  String filterChannelIds;
+  String filterAttrRange;
+
   List<ProductAttrFilterDatum> selectedFilterList = [];
   List selectedFilterIdList = [];
-  List outSideSelectedFilterList = [];
+  List<ProductAttrFilterDatum> outSideSelectedFilterList = [];
 
   /// 页码
   int page = 1;
@@ -143,7 +148,6 @@ class CategoryTabCtrl extends ChangeNotifier {
     final result = await ProductApi.getProductAttrList(params: {
       'channel_id': channelId,
       'keyword': keyword,
-      'attr': filterStr
     });
     if (result.error == null) {
       ProductAttrRes res = ProductAttrRes.fromJson(result.result);
@@ -195,11 +199,14 @@ class CategoryTabCtrl extends ChangeNotifier {
       'channel_id': selectedCategoryId,
       'page': page++,
       'page_size': size,
-      'attr': filterStr,
       'sort': sort,
       'order_sort': orderSort,
       'keyword': keyword,
     };
+
+    if(filterQueryMap != null){
+      params.addAll(filterQueryMap);
+    }
 
     if (selectedCategoryId == null) {
       // 当前为搜索页，使用搜索接口
@@ -266,8 +273,11 @@ class CategoryTabCtrl extends ChangeNotifier {
         e.isSelect = false;
       });
     });
+    selectedFilterIdList.clear();
+    selectedFilterList.clear();
+    outSideSelectedFilterList.clear();
     hasFilter = false;
-    filterStr = null;
+    filterQueryMap = null;
     _safeNotifyListeners();
     _resetAttr();
     getProductList();
@@ -275,6 +285,7 @@ class CategoryTabCtrl extends ChangeNotifier {
 
   /// 替换筛选条件
   void applyFilter() async {
+    outSideSelectedFilterList = [...selectedFilterList];
     getFilterStr();
     _resetAttr();
     getProductList();
@@ -282,20 +293,34 @@ class CategoryTabCtrl extends ChangeNotifier {
 
   // 获取筛选条件
   getFilterStr() {
-    List<String> list = [];
-    filterList.forEach((element) {
-      element.filterData.forEach((e) {
-        if (selectedFilterIdList.contains(e.pvId)) {
-          list.add('${element.pnValue}:${e.pvValue}');
-        }
-      });
+    filterQueryMap = {};
+    List<String> categoryIdList = [];
+    List<String> attrList = [];
+
+    selectedFilterList.forEach((element) {
+      if(element.isChannel == 1){
+        //对应channel_ids字段
+        categoryIdList.add(element.originPvId);
+        return;
+      } else if(['1','4'].contains(element.type)){
+        //对应attr字段
+        attrList.add('${element.pnValue}:${element.pvValue}');
+      } else if(element.type == '2'){
+        //对应attr_range字段
+        filterQueryMap['attr_range'] = '${element.originPvId}:${element.pvValue}';
+      } else if(element.type == '3'){
+        //对应price字段
+        filterQueryMap['price'] = element.pvValue;
+      }
     });
-    if (list.isNotEmpty) {
-      hasFilter = true;
-    } else {
-      hasFilter = false;
+    if(categoryIdList.isNotEmpty){
+      filterQueryMap['channel_ids'] = categoryIdList.join(',');
     }
-    filterStr = list.join(',');
+    if(attrList.isNotEmpty){
+      filterQueryMap['attr'] = attrList.join(',');
+    }
+
+    hasFilter = filterQueryMap.isNotEmpty;
   }
 
   // 设置筛选字段
@@ -316,6 +341,9 @@ class CategoryTabCtrl extends ChangeNotifier {
       }
       notifyListeners();
     }
+
+    // print(selectedFilterList.length);
+    // print(selectedFilterList[1].toJson());
   }
 
   // 删除指定pvId
@@ -323,6 +351,8 @@ class CategoryTabCtrl extends ChangeNotifier {
     if (selectedFilterIdList.contains(pvId)) {
       selectedFilterList.removeWhere((element) => element.pvId == pvId);
       selectedFilterIdList.remove(pvId);
+      notifyListeners();
+      applyFilter();
     }
   }
 
@@ -345,7 +375,7 @@ class CategoryTabCtrl extends ChangeNotifier {
     sort = 'sale_num';
     orderSort = 'desc';
     hasFilter = false;
-    filterStr = null;
+    filterQueryMap = null;
     _resetAttr();
     getProductAttrList(selectedCategoryId);
     getProductList();
@@ -355,7 +385,7 @@ class CategoryTabCtrl extends ChangeNotifier {
     sort = 'sale_num';
     orderSort = 'desc';
     hasFilter = false;
-    filterStr = null;
+    filterQueryMap = null;
     _resetAttr();
     getProductAttrList(selectedCategoryId);
     getProductList();
@@ -364,10 +394,5 @@ class CategoryTabCtrl extends ChangeNotifier {
   Future<void> onRefresh() async {
     _resetAttr(isNeedClear: false);
     await getProductList(isOnRefresh: true);
-  }
-
-  Future handleRefreshAttrList() async {
-    getFilterStr();
-    getProductAttrList(selectedCategoryId);
   }
 }

@@ -1,5 +1,6 @@
 import 'package:homary/common/utils/main.dart';
-import 'package:homary/components/dropMenu/drop_menu.dart';
+
+// import 'package:homary/components/dropMenu/drop_menu.dart';
 import 'package:homary/entity/product_attr_res.dart';
 
 class DropMenuSort extends StatefulWidget {
@@ -26,7 +27,7 @@ class _DropMenuSortState extends State<DropMenuSort> {
   }
 
   void _onSelect(int index) async {
-    if(_selectIndex == index){
+    if (_selectIndex == index) {
       return;
     }
     setState(() {
@@ -41,49 +42,90 @@ class _DropMenuSortState extends State<DropMenuSort> {
     });
     widget.onSelect?.call();
     await Future.delayed(Duration(milliseconds: 200));
-    DropMenuManager.instance.hide();
+    Navigator.pop(context, true);
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: EdgeInsets.zero,
-      itemCount: widget.orderByList.length,
-      itemBuilder: (context, index) {
-        return GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () => _onSelect(index),
-          child: Container(
-            height: 44.w,
-            alignment: Alignment.centerLeft,
-            padding: EdgeInsets.symmetric(
-              horizontal: 20.w,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return SafeArea(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            height: 50.w,
+            child: Stack(
               children: [
-                Text(
-                  widget.orderByList[index].name,
-                  style: TextStyle(
-                    fontSize: 13.sp,
-                    color: _selectIndex == index
-                        ? AppColor.primaryColor
-                        : AppColor.primaryText,
+                Center(
+                  child: Text(
+                    S.of(context).category_sortBy,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.sp,
+                    ),
                   ),
                 ),
-                Visibility(
-                  visible: _selectIndex == index,
-                  child: Icon(
-                    Iconfont.Tick,
-                    color: AppColor.primaryColor,
-                    size: 13.w,
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Padding(
+                    padding: EdgeInsets.only(right: 16.w),
+                    child: GestureDetector(
+                      onTap: () => Navigator.pop(context, false),
+                      child: Image.asset(
+                        'assets/images/home/popup_close.png',
+                        width: 18.w,
+                        height: 18.w,
+                      ),
+                    ),
                   ),
                 ),
               ],
             ),
           ),
-        );
-      },
+          ListView.builder(
+            shrinkWrap: true,
+            padding: EdgeInsets.zero,
+            itemCount: widget.orderByList.length,
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () => _onSelect(index),
+                child: Container(
+                  height: 44.w,
+                  alignment: Alignment.centerLeft,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.w,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        widget.orderByList[index].name,
+                        style: TextStyle(
+                          fontSize: 13.sp,
+                          color: _selectIndex == index
+                              ? AppColor.primaryColor
+                              : AppColor.primaryText,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 18.w,
+                        height: 18.w,
+                        child: Radio(
+                          value: index,
+                          groupValue: _selectIndex,
+                          onChanged: (value){
+                            _onSelect(value);
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
     );
   }
 }

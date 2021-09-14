@@ -45,20 +45,20 @@ Map<String, String> baseRequestUrl = {
   "topChannel": "https://frontapi.homary.com/home/channel/get-top-channel",
   "legoActivityInfo":
       "https://frontapi.homary.com/market/lego-activity/get-activity-info?activity_id=#&is_preview=#",
-  "drawCoupon": "https://frontapi.homary.com/market/coupon/draw-coupon",
-  "userDrawList": "https://frontapi.homary.com/market/coupon/usr-draw-list",
+  "drawCoupon": "https://frontapi.homary.com/market/coupons/draw-coupons",
+  "userDrawList": "https://frontapi.homary.com/market/coupons/usr-draw-list",
   "skuCouponList":
-      "https://frontapi.homary.com/market/coupon/get-sku-coupon-list",
+      "https://frontapi.homary.com/market/coupons/get-sku-coupons-list",
   "couponStatusList":
-      "https://frontapi.homary.com/market/coupon/get-coupon-status-list",
+      "https://frontapi.homary.com/market/coupons/get-coupons-status-list",
   "popupCouponLis":
-      "https://frontapi.homary.com/market/coupon/popup-coupon-list",
+      "https://frontapi.homary.com/market/coupons/popup-coupons-list",
   "actPageCouponList":
-      "https://frontapi.homary.com/market/coupon/get-act-page-coupon-list",
+      "https://frontapi.homary.com/market/coupons/get-act-page-coupons-list",
   "batchGetCoupon":
-      "https://frontapi.homary.com/market/coupon/batch-get-coupon",
+      "https://frontapi.homary.com/market/coupons/batch-get-coupons",
   "batchGetCouponByParams":
-      "https://frontapi.homary.com/market/coupon/batch-get-coupon-by-params",
+      "https://frontapi.homary.com/market/coupons/batch-get-coupons-by-params",
   "indexAdvInfo": "https://frontapi.homary.com/home/index/app-adv-info",
   "topChannelCategory":
       "https://frontapi.homary.com/home/channel/app-top-channel-category",

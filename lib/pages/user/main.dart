@@ -112,7 +112,7 @@ class _UserPageViewState extends State<UserPageView> {
                   ExpandedItem(
                     data.userCenterInfo?.couponCount ?? 0,
                     S.of(context).usercenter_coupons,
-                    url: 'https://m.homary.com/usercenter/coupons',
+                    url: '/usercenter/coupons',
                     appBarTitle: S.of(context).usercenter_coupons,
                   ),
                   ExpandedItem(

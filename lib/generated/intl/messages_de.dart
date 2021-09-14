@@ -19,9 +19,15 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'de';
 
-  static m0(total) => "Nur ${total} im Angebot!";
+  static m0(count) => "Verfügbar(${count})";
 
-  static m1(amount) => "Sie haben einen neuen Benutzercoupon erhalten, bis zu ${amount} Rabatt.";
+  static m1(count) => "Nicht verfügbar(${count})";
+
+  static m2(total) => "Nur ${total} im Angebot!";
+
+  static m3(amount) => "Sie haben einen neuen Benutzercoupon erhalten, bis zu ${amount} Rabatt.";
+
+  static m4(result) => "Ergebnisse für „${result}“ werden angezeigt";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
@@ -60,12 +66,20 @@ class MessageLookup extends MessageLookupByLibrary {
     "channel_returnHome" : MessageLookupByLibrary.simpleMessage("nach Startseite gehen"),
     "channel_shopByDepartment" : MessageLookupByLibrary.simpleMessage("Nach Kategorie shoppen"),
     "close_drawer" : MessageLookupByLibrary.simpleMessage("Close Drawer 123"),
+    "coupons_apply" : MessageLookupByLibrary.simpleMessage("Bewerben"),
+    "coupons_available" : m0,
+    "coupons_code" : MessageLookupByLibrary.simpleMessage("Code eingeben"),
+    "coupons_empty" : MessageLookupByLibrary.simpleMessage("Du hast noch keine Gutscheine"),
+    "coupons_expired" : MessageLookupByLibrary.simpleMessage("Abgelaufen"),
+    "coupons_orders_over" : MessageLookupByLibrary.simpleMessage("Bestellungen über"),
+    "coupons_unavailable" : m1,
+    "coupons_use_now" : MessageLookupByLibrary.simpleMessage("Benutzen"),
     "deleteButtonText" : MessageLookupByLibrary.simpleMessage("Lösche"),
     "drawer_tip" : MessageLookupByLibrary.simpleMessage("This is the Drawer"),
     "endsSoon" : MessageLookupByLibrary.simpleMessage("Enden Bald"),
     "help_center" : MessageLookupByLibrary.simpleMessage("Hilfezentrum"),
     "home_OnSalenow" : MessageLookupByLibrary.simpleMessage("Im Sonderangebot"),
-    "home_Onlyonsale" : m0,
+    "home_Onlyonsale" : m2,
     "home_StartsAt" : MessageLookupByLibrary.simpleMessage("Beginnt um"),
     "home_Startsin" : MessageLookupByLibrary.simpleMessage("Beginnt in"),
     "home_Upcoming" : MessageLookupByLibrary.simpleMessage("Bevorstehende"),
@@ -88,7 +102,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "new_user_get_all" : MessageLookupByLibrary.simpleMessage("NIMM ALLE"),
     "new_user_no_hassle_returns" : MessageLookupByLibrary.simpleMessage("Rückgabe & Umtausch"),
     "new_user_orders_over" : MessageLookupByLibrary.simpleMessage("Bestellungen über"),
-    "new_user_received_all" : m1,
+    "new_user_received_all" : m3,
     "new_user_sign_get_all" : MessageLookupByLibrary.simpleMessage("ANMELDEN"),
     "new_user_use_now" : MessageLookupByLibrary.simpleMessage("JETZT BENUTZEN"),
     "new_user_view_my_coupons" : MessageLookupByLibrary.simpleMessage("Meine Gutscheine Anzeigen"),
@@ -119,12 +133,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "search_popularSearches" : MessageLookupByLibrary.simpleMessage("Beliebte Suchen"),
     "search_recentSearches" : MessageLookupByLibrary.simpleMessage("Letzte Suchen"),
     "search_see_also" : MessageLookupByLibrary.simpleMessage("Ähnliche Suchen:"),
+    "search_showing_results" : m4,
     "setting_cleanCacheTip" : MessageLookupByLibrary.simpleMessage("Alle temporären Bilder löschen, um Speicherplatz auf Ihrem Gerät freizugeben?"),
     "setting_clearCache" : MessageLookupByLibrary.simpleMessage("Cache leeren"),
     "setting_upgrade" : MessageLookupByLibrary.simpleMessage("Ihre App ist bereits die neueste Version."),
     "setting_version" : MessageLookupByLibrary.simpleMessage("Ausführung"),
     "signIn_guest_button" : MessageLookupByLibrary.simpleMessage("WEITER ALS GAST"),
     "sign_out_btn" : MessageLookupByLibrary.simpleMessage("Austragen"),
+    "success" : MessageLookupByLibrary.simpleMessage("Erfolg"),
     "title" : MessageLookupByLibrary.simpleMessage("Localization Demo"),
     "user_viewed" : MessageLookupByLibrary.simpleMessage("Meine Ansicht"),
     "user_viewed_del_tips" : MessageLookupByLibrary.simpleMessage("Sind Sie sicher, dass Sie diese Artikel löschen möchten?"),

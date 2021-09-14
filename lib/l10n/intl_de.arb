@@ -113,6 +113,7 @@
   "search_popularSearches": "Beliebte Suchen",
   "search_clearAll": "Alle Löschen",
   "search_findAnything": "Lieblingsprodukte finden...",
+  "search_showing_results": "Ergebnisse für „{result}“ werden angezeigt",
   "home_OnSalenow": "Im Sonderangebot",
   "home_Upcoming": "Bevorstehende",
   "home_Startsin": "Beginnt in",
@@ -128,5 +129,14 @@
   "wishlist_recently_added": "Kürzlich hinzugefügt",
   "wishlist_most_popular": "Am beliebtesten",
   "wishlist_price_high_to_low": "Preis hoch bis niedrig",
-  "wishlist_price_low_to_high": "Preis niedrig bis hoch"
+  "wishlist_price_low_to_high": "Preis niedrig bis hoch",
+  "coupons_available": "Verfügbar({count})",
+  "coupons_unavailable": "Nicht verfügbar({count})",
+  "coupons_apply": "Bewerben",
+  "coupons_orders_over": "Bestellungen über",
+  "coupons_use_now": "Benutzen",
+  "coupons_expired": "Abgelaufen",
+  "coupons_empty": "Du hast noch keine Gutscheine",
+  "coupons_code": "Code eingeben",
+  "success": "Erfolg"
 }

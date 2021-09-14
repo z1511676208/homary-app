@@ -113,6 +113,7 @@
   "search_popularSearches": "Búsquedas Populares",
   "search_clearAll": "Borrar Todo",
   "search_findAnything": "Buscar tus productos favoritos...",
+  "search_showing_results": "Mostrar el resultado sobre \"{result}\"",
   "home_OnSalenow": "Está en Ventas",
   "home_Upcoming": "Próximo",
   "home_Startsin": "Empieza en",
@@ -128,5 +129,14 @@
   "wishlist_recently_added": "Recientemente añadido",
   "wishlist_most_popular": "Más popular",
   "wishlist_price_high_to_low": "Precio de mayor a menor",
-  "wishlist_price_low_to_high": "Precios de barato a caro"
+  "wishlist_price_low_to_high": "Precios de barato a caro",
+  "coupons_available": "Disponible({count})",
+  "coupons_unavailable": "indisponible({count})",
+  "coupons_apply": "Aplicar",
+  "coupons_orders_over": "En compras de",
+  "coupons_use_now": "Usar",
+  "coupons_expired": "Inválido",
+  "coupons_empty": "Aún no tienes cupones",
+  "coupons_code": "Ingresa el código",
+  "success": "Éxito"
 }

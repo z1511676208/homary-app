@@ -117,7 +117,8 @@ class ProductAttrFilterDatum {
       this.isSelect = false,
       this.pnValue,
       this.imgUrl,
-      this.type});
+      this.type,
+      this.originPvId});
 
   dynamic pvId;
   String pvValue;
@@ -127,6 +128,7 @@ class ProductAttrFilterDatum {
   String type;
   int isChannel;
   String imgUrl;
+  dynamic originPvId;
 
   factory ProductAttrFilterDatum.fromRawJson(String str) =>
       ProductAttrFilterDatum.fromJson(json.decode(str));
@@ -137,6 +139,7 @@ class ProductAttrFilterDatum {
       ProductAttrFilterDatum(
           imgUrl: json["img_url"] ?? '',
           pvId: json["pv_id"],
+          originPvId: json["origin_pv_id"],
           pvValue: json["pv_value"],
           pnValue: json["pn_value"] ?? "",
           isDisabled: json["is_disabled"],
@@ -150,6 +153,7 @@ class ProductAttrFilterDatum {
         "is_disabled": isDisabled,
         "is_channel": isChannel,
         "type": type,
+        "origin_pv_id": originPvId
         "img_url": imgUrl
       };
 }

@@ -50,4 +50,16 @@ class UserCenterApi {
         .post('/user/favorate/sku-cancel', params: params, isRequire: true);
     return res;
   }
+
+  static Future<DioResult> getCouponsList({Map<String, dynamic> params}) async {
+    DioResult res = await Request()
+        .post('/market/coupon/user-draw-list', params: params, isRequire: true);
+    return res;
+  }
+
+  static Future<DioResult> drawCoupons({Map<String, dynamic> params}) async {
+    DioResult res = await Request()
+        .post('/market/coupon/draw-coupon', params: params, isRequire: true);
+    return res;
+  }
 }

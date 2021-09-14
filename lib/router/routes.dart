@@ -58,6 +58,9 @@ class Routes {
   /// 用户足迹
   static String viewed = '/usercenter/viewed';
 
+  /// 用户优惠券
+  static String coupons = '/usercenter/coupons';
+
   // 配置route
   static void configureRoutes(FluroRouter router) {
     router.notFoundHandler = Handler(
@@ -78,6 +81,7 @@ class Routes {
     router.define(setting, handler: settingHandler);
     router.define(viewed, handler: viewedHandler);
     router.define(wishlist, handler: wishlistHandler);
+    router.define(coupons, handler: couponsHandler);
   }
 
   static String formatQueryParams(Map<String, dynamic> params) {
