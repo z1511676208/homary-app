@@ -37,6 +37,7 @@ class CategoryTabCtrl extends ChangeNotifier {
   String filterStr;
   List<ProductAttrFilterDatum> selectedFilterList = [];
   List selectedFilterIdList = [];
+  List outSideSelectedFilterList = [];
 
   /// 页码
   int page = 1;
@@ -299,7 +300,7 @@ class CategoryTabCtrl extends ChangeNotifier {
 
   // 设置筛选字段
   triggerSelectedFilterList(ProductAttrFilterDatum item) {
-    if (['Price', 'Attr'].contains(item.pvId)) {
+    if (['Price'].contains(item.pvId)) {
       // 特殊处理 价格区间 与 属性区间
       selectedFilterList.removeWhere((element) => element.pvId == item.pvId);
       selectedFilterList.add(item);

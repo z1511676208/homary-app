@@ -91,8 +91,10 @@ class ProductAttrMain {
         isChannel: json["is_channel"],
         numberMin: json["number_min"],
         numberMax: json["number_max"],
-        filterData: List<ProductAttrFilterDatum>.from(
-            json["filter_data"].map((x) => ProductAttrFilterDatum.fromJson(x))),
+        filterData: json["filter_data"] == null
+            ? []
+            : List<ProductAttrFilterDatum>.from(json["filter_data"]
+                .map((x) => ProductAttrFilterDatum.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -107,19 +109,20 @@ class ProductAttrMain {
 }
 
 class ProductAttrFilterDatum {
-  ProductAttrFilterDatum({
-    this.pvId,
-    this.pvValue,
-    this.isDisabled,
-    this.isSelect = false,
-    this.pnValue,
-  });
+  ProductAttrFilterDatum(
+      {this.pvId,
+      this.pvValue,
+      this.isDisabled,
+      this.isSelect = false,
+      this.pnValue,
+      this.type});
 
   dynamic pvId;
   String pvValue;
   String pnValue;
   bool isSelect;
   int isDisabled;
+  String type;
 
   factory ProductAttrFilterDatum.fromRawJson(String str) =>
       ProductAttrFilterDatum.fromJson(json.decode(str));
@@ -128,17 +131,18 @@ class ProductAttrFilterDatum {
 
   factory ProductAttrFilterDatum.fromJson(Map<String, dynamic> json) =>
       ProductAttrFilterDatum(
-        pvId: json["pv_id"],
-        pvValue: json["pv_value"],
-        pnValue: json["pn_value"] ?? "",
-        isDisabled: json["is_disabled"],
-      );
+          pvId: json["pv_id"],
+          pvValue: json["pv_value"],
+          pnValue: json["pn_value"] ?? "",
+          isDisabled: json["is_disabled"],
+          type: json['type']);
 
   Map<String, dynamic> toJson() => {
         "pv_id": pvId,
         "pv_value": pvValue,
         "pn_value": pnValue,
         "is_disabled": isDisabled,
+        "type": type
       };
 }
 

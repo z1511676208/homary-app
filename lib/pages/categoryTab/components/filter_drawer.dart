@@ -66,61 +66,45 @@ class _FilterDrawerState extends State<FilterDrawer> {
 
   Widget buildBottom(CategoryTabCtrl ctrl, BuildContext context) {
     return Container(
-      height: 50.5.w,
+      height: 60.w,
       child: Column(
         children: [
           Divider(
-            height: 0.5.w,
+            height: 8.w,
             color: AppColor.primaryBorderBottomLine,
           ),
-          Row(
-            children: [
-              Expanded(
-                child: Container(
-                  height: 50.w,
-                  child: TextButton(
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(),
+          Container(
+            width: 312.w,
+            height: 44.w,
+            margin: EdgeInsets.only(top: 5.w),
+            child: ElevatedButton(
+              onPressed: () {
+                ctrl.outSideSelectedFilterList = ctrl.selectedFilterList;
+                ctrl.applyFilter();
+              },
+              style: ButtonStyle(
+                  elevation: MaterialStateProperty.all(0),
+                  backgroundColor:
+                      MaterialStateProperty.all(AppColor.primaryColor),
+                  overlayColor:
+                      MaterialStateProperty.all(AppColor.whiteBtnPressed),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(36.0.w),
+                    side: BorderSide(
+                      width: 1.w,
+                      color: AppColor.primaryColor,
                     ),
-                    onPressed: () async {
-                      ctrl.cleanFilter();
-                      Navigator.of(context).pop();
-                    },
-                    child: Text(
-                      S.of(context).category_clear,
-                      style: TextStyle(
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
+                  ))),
+              child: Text(
+                "View Results",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15.sp,
                 ),
               ),
-              Expanded(
-                child: Container(
-                  height: 50.w,
-                  child: TextButton(
-                    style: TextButton.styleFrom(
-                      backgroundColor: AppColor.primaryColor,
-                      shape: RoundedRectangleBorder(),
-                    ),
-                    onPressed: () async {
-                      ctrl.applyFilter();
-                      Navigator.of(context).pop();
-                    },
-                    child: Text(
-                      S.of(context).category_apply,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
         ],
       ),

@@ -11,41 +11,43 @@ class FilterProperty extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: Theme.of(context).copyWith(
-          dividerColor: Colors.transparent,
-          unselectedWidgetColor: AppColor.primaryBorderOutline,
-          checkboxTheme: CheckboxThemeData(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(2.w)))),
-      child: ExpansionTile(
-        initiallyExpanded: productAttrMain.isExpand,
-        onExpansionChanged: (isExpand) {
-          productAttrMain.isExpand = isExpand;
-        },
-        iconColor: AppColor.primaryText,
-        collapsedIconColor: AppColor.primaryText,
-        title: Text(
-          productAttrMain.pnValue ?? '',
-          style: TextStyle(
-            fontSize: 14.sp,
-            color: AppColor.primaryText,
-            fontWeight: FontWeight.bold,
+        data: Theme.of(context).copyWith(
+            dividerColor: Colors.transparent,
+            unselectedWidgetColor: AppColor.primaryBorderOutline,
+            checkboxTheme: CheckboxThemeData(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(2.w)))),
+        child: Container(
+          decoration: BoxDecoration(
+              border: Border(
+                  bottom: BorderSide(
+                      width: 0.5.w, color: AppColor.primaryBorderBottomLine))),
+          child: ExpansionTile(
+            initiallyExpanded: productAttrMain.isExpand,
+            onExpansionChanged: (isExpand) {
+              productAttrMain.isExpand = isExpand;
+            },
+            iconColor: AppColor.primaryText,
+            collapsedIconColor: AppColor.primaryText,
+            title: Text(
+              productAttrMain.pnValue ?? '',
+              style: TextStyle(
+                fontSize: 14.sp,
+                color: AppColor.primaryText,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            children: [
+              _PropertyWidget(
+                key: ['2', '3'].contains(productAttrMain.type)
+                    ? UniqueKey()
+                    : null,
+                productAttrMain: productAttrMain,
+                propertyList: productAttrMain.filterData,
+              ),
+            ],
           ),
-        ),
-        children: [
-          _PropertyWidget(
-            key: UniqueKey(),
-            productAttrMain: productAttrMain,
-            propertyList: productAttrMain.filterData,
-          ),
-          Container(
-            height: 10.w,
-            color: AppColor.primaryBackground,
-            margin: EdgeInsets.only(top: 20.w),
-          ),
-        ],
-      ),
-    );
+        ));
   }
 }
 
@@ -76,33 +78,24 @@ class __PropertyWidgetState extends State<_PropertyWidget> {
 
   Widget getFilterWidget() {
     Map<String, Widget> filterWidgetList = {
-      "1": filterWidgetType1(),
-      "2": null,
-      "3": filterWidgetType3(),
+      "1": filterCheckboxWidget(),
+      "2": filterInputWidget(pvId: widget.productAttrMain.pnId.toString()),
+      "3": filterInputWidget(pvId: "Price"),
       "4": null,
     };
     return filterWidgetList[widget.productAttrMain.type.toString()];
   }
 
-  Widget filterWidgetType1() {
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      itemBuilder: (context, index) {
-        ProductAttrFilterDatum property = _propertyList[index];
-        if (property.isDisabled == 1) {
-          return buildDisabledRadio(index);
-        }
-        return buildRadio(index);
-      },
-      itemCount: _propertyList.length,
-    );
-  }
-
-  Widget filterWidgetType3() {
+  // 价格 属性筛选
+  Widget filterInputWidget({@required String pvId}) {
     CategoryTabCtrl ctrl = Provider.of<CategoryTabCtrl>(context, listen: false);
-    double minNumber = 0;
-    double maxNumber = 0;
+    var datum =
+        ctrl.selectedFilterList.where((item) => item.pvId == pvId).toList();
+    var initialDatum = datum.length > 0 ? datum[0].pvValue.split("~") : [];
+    double minNumber =
+        initialDatum.length > 0 ? double.parse(initialDatum[0]) : 0;
+    double maxNumber =
+        initialDatum.length > 0 ? double.parse(initialDatum[1]) : 0;
 
     return Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
       SizedBox(
@@ -110,6 +103,7 @@ class __PropertyWidgetState extends State<_PropertyWidget> {
       ),
       validatorInput(
           label: "Min",
+          initialValue: minNumber == 0 ? '' : minNumber.toString(),
           validatorFn: (String value) {
             if (value == "") {
               return null;
@@ -124,7 +118,7 @@ class __PropertyWidgetState extends State<_PropertyWidget> {
           },
           onChanged: (String value) {
             if (value == "" && maxNumber == 0) {
-              ctrl.removeSelectedFilterItem('Price');
+              ctrl.removeSelectedFilterItem(pvId);
               return;
             }
             minNumber = double.parse(value == "" ? '0' : value);
@@ -136,10 +130,11 @@ class __PropertyWidgetState extends State<_PropertyWidget> {
                 : widget.productAttrMain.numberMin.toDouble();
 
             ctrl.triggerSelectedFilterList(ProductAttrFilterDatum.fromJson({
-              "pv_id": "Price",
-              "pv_value": "$minNumber ~ $maxNumber",
+              "pv_id": pvId,
+              "pv_value": "$minNumber~$maxNumber",
               "pn_value": widget.productAttrMain.pnValue,
               "is_disabled": 0,
+              "type": widget.productAttrMain.type.toString()
             }));
           },
           onSaved: (val) {}),
@@ -148,6 +143,7 @@ class __PropertyWidgetState extends State<_PropertyWidget> {
       ),
       validatorInput(
           label: "Max",
+          initialValue: maxNumber == 0 ? '' : maxNumber.toString(),
           validatorFn: (String value) {
             if (value == "") {
               return null;
@@ -162,7 +158,7 @@ class __PropertyWidgetState extends State<_PropertyWidget> {
           },
           onChanged: (String value) {
             if (value == "" && minNumber == 0) {
-              ctrl.removeSelectedFilterItem('Price');
+              ctrl.removeSelectedFilterItem(pvId);
               return;
             }
             maxNumber = double.parse(value == "" ? '0' : value);
@@ -173,8 +169,8 @@ class __PropertyWidgetState extends State<_PropertyWidget> {
                 ? maxNumber
                 : widget.productAttrMain.numberMax.toDouble();
             ctrl.triggerSelectedFilterList(ProductAttrFilterDatum.fromJson({
-              "pv_id": "Price",
-              "pv_value": "$minNumber ~ $maxNumber",
+              "pv_id": pvId,
+              "pv_value": "$minNumber~$maxNumber",
               "pn_value": widget.productAttrMain.pnValue,
               "is_disabled": 0,
             }));
@@ -185,12 +181,14 @@ class __PropertyWidgetState extends State<_PropertyWidget> {
 
   Widget validatorInput(
       {String label,
+      String initialValue,
       Function validatorFn,
       Function onChanged,
       Function onSaved}) {
     return Container(
       width: 150.w,
       child: TextFormField(
+          initialValue: initialValue,
           keyboardType: TextInputType.number,
           textDirection: TextDirection.rtl,
           textAlignVertical: TextAlignVertical.center,
@@ -234,6 +232,22 @@ class __PropertyWidgetState extends State<_PropertyWidget> {
     );
   }
 
+  // 分类等checkbox类型 筛选
+  Widget filterCheckboxWidget() {
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      itemBuilder: (context, index) {
+        ProductAttrFilterDatum property = _propertyList[index];
+        if (property.isDisabled == 1) {
+          return buildDisabledRadio(index);
+        }
+        return buildRadio(index);
+      },
+      itemCount: _propertyList.length,
+    );
+  }
+
   Widget buildRadio(int index) {
     CategoryTabCtrl ctrl = Provider.of<CategoryTabCtrl>(context, listen: false);
     return SizedBox(
@@ -253,7 +267,10 @@ class __PropertyWidgetState extends State<_PropertyWidget> {
           value: ctrl.selectedFilterIdList.contains(_propertyList[index].pvId),
           onChanged: (value) {
             Map<String, dynamic> _currentItem = _propertyList[index].toJson();
-            _currentItem.addAll({'pn_value': widget.productAttrMain.pnValue});
+            _currentItem.addAll({
+              'pn_value': widget.productAttrMain.pnValue,
+              'type': widget.productAttrMain.type.toString()
+            });
             ctrl.triggerSelectedFilterList(
                 ProductAttrFilterDatum.fromJson(_currentItem));
             ctrl.handleRefreshAttrList();

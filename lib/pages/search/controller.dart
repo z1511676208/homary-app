@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-19 16:33:28
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-23 19:31:16
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-09-16 10:55:15
  */
 import 'dart:async';
 
@@ -36,8 +36,9 @@ class SearchCtrl with ChangeNotifier {
   Future getAnalyze(context) async {
     String keyword = this.keyword;
     if (keyword == '') {
-      Routes.push(context, '/webview', params: {
-        "content": '{"url":"https://m.homary.com/category?keyword="}'
+      Routes.push(context, Routes.category, params: {
+        'isSearchPage': 'true',
+        'keyword': "",
       });
       return false;
     }
