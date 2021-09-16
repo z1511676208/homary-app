@@ -34,7 +34,7 @@ class CategoryTabCtrl extends ChangeNotifier {
   bool hasFilter = false;
 
   /// 筛选 Query
-  Map<String,String> filterQueryMap;
+  Map<String, String> filterQueryMap;
 
   String filterPrice;
   String filterChannelIds;
@@ -204,7 +204,7 @@ class CategoryTabCtrl extends ChangeNotifier {
       'keyword': keyword,
     };
 
-    if(filterQueryMap != null){
+    if (filterQueryMap != null) {
       params.addAll(filterQueryMap);
     }
 
@@ -298,25 +298,25 @@ class CategoryTabCtrl extends ChangeNotifier {
     List<String> attrList = [];
 
     selectedFilterList.forEach((element) {
-      if(element.isChannel == 1){
+      if (element.isChannel == 1) {
         //对应channel_ids字段
         categoryIdList.add(element.originPvId);
         return;
-      } else if(['1','4'].contains(element.type)){
+      } else if (['1', '4'].contains(element.type)) {
         //对应attr字段
         attrList.add('${element.pnValue}:${element.pvValue}');
-      } else if(element.type == '2'){
+      } else if (element.type == '2') {
         //对应attr_range字段
-        filterQueryMap['attr_range'] = '${element.originPvId}:${element.pvValue}';
-      } else if(element.type == '3'){
+        filterQueryMap['attr_range'] = '${element.pvId}:${element.pvValue}';
+      } else if (element.type == '3') {
         //对应price字段
         filterQueryMap['price'] = element.pvValue;
       }
     });
-    if(categoryIdList.isNotEmpty){
+    if (categoryIdList.isNotEmpty) {
       filterQueryMap['channel_ids'] = categoryIdList.join(',');
     }
-    if(attrList.isNotEmpty){
+    if (attrList.isNotEmpty) {
       filterQueryMap['attr'] = attrList.join(',');
     }
 

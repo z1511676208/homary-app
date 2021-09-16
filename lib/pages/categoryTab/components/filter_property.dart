@@ -92,7 +92,6 @@ class __PropertyWidgetState extends State<_PropertyWidget> {
     var datum =
         ctrl.selectedFilterList.where((item) => item.pvId == pvId).toList();
     var initialDatum = datum.length > 0 ? datum[0].pvValue.split("~") : [];
-    print(initialDatum);
     double minNumber =
         initialDatum.length > 0 ? double.parse(initialDatum[0]) : 0;
     double maxNumber =

@@ -17,7 +17,11 @@ class _CategoryMenuBarV2State extends State<CategoryMenuBarV2> {
   Widget build(BuildContext context) {
     CategoryTabCtrl ctrl = context.watch<CategoryTabCtrl>();
     return Padding(
-      padding: EdgeInsets.all(12.w),
+      padding: EdgeInsets.only(
+        top: 12.w,
+        left: 12.w,
+        right: 12.w,
+      ),
       child: Column(
         children: [
           Row(
