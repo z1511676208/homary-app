@@ -113,6 +113,7 @@
   "search_popularSearches": "Souvent Recherchés",
   "search_clearAll": "Tout Effacer",
   "search_findAnything": "Découvrez tous les styles de meubles et déco...",
+  "search_showing_results": "Résultats pour \"{result}\"",
   "home_OnSalenow": "maintenant en Vente",
   "home_Upcoming": "À Venir",
   "home_Startsin": "Commence dans",
@@ -128,5 +129,14 @@
   "wishlist_recently_added": "Récemment ajouté",
   "wishlist_most_popular": "Le plus populaire",
   "wishlist_price_high_to_low": "Prix décroissant",
-  "wishlist_price_low_to_high": "Prix croissant"
+  "wishlist_price_low_to_high": "Prix croissant",
+  "coupons_available": "Disponible({count})",
+  "coupons_unavailable": "Indisponible({count})",
+  "coupons_apply": "Appliquer",
+  "coupons_orders_over": "Commandes de",
+  "coupons_use_now": "Appliquez",
+  "coupons_expired": "Expiré",
+  "coupons_empty": "Vous n'avez pas encore de coupons",
+  "coupons_code": "Entrer le code",
+  "success": "Succès"
 }

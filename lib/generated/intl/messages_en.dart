@@ -19,9 +19,15 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static m0(total) => "Only ${total} on sale!";
+  static m0(count) => "Available(${count})";
 
-  static m1(amount) => "You have received all new user coupons，up to ${amount} OFF for all items.";
+  static m1(count) => "Unavailable(${count})";
+
+  static m2(total) => "Only ${total} on sale!";
+
+  static m3(amount) => "You have received all new user coupons，up to ${amount} OFF for all items.";
+
+  static m4(result) => "Showing results for \"${result}\"";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
@@ -60,12 +66,20 @@ class MessageLookup extends MessageLookupByLibrary {
     "channel_returnHome" : MessageLookupByLibrary.simpleMessage("Return Home"),
     "channel_shopByDepartment" : MessageLookupByLibrary.simpleMessage("Shop by department"),
     "close_drawer" : MessageLookupByLibrary.simpleMessage("Close Drawer 123"),
+    "coupons_apply" : MessageLookupByLibrary.simpleMessage("Apply"),
+    "coupons_available" : m0,
+    "coupons_code" : MessageLookupByLibrary.simpleMessage("Coupon Code"),
+    "coupons_empty" : MessageLookupByLibrary.simpleMessage("It is empty here"),
+    "coupons_expired" : MessageLookupByLibrary.simpleMessage("Expired"),
+    "coupons_orders_over" : MessageLookupByLibrary.simpleMessage("Orders over"),
+    "coupons_unavailable" : m1,
+    "coupons_use_now" : MessageLookupByLibrary.simpleMessage("Use Now"),
     "deleteButtonText" : MessageLookupByLibrary.simpleMessage("Delete"),
     "drawer_tip" : MessageLookupByLibrary.simpleMessage("This is the Drawer"),
     "endsSoon" : MessageLookupByLibrary.simpleMessage("Ends Soon"),
     "help_center" : MessageLookupByLibrary.simpleMessage("Help Center"),
     "home_OnSalenow" : MessageLookupByLibrary.simpleMessage("On Sale now"),
-    "home_Onlyonsale" : m0,
+    "home_Onlyonsale" : m2,
     "home_StartsAt" : MessageLookupByLibrary.simpleMessage("Starts at"),
     "home_Startsin" : MessageLookupByLibrary.simpleMessage("Starts in"),
     "home_Upcoming" : MessageLookupByLibrary.simpleMessage("Upcoming"),
@@ -88,7 +102,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "new_user_get_all" : MessageLookupByLibrary.simpleMessage("GET ALL"),
     "new_user_no_hassle_returns" : MessageLookupByLibrary.simpleMessage("No Hassle Returns"),
     "new_user_orders_over" : MessageLookupByLibrary.simpleMessage("Orders over"),
-    "new_user_received_all" : m1,
+    "new_user_received_all" : m3,
     "new_user_sign_get_all" : MessageLookupByLibrary.simpleMessage("SIGN IN TO GET ALL"),
     "new_user_use_now" : MessageLookupByLibrary.simpleMessage("USE NOW"),
     "new_user_view_my_coupons" : MessageLookupByLibrary.simpleMessage("View My Coupons"),
@@ -119,12 +133,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "search_popularSearches" : MessageLookupByLibrary.simpleMessage("Popular Searches"),
     "search_recentSearches" : MessageLookupByLibrary.simpleMessage("Recent Searches"),
     "search_see_also" : MessageLookupByLibrary.simpleMessage("See Also:"),
+    "search_showing_results" : m4,
     "setting_cleanCacheTip" : MessageLookupByLibrary.simpleMessage("Delete all temporary images to free up some space in your device?"),
     "setting_clearCache" : MessageLookupByLibrary.simpleMessage("Clear Cache"),
     "setting_upgrade" : MessageLookupByLibrary.simpleMessage("Your app is already the latest version."),
     "setting_version" : MessageLookupByLibrary.simpleMessage("Version"),
     "signIn_guest_button" : MessageLookupByLibrary.simpleMessage("CONTINUE AS A GUEST"),
     "sign_out_btn" : MessageLookupByLibrary.simpleMessage("Sign Out"),
+    "success" : MessageLookupByLibrary.simpleMessage("Success"),
     "title" : MessageLookupByLibrary.simpleMessage("Localization Demo"),
     "user_viewed" : MessageLookupByLibrary.simpleMessage("My Viewed"),
     "user_viewed_del_tips" : MessageLookupByLibrary.simpleMessage("Are you sure to delete this item?"),

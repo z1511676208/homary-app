@@ -79,8 +79,8 @@ class _FilterDrawerState extends State<FilterDrawer> {
             margin: EdgeInsets.only(top: 5.w),
             child: ElevatedButton(
               onPressed: () {
-                ctrl.outSideSelectedFilterList = ctrl.selectedFilterList;
                 ctrl.applyFilter();
+                Navigator.of(context).pop();
               },
               style: ButtonStyle(
                   elevation: MaterialStateProperty.all(0),

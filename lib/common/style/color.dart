@@ -84,4 +84,10 @@ class AppColor {
 
   // 首页秒杀文字颜色
   static const Color flashSaleFontColor = Color(0xFFEC1B1E);
+
+  // 优惠券button文字颜色
+  static const Color couponsButtonColor = Color(0xFFE8554F);
+
+  // 优惠券输入框文字颜色
+  static const Color couponsHintColor = Color(0xFFCACACA);
 }

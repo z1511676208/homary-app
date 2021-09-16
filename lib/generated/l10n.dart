@@ -1175,6 +1175,16 @@ class S {
     );
   }
 
+  /// `Showing results for "{result}"`
+  String search_showing_results(Object result) {
+    return Intl.message(
+      'Showing results for "$result"',
+      name: 'search_showing_results',
+      desc: '',
+      args: [result],
+    );
+  }
+
   /// `On Sale now`
   String get home_OnSalenow {
     return Intl.message(
@@ -1330,6 +1340,96 @@ class S {
     return Intl.message(
       'Price Low to High',
       name: 'wishlist_price_low_to_high',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Available({count})`
+  String coupons_available(Object count) {
+    return Intl.message(
+      'Available($count)',
+      name: 'coupons_available',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `Unavailable({count})`
+  String coupons_unavailable(Object count) {
+    return Intl.message(
+      'Unavailable($count)',
+      name: 'coupons_unavailable',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `Apply`
+  String get coupons_apply {
+    return Intl.message(
+      'Apply',
+      name: 'coupons_apply',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Orders over`
+  String get coupons_orders_over {
+    return Intl.message(
+      'Orders over',
+      name: 'coupons_orders_over',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Use Now`
+  String get coupons_use_now {
+    return Intl.message(
+      'Use Now',
+      name: 'coupons_use_now',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Expired`
+  String get coupons_expired {
+    return Intl.message(
+      'Expired',
+      name: 'coupons_expired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `It is empty here`
+  String get coupons_empty {
+    return Intl.message(
+      'It is empty here',
+      name: 'coupons_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Coupon Code`
+  String get coupons_code {
+    return Intl.message(
+      'Coupon Code',
+      name: 'coupons_code',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Success`
+  String get success {
+    return Intl.message(
+      'Success',
+      name: 'success',
       desc: '',
       args: [],
     );

@@ -8,8 +8,7 @@ import 'package:homary/components/appBar/search/main.dart';
 import 'package:homary/components/goBackAppBar/main.dart';
 import 'package:homary/components/goTopMenu/main.dart';
 import 'package:homary/components/pullToRefresh/pull_to_refresh.dart';
-import 'package:homary/components/sticky/sticky_delegate.dart';
-import 'package:homary/pages/categoryTab/components/category_menu_bar.dart';
+import 'package:homary/pages/categoryTab/components/category_menu_bar_v2.dart';
 import 'package:homary/pages/categoryTab/components/filter_drawer.dart';
 import 'package:homary/pages/categoryTab/components/product_empty.dart';
 import 'package:homary/pages/categoryTab/components/see_also.dart';
@@ -179,15 +178,16 @@ class _CategoryTabState extends State<CategoryTab> {
               if (!widget.isSearchPage)
                 SliverToBoxAdapter(child: buildBanner()),
               if (widget.isSearchPage) SliverToBoxAdapter(child: SeeAlso()),
-              SliverPersistentHeader(
-                pinned: true,
-                delegate: StickyDelegate(
-                  child: PreferredSize(
-                    child: CategoryMenuBar(isSearchPage: widget.isSearchPage),
-                    preferredSize: Size.fromHeight(47.w),
-                  ),
-                ),
-              ),
+              // SliverPersistentHeader(
+              //   pinned: true,
+              //   delegate: StickyDelegate(
+              //     child: PreferredSize(
+              //       child: CategoryMenuBarV2(),
+              //       preferredSize: Size.fromHeight(47.w),
+              //     ),
+              //   ),
+              // ),
+              SliverToBoxAdapter(child: CategoryMenuBarV2(),),
               ctrl.isShowEmpty
                   ? SliverToBoxAdapter(
                       child: Container(

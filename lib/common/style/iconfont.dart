@@ -309,4 +309,10 @@ class Iconfont {
     fontFamily: 'Iconfont',
     matchTextDirection: true,
   );
+
+  static const Delete = IconData(
+    0xe645,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
 }

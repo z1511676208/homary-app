@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
 import 'package:homary/pages/categoryTab/main.dart';
 import 'package:homary/pages/channelTab/main.dart';
+import 'package:homary/pages/coupons/main.dart';
 import 'package:homary/pages/index/main.dart';
 import 'package:homary/pages/reviewDetail/main.dart';
 import 'package:homary/pages/settings/main.dart';
@@ -119,18 +120,27 @@ Handler actHandler = Handler(
     );
   },
 );
+
 Handler settingHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     String userID = params['userID']?.first ?? null;
     return Setting(userID: userID);
   },
 );
+
 Handler viewedHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
   return ViewedPage();
 });
+
 Handler wishlistHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return Wishlist();
+  },
+);
+
+Handler couponsHandler = Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return CouponsPage();
   },
 );
