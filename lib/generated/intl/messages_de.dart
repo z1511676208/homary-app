@@ -27,7 +27,9 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m3(amount) => "Sie haben einen neuen Benutzercoupon erhalten, bis zu ${amount} Rabatt.";
 
-  static m4(result) => "Ergebnisse für „${result}“ werden angezeigt";
+  static m4(minValue, maxValue) => "Wert muss zwischen ${minValue} und ${maxValue} liegen";
+
+  static m5(result) => "Ergebnisse für „${result}“ werden angezeigt";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
@@ -107,6 +109,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "new_user_use_now" : MessageLookupByLibrary.simpleMessage("JETZT BENUTZEN"),
     "new_user_view_my_coupons" : MessageLookupByLibrary.simpleMessage("Meine Gutscheine Anzeigen"),
     "new_user_welcome" : MessageLookupByLibrary.simpleMessage("WILLKOMMEN BEI HOMARY"),
+    "rangeLimitError" : m4,
     "register_agreeTips" : MessageLookupByLibrary.simpleMessage("Mit Ihrer Registrierung stimmen Sie unserer zu "),
     "register_agreeTipsAnd" : MessageLookupByLibrary.simpleMessage(" und "),
     "register_btn" : MessageLookupByLibrary.simpleMessage("EIN KONTO ERSTELLEN"),
@@ -133,7 +136,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "search_popularSearches" : MessageLookupByLibrary.simpleMessage("Beliebte Suchen"),
     "search_recentSearches" : MessageLookupByLibrary.simpleMessage("Letzte Suchen"),
     "search_see_also" : MessageLookupByLibrary.simpleMessage("Ähnliche Suchen:"),
-    "search_showing_results" : m4,
+    "search_showing_results" : m5,
     "search_view_all" : MessageLookupByLibrary.simpleMessage("Alle ansehen"),
     "setting_cleanCacheTip" : MessageLookupByLibrary.simpleMessage("Alle temporären Bilder löschen, um Speicherplatz auf Ihrem Gerät freizugeben?"),
     "setting_clearCache" : MessageLookupByLibrary.simpleMessage("Cache leeren"),

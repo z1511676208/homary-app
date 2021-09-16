@@ -139,5 +139,6 @@
   "coupons_expired": "Abgelaufen",
   "coupons_empty": "Du hast noch keine Gutscheine",
   "coupons_code": "Code eingeben",
-  "success": "Erfolg"
+  "success": "Erfolg",
+  "rangeLimitError": "Wert muss zwischen {minValue} und {maxValue} liegen"
 }

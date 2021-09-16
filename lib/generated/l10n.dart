@@ -1444,6 +1444,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Value must be between {minValue} and {maxValue}`
+  String rangeLimitError(Object minValue, Object maxValue) {
+    return Intl.message(
+      'Value must be between $minValue and $maxValue',
+      name: 'rangeLimitError',
+      desc: '',
+      args: [minValue, maxValue],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

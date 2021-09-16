@@ -139,5 +139,6 @@
   "coupons_expired": "Inválido",
   "coupons_empty": "Aún no tienes cupones",
   "coupons_code": "Ingresa el código",
-  "success": "Éxito"
+  "success": "Éxito",
+  "rangeLimitError": "El valor debe estar entre {minValue}  y {maxValue}"
 }

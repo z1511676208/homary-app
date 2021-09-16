@@ -118,7 +118,8 @@ class __PropertyWidgetState extends State<_PropertyWidget> {
                 return widget.productAttrMain.numberMin <= val &&
                         val <= maxNumber
                     ? null
-                    : 'Value must be between ${widget.productAttrMain.numberMin} and $maxNumber';
+                    : S.of(context).rangeLimitError(
+                        widget.productAttrMain.numberMin, maxNumber);
               },
               onChanged: (String value) {
                 if (value == "" && maxNumber == 0) {
@@ -160,7 +161,8 @@ class __PropertyWidgetState extends State<_PropertyWidget> {
                 return minNumber <= val &&
                         val <= widget.productAttrMain.numberMax
                     ? null
-                    : 'Value must be between $minNumber and ${widget.productAttrMain.numberMax}';
+                    : S.of(context).rangeLimitError(
+                        minNumber, widget.productAttrMain.numberMax);
               },
               onChanged: (String value) {
                 if (value == "" && minNumber == 0) {
@@ -273,11 +275,13 @@ class __PropertyWidgetState extends State<_PropertyWidget> {
               color: AppColor.primaryText,
             ),
           ),
-          value: ctrl.selectedFilterIdList.contains("${widget.productAttrMain.pnValue}_${_propertyList[index].pvId}"),
+          value: ctrl.selectedFilterIdList.contains(
+              "${widget.productAttrMain.pnValue}_${_propertyList[index].pvId}"),
           onChanged: (value) {
             Map<String, dynamic> _currentItem = _propertyList[index].toJson();
             _currentItem.addAll({
-              "pv_id": "${widget.productAttrMain.pnValue}_${_propertyList[index].pvId}",
+              "pv_id":
+                  "${widget.productAttrMain.pnValue}_${_propertyList[index].pvId}",
               "origin_pv_id": _propertyList[index].pvId,
               "is_channel": widget.productAttrMain.isChannel,
               'pn_value': widget.productAttrMain.pnValue,
@@ -346,9 +350,11 @@ class __PropertyWidgetState extends State<_PropertyWidget> {
 
           return GestureDetector(
               onTap: () {
-                Map<String, dynamic> _currentItem = _propertyList[index].toJson();
+                Map<String, dynamic> _currentItem =
+                    _propertyList[index].toJson();
                 _currentItem.addAll({
-                  "pv_id": "${widget.productAttrMain.pnValue}_${_propertyList[index].pvId}",
+                  "pv_id":
+                      "${widget.productAttrMain.pnValue}_${_propertyList[index].pvId}",
                   "origin_pv_id": _propertyList[index].pvId,
                   "is_channel": widget.productAttrMain.isChannel,
                   'pn_value': widget.productAttrMain.pnValue,
@@ -366,7 +372,8 @@ class __PropertyWidgetState extends State<_PropertyWidget> {
                     ),
                     border: Border.all(
                         width: 1.w,
-                        color: ctrl.selectedFilterIdList.contains("${widget.productAttrMain.pnValue}_${_propertyList[index].pvId}")
+                        color: ctrl.selectedFilterIdList.contains(
+                                "${widget.productAttrMain.pnValue}_${_propertyList[index].pvId}")
                             ? AppColor.primaryText
                             : AppColor.primaryBorderOutline)),
                 child: Column(
