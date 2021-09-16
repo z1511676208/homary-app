@@ -24,7 +24,7 @@ class _FilterDrawerState extends State<FilterDrawer> {
             }).toList(),
           ),
           bottomNavigationBar: SafeArea(
-            child: buildBottom(ctrl,context),
+            child: buildBottom(ctrl, context),
           ),
         ),
       ),
@@ -33,41 +33,38 @@ class _FilterDrawerState extends State<FilterDrawer> {
 
   Widget buildAppbar(BuildContext context) {
     return PreferredSize(
-      preferredSize: Size.fromHeight(48.w),
-      child: Padding(
-        padding: EdgeInsets.only(
-          top: MediaQuery.of(context).padding.top
-        ),
-        child: Stack(
-          children: [
-            IconButton(
-              onPressed: () => Navigator.of(context).pop(),
-              icon: Icon(Iconfont.ArrowLeft),
-              iconSize: 20.w,
-            ),
-            Align(
-              child: Text(
-                S.of(context).category_filter,
-                style: TextStyle(
-                  fontSize: 15.sp,
-                  fontWeight: FontWeight.bold,
+        preferredSize: Size.fromHeight(48.w),
+        child: Padding(
+          padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+          child: Stack(
+            children: [
+              IconButton(
+                onPressed: () => Navigator.of(context).pop(),
+                icon: Icon(Iconfont.ArrowLeft),
+                iconSize: 20.w,
+              ),
+              Align(
+                child: Text(
+                  S.of(context).category_filter,
+                  style: TextStyle(
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Divider(
-                height: 0.5.w,
-                color: AppColor.primaryBorderBottomLine,
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Divider(
+                  height: 0.5.w,
+                  color: AppColor.primaryBorderBottomLine,
+                ),
               ),
-            ),
-          ],
-        ),
-      )
-    );
+            ],
+          ),
+        ));
   }
 
-  Widget buildBottom(CategoryTabCtrl ctrl,BuildContext context) {
+  Widget buildBottom(CategoryTabCtrl ctrl, BuildContext context) {
     return Container(
       height: 50.5.w,
       child: Column(

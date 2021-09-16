@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-23 15:25:35
  * @LastEditors  : JHao
- * @LastEditTime : 2021-07-27 11:08:02
+ * @LastEditTime : 2021-09-15 10:07:42
  */
 // To parse this JSON data, do
 //
@@ -51,7 +51,7 @@ class Data {
   });
 
   List<ModuleDataProductList> list;
-  String total;
+  dynamic total;
   int hasMorePage;
   int totalPage;
 

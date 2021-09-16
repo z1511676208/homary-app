@@ -1,9 +1,10 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-13 10:15:30
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-31 10:00:11
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-09-15 19:49:54
  */
+
 import 'package:homary/common/style/main.dart';
 import 'package:flutter/material.dart';
 
@@ -21,6 +22,10 @@ class Input extends StatefulWidget {
   final bool autoValidator; //是否onchanged自动校验
   final TextEditingController textController; //文本控制器--可以控制输入框内容
   final FocusNode focusNode; //类似输入框焦点控制，可以监听到焦点触发事件，也可以手动聚焦失焦
+  final InputDecoration inputDecoration;
+  final TextAlignVertical textAlignVertical;
+  final TextDirection textDirection;
+  final bool showCloseIcon;
   Input(
       {Key key,
       @required this.innerText,
@@ -34,7 +39,11 @@ class Input extends StatefulWidget {
       this.enable = true,
       this.isPwd = false,
       this.autoValidator = false,
+      this.showCloseIcon = true,
       this.focusNode,
+      this.inputDecoration,
+      this.textAlignVertical,
+      this.textDirection,
       this.textController})
       : super(key: key);
 
@@ -115,13 +124,17 @@ class _InputState extends State<Input> {
               obscureText: obscureText,
               enabled: widget.enable,
               focusNode: focusNode,
-              decoration: InputDecoration(
-                  labelStyle: TextStyle(fontSize: 16.sp),
-                  labelText: widget.innerText,
-                  // hintText: this.innerText,
-                  contentPadding: EdgeInsets.only(
-                      top: 6.h, right: 12.w, bottom: 6.h, left: 12.w),
-                  border: InputBorder.none),
+              textAlignVertical:
+                  widget.textAlignVertical ?? TextAlignVertical.center,
+              textDirection: widget.textDirection ?? TextDirection.ltr,
+              decoration: widget.inputDecoration ??
+                  InputDecoration(
+                      labelStyle: TextStyle(fontSize: 16.sp),
+                      labelText: widget.innerText,
+                      // hintText: this.innerText,
+                      contentPadding: EdgeInsets.only(
+                          top: 6.h, right: 12.w, bottom: 6.h, left: 12.w),
+                      border: InputBorder.none),
               onSaved: (val) {
                 if (widget.validator != null) {
                   setState(() {
@@ -145,24 +158,26 @@ class _InputState extends State<Input> {
               },
               // validator: (val) => widget.validator(val)
             )),
-        Positioned(
-            top: 4.w,
-            right: 2.w,
-            child: Offstage(
-              offstage: !showCloseIcon || widget.isPwd,
-              child: IconButton(
-                icon: Icon(Icons.clear),
-                onPressed: () {
-                  setState(() {
-                    showCloseIcon = false;
-                  });
-                  textEditingController.clear();
-                  if (widget.onClear != null) {
-                    widget.onClear();
-                  }
-                },
-              ),
-            )),
+        widget.showCloseIcon
+            ? Positioned(
+                top: 4.w,
+                right: 2.w,
+                child: Offstage(
+                  offstage: !showCloseIcon || widget.isPwd,
+                  child: IconButton(
+                    icon: Icon(Icons.clear),
+                    onPressed: () {
+                      setState(() {
+                        showCloseIcon = false;
+                      });
+                      textEditingController.clear();
+                      if (widget.onClear != null) {
+                        widget.onClear();
+                      }
+                    },
+                  ),
+                ))
+            : SizedBox(),
         Positioned(
             top: 4.w,
             right: 8.w,

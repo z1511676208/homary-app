@@ -35,6 +35,8 @@ class CategoryTabCtrl extends ChangeNotifier {
 
   /// 筛选语句
   String filterStr;
+  List<ProductAttrFilterDatum> selectedFilterList = [];
+  List selectedFilterIdList = [];
 
   /// 页码
   int page = 1;
@@ -58,7 +60,8 @@ class CategoryTabCtrl extends ChangeNotifier {
   // context
   BuildContext context;
 
-  RefreshController refreshController = RefreshController(initialRefresh: false);
+  RefreshController refreshController =
+      RefreshController(initialRefresh: false);
 
   /// 搜索结果页See Also
   List<SeeAlsoData> seeAlsoList;
@@ -70,7 +73,10 @@ class CategoryTabCtrl extends ChangeNotifier {
   String bannerImage;
 
   CategoryTabCtrl(
-      {this.selectedCategoryId,this.selectedCategoryName, this.context,this.keyword});
+      {this.selectedCategoryId,
+      this.selectedCategoryName,
+      this.context,
+      this.keyword});
 
   @override
   void dispose() {
@@ -91,7 +97,7 @@ class CategoryTabCtrl extends ChangeNotifier {
 
   /// 进入页面时，设置默认选中的类目
   void _setDefaultCategory() {
-    if(selectedCategoryId == null){
+    if (selectedCategoryId == null) {
       // 搜索页没有默认选中的类目
       return;
     }
@@ -133,19 +139,22 @@ class CategoryTabCtrl extends ChangeNotifier {
 
   /// 获取筛选属性和排序规则
   Future<void> getProductAttrList(String channelId) async {
-    final result = await ProductApi.getProductAttrList(
-        params: {'channel_id': channelId, 'keyword': keyword});
+    final result = await ProductApi.getProductAttrList(params: {
+      'channel_id': channelId,
+      'keyword': keyword,
+      'attr': filterStr
+    });
     if (result.error == null) {
       ProductAttrRes res = ProductAttrRes.fromJson(result.result);
       filterList.clear();
       filterList.addAll(res.data.main);
-      int i = 0;
-      filterList.forEach((element) {
-        if (i < 3) {
-          element.isExpand = true;
-        }
-        i++;
-      });
+      // int i = 0;
+      // filterList.forEach((element) {
+      //   if (i < 3) {
+      //     element.isExpand = true;
+      //   }
+      //   i++;
+      // });
       orderByList.clear();
       res.data.orderBy.forEach((element) {
         if (element.key == 'price') {
@@ -188,10 +197,10 @@ class CategoryTabCtrl extends ChangeNotifier {
       'attr': filterStr,
       'sort': sort,
       'order_sort': orderSort,
-      'keyword' : keyword,
+      'keyword': keyword,
     };
 
-    if(selectedCategoryId == null){
+    if (selectedCategoryId == null) {
       // 当前为搜索页，使用搜索接口
       result = await ProductApi.getSearchList(params: params);
     } else {
@@ -203,7 +212,7 @@ class CategoryTabCtrl extends ChangeNotifier {
       ProductRes res = ProductRes.fromJson(result.result);
       await Provider.of<ProductEtaInfo>(context, listen: false)
           .getEtaInfo(res.data.list);
-      if(isOnRefresh){
+      if (isOnRefresh) {
         productList.clear();
       }
       productList.addAll(res.data.list);
@@ -214,7 +223,7 @@ class CategoryTabCtrl extends ChangeNotifier {
       } else {
         isShowEmpty = false;
       }
-      if(hasMorePage == 0){
+      if (hasMorePage == 0) {
         refreshController.loadNoData();
       } else {
         refreshController.loadComplete();
@@ -231,19 +240,27 @@ class CategoryTabCtrl extends ChangeNotifier {
 
   /// 更换属性后重置列表
   void _resetAttr({bool isNeedClear = true}) {
-    if(isNeedClear){
+    if (isNeedClear) {
       productList.clear();
       productTotal = 0;
     }
     page = 1;
     hasMorePage = 0;
+
     _safeNotifyListeners();
   }
 
   /// 清除筛选条件
   void cleanFilter() async {
+    // int i = 0;
+
     filterList.forEach((element) {
-      element.isExpand = false;
+      // if (i < 3) {
+      //   element.isExpand = true;
+      // } else {
+      //   element.isExpand = false;
+      // }
+      // i++;
       element.filterData.forEach((e) {
         e.isSelect = false;
       });
@@ -257,10 +274,17 @@ class CategoryTabCtrl extends ChangeNotifier {
 
   /// 替换筛选条件
   void applyFilter() async {
+    getFilterStr();
+    _resetAttr();
+    getProductList();
+  }
+
+  // 获取筛选条件
+  getFilterStr() {
     List<String> list = [];
     filterList.forEach((element) {
       element.filterData.forEach((e) {
-        if (e.isSelect) {
+        if (selectedFilterIdList.contains(e.pvId)) {
           list.add('${element.pnValue}:${e.pvValue}');
         }
       });
@@ -271,8 +295,35 @@ class CategoryTabCtrl extends ChangeNotifier {
       hasFilter = false;
     }
     filterStr = list.join(',');
-    _resetAttr();
-    getProductList();
+  }
+
+  // 设置筛选字段
+  triggerSelectedFilterList(ProductAttrFilterDatum item) {
+    if (['Price', 'Attr'].contains(item.pvId)) {
+      // 特殊处理 价格区间 与 属性区间
+      selectedFilterList.removeWhere((element) => element.pvId == item.pvId);
+      selectedFilterList.add(item);
+    } else {
+      if (selectedFilterIdList.contains(item.pvId)) {
+        selectedFilterList.removeWhere((element) => element.pvId == item.pvId);
+        selectedFilterIdList.remove(item.pvId);
+      } else {
+        selectedFilterList.add(item);
+        selectedFilterIdList.add(item.pvId);
+      }
+      notifyListeners();
+    }
+
+    print(selectedFilterList.length);
+    print(selectedFilterList[0].toJson());
+  }
+
+  // 删除指定pvId
+  removeSelectedFilterItem(dynamic pvId) {
+    if (selectedFilterIdList.contains(pvId)) {
+      selectedFilterList.removeWhere((element) => element.pvId == pvId);
+      selectedFilterIdList.remove(pvId);
+    }
   }
 
   /// 修改排序
@@ -313,5 +364,10 @@ class CategoryTabCtrl extends ChangeNotifier {
   Future<void> onRefresh() async {
     _resetAttr(isNeedClear: false);
     await getProductList(isOnRefresh: true);
+  }
+
+  Future handleRefreshAttrList() async {
+    getFilterStr();
+    getProductAttrList(selectedCategoryId);
   }
 }
