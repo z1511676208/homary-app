@@ -18,7 +18,7 @@ class _CategoryMenuBarV2State extends State<CategoryMenuBarV2> {
     CategoryTabCtrl ctrl = context.watch<CategoryTabCtrl>();
     return Padding(
       padding: EdgeInsets.only(
-        top: 12.w,
+        top: 8.w,
         left: 12.w,
         right: 12.w,
       ),
@@ -236,7 +236,9 @@ class _CategoryMenuBarV2State extends State<CategoryMenuBarV2> {
                 return buildFilterItem(ctrl.outSideSelectedFilterList[index],
                     () {
                   ctrl.removeSelectedFilterItem(
-                      ctrl.outSideSelectedFilterList[index].pvId);
+                    ctrl.outSideSelectedFilterList[index].pvId,
+                    isNeedRefresh: true,
+                  );
                 });
               },
               childCount: ctrl.outSideSelectedFilterList.length,

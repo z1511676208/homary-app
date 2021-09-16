@@ -109,9 +109,12 @@ class _MyAppState extends State<MyApp> {
             home: MainPage(),
             builder: EasyLoading.init(
               builder: (BuildContext context, Widget child) {
-                return ScrollConfiguration(
-                  behavior: AppScrollBehavior(),
-                  child: child,
+                return GestureDetector(
+                  onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+                  child: ScrollConfiguration(
+                    behavior: AppScrollBehavior(),
+                    child: child,
+                  ),
                 );
               },
             ),

@@ -56,6 +56,7 @@ class _SearchViewState extends State<SearchView> {
                       height: 34.w,
                       width: MediaQuery.of(context).size.width - 84.w,
                       child: TextField(
+                          textInputAction: TextInputAction.search,
                           textAlignVertical: TextAlignVertical.center,
                           onChanged: (val) {
                             Provider.of<SearchCtrl>(context, listen: false)

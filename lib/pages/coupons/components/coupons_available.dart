@@ -61,7 +61,7 @@ class _CouponsAvailableState extends State<CouponsAvailable>
                 await context.read<CouponsPageCtrl>().getAvailableCoupons(true);
                 controller.refreshCompleted();
               },
-              child: list.length != 0
+              child: list.length == 0
                   ? CustomScrollView(
                       controller: _scrollController,
                       slivers: [
@@ -87,7 +87,14 @@ class _CouponsAvailableState extends State<CouponsAvailable>
                         ),
                       ],
                     )
-                  : CouponsEmpty(),
+                  : CustomScrollView(
+                      slivers: [
+                        buildApplyCoupon(context),
+                        SliverToBoxAdapter(
+                          child: CouponsEmpty(),
+                        ),
+                      ],
+                    ),
             );
           },
         ),

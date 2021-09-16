@@ -347,12 +347,13 @@ class CategoryTabCtrl extends ChangeNotifier {
   }
 
   // 删除指定pvId
-  removeSelectedFilterItem(dynamic pvId) {
+  removeSelectedFilterItem(dynamic pvId,{bool isNeedRefresh = false}) {
     if (selectedFilterIdList.contains(pvId)) {
       selectedFilterList.removeWhere((element) => element.pvId == pvId);
       selectedFilterIdList.remove(pvId);
-      notifyListeners();
-      applyFilter();
+      if(isNeedRefresh){
+        applyFilter();
+      }
     }
   }
 
