@@ -113,6 +113,7 @@ class ProductAttrFilterDatum {
       {this.pvId,
       this.pvValue,
       this.isDisabled,
+      this.isChannel,
       this.isSelect = false,
       this.pnValue,
       this.type});
@@ -123,6 +124,7 @@ class ProductAttrFilterDatum {
   bool isSelect;
   int isDisabled;
   String type;
+  int isChannel;
 
   factory ProductAttrFilterDatum.fromRawJson(String str) =>
       ProductAttrFilterDatum.fromJson(json.decode(str));
@@ -135,6 +137,7 @@ class ProductAttrFilterDatum {
           pvValue: json["pv_value"],
           pnValue: json["pn_value"] ?? "",
           isDisabled: json["is_disabled"],
+          isChannel: json["is_channel"],
           type: json['type']);
 
   Map<String, dynamic> toJson() => {
@@ -142,6 +145,7 @@ class ProductAttrFilterDatum {
         "pv_value": pvValue,
         "pn_value": pnValue,
         "is_disabled": isDisabled,
+        "is_channel": isChannel,
         "type": type
       };
 }

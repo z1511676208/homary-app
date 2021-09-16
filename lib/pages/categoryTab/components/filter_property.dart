@@ -98,88 +98,94 @@ class __PropertyWidgetState extends State<_PropertyWidget> {
     double maxNumber =
         initialDatum.length > 0 ? double.parse(initialDatum[1]) : 0;
 
-    return Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      SizedBox(
-        width: 12.w,
-      ),
-      validatorInput(
-          label: "Min",
-          initialValue: minNumber == 0 ? '' : minNumber.toString(),
-          validatorFn: (String value) {
-            if (value == "") {
-              return null;
-            }
-            double val = double.parse(value == "" ? '0' : value);
-            maxNumber = maxNumber == 0
-                ? widget.productAttrMain.numberMax.toDouble()
-                : maxNumber;
-            return widget.productAttrMain.numberMin <= val && val <= maxNumber
-                ? null
-                : 'Value must be between ${widget.productAttrMain.numberMin} and $maxNumber';
-          },
-          onChanged: (String value) {
-            if (value == "" && maxNumber == 0) {
-              ctrl.removeSelectedFilterItem(pvId);
-              return;
-            }
-            minNumber = double.parse(value == "" ? '0' : value);
-            maxNumber = maxNumber == 0
-                ? widget.productAttrMain.numberMax.toDouble()
-                : maxNumber;
-            minNumber = maxNumber >= minNumber
-                ? minNumber
-                : widget.productAttrMain.numberMin.toDouble();
+    return Container(
+        padding: EdgeInsets.only(bottom: 16.w),
+        child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          SizedBox(
+            width: 12.w,
+          ),
+          validatorInput(
+              label: "Min",
+              initialValue: minNumber == 0 ? '' : minNumber.toString(),
+              validatorFn: (String value) {
+                if (value == "") {
+                  return null;
+                }
+                double val = double.parse(value == "" ? '0' : value);
+                maxNumber = maxNumber == 0
+                    ? widget.productAttrMain.numberMax.toDouble()
+                    : maxNumber;
+                return widget.productAttrMain.numberMin <= val &&
+                        val <= maxNumber
+                    ? null
+                    : 'Value must be between ${widget.productAttrMain.numberMin} and $maxNumber';
+              },
+              onChanged: (String value) {
+                if (value == "" && maxNumber == 0) {
+                  ctrl.removeSelectedFilterItem(pvId);
+                  return;
+                }
+                minNumber = double.parse(value == "" ? '0' : value);
+                maxNumber = maxNumber == 0
+                    ? widget.productAttrMain.numberMax.toDouble()
+                    : maxNumber;
+                minNumber = maxNumber >= minNumber
+                    ? minNumber
+                    : widget.productAttrMain.numberMin.toDouble();
 
-            ctrl.triggerSelectedFilterList(ProductAttrFilterDatum.fromJson({
-              "pv_id": pvId,
-              "pv_value": "$minNumber~$maxNumber",
-              "pn_value": widget.productAttrMain.pnValue,
-              "is_disabled": 0,
-              "type": widget.productAttrMain.type.toString()
-            }));
-          },
-          onSaved: (val) {}),
-      SizedBox(
-        width: 12.w,
-      ),
-      validatorInput(
-          label: "Max",
-          initialValue: maxNumber == 0 ? '' : maxNumber.toString(),
-          validatorFn: (String value) {
-            if (value == "") {
-              return null;
-            }
-            double val = double.parse(value == "" ? '0' : value);
-            minNumber = minNumber == 0
-                ? widget.productAttrMain.numberMin.toDouble()
-                : minNumber;
-            return minNumber <= val && val <= widget.productAttrMain.numberMax
-                ? null
-                : 'Value must be between $minNumber and ${widget.productAttrMain.numberMax}';
-          },
-          onChanged: (String value) {
-            if (value == "" && minNumber == 0) {
-              maxNumber = 0;
-              ctrl.removeSelectedFilterItem(pvId);
-              return;
-            }
-            maxNumber = double.parse(value == "" ? '0' : value);
-            minNumber = minNumber == 0
-                ? widget.productAttrMain.numberMin.toDouble()
-                : minNumber;
-            maxNumber = maxNumber >= minNumber
-                ? maxNumber
-                : widget.productAttrMain.numberMax.toDouble();
-            ctrl.triggerSelectedFilterList(ProductAttrFilterDatum.fromJson({
-              "pv_id": pvId,
-              "pv_value": "$minNumber~$maxNumber",
-              "pn_value": widget.productAttrMain.pnValue,
-              "is_disabled": 0,
-              "type": widget.productAttrMain.type.toString()
-            }));
-          },
-          onSaved: (val) {})
-    ]);
+                ctrl.triggerSelectedFilterList(ProductAttrFilterDatum.fromJson({
+                  "is_channel": widget.productAttrMain.isChannel,
+                  "pv_id": pvId,
+                  "pv_value": "$minNumber~$maxNumber",
+                  "pn_value": widget.productAttrMain.pnValue,
+                  "is_disabled": 0,
+                  "type": widget.productAttrMain.type.toString()
+                }));
+              },
+              onSaved: (val) {}),
+          SizedBox(
+            width: 12.w,
+          ),
+          validatorInput(
+              label: "Max",
+              initialValue: maxNumber == 0 ? '' : maxNumber.toString(),
+              validatorFn: (String value) {
+                if (value == "") {
+                  return null;
+                }
+                double val = double.parse(value == "" ? '0' : value);
+                minNumber = minNumber == 0
+                    ? widget.productAttrMain.numberMin.toDouble()
+                    : minNumber;
+                return minNumber <= val &&
+                        val <= widget.productAttrMain.numberMax
+                    ? null
+                    : 'Value must be between $minNumber and ${widget.productAttrMain.numberMax}';
+              },
+              onChanged: (String value) {
+                if (value == "" && minNumber == 0) {
+                  maxNumber = 0;
+                  ctrl.removeSelectedFilterItem(pvId);
+                  return;
+                }
+                maxNumber = double.parse(value == "" ? '0' : value);
+                minNumber = minNumber == 0
+                    ? widget.productAttrMain.numberMin.toDouble()
+                    : minNumber;
+                maxNumber = maxNumber >= minNumber
+                    ? maxNumber
+                    : widget.productAttrMain.numberMax.toDouble();
+                ctrl.triggerSelectedFilterList(ProductAttrFilterDatum.fromJson({
+                  "is_channel": widget.productAttrMain.isChannel,
+                  "pv_id": pvId,
+                  "pv_value": "$minNumber~$maxNumber",
+                  "pn_value": widget.productAttrMain.pnValue,
+                  "is_disabled": 0,
+                  "type": widget.productAttrMain.type.toString()
+                }));
+              },
+              onSaved: (val) {}),
+        ]));
   }
 
   Widget validatorInput(
@@ -271,6 +277,7 @@ class __PropertyWidgetState extends State<_PropertyWidget> {
           onChanged: (value) {
             Map<String, dynamic> _currentItem = _propertyList[index].toJson();
             _currentItem.addAll({
+              "is_channel": widget.productAttrMain.isChannel,
               'pn_value': widget.productAttrMain.pnValue,
               'type': widget.productAttrMain.type.toString()
             });
