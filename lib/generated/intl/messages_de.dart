@@ -134,6 +134,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "search_recentSearches" : MessageLookupByLibrary.simpleMessage("Letzte Suchen"),
     "search_see_also" : MessageLookupByLibrary.simpleMessage("Ähnliche Suchen:"),
     "search_showing_results" : m4,
+    "search_view_all" : MessageLookupByLibrary.simpleMessage("Alle ansehen"),
     "setting_cleanCacheTip" : MessageLookupByLibrary.simpleMessage("Alle temporären Bilder löschen, um Speicherplatz auf Ihrem Gerät freizugeben?"),
     "setting_clearCache" : MessageLookupByLibrary.simpleMessage("Cache leeren"),
     "setting_upgrade" : MessageLookupByLibrary.simpleMessage("Ihre App ist bereits die neueste Version."),
