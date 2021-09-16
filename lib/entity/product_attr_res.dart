@@ -153,7 +153,7 @@ class ProductAttrFilterDatum {
         "is_disabled": isDisabled,
         "is_channel": isChannel,
         "type": type,
-        "origin_pv_id": originPvId
+        "origin_pv_id": originPvId,
         "img_url": imgUrl
       };
 }

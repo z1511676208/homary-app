@@ -1185,6 +1185,16 @@ class S {
     );
   }
 
+  /// `View All`
+  String get search_view_all {
+    return Intl.message(
+      'View All',
+      name: 'search_view_all',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `On Sale now`
   String get home_OnSalenow {
     return Intl.message(

@@ -27,7 +27,9 @@ class _CategoryMenuBarV2State extends State<CategoryMenuBarV2> {
                 child: Text(
                   ctrl.selectedCategoryId != null
                       ? '${ctrl.selectedCategoryName}'
-                      : '${S.of(context).search_showing_results(ctrl.keyword)}',
+                      : ctrl.keyword.isEmpty
+                          ? S.of(context).search_view_all
+                          : '${S.of(context).search_showing_results(ctrl.keyword)}',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16.sp,
