@@ -2,6 +2,7 @@ import 'package:homary/common/utils/main.dart';
 import 'package:homary/components/formInput/main.dart';
 import 'package:homary/entity/product_attr_res.dart';
 import 'package:homary/pages/categoryTab/controller.dart';
+import 'package:homary/widget/networkImg.dart';
 
 class FilterProperty extends StatelessWidget {
   const FilterProperty({Key key, this.productAttrMain}) : super(key: key);
@@ -78,10 +79,10 @@ class __PropertyWidgetState extends State<_PropertyWidget> {
 
   Widget getFilterWidget() {
     Map<String, Widget> filterWidgetList = {
-      "1": filterCheckboxWidget(),
+      "1": filterImageWidget(),
       "2": filterInputWidget(pvId: widget.productAttrMain.pnId.toString()),
       "3": filterInputWidget(pvId: "Price"),
-      "4": null,
+      "4": filterImageWidget(),
     };
     return filterWidgetList[widget.productAttrMain.type.toString()];
   }
@@ -283,7 +284,6 @@ class __PropertyWidgetState extends State<_PropertyWidget> {
             });
             ctrl.triggerSelectedFilterList(
                 ProductAttrFilterDatum.fromJson(_currentItem));
-            ctrl.handleRefreshAttrList();
           },
         ));
   }
@@ -323,5 +323,76 @@ class __PropertyWidgetState extends State<_PropertyWidget> {
             ],
           ),
         ));
+  }
+
+  // 图片筛选
+  Widget filterImageWidget() {
+    CategoryTabCtrl ctrl = Provider.of<CategoryTabCtrl>(context, listen: false);
+
+    return GridView.builder(
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        padding: EdgeInsets.symmetric(horizontal: 12.w),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          mainAxisSpacing: 12.w,
+          crossAxisSpacing: 12.w,
+          childAspectRatio: 98.5.w / 117.w,
+        ),
+        itemCount: _propertyList.length,
+        itemBuilder: (context, index) {
+          ProductAttrFilterDatum property = _propertyList[index];
+
+          return GestureDetector(
+              onTap: () {
+                Map<String, dynamic> _currentItem =
+                    _propertyList[index].toJson();
+                _currentItem.addAll({
+                  "is_channel": widget.productAttrMain.isChannel,
+                  'pn_value': widget.productAttrMain.pnValue,
+                  'type': widget.productAttrMain.type.toString()
+                });
+                ctrl.triggerSelectedFilterList(
+                    ProductAttrFilterDatum.fromJson(_currentItem));
+              },
+              child: Container(
+                alignment: Alignment.center,
+                padding: EdgeInsets.all(4.w),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      AppStyle.primaryRaduis,
+                    ),
+                    border: Border.all(
+                        width: 1.w,
+                        color: ctrl.selectedFilterIdList.contains(property.pvId)
+                            ? AppColor.primaryText
+                            : AppColor.primaryBorderOutline)),
+                child: Column(
+                  children: [
+                    Container(
+                        width: 90.5.w,
+                        height: 60.w,
+                        child: CustomNetworkImage(
+                          property.imgUrl == ""
+                              ? "https://img1.homary.com/filters:quality(80)/common/2021/03/21/7ae5098bbb04740f57d94030db92056b.png"
+                              : property.imgUrl,
+                        )),
+                    Expanded(
+                        child: Center(
+                      child: Text(
+                        property.pvValue,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: AppColor.primaryText,
+                          fontSize: 13.sp,
+                        ),
+                      ),
+                    ))
+                  ],
+                ),
+              ));
+        });
   }
 }

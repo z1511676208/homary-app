@@ -316,9 +316,6 @@ class CategoryTabCtrl extends ChangeNotifier {
       }
       notifyListeners();
     }
-
-    print(selectedFilterList.length);
-    print(selectedFilterList[1].toJson());
   }
 
   // 删除指定pvId
