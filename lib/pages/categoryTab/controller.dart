@@ -43,6 +43,7 @@ class CategoryTabCtrl extends ChangeNotifier {
   List<ProductAttrFilterDatum> selectedFilterList = [];
   List selectedFilterIdList = [];
   List<ProductAttrFilterDatum> outSideSelectedFilterList = [];
+  List<String> activedSelectList = [];
 
   /// 页码
   int page = 1;
@@ -341,17 +342,25 @@ class CategoryTabCtrl extends ChangeNotifier {
       }
       notifyListeners();
     }
+  }
 
-    // print(selectedFilterList.length);
-    // print(selectedFilterList[1].toJson());
+  // 设置Filter 筛选 是否是激活状态
+  setActivedSelectList() {
+    Set<String> actived = Set();
+    selectedFilterList.forEach((element) {
+      actived.add(element.pnValue);
+    });
+    print("selectedFilterList  $selectedFilterList");
+    activedSelectList = [...actived.toList()];
+    notifyListeners();
   }
 
   // 删除指定pvId
-  removeSelectedFilterItem(dynamic pvId,{bool isNeedRefresh = false}) {
+  removeSelectedFilterItem(dynamic pvId, {bool isNeedRefresh = false}) {
     if (selectedFilterIdList.contains(pvId)) {
       selectedFilterList.removeWhere((element) => element.pvId == pvId);
       selectedFilterIdList.remove(pvId);
-      if(isNeedRefresh){
+      if (isNeedRefresh) {
         applyFilter();
       }
     }

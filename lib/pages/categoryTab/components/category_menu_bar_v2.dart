@@ -132,7 +132,9 @@ class _CategoryMenuBarV2State extends State<CategoryMenuBarV2> {
                         ),
                         SizedBox(width: 4.w),
                         Text(
-                          S.of(context).category_filter,
+                          ctrl.outSideSelectedFilterList.isEmpty
+                              ? S.of(context).category_filter
+                              : '${S.of(context).category_filter}(${ctrl.outSideSelectedFilterList.length})',
                           style: TextStyle(
                             color: ctrl.hasFilter
                                 ? AppColor.primaryColor

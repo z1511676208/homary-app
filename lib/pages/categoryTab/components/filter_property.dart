@@ -10,6 +10,8 @@ class FilterProperty extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<String> activedSelectList =
+        Provider.of<CategoryTabCtrl>(context, listen: false).activedSelectList;
     return Theme(
         data: Theme.of(context).copyWith(
             dividerColor: Colors.transparent,
@@ -29,13 +31,29 @@ class FilterProperty extends StatelessWidget {
             },
             iconColor: AppColor.primaryText,
             collapsedIconColor: AppColor.primaryText,
-            title: Text(
-              productAttrMain.pnValue ?? '',
-              style: TextStyle(
-                fontSize: 14.sp,
-                color: AppColor.primaryText,
-                fontWeight: FontWeight.bold,
-              ),
+            title: Row(
+              children: [
+                Text(
+                  productAttrMain.pnValue ?? '',
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    color: AppColor.primaryText,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(
+                  width: 5.w,
+                ),
+                Offstage(
+                    offstage:
+                        !activedSelectList.contains(productAttrMain.pnValue),
+                    child: Container(
+                      width: 8.w,
+                      height: 8.w,
+                      decoration: BoxDecoration(
+                          color: AppColor.primaryColor, shape: BoxShape.circle),
+                    )),
+              ],
             ),
             children: [
               _PropertyWidget(
@@ -124,6 +142,7 @@ class __PropertyWidgetState extends State<_PropertyWidget> {
               onChanged: (String value) {
                 if (value == "" && maxNumber == 0) {
                   ctrl.removeSelectedFilterItem(pvId);
+                  ctrl.setActivedSelectList();
                   return;
                 }
                 minNumber = double.parse(value == "" ? '0' : value);
@@ -142,6 +161,7 @@ class __PropertyWidgetState extends State<_PropertyWidget> {
                   "is_disabled": 0,
                   "type": widget.productAttrMain.type.toString()
                 }));
+                ctrl.setActivedSelectList();
               },
               onSaved: (val) {}),
           SizedBox(
@@ -168,6 +188,7 @@ class __PropertyWidgetState extends State<_PropertyWidget> {
                 if (value == "" && minNumber == 0) {
                   maxNumber = 0;
                   ctrl.removeSelectedFilterItem(pvId);
+                  ctrl.setActivedSelectList();
                   return;
                 }
                 maxNumber = double.parse(value == "" ? '0' : value);
@@ -185,6 +206,7 @@ class __PropertyWidgetState extends State<_PropertyWidget> {
                   "is_disabled": 0,
                   "type": widget.productAttrMain.type.toString()
                 }));
+                ctrl.setActivedSelectList();
               },
               onSaved: (val) {}),
         ]));
@@ -289,6 +311,7 @@ class __PropertyWidgetState extends State<_PropertyWidget> {
             });
             ctrl.triggerSelectedFilterList(
                 ProductAttrFilterDatum.fromJson(_currentItem));
+            ctrl.setActivedSelectList();
           },
         ));
   }
@@ -362,6 +385,7 @@ class __PropertyWidgetState extends State<_PropertyWidget> {
                 });
                 ctrl.triggerSelectedFilterList(
                     ProductAttrFilterDatum.fromJson(_currentItem));
+                ctrl.setActivedSelectList();
               },
               child: Container(
                 alignment: Alignment.center,
