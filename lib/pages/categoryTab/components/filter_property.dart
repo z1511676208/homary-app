@@ -99,6 +99,7 @@ class __PropertyWidgetState extends State<_PropertyWidget> {
 
     return Container(
         padding: EdgeInsets.only(bottom: 16.w),
+        margin: EdgeInsets.only(top: 1.w),
         child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
           SizedBox(
             width: 12.w,

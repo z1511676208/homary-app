@@ -140,7 +140,7 @@ class _CategoryTabState extends State<CategoryTab> {
 
   PreferredSize buildAppBar() {
     return PreferredSize(
-      preferredSize: Size.fromHeight(kToolbarHeight + 35.w),
+      preferredSize: Size.fromHeight(kToolbarHeight + 40.w),
       child: Selector<CategoryTabCtrl, String>(
         selector: (context, ctrl) => ctrl.selectedCategoryName,
         builder: (context, value, _) {
@@ -191,7 +191,7 @@ class _CategoryTabState extends State<CategoryTab> {
               ctrl.isShowEmpty
                   ? SliverToBoxAdapter(
                       child: Container(
-                        margin: EdgeInsets.only(top: 80.w),
+                        margin: EdgeInsets.only(top: 80.w,bottom: 80.w),
                         child: ProductEmptyWidget(),
                       ),
                     )
