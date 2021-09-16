@@ -92,6 +92,7 @@ class __PropertyWidgetState extends State<_PropertyWidget> {
     var datum =
         ctrl.selectedFilterList.where((item) => item.pvId == pvId).toList();
     var initialDatum = datum.length > 0 ? datum[0].pvValue.split("~") : [];
+    print(initialDatum);
     double minNumber =
         initialDatum.length > 0 ? double.parse(initialDatum[0]) : 0;
     double maxNumber =
@@ -158,6 +159,7 @@ class __PropertyWidgetState extends State<_PropertyWidget> {
           },
           onChanged: (String value) {
             if (value == "" && minNumber == 0) {
+              maxNumber = 0;
               ctrl.removeSelectedFilterItem(pvId);
               return;
             }
@@ -173,6 +175,7 @@ class __PropertyWidgetState extends State<_PropertyWidget> {
               "pv_value": "$minNumber~$maxNumber",
               "pn_value": widget.productAttrMain.pnValue,
               "is_disabled": 0,
+              "type": widget.productAttrMain.type.toString()
             }));
           },
           onSaved: (val) {})

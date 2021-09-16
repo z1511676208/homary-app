@@ -303,7 +303,9 @@ class CategoryTabCtrl extends ChangeNotifier {
     if (['Price'].contains(item.pvId)) {
       // 特殊处理 价格区间 与 属性区间
       selectedFilterList.removeWhere((element) => element.pvId == item.pvId);
+      selectedFilterIdList.remove(item.pvId);
       selectedFilterList.add(item);
+      selectedFilterIdList.add(item.pvId);
     } else {
       if (selectedFilterIdList.contains(item.pvId)) {
         selectedFilterList.removeWhere((element) => element.pvId == item.pvId);
@@ -314,9 +316,6 @@ class CategoryTabCtrl extends ChangeNotifier {
       }
       notifyListeners();
     }
-
-    print(selectedFilterList.length);
-    print(selectedFilterList[0].toJson());
   }
 
   // 删除指定pvId
