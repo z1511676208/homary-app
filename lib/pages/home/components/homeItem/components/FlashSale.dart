@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-20 15:12:17
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-03 19:42:25
+ * @LastEditTime : 2021-09-17 10:05:33
  */
 
 import 'package:flutter/material.dart';
@@ -121,6 +121,7 @@ class _FlashSaleState extends State<FlashSale> {
                                       decoration: _isOnSaleNow
                                           ? TextDecoration.underline
                                           : null,
+                                      decorationThickness: 3.w,
                                       decorationColor: AppColor.primaryText,
                                     )),
                                 onTap: () {

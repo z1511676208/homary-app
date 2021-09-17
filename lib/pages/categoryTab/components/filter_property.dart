@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/entity/product_attr_res.dart';
 import 'package:homary/pages/categoryTab/controller.dart';
@@ -222,7 +223,10 @@ class __PropertyWidgetState extends State<_PropertyWidget> {
       width: 150.w,
       child: TextFormField(
           initialValue: initialValue,
-          keyboardType: TextInputType.number,
+          inputFormatters: [
+            FilteringTextInputFormatter.allow(RegExp(r'^\d+(\.)?[0-9]{0,2}'))
+          ],
+          keyboardType: TextInputType.numberWithOptions(signed: true),
           textDirection: TextDirection.rtl,
           textAlignVertical: TextAlignVertical.center,
           onChanged: (val) {

@@ -279,6 +279,7 @@ class CategoryTabCtrl extends ChangeNotifier {
     outSideSelectedFilterList.clear();
     hasFilter = false;
     filterQueryMap = null;
+    setActivedSelectList();
     _safeNotifyListeners();
     _resetAttr();
     getProductList();
@@ -360,6 +361,7 @@ class CategoryTabCtrl extends ChangeNotifier {
     if (selectedFilterIdList.contains(pvId)) {
       selectedFilterList.removeWhere((element) => element.pvId == pvId);
       selectedFilterIdList.remove(pvId);
+      setActivedSelectList();
       if (isNeedRefresh) {
         applyFilter();
       }
