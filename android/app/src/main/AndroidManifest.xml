@@ -62,7 +62,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="com.popicorns.homary.braintree" />
+                <data android:scheme="${applicationId}.braintree" />
             </intent-filter>
         </activity>
         <!-- google pay -->
