@@ -179,7 +179,7 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: Platform.isAndroid
+      onWillPop: Platform.isAndroid && widget.isInWebviewPage
           ? () async {
               return await goback(this.controller);
             }
