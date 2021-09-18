@@ -21,7 +21,7 @@ class SearchAssociate {
 
   factory SearchAssociate.fromJson(Map<String, dynamic> json) => SearchAssociate(
     code: json["code"] == null ? null : json["code"],
-    data: json["data"] == null ? null : SearchAssociateData.fromJson(json["data"]),
+    data: json["data"] == null ? null :(json["data"] is Map)? SearchAssociateData.fromJson(json["data"]):null,
     message: json["message"] == null ? null : json["message"],
   );
 
