@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-19 11:35:37
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-26 18:33:01
+ * @LastEditTime : 2021-09-18 15:47:53
  */
 import 'dart:async';
 
@@ -45,6 +45,22 @@ Function debounce(
     });
   };
   return target;
+}
+
+class Debouncer {
+  final int milliseconds;
+  Function action;
+  Timer _timer;
+
+  Debouncer({this.milliseconds});
+
+  run(Function action) {
+    if (_timer != null) {
+      _timer.cancel();
+    }
+
+    _timer = Timer(Duration(milliseconds: milliseconds), action);
+  }
 }
 
 /// 从url中获取id

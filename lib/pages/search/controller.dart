@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-19 16:33:28
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-16 10:55:15
+ * @LastEditTime : 2021-09-18 15:53:50
  */
 import 'dart:async';
 
@@ -70,12 +70,11 @@ class SearchCtrl with ChangeNotifier {
     notifyListeners();
   }
 
+  final _debounceGetFilterList = Debouncer(milliseconds: 100);
   void inputChange(String val) {
     if (val != '') {
       this.showFilter = true;
-      debounce((){
-        getFilterList(val.trim());
-      },Duration(milliseconds: 50))();
+      _debounceGetFilterList.run(() => getFilterList(val.trim()));
     } else {
       this.showFilterToggle();
     }
@@ -84,11 +83,11 @@ class SearchCtrl with ChangeNotifier {
   getFilterList(val) async {
     this.keyword = val;
     DioResult res = await SearchApi.getAssociateWordList({
-      'keyword':val,
+      'keyword': val,
     });
     if (res.error == null) {
       SearchAssociate result = SearchAssociate.fromJson(res.result);
-      filterList = [...result.data?.wordList??[]];
+      filterList = [...result.data?.wordList ?? []];
       notifyListeners();
     }
   }
