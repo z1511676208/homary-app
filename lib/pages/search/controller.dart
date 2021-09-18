@@ -12,14 +12,14 @@ import 'package:homary/common/utils/analytics.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/schema2path.dart';
-import 'package:homary/common/utils/utils.dart';
 import 'package:homary/entity/main.dart';
+import 'package:homary/entity/search_associate.dart';
 
 class SearchCtrl with ChangeNotifier {
-  List filterList = []; //模糊查询列表
+  List<WordList> filterList = []; //模糊查询列表
   List recentSearchs = []; //最近搜索缓存列表
   List popularSearchs = []; //热搜列表
-  List channelList = []; //频道列表
+  // List channelList = []; //频道列表
   bool showFilter = false; //输入框输入搜索显示过滤列表
   String keyword = '';
 
@@ -28,7 +28,7 @@ class SearchCtrl with ChangeNotifier {
     if (res.error == null) {
       HotKeywordRes result = HotKeywordRes.fromJson(res.result);
       this.popularSearchs = result.data.hotKeywords;
-      this.channelList = result.data.channelList;
+      // this.channelList = result.data.channelList;
       notifyListeners();
     }
   }
@@ -38,7 +38,7 @@ class SearchCtrl with ChangeNotifier {
     if (keyword == '') {
       Routes.push(context, Routes.category, params: {
         'isSearchPage': 'true',
-        'keyword': "",
+        'keyword': '',
       });
       return false;
     }
@@ -72,20 +72,22 @@ class SearchCtrl with ChangeNotifier {
   void inputChange(String val) {
     if (val != '') {
       this.showFilter = true;
-      debounce(this.getFliterList(val.trim()), Duration(milliseconds: 30));
+      getFilterList(val.trim());
     } else {
       this.showFilterToggle();
     }
   }
 
-  getFliterList(val) {
+  getFilterList(val) async {
     this.keyword = val;
-    this.filterList = this
-        .channelList
-        .where((element) =>
-            element.channelName.toLowerCase().contains(val.toLowerCase()))
-        .toList();
-    notifyListeners();
+    DioResult res = await SearchApi.getAssociateWordList({
+      'keyword':val,
+    });
+    if (res.error == null) {
+      SearchAssociate result = SearchAssociate.fromJson(res.result);
+      filterList = [...result.data.wordList];
+      notifyListeners();
+    }
   }
 
   // 存储有效数据localStorage
