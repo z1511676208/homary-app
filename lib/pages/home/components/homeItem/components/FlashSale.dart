@@ -5,7 +5,10 @@
  * @LastEditTime : 2021-09-17 10:05:33
  */
 
+import 'package:exposure/exposure.dart';
 import 'package:flutter/material.dart';
+import 'package:homary/common/utils/analytics.dart';
+import 'package:homary/common/utils/analytics_util.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/components/GoodsCard/main.dart';
@@ -200,13 +203,31 @@ class _FlashSaleState extends State<FlashSale> {
                         // shrinkWrap: true,
                         clipBehavior: Clip.none,
                         itemBuilder: (BuildContext ctx, int index) {
-                          return GoodsCard(
-                              key: UniqueKey(),
-                              width: 140.w,
-                              marginRight: 8.w,
-                              data: _isOnSaleNow
-                                  ? data.onSaleProduct.productList[index]
-                                  : data.upComingProduct.productList[index]);
+                          return ExposureDetector(
+                            key: Key(
+                                '${_isOnSaleNow}_${_isOnSaleNow ? data.onSaleProduct.productList[index].skuId : data.upComingProduct.productList[index].skuId}'),
+                            child: GoodsCard(
+                                key: UniqueKey(),
+                                width: 140.w,
+                                marginRight: 8.w,
+                                data: _isOnSaleNow
+                                    ? data.onSaleProduct.productList[index]
+                                    : data.upComingProduct.productList[index],
+                            ),
+                            onExposure: (visibilityInfo) {
+                              AnalyticsUtil.instance.sendProductItemGTM(
+                                pointList: [
+                                  _isOnSaleNow
+                                      ? data.onSaleProduct.productList[index]
+                                          .toJson()
+                                      : data.upComingProduct.productList[index]
+                                          .toJson()
+                                ],
+                                itemListName: itemListName['HomeFlashSale'],
+                                eventName: 'view_item_list',
+                              );
+                            },
+                          );
                         },
                         itemCount: _isOnSaleNow
                             ? data.onSaleProduct.productList.length
