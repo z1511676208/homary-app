@@ -1,6 +1,4 @@
-import 'dart:async';
-
-import 'package:homary/common/utils/analytics.dart';
+import 'package:homary/common/utils/analytics_util.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/components/GoodsCard/goods_cart_grid.dart';
 import 'package:homary/components/appBar/search/main.dart';
@@ -55,32 +53,6 @@ class _ChannelTabState extends State<ChannelTab> {
     }
   }
 
-  bool _debounce = false;
-  Timer _timer;
-  List<Map> pointList = [];
-
-  _sendPointList() {
-    if (_timer != null && _debounce == true) {
-      _debounce = false;
-      if (_timer.isActive) {
-        _timer.cancel();
-      }
-    }
-    if (_debounce == false) {
-      _debounce = true;
-      _timer = Timer(Duration(seconds: 1), () {
-        sendProductItemGTM(
-          data: pointList,
-          itemListName:
-              widget.activityId != null ? 'Market Activity' : 'Activity',
-          eventName: 'view_item_list',
-        );
-        pointList = [];
-        _debounce = false;
-      });
-    }
-  }
-
   @override
   void initState() {
     super.initState();
@@ -89,13 +61,6 @@ class _ChannelTabState extends State<ChannelTab> {
 
   @override
   void dispose() {
-    if (_timer != null) {
-      // 页面销毁时触发定时器销毁
-      if (_timer.isActive) {
-        // 判断定时器是否是激活状态
-        _timer.cancel();
-      }
-    }
     super.dispose();
     _scrollController.removeListener(_handleScroll);
   }
@@ -228,8 +193,12 @@ class _ChannelTabState extends State<ChannelTab> {
           itemListName:
               widget.activityId != null ? 'Market Activity' : 'Activity',
           onExposure: (list) {
-            pointList.addAll(list);
-            _sendPointList();
+            AnalyticsUtil.instance.sendProductItemGTM(
+              pointList: list,
+              itemListName:
+                  widget.activityId != null ? 'Market Activity' : 'Activity',
+              eventName: 'view_item_list',
+            );
           },
         );
       },

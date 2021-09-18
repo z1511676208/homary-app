@@ -4,9 +4,8 @@
  * @LastEditors  : zhhjie
  * @LastEditTime : 2021-09-08 15:40:47
  */
-import 'dart:async';
 
-import 'package:homary/common/utils/analytics.dart';
+import 'package:homary/common/utils/analytics_util.dart';
 import 'package:homary/common/utils/dialog.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/toast.dart';
@@ -27,8 +26,7 @@ class WishlistView extends StatefulWidget {
 
 class _WishlistViewState extends State<WishlistView> {
   GlobalKey _key = GlobalKey();
-  Timer _timer;
-  bool _debounce = false;
+
   void deleteItem(WishlistCtrl controller, id) async {
     Toast.loading();
     await controller.wishCancel({"sku_id": id});
@@ -49,32 +47,8 @@ class _WishlistViewState extends State<WishlistView> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     DropMenuManager.instance.hide();
-  }
-
-  List<Map> pointList = [];
-
-  _sendPointList() {
-    if (_timer != null && _debounce == true) {
-      _debounce = false;
-      if (_timer.isActive) {
-        _timer.cancel();
-      }
-    }
-    if (_debounce == false) {
-      _debounce = true;
-      _timer = Timer(Duration(seconds: 1), () {
-        sendProductItemGTM(
-          data: pointList,
-          itemListName: 'Wishlist',
-          eventName: 'view_item_list',
-        );
-        pointList = [];
-        _debounce = false;
-      });
-    }
   }
 
   void controlMenu() {
@@ -147,8 +121,11 @@ class _WishlistViewState extends State<WishlistView> {
                           }
                         },
                         onExposure: (list) {
-                          pointList.addAll(list);
-                          _sendPointList();
+                          AnalyticsUtil.instance.sendProductItemGTM(
+                            pointList: list,
+                            itemListName: 'Wishlist',
+                            eventName: 'view_item_list',
+                          );
                         },
                       ),
                     ],
