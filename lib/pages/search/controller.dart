@@ -12,6 +12,7 @@ import 'package:homary/common/utils/analytics.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/schema2path.dart';
+import 'package:homary/common/utils/utils.dart';
 import 'package:homary/entity/main.dart';
 import 'package:homary/entity/search_associate.dart';
 
@@ -72,7 +73,9 @@ class SearchCtrl with ChangeNotifier {
   void inputChange(String val) {
     if (val != '') {
       this.showFilter = true;
-      getFilterList(val.trim());
+      debounce((){
+        getFilterList(val.trim());
+      },Duration(milliseconds: 50))();
     } else {
       this.showFilterToggle();
     }
@@ -85,7 +88,7 @@ class SearchCtrl with ChangeNotifier {
     });
     if (res.error == null) {
       SearchAssociate result = SearchAssociate.fromJson(res.result);
-      filterList = [...result.data.wordList];
+      filterList = [...result.data?.wordList??[]];
       notifyListeners();
     }
   }
