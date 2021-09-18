@@ -1,4 +1,5 @@
 import 'package:flutter/rendering.dart';
+import 'package:homary/common/utils/analytics.dart';
 import 'package:homary/common/utils/analytics_util.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/components/GoodsCard/goods_cart_grid.dart';
@@ -58,6 +59,13 @@ class _CategoryTabState extends State<CategoryTab> {
   @override
   void initState() {
     super.initState();
+    if (widget.isSearchPage) {
+      sendGTMData({
+        'event': 'view_search_results',
+        'event_label': 'search_result',
+        'search_term': widget.keyword ?? ''
+      });
+    }
     _scrollController.addListener(_handleScroll);
   }
 
@@ -146,11 +154,13 @@ class _CategoryTabState extends State<CategoryTab> {
               //     ),
               //   ),
               // ),
-              SliverToBoxAdapter(child: CategoryMenuBarV2(),),
+              SliverToBoxAdapter(
+                child: CategoryMenuBarV2(),
+              ),
               ctrl.isShowEmpty
                   ? SliverToBoxAdapter(
                       child: Container(
-                        margin: EdgeInsets.only(top: 80.w,bottom: 80.w),
+                        margin: EdgeInsets.only(top: 80.w, bottom: 80.w),
                         child: ProductEmptyWidget(),
                       ),
                     )
@@ -170,20 +180,14 @@ class _CategoryTabState extends State<CategoryTab> {
       showFreeShipping: true,
       showRating: true,
       showDispatch: true,
-      itemListName: widget.isSearchPage ? 'Search Results':'Category Products',
+      itemListName:
+          widget.isSearchPage ? 'Search Results' : 'Category Products',
       onExposure: (list) {
         AnalyticsUtil.instance.sendProductItemGTM(
           pointList: list,
           itemListName:
               widget.isSearchPage ? 'Search Results' : 'Category Products',
           eventName: 'view_item_list',
-          extraParams: widget.isSearchPage
-              ? {
-                  'event': 'view_search_results',
-                  'event_label': 'search_result',
-                  'search_term': widget.keyword ?? ''
-                }
-              : null,
         );
       },
     );
