@@ -25,4 +25,11 @@ class SearchApi {
         params: params);
     return res;
   }
+
+  //搜索联想接口
+  static Future<DioResult> getAssociateWordList(params) async {
+    DioResult res = await Request().get('/product/search/get-associate-word-list',
+        params: params);
+    return res;
+  }
 }
