@@ -143,11 +143,7 @@ class _UserPageViewState extends State<UserPageView> {
                           bool isLogin =
                               Localstorage().getBool(StorageKey.IS_LOGIN);
                           if (isLogin) {
-                            Routes.push(context, '/webview', params: {
-                              "appBarTitle": 'My Orders',
-                              "content":
-                                  '{"url":"https://m.homary.com/usercenter/order"}'
-                            });
+                            Routes.push(context,Routes.myOrders);
                           } else {
                             Routes.push(context, '/signIn');
                           }
@@ -172,7 +168,7 @@ class _UserPageViewState extends State<UserPageView> {
                       height: 34.w,
                     ),
                     count: data.userCenterInfo?.unpaidOrderCount,
-                    url: '/usercenter/order?active=unpaid',
+                    url: 'unpaid',
                     title: S.of(context).usercenter_myOrder,
                   ),
                   FlexItem(
@@ -183,7 +179,7 @@ class _UserPageViewState extends State<UserPageView> {
                       height: 34.w,
                     ),
                     count: data.userCenterInfo?.processingOrderCount,
-                    url: '/usercenter/order?active=undelivery',
+                    url: 'undelivery',
                     title: S.of(context).usercenter_myOrder,
                   ),
                   FlexItem(
@@ -194,7 +190,7 @@ class _UserPageViewState extends State<UserPageView> {
                       height: 34.w,
                     ),
                     count: data.userCenterInfo?.shippedOrderCount,
-                    url: '/usercenter/order?active=shipped',
+                    url: 'shipped',
                     title: S.of(context).usercenter_myOrder,
                   ),
                   FlexItem(
@@ -205,7 +201,7 @@ class _UserPageViewState extends State<UserPageView> {
                       height: 34.w,
                     ),
                     count: data.userCenterInfo?.returnOrderCount,
-                    url: '/usercenter/order?active=returns',
+                    url: 'returns',
                     title: S.of(context).usercenter_myOrder,
                   ),
                 ],

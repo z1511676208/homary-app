@@ -28,9 +28,8 @@ class FlexItem extends StatelessWidget {
         onTap: () {
           bool isLogin = Localstorage().getBool(StorageKey.IS_LOGIN);
           if (this.url != null && isLogin || !this.needLogin) {
-            Routes.push(context, '/webview', params: {
-              "appBarTitle": this.title,
-              "content": '{"url":"https://m.homary.com${this.url}"}'
+            Routes.push(context, Routes.myOrders, params: {
+              'active': url,
             });
           } else {
             Routes.push(context, '/signIn');

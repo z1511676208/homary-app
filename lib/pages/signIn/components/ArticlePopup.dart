@@ -1,14 +1,3 @@
-/*
- * @Author       : zhhjie
- * @Date         : 2021-08-17 17:53:01
- * @LastEditors  : zhhjie
-<<<<<<< HEAD
- * @LastEditTime : 2021-09-08 17:14:15
-=======
- * @LastEditTime : 2021-09-08 17:08:18
->>>>>>> ad1a99c (bugfix:收藏页面排序多语言翻译,注册页弹窗圆角切割)
- */
-
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/webView/webviewController.dart';
 

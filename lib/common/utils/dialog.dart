@@ -38,6 +38,7 @@ class AppDialog {
   /// [canCancel] 点击弹窗外部区域或返回键，是否可取消弹窗。默认可以
   static Future<bool> showMessage({
     @required BuildContext context,
+    String title,
     String message,
     String noStr = "No",
     String yesStr = "Yes",
@@ -47,6 +48,7 @@ class AppDialog {
       context: context,
       canCancel: canCancel,
       widget: MessageDialog(
+        title: title,
         message: message,
         noStr: noStr,
         yesStr: yesStr,

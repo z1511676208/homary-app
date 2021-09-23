@@ -1454,6 +1454,346 @@ class S {
       args: [minValue, maxValue],
     );
   }
+
+  /// `All Orders`
+  String get my_orders_all_orders {
+    return Intl.message(
+      'All Orders',
+      name: 'my_orders_all_orders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pending`
+  String get my_orders_pending {
+    return Intl.message(
+      'Pending',
+      name: 'my_orders_pending',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Processing`
+  String get my_orders_processing {
+    return Intl.message(
+      'Processing',
+      name: 'my_orders_processing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Processing`
+  String get my_orders_processing2 {
+    return Intl.message(
+      'Processing',
+      name: 'my_orders_processing2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Partially Shipped`
+  String get my_orders_partially_shipped {
+    return Intl.message(
+      'Partially Shipped',
+      name: 'my_orders_partially_shipped',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shipped`
+  String get my_orders_shipped {
+    return Intl.message(
+      'Shipped',
+      name: 'my_orders_shipped',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Payment Review`
+  String get my_orders_payment_review {
+    return Intl.message(
+      'Payment Review',
+      name: 'my_orders_payment_review',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Paid`
+  String get my_orders_paid {
+    return Intl.message(
+      'Paid',
+      name: 'my_orders_paid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Complete`
+  String get my_orders_complete {
+    return Intl.message(
+      'Complete',
+      name: 'my_orders_complete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get my_orders_cancel {
+    return Intl.message(
+      'Cancel',
+      name: 'my_orders_cancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Return`
+  String get my_orders_return {
+    return Intl.message(
+      'Return',
+      name: 'my_orders_return',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No orders yet!`
+  String get my_orders_empty {
+    return Intl.message(
+      'No orders yet!',
+      name: 'my_orders_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order No: {orderNo}`
+  String my_orders_order_no(Object orderNo) {
+    return Intl.message(
+      'Order No: $orderNo',
+      name: 'my_orders_order_no',
+      desc: '',
+      args: [orderNo],
+    );
+  }
+
+  /// `Total: {total}`
+  String my_orders_total(Object total) {
+    return Intl.message(
+      'Total: $total',
+      name: 'my_orders_total',
+      desc: '',
+      args: [total],
+    );
+  }
+
+  /// `Checkout`
+  String get my_orders_checkout {
+    return Intl.message(
+      'Checkout',
+      name: 'my_orders_checkout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Download`
+  String get my_orders_download {
+    return Intl.message(
+      'Download',
+      name: 'my_orders_download',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm Receipt`
+  String get my_orders_confirm_receipt {
+    return Intl.message(
+      'Confirm Receipt',
+      name: 'my_orders_confirm_receipt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Refund`
+  String get my_orders_refund {
+    return Intl.message(
+      'Refund',
+      name: 'my_orders_refund',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reorder`
+  String get my_orders_reorder {
+    return Intl.message(
+      'Reorder',
+      name: 'my_orders_reorder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View Details`
+  String get my_orders_view_detail {
+    return Intl.message(
+      'View Details',
+      name: 'my_orders_view_detail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `After Sales`
+  String get my_orders_after_sales {
+    return Intl.message(
+      'After Sales',
+      name: 'my_orders_after_sales',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order Details`
+  String get my_orders_order_details {
+    return Intl.message(
+      'Order Details',
+      name: 'my_orders_order_details',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Have you confirmed receipt of the goods?`
+  String get my_orders_confirm_title {
+    return Intl.message(
+      'Have you confirmed receipt of the goods?',
+      name: 'my_orders_confirm_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `In order to ensure your after-sale rights and interests, please receive the goods, check and confirm the receipt of goods`
+  String get my_orders_confirm_message {
+    return Intl.message(
+      'In order to ensure your after-sale rights and interests, please receive the goods, check and confirm the receipt of goods',
+      name: 'my_orders_confirm_message',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Think Again`
+  String get my_orders_confirm_no {
+    return Intl.message(
+      'Think Again',
+      name: 'my_orders_confirm_no',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose Cancel Reason`
+  String get my_orders_order_cancel_title {
+    return Intl.message(
+      'Choose Cancel Reason',
+      name: 'my_orders_order_cancel_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `If the order is cancelled successfully, it will not be able to be recovered. Please confirm the cancellation`
+  String get my_orders_order_cancel_hint {
+    return Intl.message(
+      'If the order is cancelled successfully, it will not be able to be recovered. Please confirm the cancellation',
+      name: 'my_orders_order_cancel_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Incorrect address information`
+  String get my_orders_order_cancel_reason_1 {
+    return Intl.message(
+      'Incorrect address information',
+      name: 'my_orders_order_cancel_reason_1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Don't want the goods`
+  String get my_orders_order_cancel_reason_2 {
+    return Intl.message(
+      'Don\'t want the goods',
+      name: 'my_orders_order_cancel_reason_2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wrong selection/multiple selection of goods`
+  String get my_orders_order_cancel_reason_3 {
+    return Intl.message(
+      'Wrong selection/multiple selection of goods',
+      name: 'my_orders_order_cancel_reason_3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Goods not available`
+  String get my_orders_order_cancel_reason_4 {
+    return Intl.message(
+      'Goods not available',
+      name: 'my_orders_order_cancel_reason_4',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Not using/underusing/misusing coupons`
+  String get my_orders_order_cancel_reason_5 {
+    return Intl.message(
+      'Not using/underusing/misusing coupons',
+      name: 'my_orders_order_cancel_reason_5',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order cancelled successfully`
+  String get my_orders_order_cancel_success {
+    return Intl.message(
+      'Order cancelled successfully',
+      name: 'my_orders_order_cancel_success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Submit`
+  String get submit {
+    return Intl.message(
+      'Submit',
+      name: 'submit',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

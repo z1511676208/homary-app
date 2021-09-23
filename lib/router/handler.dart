@@ -12,6 +12,7 @@ import 'package:homary/pages/categoryTab/main.dart';
 import 'package:homary/pages/channelTab/main.dart';
 import 'package:homary/pages/coupons/main.dart';
 import 'package:homary/pages/index/main.dart';
+import 'package:homary/pages/myOrders/main.dart';
 import 'package:homary/pages/reviewDetail/main.dart';
 import 'package:homary/pages/settings/main.dart';
 import 'package:homary/pages/signIn/main.dart';
@@ -142,5 +143,11 @@ Handler wishlistHandler = Handler(
 Handler couponsHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return CouponsPage();
+  },
+);
+
+Handler myOrdersHandler = Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return MyOrdersPage(active: params['active']?.first ?? 'all');
   },
 );

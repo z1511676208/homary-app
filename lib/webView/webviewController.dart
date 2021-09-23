@@ -399,7 +399,14 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
           },
           onUpdateVisitedHistory: (InAppWebViewController controller, Uri url,
               bool androidIsReload) {
-            changeHeadStatus(url);
+            Map<String, dynamic> urlData = getRealUrlNParams(url.toString());
+            if (url.toString().contains('/usercenter/order')) {
+              Routes.pop();
+              Routes.replace(context, Routes.myOrders,
+                  params: {'active': urlData['params']['active'] ?? null});
+            } else {
+              changeHeadStatus(url);
+            }
           },
           onLoadError: (context, url, i, e) {
             // print('error====> $i   $e');

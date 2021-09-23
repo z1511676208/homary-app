@@ -4,10 +4,14 @@ import 'package:homary/common/utils/main.dart';
 class MessageDialog extends StatelessWidget {
   const MessageDialog({
     Key key,
+    this.title,
     this.message,
     this.noStr = 'No',
     this.yesStr = 'Yes',
   }) : super(key: key);
+
+  /// 标题
+  final String title;
 
   /// 显示的文字信息
   final String message;
@@ -29,9 +33,23 @@ class MessageDialog extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          SizedBox(height: 26.w),
+          if (title != null)
+            Padding(
+              padding: EdgeInsets.only(
+                  left: 24.w, right: 24.w, top: 12.w, bottom: 12.w),
+              child: Text(
+                title,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  color: AppColor.primaryText,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
           Padding(
-            padding: EdgeInsets.only(
-                left: 24.w, right: 24.w, top: 26.w, bottom: 12.w),
+            padding: EdgeInsets.only(left: 24.w, right: 24.w, bottom: 12.w),
             child: Text(
               message,
               textAlign: TextAlign.center,
@@ -82,6 +100,7 @@ class MessageDialog extends StatelessWidget {
             ))),
         child: Text(
           noStr,
+          textAlign: TextAlign.center,
           style: TextStyle(
             color: AppColor.primaryColor,
             fontSize: 13.sp,
@@ -108,6 +127,7 @@ class MessageDialog extends StatelessWidget {
             ))),
         child: Text(
           yesStr,
+          textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.white,
             fontSize: 13.sp,

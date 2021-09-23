@@ -25,11 +25,15 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m2(total) => "Only ${total} on sale!";
 
-  static m3(amount) => "You have received all new user coupons，up to ${amount} OFF for all items.";
+  static m3(orderNo) => "Order No: ${orderNo}";
 
-  static m4(minValue, maxValue) => "Value must be between ${minValue} and ${maxValue}";
+  static m4(total) => "Total: ${total}";
 
-  static m5(result) => "Showing results for \"${result}\"";
+  static m5(amount) => "You have received all new user coupons，up to ${amount} OFF for all items.";
+
+  static m6(minValue, maxValue) => "Value must be between ${minValue} and ${maxValue}";
+
+  static m7(result) => "Showing results for \"${result}\"";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
@@ -96,6 +100,39 @@ class MessageLookup extends MessageLookupByLibrary {
     "login_signIn" : MessageLookupByLibrary.simpleMessage("LOG IN"),
     "login_successful" : MessageLookupByLibrary.simpleMessage("Login sucessfully!"),
     "logout_successful" : MessageLookupByLibrary.simpleMessage("Log out sucessfully!"),
+    "my_orders_after_sales" : MessageLookupByLibrary.simpleMessage("After Sales"),
+    "my_orders_all_orders" : MessageLookupByLibrary.simpleMessage("All Orders"),
+    "my_orders_cancel" : MessageLookupByLibrary.simpleMessage("Cancel"),
+    "my_orders_checkout" : MessageLookupByLibrary.simpleMessage("Checkout"),
+    "my_orders_complete" : MessageLookupByLibrary.simpleMessage("Complete"),
+    "my_orders_confirm_message" : MessageLookupByLibrary.simpleMessage("In order to ensure your after-sale rights and interests, please receive the goods, check and confirm the receipt of goods"),
+    "my_orders_confirm_no" : MessageLookupByLibrary.simpleMessage("Think Again"),
+    "my_orders_confirm_receipt" : MessageLookupByLibrary.simpleMessage("Confirm Receipt"),
+    "my_orders_confirm_title" : MessageLookupByLibrary.simpleMessage("Have you confirmed receipt of the goods?"),
+    "my_orders_download" : MessageLookupByLibrary.simpleMessage("Download"),
+    "my_orders_empty" : MessageLookupByLibrary.simpleMessage("No orders yet!"),
+    "my_orders_order_cancel_hint" : MessageLookupByLibrary.simpleMessage("If the order is cancelled successfully, it will not be able to be recovered. Please confirm the cancellation"),
+    "my_orders_order_cancel_reason_1" : MessageLookupByLibrary.simpleMessage("Incorrect address information"),
+    "my_orders_order_cancel_reason_2" : MessageLookupByLibrary.simpleMessage("Don\'t want the goods"),
+    "my_orders_order_cancel_reason_3" : MessageLookupByLibrary.simpleMessage("Wrong selection/multiple selection of goods"),
+    "my_orders_order_cancel_reason_4" : MessageLookupByLibrary.simpleMessage("Goods not available"),
+    "my_orders_order_cancel_reason_5" : MessageLookupByLibrary.simpleMessage("Not using/underusing/misusing coupons"),
+    "my_orders_order_cancel_success" : MessageLookupByLibrary.simpleMessage("Order cancelled successfully"),
+    "my_orders_order_cancel_title" : MessageLookupByLibrary.simpleMessage("Choose Cancel Reason"),
+    "my_orders_order_details" : MessageLookupByLibrary.simpleMessage("Order Details"),
+    "my_orders_order_no" : m3,
+    "my_orders_paid" : MessageLookupByLibrary.simpleMessage("Paid"),
+    "my_orders_partially_shipped" : MessageLookupByLibrary.simpleMessage("Partially Shipped"),
+    "my_orders_payment_review" : MessageLookupByLibrary.simpleMessage("Payment Review"),
+    "my_orders_pending" : MessageLookupByLibrary.simpleMessage("Pending"),
+    "my_orders_processing" : MessageLookupByLibrary.simpleMessage("Processing"),
+    "my_orders_processing2" : MessageLookupByLibrary.simpleMessage("Processing"),
+    "my_orders_refund" : MessageLookupByLibrary.simpleMessage("Refund"),
+    "my_orders_reorder" : MessageLookupByLibrary.simpleMessage("Reorder"),
+    "my_orders_return" : MessageLookupByLibrary.simpleMessage("Return"),
+    "my_orders_shipped" : MessageLookupByLibrary.simpleMessage("Shipped"),
+    "my_orders_total" : m4,
+    "my_orders_view_detail" : MessageLookupByLibrary.simpleMessage("View Details"),
     "newUserCouponModal_forUser" : MessageLookupByLibrary.simpleMessage("OFF For New User"),
     "newUserCouponModal_upto" : MessageLookupByLibrary.simpleMessage("Up to"),
     "new_user_724" : MessageLookupByLibrary.simpleMessage("7*24 Service"),
@@ -104,12 +141,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "new_user_get_all" : MessageLookupByLibrary.simpleMessage("GET ALL"),
     "new_user_no_hassle_returns" : MessageLookupByLibrary.simpleMessage("No Hassle Returns"),
     "new_user_orders_over" : MessageLookupByLibrary.simpleMessage("Orders over"),
-    "new_user_received_all" : m3,
+    "new_user_received_all" : m5,
     "new_user_sign_get_all" : MessageLookupByLibrary.simpleMessage("SIGN IN TO GET ALL"),
     "new_user_use_now" : MessageLookupByLibrary.simpleMessage("USE NOW"),
     "new_user_view_my_coupons" : MessageLookupByLibrary.simpleMessage("View My Coupons"),
     "new_user_welcome" : MessageLookupByLibrary.simpleMessage("WELCOME TO HOMARY"),
-    "rangeLimitError" : m4,
+    "rangeLimitError" : m6,
     "register_agreeTips" : MessageLookupByLibrary.simpleMessage("By registering, you agree to our "),
     "register_agreeTipsAnd" : MessageLookupByLibrary.simpleMessage(" and "),
     "register_btn" : MessageLookupByLibrary.simpleMessage("CREATE AN ACCOUNT"),
@@ -136,7 +173,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "search_popularSearches" : MessageLookupByLibrary.simpleMessage("Popular Searches"),
     "search_recentSearches" : MessageLookupByLibrary.simpleMessage("Recent Searches"),
     "search_see_also" : MessageLookupByLibrary.simpleMessage("See Also:"),
-    "search_showing_results" : m5,
+    "search_showing_results" : m7,
     "search_view_all" : MessageLookupByLibrary.simpleMessage("View All"),
     "setting_cleanCacheTip" : MessageLookupByLibrary.simpleMessage("Delete all temporary images to free up some space in your device?"),
     "setting_clearCache" : MessageLookupByLibrary.simpleMessage("Clear Cache"),
@@ -144,6 +181,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "setting_version" : MessageLookupByLibrary.simpleMessage("Version"),
     "signIn_guest_button" : MessageLookupByLibrary.simpleMessage("CONTINUE AS A GUEST"),
     "sign_out_btn" : MessageLookupByLibrary.simpleMessage("Sign Out"),
+    "submit" : MessageLookupByLibrary.simpleMessage("Submit"),
     "success" : MessageLookupByLibrary.simpleMessage("Success"),
     "title" : MessageLookupByLibrary.simpleMessage("Localization Demo"),
     "user_viewed" : MessageLookupByLibrary.simpleMessage("My Viewed"),
