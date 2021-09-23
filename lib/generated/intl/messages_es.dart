@@ -25,11 +25,15 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m2(total) => "¡ ${total} en Oferta!";
 
-  static m3(amount) => "Has recibido un cupón de usuario nuevo con un descuento de hasta ${amount} .";
+  static m3(orderNo) => "Nº de pedido: ${orderNo}";
 
-  static m4(minValue, maxValue) => "El valor debe estar entre ${minValue}  y ${maxValue}";
+  static m4(total) => "Total: ${total}";
 
-  static m5(result) => "Mostrar el resultado sobre \"${result}\"";
+  static m5(amount) => "Has recibido un cupón de usuario nuevo con un descuento de hasta ${amount} .";
+
+  static m6(minValue, maxValue) => "El valor debe estar entre ${minValue}  y ${maxValue}";
+
+  static m7(result) => "Mostrar el resultado sobre \"${result}\"";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
@@ -96,6 +100,39 @@ class MessageLookup extends MessageLookupByLibrary {
     "login_signIn" : MessageLookupByLibrary.simpleMessage("INICIAR SESIÓN"),
     "login_successful" : MessageLookupByLibrary.simpleMessage("Iniciar sesión correctamente!"),
     "logout_successful" : MessageLookupByLibrary.simpleMessage("¡Cierre la sesión con éxito!"),
+    "my_orders_after_sales" : MessageLookupByLibrary.simpleMessage("después de las ventas"),
+    "my_orders_all_orders" : MessageLookupByLibrary.simpleMessage("Todas las órdenes"),
+    "my_orders_cancel" : MessageLookupByLibrary.simpleMessage("Cancelar"),
+    "my_orders_checkout" : MessageLookupByLibrary.simpleMessage("Comprar"),
+    "my_orders_complete" : MessageLookupByLibrary.simpleMessage("Completo"),
+    "my_orders_confirm_message" : MessageLookupByLibrary.simpleMessage("Con el fin de asegurar sus derechos e intereses posventa, por favor recabar los productos, comprobar y confirmar la recepción de los productos"),
+    "my_orders_confirm_no" : MessageLookupByLibrary.simpleMessage("Piense de nuevo"),
+    "my_orders_confirm_receipt" : MessageLookupByLibrary.simpleMessage("Confirmar recibo"),
+    "my_orders_confirm_title" : MessageLookupByLibrary.simpleMessage("¿Ha confirmado la recepción de los bienes?"),
+    "my_orders_download" : MessageLookupByLibrary.simpleMessage("Descargar"),
+    "my_orders_empty" : MessageLookupByLibrary.simpleMessage("¡Aún no hay pedidos!"),
+    "my_orders_order_cancel_hint" : MessageLookupByLibrary.simpleMessage("Si el pedido se cancela con éxito, no podrá ser recuperado. Por favor, confirme la cancelación"),
+    "my_orders_order_cancel_reason_1" : MessageLookupByLibrary.simpleMessage("Información de dirección incorrecta"),
+    "my_orders_order_cancel_reason_2" : MessageLookupByLibrary.simpleMessage("No quiere los productos"),
+    "my_orders_order_cancel_reason_3" : MessageLookupByLibrary.simpleMessage("Selección incorrecta/selección múltiple de productos"),
+    "my_orders_order_cancel_reason_4" : MessageLookupByLibrary.simpleMessage("Bienes no disponibles"),
+    "my_orders_order_cancel_reason_5" : MessageLookupByLibrary.simpleMessage("No usar/infrausar/usar cupones"),
+    "my_orders_order_cancel_success" : MessageLookupByLibrary.simpleMessage("Pedido cancelado con éxito"),
+    "my_orders_order_cancel_title" : MessageLookupByLibrary.simpleMessage("Elegir motivo de cancelación"),
+    "my_orders_order_details" : MessageLookupByLibrary.simpleMessage("Detalles del pedido"),
+    "my_orders_order_no" : m3,
+    "my_orders_paid" : MessageLookupByLibrary.simpleMessage("Pagado"),
+    "my_orders_partially_shipped" : MessageLookupByLibrary.simpleMessage("Parcialmente Enviado"),
+    "my_orders_payment_review" : MessageLookupByLibrary.simpleMessage("Revisión de pagos"),
+    "my_orders_pending" : MessageLookupByLibrary.simpleMessage("Pendiente"),
+    "my_orders_processing" : MessageLookupByLibrary.simpleMessage("Procesando"),
+    "my_orders_processing2" : MessageLookupByLibrary.simpleMessage("Procesando"),
+    "my_orders_refund" : MessageLookupByLibrary.simpleMessage("Reembolso"),
+    "my_orders_reorder" : MessageLookupByLibrary.simpleMessage("Reordenar"),
+    "my_orders_return" : MessageLookupByLibrary.simpleMessage("Regreso"),
+    "my_orders_shipped" : MessageLookupByLibrary.simpleMessage("Enviado"),
+    "my_orders_total" : m4,
+    "my_orders_view_detail" : MessageLookupByLibrary.simpleMessage("Ver detalles"),
     "newUserCouponModal_forUser" : MessageLookupByLibrary.simpleMessage("de descuento"),
     "newUserCouponModal_upto" : MessageLookupByLibrary.simpleMessage("Hasta"),
     "new_user_724" : MessageLookupByLibrary.simpleMessage("Servicio 7 * 24"),
@@ -104,12 +141,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "new_user_get_all" : MessageLookupByLibrary.simpleMessage("OBTENER TODA"),
     "new_user_no_hassle_returns" : MessageLookupByLibrary.simpleMessage("Devoluciones sin Problemas"),
     "new_user_orders_over" : MessageLookupByLibrary.simpleMessage("En compras de"),
-    "new_user_received_all" : m3,
+    "new_user_received_all" : m5,
     "new_user_sign_get_all" : MessageLookupByLibrary.simpleMessage("INICIAR SESIÓN"),
     "new_user_use_now" : MessageLookupByLibrary.simpleMessage("ÚSALO AHORA"),
     "new_user_view_my_coupons" : MessageLookupByLibrary.simpleMessage("Ver Mis Cupones"),
     "new_user_welcome" : MessageLookupByLibrary.simpleMessage("Bienvenido a Homary"),
-    "rangeLimitError" : m4,
+    "rangeLimitError" : m6,
     "register_agreeTips" : MessageLookupByLibrary.simpleMessage("Al registrarse, usted acepta nuestra "),
     "register_agreeTipsAnd" : MessageLookupByLibrary.simpleMessage(" y "),
     "register_btn" : MessageLookupByLibrary.simpleMessage("CREAR UNA CUENTA"),
@@ -136,7 +173,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "search_popularSearches" : MessageLookupByLibrary.simpleMessage("Búsquedas Populares"),
     "search_recentSearches" : MessageLookupByLibrary.simpleMessage("Búsquedas Recientes"),
     "search_see_also" : MessageLookupByLibrary.simpleMessage("Recomendar:"),
-    "search_showing_results" : m5,
+    "search_showing_results" : m7,
     "search_view_all" : MessageLookupByLibrary.simpleMessage("Ver todo"),
     "setting_cleanCacheTip" : MessageLookupByLibrary.simpleMessage("¿Eliminar todas las imágenes temporales para liberar espacio en su dispositivo?"),
     "setting_clearCache" : MessageLookupByLibrary.simpleMessage("Limpiar cache"),
@@ -144,6 +181,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "setting_version" : MessageLookupByLibrary.simpleMessage("Versión"),
     "signIn_guest_button" : MessageLookupByLibrary.simpleMessage("CONTINUE AS A GUEST"),
     "sign_out_btn" : MessageLookupByLibrary.simpleMessage("Desconectar"),
+    "submit" : MessageLookupByLibrary.simpleMessage("Enviar"),
     "success" : MessageLookupByLibrary.simpleMessage("Éxito"),
     "title" : MessageLookupByLibrary.simpleMessage("Localization Demo"),
     "user_viewed" : MessageLookupByLibrary.simpleMessage("Mi vista"),
