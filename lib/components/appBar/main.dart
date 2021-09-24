@@ -53,7 +53,7 @@ class GlobalAppbar extends StatelessWidget {
                   ),
                 ],
               ),
-              AppbarSearch(),
+              AppbarSearch(heroTag: 'search',),
             ],
           ),
         ),

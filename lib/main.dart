@@ -97,6 +97,7 @@ class _MyAppState extends State<MyApp> {
                 primarySwatch: AppColor.primaryMaterialColor,
                 primaryColor: AppColor.primaryColor,
                 accentColor: AppColor.primaryColor,
+                unselectedWidgetColor: AppColor.primaryBorderOutline,
                 fontFamily: 'Urbanist'),
             // 配置路由
             onGenerateRoute: Routes.router.generator,
