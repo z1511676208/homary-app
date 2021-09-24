@@ -64,9 +64,9 @@ class _OrderCancelSelectState extends State<OrderCancelSelect> {
                     child: GestureDetector(
                       onTap: () => Navigator.pop(context),
                       child: Image.asset(
-                        'assets/images/home/popup_close.png',
-                        width: 18.w,
-                        height: 18.w,
+                        'assets/images/order/order_windows_close.png',
+                        width: 19.w,
+                        height: 19.w,
                       ),
                     ),
                   ),
@@ -75,11 +75,17 @@ class _OrderCancelSelectState extends State<OrderCancelSelect> {
             ),
           ),
           Container(
-            margin: EdgeInsets.symmetric(
-              horizontal: 16.w,
+            margin: EdgeInsets.only(
+              left: 16.w,
+              right: 16.w,
+              top: 10.w,
+              bottom: 15.w,
             ),
             padding: EdgeInsets.all(10.w),
-            color: AppColor.primaryBackground,
+            decoration: BoxDecoration(
+              color: AppColor.primaryBackground,
+              borderRadius: BorderRadius.circular(4.w),
+            ),
             child: Text(
               S.of(context).my_orders_order_cancel_hint,
               style: TextStyle(
@@ -149,8 +155,15 @@ class _OrderCancelSelectState extends State<OrderCancelSelect> {
               onPressed: _selectIndex == -1
                   ? null
                   : () {
-                      Navigator.pop(context, list[_selectIndex]);
-                    },
+                Navigator.pop(context, list[_selectIndex]);
+              },
+              style: ElevatedButton.styleFrom(
+                elevation: 0,
+                onSurface: AppColor.primaryColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(17.w),
+                ),
+              ),
               child: Text(
                 S.of(context).submit,
                 style: TextStyle(

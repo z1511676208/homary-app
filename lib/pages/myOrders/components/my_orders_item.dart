@@ -152,6 +152,7 @@ class MyOrderItem extends StatelessWidget {
         String reason = await showModalBottomSheet(
           context: context,
           isScrollControlled: true,
+          backgroundColor: Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(8.w),
@@ -180,6 +181,7 @@ class MyOrderItem extends StatelessWidget {
         String reason = await showModalBottomSheet(
           context: context,
           isScrollControlled: true,
+          backgroundColor: Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(8.w),

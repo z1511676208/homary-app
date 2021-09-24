@@ -4,12 +4,14 @@
  * @LastEditors  : zhhjie
  * @LastEditTime : 2021-09-01 17:50:56
  */
+import 'package:fluro/fluro.dart';
 import 'package:homary/common/utils/main.dart';
 
 class AppbarSearch extends StatefulWidget {
   final double marginTop;
   final String searchContent;
-  AppbarSearch({Key key, this.marginTop, this.searchContent}) : super(key: key);
+  final String heroTag;
+  AppbarSearch({Key key, this.marginTop, this.searchContent, this.heroTag = ''}) : super(key: key);
 
   @override
   _AppbarSearchState createState() => _AppbarSearchState();
@@ -35,40 +37,43 @@ class _AppbarSearchState extends State<AppbarSearch> {
           width: MediaQuery.of(context).size.width - 24.w,
           decoration: BoxDecoration(color: Colors.white),
           child: GestureDetector(
-              child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(4.w),
-                      ),
-                      border: Border.all(
-                          color: AppColor.primaryBorderHard, width: 1.w)),
-                  child: TextField(
-                    controller: _controller,
-                    textAlignVertical: TextAlignVertical.center,
-                    enabled: false,
-                    maxLines: 1,
-                    cursorColor: AppColor.primaryColor,
-                    style: TextStyle(
-                        color: AppColor.primaryText, fontSize: 14.sp),
-                    decoration: InputDecoration(
-                        isCollapsed: true,
-                        prefixIcon: Icon(
-                          Iconfont.search,
-                          size: 17.sp,
-                          color: AppColor.primaryLightSubTitle,
+              child: Hero(
+                tag: widget.heroTag,
+                child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(4.w),
                         ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(4.0),
+                        border: Border.all(
+                            color: AppColor.primaryBorderHard, width: 1.w)),
+                    child: TextField(
+                      controller: _controller,
+                      textAlignVertical: TextAlignVertical.center,
+                      enabled: false,
+                      maxLines: 1,
+                      cursorColor: AppColor.primaryColor,
+                      style: TextStyle(
+                          color: AppColor.primaryText, fontSize: 14.sp),
+                      decoration: InputDecoration(
+                          isCollapsed: true,
+                          prefixIcon: Icon(
+                            Iconfont.search,
+                            size: 17.sp,
+                            color: AppColor.primaryLightSubTitle,
                           ),
-                        ),
-                        filled: true,
-                        fillColor: Colors.white,
-                        hintStyle:
-                            TextStyle(color: AppColor.primaryLightSubTitle),
-                        hintText: S.of(context).search_findAnything),
-                  )),
-              onTap: () => Routes.push(context, '/search')),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(4.0),
+                            ),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintStyle:
+                          TextStyle(color: AppColor.primaryLightSubTitle),
+                          hintText: S.of(context).search_findAnything),
+                    )),
+              ),
+              onTap: () => Routes.push(context, '/search',transition:TransitionType.fadeIn),),
         ));
   }
 }

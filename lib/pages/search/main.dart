@@ -18,6 +18,9 @@ class SearchView extends StatefulWidget {
 }
 
 class _SearchViewState extends State<SearchView> {
+
+  FocusNode _focusNode = FocusNode();
+
   @override
   void initState() {
     super.initState();
@@ -26,6 +29,7 @@ class _SearchViewState extends State<SearchView> {
       await Provider.of<SearchCtrl>(context, listen: false)
           .getSearchHotKeywords();
       Provider.of<SearchCtrl>(context, listen: false).getStore();
+      _focusNode.requestFocus();
       Toast.clear();
     });
   }
@@ -35,75 +39,80 @@ class _SearchViewState extends State<SearchView> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(96.5.w),
-        child: Container(
-            width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.symmetric(vertical: 5.w),
-            decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border(
-                    bottom: BorderSide(
-                        color: AppColor.primaryBorderBottomLine,
-                        width: 0.5.w))),
-            child: SafeArea(
-              top: true,
-              bottom: false,
-              child: Row(
-                children: [
-                  ConstrainedBox(
-                    constraints: BoxConstraints(minHeight: 34.w),
-                    child: Container(
-                      margin: EdgeInsets.only(left: 12.w),
-                      height: 34.w,
-                      width: MediaQuery.of(context).size.width - 84.w,
-                      child: TextField(
-                          textInputAction: TextInputAction.search,
-                          textAlignVertical: TextAlignVertical.center,
-                          onChanged: (val) {
-                            Provider.of<SearchCtrl>(context, listen: false)
-                                .inputChange(val);
-                          },
-                          onSubmitted: (val) {
-                            Provider.of<SearchCtrl>(context, listen: false)
-                                .getAnalyze(context);
-                          },
-                          maxLines: 1,
-                          style: TextStyle(
-                              color: AppColor.primaryText, fontSize: 14.sp),
-                          decoration: InputDecoration(
-                              isCollapsed: true,
-                              prefixIcon: Icon(
-                                Iconfont.search,
-                                size: 17.sp,
-                                color: AppColor.primaryBorderLight,
-                              ),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 2.w,
-                                  color: AppColor.primaryBorderHard,
-                                  style: BorderStyle.none,
+        child: Hero(
+          tag: 'search',
+          child: Container(
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.symmetric(vertical: 5.w),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border(
+                      bottom: BorderSide(
+                          color: AppColor.primaryBorderBottomLine,
+                          width: 0.5.w))),
+              child: SafeArea(
+                top: true,
+                bottom: false,
+                child: Row(
+                  children: [
+                    ConstrainedBox(
+                      constraints: BoxConstraints(minHeight: 34.w),
+                      child: Container(
+                        margin: EdgeInsets.only(left: 12.w),
+                        height: 34.w,
+                        width: MediaQuery.of(context).size.width - 84.w,
+                        child: TextField(
+                          focusNode: _focusNode,
+                            textInputAction: TextInputAction.search,
+                            textAlignVertical: TextAlignVertical.center,
+                            onChanged: (val) {
+                              Provider.of<SearchCtrl>(context, listen: false)
+                                  .inputChange(val);
+                            },
+                            onSubmitted: (val) {
+                              Provider.of<SearchCtrl>(context, listen: false)
+                                  .getAnalyze(context);
+                              FocusScope.of(context).requestFocus(FocusNode());
+                            },
+                            maxLines: 1,
+                            style: TextStyle(
+                                color: AppColor.primaryText, fontSize: 14.sp),
+                            decoration: InputDecoration(
+                                isCollapsed: true,
+                                prefixIcon: Icon(
+                                  Iconfont.search,
+                                  size: 17.sp,
+                                  color: AppColor.primaryBorderLight,
                                 ),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(4.0),
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    width: 2.w,
+                                    color: AppColor.primaryBorderHard,
+                                    style: BorderStyle.none,
+                                  ),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(4.0),
+                                  ),
                                 ),
-                              ),
-                              filled: true,
-                              fillColor: Colors.white,
-                              hintStyle:
-                                  TextStyle(color: AppColor.primarySubTitle),
-                              hintText: S.of(context).search_findAnything)),
+                                filled: true,
+                                fillColor: Colors.white,
+                                hintStyle:
+                                TextStyle(color: AppColor.primarySubTitle),
+                                hintText: S.of(context).search_findAnything)),
+                      ),
                     ),
-                  ),
-                  TextButton(
-                      onPressed: () {
-                        Routes.pop();
-                      },
-                      child: Text(
-                        'Cancel',
-                        style: TextStyle(color: AppColor.primaryText),
-                      ))
-                ],
-              ),
-            )),
+                    TextButton(
+                        onPressed: () {
+                          Routes.pop();
+                        },
+                        child: Text(
+                          'Cancel',
+                          style: TextStyle(color: AppColor.primaryText),
+                        ))
+                  ],
+                ),
+              )),
+        ),
       ),
       body: Selector<SearchCtrl, bool>(
         selector: (context, SearchCtrl controller) {
