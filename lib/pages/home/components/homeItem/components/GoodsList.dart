@@ -25,7 +25,6 @@ class GoodsList extends StatefulWidget {
 }
 
 class _GoodsListState extends State<GoodsList> {
-
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(

@@ -2,9 +2,12 @@
  * @Author       : JHao
  * @Date         : 2021-07-21 10:31:45
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-09 17:12:24
+ * @LastEditTime : 2021-09-30 11:00:26
  */
 import 'dart:convert';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:homary/common/config/storage.dart';
+import 'package:homary/common/storage/cookie-manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// 本地存储
@@ -69,5 +72,27 @@ class Localstorage {
   dynamic getJSON(String key) {
     String jsonString = _prefs.getString(key);
     return jsonString == null ? null : jsonDecode(jsonString);
+  }
+
+  setGaTicketList(String eventName) {
+    if (eventName != null && eventName != "") {
+      List gaTicketList = getJSON(StorageKey.GA_TICKET_LIST) ?? [];
+      gaTicketList.add(eventName);
+      gaTicketList = gaTicketList.toSet().toList();
+      setCookie(
+          StorageKey.GA_TICKET_LIST, jsonEncode(gaTicketList)); // 同步到 webview
+      setJSON(StorageKey.GA_TICKET_LIST, gaTicketList);
+    }
+  }
+
+  removeGaTicketList(String eventName) async {
+    if (eventName != null && eventName != "") {
+      List gaTicketList = getJSON(StorageKey.GA_TICKET_LIST) ?? [];
+      gaTicketList = gaTicketList.toSet().toList();
+      gaTicketList.length > 0 && gaTicketList.remove(eventName);
+      setCookie(
+          StorageKey.GA_TICKET_LIST, jsonEncode(gaTicketList)); // 同步到 webview
+      setJSON(StorageKey.GA_TICKET_LIST, gaTicketList);
+    }
   }
 }

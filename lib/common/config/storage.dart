@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-09-08 15:30:57
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-09 11:03:27
+ * @LastEditTime : 2021-09-28 18:09:00
  */
 class StorageKey {
   /// requset api 本地存储
@@ -40,4 +40,9 @@ class StorageKey {
 
   // 首页广告区
   static const String HOME_ADV_CACHE = "home_adv";
+
+  // ETA
+  static const String ETA_CACHE = "ETA_AreaData";
+  // GA Ticket
+  static const String GA_TICKET_LIST = "APP_GA_TICKET_LIST";
 }

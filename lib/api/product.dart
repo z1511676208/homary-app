@@ -50,4 +50,18 @@ class ProductApi {
         params: params);
     return res;
   }
+
+  static Future<DioResult> getProductInfo({dynamic params}) async {
+    DioResult res = await Request().get(
+        urlMapList['productInfo'] ?? baseRequestUrl['productInfo'],
+        params: params);
+    return res;
+  }
+
+  static Future<DioResult> getProductStaticInfo({dynamic params}) async {
+    DioResult res = await Request().get(
+        urlMapList['productStaticInfo'] ?? baseRequestUrl['productStaticInfo'],
+        params: params);
+    return res;
+  }
 }

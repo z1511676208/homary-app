@@ -42,7 +42,7 @@ class CouponsPageCtrl extends ChangeNotifier {
     Toast.loading();
     final result = await UserCenterApi.drawCoupons(
         params: {'draw_type': 2, 'coupon_alias': code});
-    if(result.error == null){
+    if (result.error == null) {
       await getAvailableCoupons(true);
       Toast.success(S.of(navigatorKey.currentContext).success);
       return true;

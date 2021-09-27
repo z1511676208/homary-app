@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-07 20:28:59
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-03 11:17:23
+ * @LastEditTime : 2021-09-29 09:49:36
  */
 import 'dart:async';
 import 'dart:convert';
@@ -59,9 +59,9 @@ class _HomePageViewState extends State<HomePageView>
       this.currentConfig = current;
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
         Provider.of<GlobalConfig>(context, listen: false).getServiceTime();
-        Provider.of<HomeCtrl>(context, listen: false).getAdvInfo(isShowLoading: isLoaded);
         Provider.of<HomeCtrl>(context, listen: false)
-            .getFlashSaleModule(params: {'pf': "m"});
+            .getAdvInfo(isShowLoading: isLoaded);
+        Provider.of<HomeCtrl>(context, listen: false).getFlashSaleModule();
         Provider.of<HomeCtrl>(context, listen: false).getProductModule();
         Provider.of<HomeCtrl>(context, listen: false).getReviewModule();
         Provider.of<HomeCtrl>(context, listen: false).getRecommendList();
