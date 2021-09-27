@@ -24,9 +24,8 @@ class DropMenuManager {
     Widget menu,
     double marginTop = 0,
     double menuBarHeight = 0,
-    double menuHeight = 0,
     Function onRemove,
-        bool isShowShadow = true,
+    bool isShowShadow = true,
   }) {
     if (_entry != null && id == _entryId) {
       hide();
@@ -44,7 +43,6 @@ class DropMenuManager {
         marginTop: marginTop,
         menuBarHeight: menuBarHeight,
         menu: menu,
-        menuHeight: menuHeight,
         isShowShadow: isShowShadow,
       );
     });
@@ -80,7 +78,6 @@ class DropMenu extends StatefulWidget {
   final double marginTop;
   final Widget menu;
   final double menuBarHeight;
-  final double menuHeight;
   final bool isShowShadow;
 
   const DropMenu({
@@ -89,7 +86,6 @@ class DropMenu extends StatefulWidget {
     this.marginTop,
     this.menu,
     this.menuBarHeight,
-    this.menuHeight,
     this.isShowShadow = true,
   }) : super(key: key);
 
@@ -99,7 +95,6 @@ class DropMenu extends StatefulWidget {
 
 class _DropMenuState extends State<DropMenu>
     with SingleTickerProviderStateMixin {
-  Animation<double> animation;
   AnimationController controller;
 
   @override
@@ -107,11 +102,6 @@ class _DropMenuState extends State<DropMenu>
     super.initState();
     controller = new AnimationController(
         duration: const Duration(milliseconds: 200), vsync: this);
-    animation =
-        new Tween(begin: 0.0, end: widget.menuHeight).animate(controller)
-          ..addListener(() {
-            setState(() => {});
-          });
     controller.forward();
   }
 
@@ -150,8 +140,8 @@ class _DropMenuState extends State<DropMenu>
                   ),
                   onTap: widget.onRemove,
                 ),
-                Container(
-                  height: animation.value,
+                SizeTransition(
+                  sizeFactor: controller,
                   child: widget.menu,
                 ),
               ],

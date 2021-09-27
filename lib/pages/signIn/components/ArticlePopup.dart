@@ -1,4 +1,5 @@
 import 'package:homary/common/utils/main.dart';
+import 'package:homary/components/bottomSheet/keep_alive_bottom_sheet.dart';
 import 'package:homary/webView/webviewController.dart';
 
 class ArticlePopup extends StatelessWidget {
@@ -27,8 +28,9 @@ class ArticlePopup extends StatelessWidget {
             right: 16.w,
             top: 12.5.w,
             child: IconButton(
+              splashRadius:11,
               onPressed: () {
-                Navigator.pop(context);
+                KeepAliveBottomSheetManager.of(context).hide();
               },
               iconSize: 22,
               icon: Icon(Iconfont.PopupClose),

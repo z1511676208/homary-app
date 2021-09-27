@@ -26,7 +26,6 @@ class MoreButton extends StatelessWidget {
             id: 99,
             isShowShadow: false,
             menu: ListItems(),
-            menuHeight: 180.w,
             marginTop:
                 DropMenuManager.instance.getWeightMarginTop(context) + 42.w,
           );
@@ -67,64 +66,59 @@ class ListItems extends StatelessWidget {
     ];
     return Container(
       width: 180.w,
-      margin: EdgeInsets.only(left: 185.w),
+      margin: EdgeInsets.only(left: 185.w,bottom: 10.w),
       child: CustomPaint(
         painter: BubbleShape(),
-        size: Size(180.w, 180.w),
-        child: Scrollbar(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: ListView(
-              padding: EdgeInsets.symmetric(vertical: 10.w),
-              children: list
-                  .map(
-                    (e) => InkWell(
-                      onTap: () {
-                        DropMenuManager.instance.hide();
-                        String url = e['url'];
-                        if (url.startsWith('https://')) {
-                          bool isLogin =
-                              Localstorage().getBool(StorageKey.IS_LOGIN);
-                          if (e['isNeedLogin'] && !isLogin) {
-                            Routes.push(context, '/signIn');
-                          } else {
-                            Routes.push(context, '/webview', params: {
-                              "showAppLoading": '0',
-                              "content": '{"url":"$url"}'
-                            });
-                          }
-                        } else {
-                          if (url == '/') {
-                            Routes.goHome();
-                          } else {
-                            Routes.push(context, url);
-                          }
-                        }
-                      },
-                      child: Container(
-                        padding: EdgeInsets.only(
-                            left: 13.5.w, top: 10.w, bottom: 10.w),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            e['icon'],
-                            SizedBox(
-                              width: 12.5.w,
-                            ),
-                            Expanded(
-                                child: Text(
-                              e['title'],
-                              style: TextStyle(
-                                  fontSize: 15.sp, color: AppColor.primaryText),
-                            ))
-                          ],
-                        ),
-                      ),
+        child: ListView(
+          shrinkWrap: true,
+          padding: EdgeInsets.only(top: 20.w),
+          children: list
+              .map(
+                (e) => InkWell(
+              onTap: () {
+                DropMenuManager.instance.hide();
+                String url = e['url'];
+                if (url.startsWith('https://')) {
+                  bool isLogin =
+                  Localstorage().getBool(StorageKey.IS_LOGIN);
+                  if (e['isNeedLogin'] && !isLogin) {
+                    Routes.push(context, '/signIn');
+                  } else {
+                    Routes.push(context, '/webview', params: {
+                      "showAppLoading": '0',
+                      "content": '{"url":"$url"}'
+                    });
+                  }
+                } else {
+                  if (url == '/') {
+                    Routes.goHome();
+                  } else {
+                    Routes.push(context, url);
+                  }
+                }
+              },
+              child: Container(
+                padding: EdgeInsets.only(
+                    left: 13.5.w, top: 10.w, bottom: 10.w),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    e['icon'],
+                    SizedBox(
+                      width: 12.5.w,
                     ),
-                  )
-                  .toList(),
+                    Expanded(
+                        child: Text(
+                          e['title'],
+                          style: TextStyle(
+                              fontSize: 15.sp, color: AppColor.primaryText),
+                        ))
+                  ],
+                ),
+              ),
             ),
-          ),
+          )
+              .toList(),
         ),
       ),
     );

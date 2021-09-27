@@ -54,6 +54,7 @@ class _WishDropMenuSortState extends State<WishDropMenuSort> {
   Widget build(BuildContext context) {
     return ListView.builder(
       padding: EdgeInsets.zero,
+      shrinkWrap: true,
       itemCount: widget.orderByList.length,
       itemBuilder: (context, index) {
         return GestureDetector(

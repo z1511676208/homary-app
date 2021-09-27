@@ -31,7 +31,6 @@ class _CategoryMenuBarState extends State<CategoryMenuBar> {
       marginTop:
           DropMenuManager.instance.getWeightMarginTop(_key.currentContext),
       menuBarHeight: 46.5.w,
-      menuHeight: menuIndex == 1 ? 220.w : 300.w,
       menu: Container(
         decoration: BoxDecoration(
           color: Colors.white,
