@@ -58,7 +58,6 @@ class _WishlistViewState extends State<WishlistView> {
       marginTop:
           DropMenuManager.instance.getWeightMarginTop(_key.currentContext),
       menuBarHeight: 46.5.w,
-      menuHeight: 180.w,
       menu: Container(
           decoration: BoxDecoration(
             color: Colors.white,
