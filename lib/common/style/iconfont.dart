@@ -315,4 +315,16 @@ class Iconfont {
     fontFamily: 'Iconfont',
     matchTextDirection: true,
   );
+
+  static const Checkbox = IconData(
+    0xe652,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
+
+  static const LockSharp2 = IconData(
+    0xe697,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
 }

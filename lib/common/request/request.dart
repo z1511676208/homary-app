@@ -95,6 +95,7 @@ class Request {
               params: {'redirect_url': Uri.encodeComponent(redirectUrl)});
           return handler.reject(errData);
         } else {
+          print(res.data['message']);
           Toast.error(res.data['message'] ?? '');
           DioError errData =
               DioError(requestOptions: res.requestOptions, error: res.data);
@@ -108,7 +109,7 @@ class Request {
     dio.interceptors.add(DioLogInterceptor());
 
     /// 开启抓包 proxy 代理，禁用 https 证书
-    if(proxy != null){
+    if (proxy != null) {
       (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
           (client) {
         // the proxy value likes:  {port: 8899, host: 127.0.0.1}

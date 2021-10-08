@@ -9,6 +9,7 @@ import 'package:fluro/fluro.dart';
 import 'package:homary/common/utils/firebaseMessageHandler.dart';
 import 'package:homary/components/behavior/app_scroll_behavior.dart';
 import 'package:homary/pages/home/contorller.dart';
+import 'package:homary/pages/shoppingCart/controller.dart';
 import 'package:homary/provider/productEtaInfo.dart';
 
 import 'package:homary/router/routes.dart';
@@ -73,6 +74,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (context) => GlobalConfig()),
         ChangeNotifierProvider(create: (context) => HomeCtrl()),
         ChangeNotifierProvider(create: (context) => ProductEtaInfo()),
+        ChangeNotifierProvider(create: (context) => ShoppingCartCtrl()),
       ],
       child: Consumer<GlobalConfig>(
         builder: (context, GlobalConfig value, child) {

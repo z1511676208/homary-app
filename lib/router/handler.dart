@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-06 10:11:04
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-09-06 18:59:11
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-09-28 17:01:47
  */
 import 'dart:convert';
 
@@ -15,6 +15,7 @@ import 'package:homary/pages/index/main.dart';
 import 'package:homary/pages/myOrders/main.dart';
 import 'package:homary/pages/reviewDetail/main.dart';
 import 'package:homary/pages/settings/main.dart';
+import 'package:homary/pages/shoppingCart/main.dart';
 import 'package:homary/pages/signIn/main.dart';
 import 'package:homary/pages/viewed/main.dart';
 import 'package:homary/pages/webview/main.dart';
@@ -149,5 +150,12 @@ Handler couponsHandler = Handler(
 Handler myOrdersHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return MyOrdersPage(active: params['active']?.first ?? 'all');
+  },
+);
+
+Handler shoppingCartHandler = Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    String couponUserId = params['couponUserId']?.first ?? null;
+    return ShoppingCart(couponUserId: couponUserId);
   },
 );

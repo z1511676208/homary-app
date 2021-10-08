@@ -3,7 +3,8 @@ import 'package:homary/common/utils/main.dart';
 import 'package:homary/entity/coupon.dart';
 
 class CouponsItem extends StatelessWidget {
-  const CouponsItem({Key key, this.available = true, @required this.coupon}) : super(key: key);
+  const CouponsItem({Key key, this.available = true, @required this.coupon})
+      : super(key: key);
 
   final bool available;
   final Coupon coupon;
@@ -148,7 +149,6 @@ class CouponsItem extends StatelessWidget {
                     width: double.infinity,
                     child: CustomPaint(painter: DashedLinePainter()),
                   ),
-
                   Text(
                     '${coupon.startTime}-${coupon.endTime}',
                     style: TextStyle(
@@ -165,7 +165,6 @@ class CouponsItem extends StatelessWidget {
     );
   }
 }
-
 
 class DashedLinePainter extends CustomPainter {
   @override

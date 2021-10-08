@@ -2,8 +2,10 @@
  * @Author       : zhhjie
  * @Date         : 2021-08-13 10:44:42
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-31 17:33:27
+ * @LastEditTime : 2021-09-29 18:16:48
  */
+import 'package:homary/common/utils/analytics.dart';
+import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
 
 class CartAndNumber extends StatelessWidget {
@@ -21,10 +23,8 @@ class CartAndNumber extends StatelessWidget {
               Iconfont.Cart,
             ),
             onPressed: () {
-              Routes.push(context, '/webview', params: {
-                "showAppLoading": '0',
-                "content": '{"url":"https://m.homary.com/shoppingcart"}'
-              });
+              Localstorage().setGaTicketList(TicketList.cart);
+              Routes.push(context, '/shoppingcart');
             }),
         Selector(
             builder: (BuildContext context, int cartNum, child) => Positioned(
@@ -39,11 +39,8 @@ class CartAndNumber extends StatelessWidget {
                             shape: BoxShape.circle, color: Colors.red),
                         child: GestureDetector(
                           onTap: () {
-                            Routes.push(context, '/webview', params: {
-                              "showAppLoading": '0',
-                              "content":
-                                  '{"url":"https://m.homary.com/shoppingcart"}'
-                            });
+                            Localstorage().setGaTicketList(TicketList.cart);
+                            Routes.push(context, '/shoppingcart');
                           },
                           child: Text(
                             cartNum.toString(),

@@ -16,6 +16,7 @@ class GoodsCartSliverGrid extends StatelessWidget {
     this.showDelete = false,
     this.itemListName = '',
     this.onDelete,
+    this.isShoppingCart = false,
   }) : super(key: key);
 
   final List<ModuleDataProductList> productList;
@@ -30,6 +31,8 @@ class GoodsCartSliverGrid extends StatelessWidget {
   final bool showDelete; //是否显示删除图标
   final Function onDelete;
   final String itemListName;
+  final bool isShoppingCart;//是否来自购物车页
+
   @override
   Widget build(BuildContext context) {
     ExposureDetectorController.instance.exposureTime = 100; //设置曝光时长 (ms)
@@ -93,6 +96,7 @@ class GoodsCartSliverGrid extends StatelessWidget {
                         showRating: showRating,
                         showDispatch: showDispatch,
                         itemListName: itemListName,
+                        isShoppingCart: isShoppingCart,
                         onDelete: () {
                           if (onDelete != null) {
                             onDelete(productList[leftIndex].skuId);
@@ -114,6 +118,7 @@ class GoodsCartSliverGrid extends StatelessWidget {
                           showRating: showRating,
                           showDispatch: showDispatch,
                           itemListName: itemListName,
+                          isShoppingCart: isShoppingCart,
                           onDelete: () {
                             if (onDelete != null) {
                               onDelete(productList[rightIndex].skuId);

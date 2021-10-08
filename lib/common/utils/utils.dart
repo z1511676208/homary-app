@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-19 11:35:37
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-18 15:47:53
+ * @LastEditTime : 2021-09-30 13:44:49
  */
 import 'dart:async';
 
@@ -11,6 +11,8 @@ import 'package:homary/common/storage/cookie.dart';
 import 'package:homary/common/storage/webview-cookie.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:uuid/uuid.dart';
+
+List<String> etaSiteList = ['us', 'uk', 'ca'];
 
 String getUuid() {
   var uuid = Uuid();
@@ -76,4 +78,23 @@ bool isShowEtaInfo() {
   List<String> siteList = ["us", 'uk'];
   var currentConfig = getCurrentConfig();
   return siteList.contains(currentConfig['site'] ?? '');
+}
+
+bool isEmpty(dynamic data){
+  if(data == null){
+    return true;
+  }
+  if(data is String){
+    return data.isEmpty;
+  }
+  if(data is num){
+    return data == 0;
+  }
+  if(data is List){
+    return data.length == 0;
+  }
+  if(data is Map){
+    return data.length == 0;
+  }
+  return true;
 }

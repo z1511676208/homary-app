@@ -2,11 +2,13 @@
  * @Author       : JHao
  * @Date         : 2021-08-26 15:09:27
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-26 18:34:10
+ * @LastEditTime : 2021-09-28 14:07:11
  */
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:homary/api/common.dart';
 import 'package:homary/api/product.dart';
 import 'package:homary/common/request/request.dart';
+import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/utils.dart';
 import 'package:homary/entity/areaByIp.dart';
@@ -24,10 +26,11 @@ class ProductEtaInfo with ChangeNotifier {
     if (res.error == null) {
       AreaByIpRes result = AreaByIpRes.fromJson(res.result);
       areaData = result.data;
+      Localstorage().setJSON(StorageKey.ETA_CACHE, areaData.toJson());
     }
   }
 
-  resetProductEtaList(){
+  resetProductEtaList() {
     productEtaList = [];
   }
 

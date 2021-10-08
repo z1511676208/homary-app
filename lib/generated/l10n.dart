@@ -1785,11 +1785,463 @@ class S {
     );
   }
 
+  /// `Sign In`
+  String get sign_in {
+    return Intl.message(
+      'Sign In',
+      name: 'sign_in',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Submit`
   String get submit {
     return Intl.message(
       'Submit',
       name: 'submit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm`
+  String get confirm {
+    return Intl.message(
+      'Confirm',
+      name: 'confirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get shopping_cancel {
+    return Intl.message(
+      'Cancel',
+      name: 'shopping_cancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Qty`
+  String get shopping_cart_qty {
+    return Intl.message(
+      'Qty',
+      name: 'shopping_cart_qty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Estimated Delivery Time：`
+  String get shopping_cart_delivery_time {
+    return Intl.message(
+      'Estimated Delivery Time：',
+      name: 'shopping_cart_delivery_time',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save For Later`
+  String get shopping_cart_save_for_later {
+    return Intl.message(
+      'Save For Later',
+      name: 'shopping_cart_save_for_later',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{count,plural,=0{Save For Later ({count} Item)} =1{Save For Later ({count} Item)} other{Save For Later ({count} Items)}}`
+  String shopping_cart_save_for_later_item(num count) {
+    return Intl.plural(
+      count,
+      zero: 'Save For Later ($count Item)',
+      one: 'Save For Later ($count Item)',
+      other: 'Save For Later ($count Items)',
+      name: 'shopping_cart_save_for_later_item',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `Remove`
+  String get shopping_cart_remove {
+    return Intl.message(
+      'Remove',
+      name: 'shopping_cart_remove',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Move To Cart`
+  String get shopping_cart_move_to_cart {
+    return Intl.message(
+      'Move To Cart',
+      name: 'shopping_cart_move_to_cart',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sold Out`
+  String get shopping_cart_sold_out {
+    return Intl.message(
+      'Sold Out',
+      name: 'shopping_cart_sold_out',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{count,plural,=0{Shopping Cart ({count} Item)} =1{Shopping Cart ({count} Item)} other{Shopping Cart ({count} Items)}}`
+  String shopping_cart_shopping_cart_item(num count) {
+    return Intl.plural(
+      count,
+      zero: 'Shopping Cart ($count Item)',
+      one: 'Shopping Cart ($count Item)',
+      other: 'Shopping Cart ($count Items)',
+      name: 'shopping_cart_shopping_cart_item',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `This Order Ships Free!`
+  String get shopping_cart_order_ships_free {
+    return Intl.message(
+      'This Order Ships Free!',
+      name: 'shopping_cart_order_ships_free',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Subtotal:`
+  String get shopping_cart_subtotal {
+    return Intl.message(
+      'Subtotal:',
+      name: 'shopping_cart_subtotal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your Shopping Cart Is Empty.`
+  String get shopping_cart_empty {
+    return Intl.message(
+      'Your Shopping Cart Is Empty.',
+      name: 'shopping_cart_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You can sign in to check your shopping cart!`
+  String get shopping_cart_empty_hint {
+    return Intl.message(
+      'You can sign in to check your shopping cart!',
+      name: 'shopping_cart_empty_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{count,plural,=0{Order Summary ({count} Item)} =1{Order Summary ({count} Item)} other{Order Summary ({count} Items)}}`
+  String shopping_cart_order_summary(num count) {
+    return Intl.plural(
+      count,
+      zero: 'Order Summary ($count Item)',
+      one: 'Order Summary ($count Item)',
+      other: 'Order Summary ($count Items)',
+      name: 'shopping_cart_order_summary',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `CHECKOUT NOW`
+  String get shopping_cart_check_out_now {
+    return Intl.message(
+      'CHECKOUT NOW',
+      name: 'shopping_cart_check_out_now',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We accept:`
+  String get shopping_cart_we_accept {
+    return Intl.message(
+      'We accept:',
+      name: 'shopping_cart_we_accept',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Just For You`
+  String get shopping_cart_just_for_you {
+    return Intl.message(
+      'Just For You',
+      name: 'shopping_cart_just_for_you',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Coupon Code`
+  String get coupon_code {
+    return Intl.message(
+      'Coupon Code',
+      name: 'coupon_code',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My Coupon`
+  String get my_coupon {
+    return Intl.message(
+      'My Coupon',
+      name: 'my_coupon',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Apply`
+  String get button_apply {
+    return Intl.message(
+      'Apply',
+      name: 'button_apply',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove`
+  String get button_remove {
+    return Intl.message(
+      'Remove',
+      name: 'button_remove',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Coupon Code`
+  String get shopping_cart_coupon_code_tips {
+    return Intl.message(
+      'Coupon Code',
+      name: 'shopping_cart_coupon_code_tips',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `was applied.`
+  String get shopping_cart_was_applied {
+    return Intl.message(
+      'was applied.',
+      name: 'shopping_cart_was_applied',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Keine Ergebnisse`
+  String get shopping_cart_no_results {
+    return Intl.message(
+      'Keine Ergebnisse',
+      name: 'shopping_cart_no_results',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Log in to check our exclusive coupon`
+  String get shopping_cart_login_tips {
+    return Intl.message(
+      'Log in to check our exclusive coupon',
+      name: 'shopping_cart_login_tips',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ship to`
+  String get eta_ship_to {
+    return Intl.message(
+      'Ship to',
+      name: 'eta_ship_to',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Product Detail`
+  String get product_detail {
+    return Intl.message(
+      'Product Detail',
+      name: 'product_detail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Full Details`
+  String get product_detail_full_detail {
+    return Intl.message(
+      'Full Details',
+      name: 'product_detail_full_detail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{count,plural,=0{({count} ITEM)} =1{({count} ITEM)} other{({count} ITEMS)}}`
+  String product_detail_items(num count) {
+    return Intl.plural(
+      count,
+      zero: '($count ITEM)',
+      one: '($count ITEM)',
+      other: '($count ITEMS)',
+      name: 'product_detail_items',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `Cart Checkout`
+  String get product_detail_cart_checkout {
+    return Intl.message(
+      'Cart Checkout',
+      name: 'product_detail_cart_checkout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{count} Reviews`
+  String product_detail_reviews(Object count) {
+    return Intl.message(
+      '$count Reviews',
+      name: 'product_detail_reviews',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `Free Shipping`
+  String get product_detail_free_shipping {
+    return Intl.message(
+      'Free Shipping',
+      name: 'product_detail_free_shipping',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Product Overview`
+  String get product_detail_product_overview {
+    return Intl.message(
+      'Product Overview',
+      name: 'product_detail_product_overview',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Description`
+  String get product_detail_description {
+    return Intl.message(
+      'Description',
+      name: 'product_detail_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Weights & Dimensions`
+  String get product_detail_weights_dimensions {
+    return Intl.message(
+      'Weights & Dimensions',
+      name: 'product_detail_weights_dimensions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Specification`
+  String get product_detail_specification {
+    return Intl.message(
+      'Specification',
+      name: 'product_detail_specification',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Additional Document`
+  String get product_detail_additional_document {
+    return Intl.message(
+      'Additional Document',
+      name: 'product_detail_additional_document',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Features`
+  String get product_detail_features {
+    return Intl.message(
+      'Features',
+      name: 'product_detail_features',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Flash Sale`
+  String get product_detail_flash_sale {
+    return Intl.message(
+      'Flash Sale',
+      name: 'product_detail_flash_sale',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Starts in`
+  String get product_detail_starts_in {
+    return Intl.message(
+      'Starts in',
+      name: 'product_detail_starts_in',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ends in`
+  String get product_detail_ends_in {
+    return Intl.message(
+      'Ends in',
+      name: 'product_detail_ends_in',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Clearance`
+  String get product_detail_clearance {
+    return Intl.message(
+      'Clearance',
+      name: 'product_detail_clearance',
       desc: '',
       args: [],
     );

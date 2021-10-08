@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-08-26 14:21:15
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-26 14:23:56
+ * @LastEditTime : 2021-09-28 16:38:10
  */
 // To parse this JSON data, do
 //
@@ -28,7 +28,9 @@ class AreaByIpRes {
 
   factory AreaByIpRes.fromJson(Map<String, dynamic> json) => AreaByIpRes(
         code: json["code"],
-        data: AreaData.fromJson(json["data"]),
+        data: json["data"] == null || json["data"] is List
+            ? null
+            : AreaData.fromJson(json["data"]),
         message: json["message"],
       );
 

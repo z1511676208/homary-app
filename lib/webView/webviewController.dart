@@ -70,6 +70,9 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
   String url;
   bool isInitUrl = true; //记录当前是否是第一次进来的URL,用于shouldOverrideUrlLoading拦截判断
 
+  // 是否可返回上页
+  bool isCanGoBack = false;
+
   InAppWebViewController controller;
 
   RefreshController refreshController = RefreshController();
@@ -176,10 +179,19 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
       ? await launch(_url)
       : Toast.error('Could not launch $_url');
 
+  void checkCanGoBack() async {
+    await Future.delayed(Duration(milliseconds: 500));
+    bool isCanGoBack = await controller?.canGoBack();
+    if(this.isCanGoBack != isCanGoBack){
+      this.isCanGoBack = isCanGoBack;
+      setState(() {});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: Platform.isAndroid && widget.isInWebviewPage
+      onWillPop: widget.isInWebviewPage && isCanGoBack
           ? () async {
               return await goback(this.controller);
             }
@@ -373,6 +385,7 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
           },
           shouldOverrideUrlLoading: (controller, navigationAction) async {
             Uri url = navigationAction.request.url;
+
             if (url.scheme == 'homary') {
               handleSchema(context, url.toString());
               return NavigationActionPolicy.CANCEL;
@@ -388,6 +401,14 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
             } else if (url.toString().contains('www.affirm.com/apps/prequal')) {
               _launchURL(url.toString());
               return NavigationActionPolicy.CANCEL;
+            } else if (url.toString().contains('/shoppingcart')) {
+              // M站跳转购物车 有些是location.href跳转
+              Map<String, dynamic> urlData = getRealUrlNParams(
+                  'https://m.homary.com/shoppingcart?cou=3&jhao=333');
+              Routes.push(context, Routes.shoppingCart, params: {
+                'couponUserId': urlData['params']['couponUserId'] ?? ''
+              });
+              return NavigationActionPolicy.CANCEL;
             }
             if (hostList.contains(url.origin)) {
               // 安卓首次进入不掉用shouldOverrideUrlLoading 在此处将 isInitUrl 设为false
@@ -399,6 +420,7 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
           },
           onUpdateVisitedHistory: (InAppWebViewController controller, Uri url,
               bool androidIsReload) {
+            checkCanGoBack();
             Map<String, dynamic> urlData = getRealUrlNParams(url.toString());
             if (url.toString().contains('/usercenter/order?active=')) {
               Routes.pop();

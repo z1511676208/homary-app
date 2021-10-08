@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-16 19:35:41
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-19 15:18:05
+ * @LastEditTime : 2021-09-28 16:37:11
  */
 import 'dart:io';
 
@@ -23,21 +23,31 @@ class RrequsetHandler extends Interceptor {
     "version": packageInfo.version ?? '1.0.0',
     "eid": '',
     "pf": Platform.isIOS ? 'ios' : 'android',
+    "city": "",
+    "zip": "",
+    "country_code": "",
+    "state_code": ""
   };
   // 替换动态 url 目标参数
   Map<String, dynamic> formatParams(
       Map<String, dynamic> params, Map<String, dynamic> replaceParams) {
     Map<String, dynamic> finalParams = {};
-    finalParams.addAll(replaceParams);
-    var dynamicData = Localstorage().getJSON(
-        StorageKey.DYNAMIC_DATA); // 动参 从后端接口https://frontapi.homary.com/api/app/init-config获取
+
+    var dynamicData = Localstorage().getJSON(StorageKey
+        .DYNAMIC_DATA); // 动参 从后端接口https://frontapi.homary.com/api/app/init-config获取
     var currentConfig = Localstorage().getJSON(StorageKey.CURRENT_CONFIG) ?? {};
+    var areaData = Localstorage().getJSON(StorageKey.ETA_CACHE) ?? {};
     _publicParams['token'] = Localstorage().getString(StorageKey.TOKEN) ?? '';
     _publicParams['eid'] = getEquipmentIdentification();
     _publicParams['site'] = currentConfig['site'] ?? 'us';
     _publicParams['language'] = currentConfig['language'] ?? 'en';
     _publicParams['currency'] = currentConfig['currency'] ?? 'usd';
+    _publicParams['city'] = areaData['city'] ?? '';
+    _publicParams['zip'] = areaData['zip'] ?? '';
+    _publicParams['country_code'] = areaData['country_code'] ?? '';
+    _publicParams['state_code'] = areaData['state_code'] ?? '';
     finalParams.addAll(_publicParams);
+    finalParams.addAll(replaceParams);
     params.forEach((key, value) {
       finalParams.addAll({
         key: replaceParams[key] ?? dynamicData[key] ?? _publicParams[key] ?? ''

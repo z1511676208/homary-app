@@ -35,6 +35,12 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m7(result) => "Ergebnisse für „${result}“ werden angezeigt";
 
+  static m8(count) => "${Intl.plural(count, zero: 'Bestellübersicht (${count} Artikel)', one: 'Bestellübersicht (${count} Artikel)', other: 'Bestellübersicht (${count} Artikels)')}";
+
+  static m9(count) => "${Intl.plural(count, zero: 'Für später speichern (${count} Artikel)', one: 'Für später speichern (${count} Artikel)', other: 'Für später speichern (${count} Artikels)')}";
+
+  static m10(count) => "${Intl.plural(count, zero: 'Warenkorb (${count} Artikel)', one: 'Warenkorb (${count} Artikel)', other: 'Warenkorb (${count} Artikels)')}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "Home" : MessageLookupByLibrary.simpleMessage("Startseite"),
@@ -58,6 +64,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "bottom_information_list" : MessageLookupByLibrary.simpleMessage("Über Homary,Bewertungen,Belohnungsprogramm,Datenschutz,Nutzungsbedingungen"),
     "bottom_information_title" : MessageLookupByLibrary.simpleMessage("Information"),
     "button" : MessageLookupByLibrary.simpleMessage("Button"),
+    "button_apply" : MessageLookupByLibrary.simpleMessage("Getan"),
+    "button_remove" : MessageLookupByLibrary.simpleMessage("Entfernen"),
     "cancelButtonText" : MessageLookupByLibrary.simpleMessage("ABSTIMMUNG"),
     "category" : MessageLookupByLibrary.simpleMessage("Kategorie"),
     "category_apply" : MessageLookupByLibrary.simpleMessage("Anwenden"),
@@ -72,6 +80,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "channel_returnHome" : MessageLookupByLibrary.simpleMessage("nach Startseite gehen"),
     "channel_shopByDepartment" : MessageLookupByLibrary.simpleMessage("Nach Kategorie shoppen"),
     "close_drawer" : MessageLookupByLibrary.simpleMessage("Close Drawer 123"),
+    "confirm" : MessageLookupByLibrary.simpleMessage("Bestätige"),
+    "coupon_code" : MessageLookupByLibrary.simpleMessage("Gutscheincode"),
     "coupons_apply" : MessageLookupByLibrary.simpleMessage("Bewerben"),
     "coupons_available" : m0,
     "coupons_code" : MessageLookupByLibrary.simpleMessage("Code eingeben"),
@@ -83,6 +93,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "deleteButtonText" : MessageLookupByLibrary.simpleMessage("Lösche"),
     "drawer_tip" : MessageLookupByLibrary.simpleMessage("This is the Drawer"),
     "endsSoon" : MessageLookupByLibrary.simpleMessage("Enden Bald"),
+    "eta_ship_to" : MessageLookupByLibrary.simpleMessage("Versand nach"),
     "help_center" : MessageLookupByLibrary.simpleMessage("Hilfezentrum"),
     "home_OnSalenow" : MessageLookupByLibrary.simpleMessage("Im Sonderangebot"),
     "home_Onlyonsale" : m2,
@@ -100,6 +111,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "login_signIn" : MessageLookupByLibrary.simpleMessage("EINLOGGEN"),
     "login_successful" : MessageLookupByLibrary.simpleMessage("Anmeldung erfolgreich!"),
     "logout_successful" : MessageLookupByLibrary.simpleMessage("Abmelden erfolgreich!"),
+    "my_coupon" : MessageLookupByLibrary.simpleMessage("Meine Coupons"),
     "my_orders_after_sales" : MessageLookupByLibrary.simpleMessage("Nach Verkauf"),
     "my_orders_all_orders" : MessageLookupByLibrary.simpleMessage("Alle Bestellungen"),
     "my_orders_cancel" : MessageLookupByLibrary.simpleMessage("Stornieren"),
@@ -179,7 +191,29 @@ class MessageLookup extends MessageLookupByLibrary {
     "setting_clearCache" : MessageLookupByLibrary.simpleMessage("Cache leeren"),
     "setting_upgrade" : MessageLookupByLibrary.simpleMessage("Ihre App ist bereits die neueste Version."),
     "setting_version" : MessageLookupByLibrary.simpleMessage("Ausführung"),
+    "shopping_cancel" : MessageLookupByLibrary.simpleMessage("abbrechen"),
+    "shopping_cart_check_out_now" : MessageLookupByLibrary.simpleMessage("ÜBERPRÜFEN"),
+    "shopping_cart_coupon_code_tips" : MessageLookupByLibrary.simpleMessage("Coupon Code"),
+    "shopping_cart_delivery_time" : MessageLookupByLibrary.simpleMessage("Voraussichtliche Lieferzeit："),
+    "shopping_cart_empty" : MessageLookupByLibrary.simpleMessage("Ihr Warenkorb ist leer."),
+    "shopping_cart_empty_hint" : MessageLookupByLibrary.simpleMessage("Sie können sich anmelden, um Ihren Warenkorb zu überprüfen!"),
+    "shopping_cart_just_for_you" : MessageLookupByLibrary.simpleMessage("Nur Für Sie"),
+    "shopping_cart_login_tips" : MessageLookupByLibrary.simpleMessage("Melden Sie sich an, um Ihren exklusiven Gutschein anzuzeigen"),
+    "shopping_cart_move_to_cart" : MessageLookupByLibrary.simpleMessage("In den Warenkorb gehen"),
+    "shopping_cart_no_results" : MessageLookupByLibrary.simpleMessage("No Results"),
+    "shopping_cart_order_ships_free" : MessageLookupByLibrary.simpleMessage("Diese Bestellung ist versandkostenfrei!"),
+    "shopping_cart_order_summary" : m8,
+    "shopping_cart_qty" : MessageLookupByLibrary.simpleMessage("Menge"),
+    "shopping_cart_remove" : MessageLookupByLibrary.simpleMessage("Entfernen"),
+    "shopping_cart_save_for_later" : MessageLookupByLibrary.simpleMessage("Für später speichern"),
+    "shopping_cart_save_for_later_item" : m9,
+    "shopping_cart_shopping_cart_item" : m10,
+    "shopping_cart_sold_out" : MessageLookupByLibrary.simpleMessage("Sold Out"),
+    "shopping_cart_subtotal" : MessageLookupByLibrary.simpleMessage("Zwischensumme:"),
+    "shopping_cart_was_applied" : MessageLookupByLibrary.simpleMessage("wurde angewendet."),
+    "shopping_cart_we_accept" : MessageLookupByLibrary.simpleMessage("Wir akzeptieren:"),
     "signIn_guest_button" : MessageLookupByLibrary.simpleMessage("WEITER ALS GAST"),
+    "sign_in" : MessageLookupByLibrary.simpleMessage("Einloggen"),
     "sign_out_btn" : MessageLookupByLibrary.simpleMessage("Austragen"),
     "submit" : MessageLookupByLibrary.simpleMessage("Senden"),
     "success" : MessageLookupByLibrary.simpleMessage("Erfolg"),

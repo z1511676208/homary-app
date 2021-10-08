@@ -2,11 +2,12 @@
  * @Author       : JHao
  * @Date         : 2021-07-07 20:04:36
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-03 13:51:06
+ * @LastEditTime : 2021-09-26 18:11:48
  */
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class AppColor {
   /// 主题橙色
@@ -90,4 +91,15 @@ class AppColor {
 
   // 优惠券输入框文字颜色
   static const Color couponsHintColor = Color(0xFFCACACA);
+
+  // 优惠券提示文案颜色 #257039
+  static Color couponTipsColor = HexColor('#257039');
+
+  // 购物车绿
+  static const Color cartHintColor = Color(0xFF73B8A0);
+  // stock绿
+  static const Color stockColor = Color(0xFF257039);
+
+  // 商详表格背景色
+  static const Color sheetBgColor = Color(0xFFF5F5F5);
 }

@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-05 14:56:41
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-18 14:42:37
+ * @LastEditTime : 2021-09-28 18:54:20
  * webview cookie设置
  */
 import 'dart:convert';
@@ -44,6 +44,6 @@ setPlatform() {
   setCookie('homary_app_pf', Platform.isIOS ? 'ios' : 'android');
 }
 
-setGuest(bool isGuest) {
+setGuest(String isGuest) {
   setCookie('isGuest', isGuest);
 }

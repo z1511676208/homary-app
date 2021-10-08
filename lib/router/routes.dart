@@ -2,8 +2,8 @@
  * @Author       : JHao
  * @Date         : 2021-07-07 20:28:59
 <<<<<<< HEAD
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-09-06 18:59:24
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-09-26 14:58:30
 =======
  * @LastEditors  : zhhjie
  * @LastEditTime : 2021-09-06 15:08:42
@@ -64,6 +64,9 @@ class Routes {
   /// 用户订单页
   static String myOrders = '/usercenter/order';
 
+  // 购物车
+  static String shoppingCart = '/shoppingcart';
+
   // 配置route
   static void configureRoutes(FluroRouter router) {
     router.notFoundHandler = Handler(
@@ -86,6 +89,7 @@ class Routes {
     router.define(wishlist, handler: wishlistHandler);
     router.define(coupons, handler: couponsHandler);
     router.define(myOrders, handler: myOrdersHandler);
+    router.define(shoppingCart, handler: shoppingCartHandler);
   }
 
   static String formatQueryParams(Map<String, dynamic> params) {

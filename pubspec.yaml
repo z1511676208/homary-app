@@ -74,6 +74,10 @@ dependencies:
   flutter_spinkit: 5.0.0
   device_apps: ^2.1.1
   lottie: ^1.1.0
+  visibility_detector: ^0.2.0
+  video_player: ^2.2.5
+  chewie: ^1.2.2
+  skeletons: ^0.0.3
 
 dev_dependencies:
   flutter_test:
@@ -102,6 +106,7 @@ flutter:
     - assets/images/category/
     - assets/images/user/
     - assets/images/order/
+    - assets/images/cart/
   # - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -31,6 +31,7 @@ class GoodsCard extends StatefulWidget {
   final bool showDelete;
   final Function onDelete;
   final String itemListName;
+  final bool isShoppingCart;//是否来自购物车页
   GoodsCard(
       {Key key,
       this.width,
@@ -45,7 +46,8 @@ class GoodsCard extends StatefulWidget {
       this.showDelete = false,
       this.onDelete,
       this.marginRight = 0,
-      this.itemListName = ""})
+      this.itemListName = "",
+      this.isShoppingCart = false})
       : super(key: key);
 
   @override
@@ -208,6 +210,15 @@ class _GoodsCardState extends State<GoodsCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
+          if (widget.isShoppingCart) {
+            sendGTMData({
+              "event": 'click_item_from_justforyou',
+              "ecommerce": {
+                'non_interaction': false,
+                'sku_id': _currentData.skuId,
+              }
+            });
+          }
           sendProductItemGTM(
               data: [_currentData.toJson()],
               itemListName: widget.itemListName,
