@@ -8,10 +8,13 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
+import 'package:homary/pages/accountSetting/main.dart';
 import 'package:homary/pages/categoryTab/main.dart';
 import 'package:homary/pages/channelTab/main.dart';
+import 'package:homary/pages/closeAccount/main.dart';
 import 'package:homary/pages/coupons/main.dart';
 import 'package:homary/pages/index/main.dart';
+import 'package:homary/pages/manageEmail/main.dart';
 import 'package:homary/pages/myOrders/main.dart';
 import 'package:homary/pages/reviewDetail/main.dart';
 import 'package:homary/pages/settings/main.dart';
@@ -157,5 +160,23 @@ Handler shoppingCartHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     String couponUserId = params['couponUserId']?.first ?? null;
     return ShoppingCart(couponUserId: couponUserId);
+  },
+);
+
+Handler accountSettingHandler = Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return AccountSettingPage();
+  },
+);
+
+Handler closeAccountHandler = Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return CloseAccountPage();
+  },
+);
+
+Handler manageEmailHandler = Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return ManageEmailPage();
   },
 );

@@ -20,7 +20,7 @@ class NavigateWatcher extends NavigatorObserver {
 
   @override
   void didPop(Route route, Route previousRoute) {
-    currentPath = route.settings.name;
+    currentPath = previousRoute.settings.name;
     super.didPop(route, previousRoute);
   }
 

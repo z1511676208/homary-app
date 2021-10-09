@@ -7,7 +7,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:homary/common/request/request.dart';
 import 'package:homary/common/storage/cookie-manager.dart';
@@ -19,9 +19,8 @@ import 'package:homary/common/utils/dialog.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/toast.dart';
-import 'package:flutter_twitter_login/flutter_twitter_login.dart';
 import 'package:homary/components/dialog/new_user_success_dialog.dart';
-// import 'package:twitter_login/twitter_login.dart';
+import 'package:twitter_login/twitter_login.dart';
 
 class SignInCtrl with ChangeNotifier {
   bool showEmailTip = false;
@@ -85,7 +84,6 @@ class SignInCtrl with ChangeNotifier {
   }
 
   FirebaseAuth _auth = FirebaseAuth.instance;
-  final FacebookLogin facebookSignIn = new FacebookLogin();
 
   //登录
   Future signIn(context, email, password) async {
@@ -181,31 +179,26 @@ class SignInCtrl with ChangeNotifier {
   //facebook 登录
   Future<Null> signInFacebook(context) async {
     try {
-      final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
-      switch (result.status) {
-        case FacebookLoginStatus.loggedIn:
-          final FacebookAccessToken accessToken = result.accessToken;
-          final AuthCredential credential =
-              FacebookAuthProvider.credential(accessToken.token);
-          Toast.loading();
-          try {
-            final User user =
-                (await _auth.signInWithCredential(credential)).user;
-            String idTokenResult = await user.getIdToken(true);
-            this.thridLogin(context, idTokenResult, 'facebook');
-          } catch (e) {
-            Toast.clear();
-            FirebaseAuthException error = e;
-            Toast.message(error.message);
-          }
-          break;
-        case FacebookLoginStatus.cancelledByUser:
-          print('Login cancelled by the user.');
-          break;
-        case FacebookLoginStatus.error:
-          print('Something went wrong with the login process.\n'
-              'Here\'s the error Facebook gave us: ${result.errorMessage}');
-          break;
+      final LoginResult result = await FacebookAuth.instance.login();
+      if (result.status == LoginStatus.success) {
+        // you are logged
+        final AccessToken accessToken = result.accessToken;
+        final AuthCredential credential =
+        FacebookAuthProvider.credential(accessToken.token);
+        Toast.loading();
+        try {
+          final User user =
+              (await _auth.signInWithCredential(credential)).user;
+          String idTokenResult = await user.getIdToken(true);
+          this.thridLogin(context, idTokenResult, 'facebook');
+        } catch (e) {
+          Toast.clear();
+          FirebaseAuthException error = e;
+          Toast.message(error.message);
+        }
+      } else {
+        print(result.status);
+        print(result.message);
       }
     } catch (e) {
       print(e);
@@ -213,21 +206,23 @@ class SignInCtrl with ChangeNotifier {
   }
 
   //Twitter登录
-  final TwitterLogin twitterLogin = new TwitterLogin(
-    consumerKey: 'twmeqdH1DOZJxRFUDpjaSj9iP',
-    consumerSecret: '8Zu6Sxup0f0KRvYiNiIhhT8Zo36tnxrR9jnERXmjGlY7WaAYKJ',
+  final TwitterLogin twitterLogin = TwitterLogin(
+    apiKey: 'twmeqdH1DOZJxRFUDpjaSj9iP',
+    apiSecretKey: '8Zu6Sxup0f0KRvYiNiIhhT8Zo36tnxrR9jnERXmjGlY7WaAYKJ',
+    redirectURI: 'twittersdk://',
   );
   Future signWithTwitter(context) async {
-    final TwitterLoginResult result = await twitterLogin.authorize();
+    final result = await twitterLogin.login();
     switch (result.status) {
       case TwitterLoginStatus.loggedIn:
         AuthCredential credential = TwitterAuthProvider.credential(
-            accessToken: result.session.token ?? '',
-            secret: result.session.secret ?? '');
+            accessToken: result.authToken ?? '',
+            secret: result.authTokenSecret ?? '');
+
         Toast.loading();
         try {
           UserCredential userCredential =
-              await _auth.signInWithCredential(credential);
+          await _auth.signInWithCredential(credential);
           final User user = userCredential.user;
           String idTokenResult = await user.getIdToken(true);
           this.thridLogin(context, idTokenResult, 'twitter');
@@ -322,7 +317,6 @@ class SignInCtrl with ChangeNotifier {
   //第三方登出
   void thirdLogout() {
     _googleSignIn.signOut();
-    facebookSignIn.logOut();
-    twitterLogin.logOut();
+    FacebookAuth.instance.logOut();
   }
 }

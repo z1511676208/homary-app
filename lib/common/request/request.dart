@@ -9,6 +9,7 @@ import 'package:dio/dio.dart';
 // import 'package:homary/common/utils/main.dart';
 // import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:homary/common/config/proxyConfig.dart';
+import 'package:homary/common/storage/webview-cookie.dart';
 import 'package:homary/common/utils/analytics.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
@@ -80,19 +81,33 @@ class Request {
           DioError errData =
               DioError(requestOptions: res.requestOptions, error: res.data);
           return handler.reject(errData);
-        } else if (res.data['code'] == 401) {
+        } else if ([401, 4001].contains(res.data['code'])) {
+          BuildContext context = navigatorKey.currentState.overlay.context;
           Localstorage().remove(StorageKey.TOKEN);
+          Localstorage().setBool(StorageKey.IS_LOGIN, false);
+          setWebviewCookies();
+          context.read<GlobalConfig>().setIsLogin(false);
+          context.read<GlobalConfig>().getShoppingCartNumber();
+
           DioError errData =
               DioError(requestOptions: res.requestOptions, error: res.data);
 
           if (res.requestOptions.path == '/user/user/info') {
             return handler.reject(errData);
           }
-          Toast.error(res.data['message'] ?? '');
+
+          String msg = res.data['message'] ?? '';
+          if(msg.isNotEmpty){
+            Toast.error(msg);
+          }
+
           String redirectUrl = Routes.getCurPath();
-          BuildContext context = navigatorKey.currentState.overlay.context;
-          Routes.replace(context, '/signIn',
-              params: {'redirect_url': Uri.encodeComponent(redirectUrl)});
+          if(redirectUrl == Routes.home || redirectUrl == Routes.index){
+            Routes.push(context, '/signIn');
+          } else {
+            Routes.replace(context, '/signIn',
+                params: {'redirect_url': Uri.encodeComponent(redirectUrl)});
+          }
           return handler.reject(errData);
         } else {
           print(res.data['message']);
@@ -103,7 +118,7 @@ class Request {
         }
       }
     }, onError: (DioError err, ErrorInterceptorHandler handler) {
-      Toast.clear();
+      Toast.error(err.message);
       return handler.next(err);
     }));
     dio.interceptors.add(DioLogInterceptor());

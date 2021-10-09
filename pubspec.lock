@@ -398,13 +398,27 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.0"
-  flutter_facebook_login:
+  flutter_facebook_auth:
     dependency: "direct main"
     description:
-      name: flutter_facebook_login
+      name: flutter_facebook_auth
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.0"
+    version: "3.5.2"
+  flutter_facebook_auth_platform_interface:
+    dependency: transitive
+    description:
+      name: flutter_facebook_auth_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.7.0"
+  flutter_facebook_auth_web:
+    dependency: transitive
+    description:
+      name: flutter_facebook_auth_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.6.0+2"
   flutter_inappwebview:
     dependency: "direct main"
     description:
@@ -478,15 +492,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_twitter_login:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: HEAD
-      resolved-ref: aba1223f224fd46b564d582e1f9af82f1a2df7d0
-      url: "git://github.com/eudangeld/flutter_twitter_login.git"
-    source: git
-    version: "1.1.0"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -937,7 +942,7 @@ packages:
       name: system_proxy
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.2"
+    version: "0.1.0"
   term_glyph:
     dependency: transitive
     description:
@@ -987,6 +992,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
+  twitter_login:
+    dependency: "direct main"
+    description:
+      name: twitter_login
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.1"
   typed_data:
     dependency: transitive
     description:
