@@ -48,14 +48,14 @@ class _ShoppingCartItemState extends State<ShoppingCartItem> {
       .toList()
       .join('  ');
 
-  void showProductDetail(BuildContext context){
+  void showProductDetail(BuildContext context) {
     sendGTMData({
-      "event":"click_item_from_cart",
+      "event": "click_item_from_cart",
       "ecommerce": {
         "non_interaction": false,
         "sku_id": data.skuId,
       }
-    },isCustomEvent: true);
+    }, isCustomEvent: true);
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -165,9 +165,11 @@ class _ShoppingCartItemState extends State<ShoppingCartItem> {
                           // 评分
                           Opacity(
                             opacity: ((data.reviewNum != null
-                                ? data.reviewNum.toString()
-                                : '0') !=
-                                '0')?1:0,
+                                        ? data.reviewNum.toString()
+                                        : '0') !=
+                                    '0')
+                                ? 1
+                                : 0,
                             child: Row(
                               children: [
                                 RatingBarIndicator(
@@ -264,8 +266,12 @@ class _ShoppingCartItemState extends State<ShoppingCartItem> {
                                     onPressed: saveOrMove,
                                     child: Text(
                                       widget.isFromCart
-                                          ? S.of(context).shopping_cart_save_for_later
-                                          : S.of(context).shopping_cart_move_to_cart,
+                                          ? S
+                                              .of(context)
+                                              .shopping_cart_save_for_later
+                                          : S
+                                              .of(context)
+                                              .shopping_cart_move_to_cart,
                                       style: TextStyle(
                                         fontSize: 13.sp,
                                         color: AppColor.primaryText,
@@ -328,8 +334,8 @@ class _ShoppingCartItemState extends State<ShoppingCartItem> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        InkWell(
-          onTap: isCanQty ? () => showSelectQty() : null,
+        GestureDetector(
+          onTap: isCanQty ? () => showSelectQty() : () {},
           child: Container(
             width: 124.w,
             height: 45.w,
