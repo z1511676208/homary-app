@@ -1,4 +1,5 @@
 import 'package:homary/common/utils/main.dart';
+import 'package:homary/pages/myOrders/components/my_orders_item.dart';
 import 'package:homary/widget/networkImg.dart';
 
 class MyOrdersGoods extends StatelessWidget {
@@ -10,6 +11,7 @@ class MyOrdersGoods extends StatelessWidget {
       this.price,
       this.count,
       this.afterSaleNo,
+      this.orderStatus,
       this.orderNo})
       : super(key: key);
   final String imageUrl;
@@ -19,6 +21,7 @@ class MyOrdersGoods extends StatelessWidget {
   final String count;
   final String afterSaleNo;
   final String orderNo;
+  final String orderStatus;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +39,8 @@ class MyOrdersGoods extends StatelessWidget {
               });
             } else if (orderNo != null) {
               Routes.push(context, Routes.webView, params: {
-                "appBarTitle": S.of(context).my_orders_order_details,
+                "appBarTitle":
+                    OrderStatusParser.orderStatus(context, orderStatus),
                 "content":
                     '{"url":"https://m.homary.com/usercenter/orderdetail?id=$orderNo"}'
               });

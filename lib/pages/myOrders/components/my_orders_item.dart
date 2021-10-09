@@ -60,6 +60,7 @@ class MyOrderItem extends StatelessWidget {
               // 商品列表
               ...res.goodsList.map((e) {
                 return MyOrdersGoods(
+                  orderStatus: res.orderStatus,
                   imageUrl: e.img,
                   goodsName: e.name,
                   spec: (e.attrGroup ?? {})
