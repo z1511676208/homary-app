@@ -2,9 +2,10 @@
  * @Author       : JHao
  * @Date         : 2021-09-27 13:49:12
  * @LastEditors  : JHao
- * @LastEditTime : 2021-10-11 16:08:51
+ * @LastEditTime : 2021-10-11 18:06:09
  */
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:homary/common/storage/cookie-manager.dart';
 import 'package:homary/common/utils/analytics.dart';
@@ -23,17 +24,16 @@ class CouponSearchResult extends StatefulWidget {
 }
 
 class _CouponSearchResultState extends State<CouponSearchResult> {
-  final _debouncer = Debouncer(milliseconds: 200);
+  final _debouncer = Debouncer(milliseconds: 300);
   _inputListener() async {
-    _debouncer.run(() => {
-          if (mounted)
-            {
-              widget.ctrl.handleSearchCoupon(params: {
-                "keyword": widget.ctrl.inputCtrl.text,
-                'sku_ids': widget.ctrl.skuIdQtyList
-              })
-            }
+    _debouncer.run(() {
+      if (mounted) {
+        widget.ctrl.handleSearchCoupon(params: {
+          "keyword": widget.ctrl.inputCtrl.text,
+          'sku_ids': widget.ctrl.skuIdQtyList
         });
+      }
+    });
   }
 
   handleGuestLogin() async {
@@ -88,7 +88,9 @@ class _CouponSearchResultState extends State<CouponSearchResult> {
               children: [
                 widget.ctrl.couponSearchLoading
                     ? Container(
-                        height: 50.w,
+                        height: widget.ctrl.isGuest ? 24.w : 50.w,
+                        margin: EdgeInsets.only(
+                            top: widget.ctrl.isGuest ? 16.w : 0),
                         color: Colors.white,
                         child: Center(
                             child: SizedBox(
@@ -110,8 +112,15 @@ class _CouponSearchResultState extends State<CouponSearchResult> {
                                   child: Container(
                                       height: 30.w,
                                       alignment: Alignment.centerLeft,
-                                      margin:
-                                          EdgeInsets.symmetric(vertical: 6.w),
+                                      margin: EdgeInsets.symmetric(
+                                          vertical: 6.w,
+                                          horizontal: widget
+                                                      .ctrl
+                                                      .bestCouponList[index]
+                                                      .isNewUserCoupon ==
+                                                  1
+                                              ? 12.w
+                                              : 0),
                                       decoration: BoxDecoration(
                                           color: Colors.white,
                                           border: widget
@@ -198,16 +207,18 @@ class _CouponSearchResultState extends State<CouponSearchResult> {
                             },
                             itemCount: widget.ctrl.bestCouponList.length,
                           )
-                        : Container(
-                            color: Colors.white,
-                            child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 12.w, vertical: 16.w),
-                                child: Text(
-                                    S.of(context).shopping_cart_no_results,
-                                    style: TextStyle(
-                                        color: AppColor.primaryText,
-                                        fontSize: 15.sp)))),
+                        : Offstage(
+                            offstage: widget.ctrl.isGuest,
+                            child: Container(
+                                color: Colors.white,
+                                child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 12.w, vertical: 16.w),
+                                    child: Text(
+                                        S.of(context).shopping_cart_no_results,
+                                        style: TextStyle(
+                                            color: AppColor.primaryText,
+                                            fontSize: 15.sp))))),
                 Offstage(
                     offstage: !widget.ctrl.isGuest,
                     child: GestureDetector(
@@ -217,8 +228,8 @@ class _CouponSearchResultState extends State<CouponSearchResult> {
                         child: Container(
                             color: Colors.white,
                             child: Padding(
-                                padding: EdgeInsets.only(
-                                    left: 12.w, right: 12.w, bottom: 16.w),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 16.w, horizontal: 12.w),
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [

@@ -2,10 +2,11 @@
  * @Author       : JHao
  * @Date         : 2021-09-26 16:46:49
  * @LastEditors  : JHao
- * @LastEditTime : 2021-10-11 15:35:47
+ * @LastEditTime : 2021-10-11 18:13:00
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:flutter/material.dart';
+import 'package:homary/common/utils/utils.dart';
 import 'package:homary/components/dropMenu/drop_menu.dart';
 import 'package:homary/pages/shoppingCart/components/CouponBottomSheet.dart';
 import 'package:homary/pages/shoppingCart/components/couponSearchResult.dart';
@@ -20,9 +21,18 @@ class CouponInput extends StatefulWidget {
 
 class _CouponInputState extends State<CouponInput>
     with SingleTickerProviderStateMixin {
-  GlobalKey _key = GlobalKey();
   FocusNode focusNode = new FocusNode();
   AnimationController _couponSearchResultController;
+  final _debouncer = Debouncer(milliseconds: 300);
+  _inputListener() async {
+    ShoppingCartCtrl ctrl =
+        Provider.of<ShoppingCartCtrl>(context, listen: false);
+    _debouncer.run(() {
+      if (ctrl.inputCtrl.text == "") {
+        ctrl.removeDrawCouponError();
+      }
+    });
+  }
 
   void focusEventListener() async {
     ShoppingCartCtrl ctrl =
@@ -51,7 +61,20 @@ class _CouponInputState extends State<CouponInput>
     focusNode.addListener(focusEventListener);
     _couponSearchResultController = new AnimationController(
         duration: const Duration(milliseconds: 200), vsync: this);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      Provider.of<ShoppingCartCtrl>(context, listen: false)
+          .inputCtrl
+          .addListener(_inputListener);
+    });
     super.initState();
+  }
+
+  @override
+  void deactivate() {
+    Provider.of<ShoppingCartCtrl>(context, listen: false)
+        .inputCtrl
+        .removeListener(_inputListener);
+    super.deactivate();
   }
 
   @override
@@ -150,7 +173,6 @@ class _CouponInputState extends State<CouponInput>
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                    key: _key,
                     width: 241.w,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(

@@ -266,11 +266,11 @@ class _ShoppingCartItemState extends State<ShoppingCartItem> {
                                   child: Text(
                                     widget.isFromCart
                                         ? S
-                                        .of(context)
-                                        .shopping_cart_save_for_later
+                                            .of(context)
+                                            .shopping_cart_save_for_later
                                         : S
-                                        .of(context)
-                                        .shopping_cart_move_to_cart,
+                                            .of(context)
+                                            .shopping_cart_move_to_cart,
                                     style: TextStyle(
                                       fontSize: 13.sp,
                                       color: AppColor.primaryText,

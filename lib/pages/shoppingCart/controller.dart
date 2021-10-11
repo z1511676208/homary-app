@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-09-26 14:56:55
  * @LastEditors  : JHao
- * @LastEditTime : 2021-10-11 16:08:40
+ * @LastEditTime : 2021-10-11 18:24:45
  */
 
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -155,6 +155,9 @@ class ShoppingCartCtrl with ChangeNotifier {
 
   Future<void> handleSearchCoupon({params}) async {
     couponSearchLoading = true;
+    if (this.inputCtrl.text == "") {
+      this.drawCouponError = "";
+    }
     _safeNotifyListeners();
 
     DioResult res = await CartApi.searchCoupon(params: params);
@@ -246,7 +249,7 @@ class ShoppingCartCtrl with ChangeNotifier {
     } else {
       this.isApply = true; //输入框变成可申请状态
       this.useCode = '';
-      this.couponUserId = '';
+      this.couponUserId = couponUserId == 0 ? 0 : "";
       inputCtrl.text = "";
     }
   }
@@ -269,6 +272,16 @@ class ShoppingCartCtrl with ChangeNotifier {
     this.activeCanUseCoupon = null;
     this.drawCouponError =
         'This coupon cannot be used for the current product, please select the coupon again';
+    _safeNotifyListeners();
+  }
+
+  hanldeShowCouponSearchResult({bool isShow = false}) {
+    this.showCouponSearchResult = isShow;
+    _safeNotifyListeners();
+  }
+
+  removeDrawCouponError() {
+    this.drawCouponError = "";
     _safeNotifyListeners();
   }
 
@@ -494,10 +507,5 @@ class ShoppingCartCtrl with ChangeNotifier {
         _safeNotifyListeners();
       }
     }
-  }
-
-  hanldeShowCouponSearchResult({bool isShow = false}) {
-    this.showCouponSearchResult = isShow;
-    _safeNotifyListeners();
   }
 }
