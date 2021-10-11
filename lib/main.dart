@@ -113,7 +113,7 @@ class _MyAppState extends State<MyApp> {
             builder: EasyLoading.init(
               builder: (BuildContext context, Widget child) {
                 return GestureDetector(
-                  onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+                  onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
                   child: ScrollConfiguration(
                     behavior: AppScrollBehavior(),
                     child: child,

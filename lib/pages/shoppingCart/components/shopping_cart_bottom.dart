@@ -1,5 +1,3 @@
-import 'package:homary/common/utils/analytics.dart';
-import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/components/button/button.dart';
 import 'package:homary/pages/shoppingCart/controller.dart';
