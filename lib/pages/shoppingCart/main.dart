@@ -4,6 +4,7 @@
  * @LastEditors  : JHao
  * @LastEditTime : 2021-09-29 12:02:01
  */
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:homary/common/utils/main.dart';
@@ -22,6 +23,7 @@ import 'package:tuple/tuple.dart';
 
 class ShoppingCartView extends StatefulWidget {
   final String couponUserId;
+
   ShoppingCartView({Key key, this.couponUserId}) : super(key: key);
 
   @override
@@ -74,32 +76,38 @@ class _ShoppingCartViewState extends State<ShoppingCartView> {
         child: GoBackAppBar(
           showCollet: true,
         ),
-        preferredSize: Size.fromHeight(44.h),
+        preferredSize: Size.fromHeight(44.w),
       ),
-      bottomSheet: ShoppingCartBottom(parentContext: context),
       body: Stack(
         children: [
-          PullToRefresh(
-            controller: tuple.item1,
-            enablePullUp: tuple.item2,
-            onRefresh: context.read<ShoppingCartCtrl>().onRefresh,
-            onLoading: context.read<ShoppingCartCtrl>().getRecommendList,
-            child: CustomScrollView(
-              controller: _scrollController,
-              slivers: [
-                padding(buildShoppingCartTitle(context)),
-                padding(buildShoppingCartList(context)),
-                padding(ShoppingCartSummary()),
-                padding(buildLaterList(context)),
-                ShoppingCartJustForYouTitle(),
-                ShoppingCartJustForYou(),
-                SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: 117.w + MediaQuery.of(context).padding.bottom,
+          Column(
+            children: [
+              Expanded(
+                child: PullToRefresh(
+                  controller: tuple.item1,
+                  enablePullUp: tuple.item2,
+                  onRefresh: context.read<ShoppingCartCtrl>().onRefresh,
+                  onLoading: context.read<ShoppingCartCtrl>().getRecommendList,
+                  child: CustomScrollView(
+                    controller: _scrollController,
+                    slivers: [
+                      padding(buildShoppingCartTitle(context)),
+                      padding(buildShoppingCartList(context)),
+                      padding(ShoppingCartSummary()),
+                      padding(buildLaterList(context)),
+                      ShoppingCartJustForYouTitle(),
+                      ShoppingCartJustForYou(),
+                      SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: MediaQuery.of(context).padding.bottom,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
+              ),
+              ShoppingCartBottom(parentContext: context),
+            ],
           ),
           buildGoTop(),
         ],
@@ -121,21 +129,28 @@ class _ShoppingCartViewState extends State<ShoppingCartView> {
           children: [
             SizedBox(height: 20.w),
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  S.of(context).shopping_cart_shopping_cart_item(
-                      ctrl.shoppingCart?.length ?? 0),
-                  style: TextStyle(
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.bold,
+                Flexible(
+                  flex: 3,
+                  child: Text(
+                    S.of(context).shopping_cart_shopping_cart_item(
+                        ctrl.shoppingCart?.length ?? 0),
+                    style: TextStyle(
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
+
                 if ((ctrl.shoppingCart?.length ?? 0) != 0)
-                  Expanded(
-                    child: Text(
+                  Flexible(
+                    flex: 2,
+                    child: AutoSizeText(
                       S.of(context).shopping_cart_subtotal,
-                      maxLines: 2,
+                      maxLines: 1,
+                      minFontSize: 14,
                       textAlign: TextAlign.end,
                       style: TextStyle(
                         fontSize: 18.sp,
@@ -246,6 +261,7 @@ class _ShoppingCartViewState extends State<ShoppingCartView> {
 
 class ShoppingCart extends StatelessWidget {
   final String couponUserId;
+
   const ShoppingCart({Key key, this.couponUserId}) : super(key: key);
 
   @override
