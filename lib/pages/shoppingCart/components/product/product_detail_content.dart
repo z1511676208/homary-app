@@ -233,7 +233,6 @@ class _ProductDetailContentState extends State<ProductDetailContent> {
           margin: EdgeInsets.only(top: 4.w),
           padding: EdgeInsets.symmetric(
             horizontal: 6.w,
-            vertical: 2.w,
           ),
           decoration: BoxDecoration(
             image: DecorationImage(
@@ -243,7 +242,7 @@ class _ProductDetailContentState extends State<ProductDetailContent> {
           ),
           child: Row(
             children: [
-              Column(
+              Expanded(child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
@@ -270,10 +269,7 @@ class _ProductDetailContentState extends State<ProductDetailContent> {
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: 4.w,
-                  ),
-                  Row(
+                  Expanded(child: Row(
                     children: [
                       Container(
                         padding: EdgeInsets.symmetric(
@@ -301,18 +297,18 @@ class _ProductDetailContentState extends State<ProductDetailContent> {
                         ),
                       ),
                     ],
-                  ),
+                  ),),
                 ],
-              ),
-              Expanded(child: Container()),
+              ),),
               Container(
-                width: 100.w,
+                width: 110.w,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     if (_activityTime.contains(':')) ...[
                       Text(
                         S.of(context).product_detail_ends_in,
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 15.sp,

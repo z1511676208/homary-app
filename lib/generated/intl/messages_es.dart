@@ -31,15 +31,19 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m5(amount) => "Has recibido un cupón de usuario nuevo con un descuento de hasta ${amount} .";
 
-  static m6(minValue, maxValue) => "El valor debe estar entre ${minValue}  y ${maxValue}";
+  static m6(count) => "${Intl.plural(count, zero: '(${count} Artículo)', one: '(${count} Artículo)', other: '(${count} Artículos)')}";
 
-  static m7(result) => "Mostrar el resultado sobre \"${result}\"";
+  static m7(count) => "${count} Reseñas";
 
-  static m8(count) => "${Intl.plural(count, zero: 'Resumen de la orden (${count} Artículo)', one: 'Resumen de la orden (${count} Artículo)', other: 'Resumen de la orden (${count} Artículos)')}";
+  static m8(minValue, maxValue) => "El valor debe estar entre ${minValue}  y ${maxValue}";
 
-  static m9(count) => "${Intl.plural(count, zero: 'Guardar para más Adelante (${count} Artículo)', one: 'Guardar para más Adelante (${count} Artículo)', other: 'Guardar para más Adelante (${count} Artículos)')}";
+  static m9(result) => "Mostrar el resultado sobre \"${result}\"";
 
-  static m10(count) => "${Intl.plural(count, zero: 'Carrito de Compras (${count} Artículo)', one: 'Carrito de Compras (${count} Artículo)', other: 'Carrito de Compras (${count} Artículos)')}";
+  static m10(count) => "${Intl.plural(count, zero: 'Resumen de la orden (${count} Artículo)', one: 'Resumen de la orden (${count} Artículo)', other: 'Resumen de la orden (${count} Artículos)')}";
+
+  static m11(count) => "${Intl.plural(count, zero: 'Guardar para más Adelante (${count} Artículo)', one: 'Guardar para más Adelante (${count} Artículo)', other: 'Guardar para más Adelante (${count} Artículos)')}";
+
+  static m12(count) => "${Intl.plural(count, zero: 'Carrito de Compras (${count} Artículo)', one: 'Carrito de Compras (${count} Artículo)', other: 'Carrito de Compras (${count} Artículos)')}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
@@ -158,7 +162,23 @@ class MessageLookup extends MessageLookupByLibrary {
     "new_user_use_now" : MessageLookupByLibrary.simpleMessage("ÚSALO AHORA"),
     "new_user_view_my_coupons" : MessageLookupByLibrary.simpleMessage("Ver Mis Cupones"),
     "new_user_welcome" : MessageLookupByLibrary.simpleMessage("Bienvenido a Homary"),
-    "rangeLimitError" : m6,
+    "product_detail" : MessageLookupByLibrary.simpleMessage("Detalles de producto"),
+    "product_detail_additional_document" : MessageLookupByLibrary.simpleMessage("Documento Adicional"),
+    "product_detail_cart_checkout" : MessageLookupByLibrary.simpleMessage("Pago del Carrito"),
+    "product_detail_clearance" : MessageLookupByLibrary.simpleMessage("Rebaja"),
+    "product_detail_description" : MessageLookupByLibrary.simpleMessage("Descripción"),
+    "product_detail_ends_in" : MessageLookupByLibrary.simpleMessage("Termina en"),
+    "product_detail_features" : MessageLookupByLibrary.simpleMessage("Característica"),
+    "product_detail_flash_sale" : MessageLookupByLibrary.simpleMessage("Venta Flash"),
+    "product_detail_free_shipping" : MessageLookupByLibrary.simpleMessage("Envío gratis"),
+    "product_detail_full_detail" : MessageLookupByLibrary.simpleMessage("Todos los Detalles"),
+    "product_detail_items" : m6,
+    "product_detail_product_overview" : MessageLookupByLibrary.simpleMessage("Descripción del Producto"),
+    "product_detail_reviews" : m7,
+    "product_detail_specification" : MessageLookupByLibrary.simpleMessage("Especificación"),
+    "product_detail_starts_in" : MessageLookupByLibrary.simpleMessage("Empieza en"),
+    "product_detail_weights_dimensions" : MessageLookupByLibrary.simpleMessage("Pesos y dimensiones"),
+    "rangeLimitError" : m8,
     "register_agreeTips" : MessageLookupByLibrary.simpleMessage("Al registrarse, usted acepta nuestra "),
     "register_agreeTipsAnd" : MessageLookupByLibrary.simpleMessage(" y "),
     "register_btn" : MessageLookupByLibrary.simpleMessage("CREAR UNA CUENTA"),
@@ -185,7 +205,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "search_popularSearches" : MessageLookupByLibrary.simpleMessage("Búsquedas Populares"),
     "search_recentSearches" : MessageLookupByLibrary.simpleMessage("Búsquedas Recientes"),
     "search_see_also" : MessageLookupByLibrary.simpleMessage("Recomendar:"),
-    "search_showing_results" : m7,
+    "search_showing_results" : m9,
     "search_view_all" : MessageLookupByLibrary.simpleMessage("Ver todo"),
     "setting_cleanCacheTip" : MessageLookupByLibrary.simpleMessage("¿Eliminar todas las imágenes temporales para liberar espacio en su dispositivo?"),
     "setting_clearCache" : MessageLookupByLibrary.simpleMessage("Limpiar cache"),
@@ -202,12 +222,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "shopping_cart_move_to_cart" : MessageLookupByLibrary.simpleMessage("Ir al Carrito"),
     "shopping_cart_no_results" : MessageLookupByLibrary.simpleMessage("Sin Resultados"),
     "shopping_cart_order_ships_free" : MessageLookupByLibrary.simpleMessage("La Entrega es Gratuita！"),
-    "shopping_cart_order_summary" : m8,
+    "shopping_cart_order_summary" : m10,
     "shopping_cart_qty" : MessageLookupByLibrary.simpleMessage("Cant."),
     "shopping_cart_remove" : MessageLookupByLibrary.simpleMessage("Eliminar"),
     "shopping_cart_save_for_later" : MessageLookupByLibrary.simpleMessage("Guardar para más Adelante"),
-    "shopping_cart_save_for_later_item" : m9,
-    "shopping_cart_shopping_cart_item" : m10,
+    "shopping_cart_save_for_later_item" : m11,
+    "shopping_cart_shopping_cart_item" : m12,
     "shopping_cart_sold_out" : MessageLookupByLibrary.simpleMessage("Vendido"),
     "shopping_cart_subtotal" : MessageLookupByLibrary.simpleMessage("Total parcial:"),
     "shopping_cart_was_applied" : MessageLookupByLibrary.simpleMessage(""),

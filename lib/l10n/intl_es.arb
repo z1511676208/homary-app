@@ -202,5 +202,21 @@
   "shopping_cart_was_applied": "",
   "shopping_cart_no_results": "Sin Resultados",
   "shopping_cart_login_tips": "Iniciar sesión para verificar su cupón exclusivo",
-  "eta_ship_to": "Enviar a"
+  "eta_ship_to": "Enviar a",
+  "product_detail": "Detalles de producto",
+  "product_detail_full_detail": "Todos los Detalles",
+  "product_detail_items": "{count,plural,=0{({count} Artículo)} =1{({count} Artículo)} other{({count} Artículos)}}",
+  "product_detail_cart_checkout": "Pago del Carrito",
+  "product_detail_reviews": "{count} Reseñas",
+  "product_detail_free_shipping": "Envío gratis",
+  "product_detail_product_overview": "Descripción del Producto",
+  "product_detail_description": "Descripción",
+  "product_detail_weights_dimensions": "Pesos y dimensiones",
+  "product_detail_specification": "Especificación",
+  "product_detail_additional_document": "Documento Adicional",
+  "product_detail_features": "Característica",
+  "product_detail_flash_sale": "Venta Flash",
+  "product_detail_starts_in": "Empieza en",
+  "product_detail_ends_in": "Termina en",
+  "product_detail_clearance": "Rebaja"
 }

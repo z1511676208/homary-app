@@ -202,5 +202,21 @@
   "shopping_cart_was_applied": "a été appliqué.",
   "shopping_cart_no_results": "Sans Résultat",
   "shopping_cart_login_tips": "Connectez-vous pour vérifier votre coupon exclusif",
-  "eta_ship_to": "Envoyer à"
+  "eta_ship_to": "Envoyer à",
+  "product_detail": "Détails du produit",
+  "product_detail_full_detail": "Plus de Détails",
+  "product_detail_items": "{count,plural,=0{({count} Article)} =1{({count} Article)} other{({count} Articles)}}",
+  "product_detail_cart_checkout": "Panier Paiement",
+  "product_detail_reviews": "{count} Commentaires",
+  "product_detail_free_shipping": "Livraison gratuite",
+  "product_detail_product_overview": "Aperçu du Produit",
+  "product_detail_description": "La description",
+  "product_detail_weights_dimensions": "Poids et dimensions",
+  "product_detail_specification": "Spécification",
+  "product_detail_additional_document": "Document Supplémentaire",
+  "product_detail_features": "Caractéristique",
+  "product_detail_flash_sale": "Ventes Flash",
+  "product_detail_starts_in": "Commence dans",
+  "product_detail_ends_in": "Se termine dans",
+  "product_detail_clearance": "Déstockage"
 }

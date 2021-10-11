@@ -31,15 +31,19 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m5(amount) => "Sie haben einen neuen Benutzercoupon erhalten, bis zu ${amount} Rabatt.";
 
-  static m6(minValue, maxValue) => "Wert muss zwischen ${minValue} und ${maxValue} liegen";
+  static m6(count) => "${Intl.plural(count, zero: '(${count} Artikel)', one: '(${count} Artikel)', other: '(${count} Artikels)')}";
 
-  static m7(result) => "Ergebnisse für „${result}“ werden angezeigt";
+  static m7(count) => "${count} Bewertungen";
 
-  static m8(count) => "${Intl.plural(count, zero: 'Bestellübersicht (${count} Artikel)', one: 'Bestellübersicht (${count} Artikel)', other: 'Bestellübersicht (${count} Artikels)')}";
+  static m8(minValue, maxValue) => "Wert muss zwischen ${minValue} und ${maxValue} liegen";
 
-  static m9(count) => "${Intl.plural(count, zero: 'Für später speichern (${count} Artikel)', one: 'Für später speichern (${count} Artikel)', other: 'Für später speichern (${count} Artikels)')}";
+  static m9(result) => "Ergebnisse für „${result}“ werden angezeigt";
 
-  static m10(count) => "${Intl.plural(count, zero: 'Warenkorb (${count} Artikel)', one: 'Warenkorb (${count} Artikel)', other: 'Warenkorb (${count} Artikels)')}";
+  static m10(count) => "${Intl.plural(count, zero: 'Bestellübersicht (${count} Artikel)', one: 'Bestellübersicht (${count} Artikel)', other: 'Bestellübersicht (${count} Artikels)')}";
+
+  static m11(count) => "${Intl.plural(count, zero: 'Für später speichern (${count} Artikel)', one: 'Für später speichern (${count} Artikel)', other: 'Für später speichern (${count} Artikels)')}";
+
+  static m12(count) => "${Intl.plural(count, zero: 'Warenkorb (${count} Artikel)', one: 'Warenkorb (${count} Artikel)', other: 'Warenkorb (${count} Artikels)')}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
@@ -158,7 +162,23 @@ class MessageLookup extends MessageLookupByLibrary {
     "new_user_use_now" : MessageLookupByLibrary.simpleMessage("JETZT BENUTZEN"),
     "new_user_view_my_coupons" : MessageLookupByLibrary.simpleMessage("Meine Gutscheine Anzeigen"),
     "new_user_welcome" : MessageLookupByLibrary.simpleMessage("WILLKOMMEN BEI HOMARY"),
-    "rangeLimitError" : m6,
+    "product_detail" : MessageLookupByLibrary.simpleMessage("Produktdetails"),
+    "product_detail_additional_document" : MessageLookupByLibrary.simpleMessage("Zusätzliche Dokumente"),
+    "product_detail_cart_checkout" : MessageLookupByLibrary.simpleMessage("Warenkorb Kasse"),
+    "product_detail_clearance" : MessageLookupByLibrary.simpleMessage("Ausverkauf"),
+    "product_detail_description" : MessageLookupByLibrary.simpleMessage("Beschreibung"),
+    "product_detail_ends_in" : MessageLookupByLibrary.simpleMessage("Endet in"),
+    "product_detail_features" : MessageLookupByLibrary.simpleMessage("Artikelmerkmal"),
+    "product_detail_flash_sale" : MessageLookupByLibrary.simpleMessage("Blitzangebote"),
+    "product_detail_free_shipping" : MessageLookupByLibrary.simpleMessage("Kostenloser Versand"),
+    "product_detail_full_detail" : MessageLookupByLibrary.simpleMessage("Alle Details"),
+    "product_detail_items" : m6,
+    "product_detail_product_overview" : MessageLookupByLibrary.simpleMessage("Produktübersicht"),
+    "product_detail_reviews" : m7,
+    "product_detail_specification" : MessageLookupByLibrary.simpleMessage("Merkmale"),
+    "product_detail_starts_in" : MessageLookupByLibrary.simpleMessage("beginnt in"),
+    "product_detail_weights_dimensions" : MessageLookupByLibrary.simpleMessage("Gewichte & Maße"),
+    "rangeLimitError" : m8,
     "register_agreeTips" : MessageLookupByLibrary.simpleMessage("Mit Ihrer Registrierung stimmen Sie unserer zu "),
     "register_agreeTipsAnd" : MessageLookupByLibrary.simpleMessage(" und "),
     "register_btn" : MessageLookupByLibrary.simpleMessage("EIN KONTO ERSTELLEN"),
@@ -185,7 +205,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "search_popularSearches" : MessageLookupByLibrary.simpleMessage("Beliebte Suchen"),
     "search_recentSearches" : MessageLookupByLibrary.simpleMessage("Letzte Suchen"),
     "search_see_also" : MessageLookupByLibrary.simpleMessage("Ähnliche Suchen:"),
-    "search_showing_results" : m7,
+    "search_showing_results" : m9,
     "search_view_all" : MessageLookupByLibrary.simpleMessage("Alle ansehen"),
     "setting_cleanCacheTip" : MessageLookupByLibrary.simpleMessage("Alle temporären Bilder löschen, um Speicherplatz auf Ihrem Gerät freizugeben?"),
     "setting_clearCache" : MessageLookupByLibrary.simpleMessage("Cache leeren"),
@@ -202,12 +222,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "shopping_cart_move_to_cart" : MessageLookupByLibrary.simpleMessage("In den Warenkorb gehen"),
     "shopping_cart_no_results" : MessageLookupByLibrary.simpleMessage("Keine Ergebnisse"),
     "shopping_cart_order_ships_free" : MessageLookupByLibrary.simpleMessage("Diese Bestellung ist versandkostenfrei!"),
-    "shopping_cart_order_summary" : m8,
+    "shopping_cart_order_summary" : m10,
     "shopping_cart_qty" : MessageLookupByLibrary.simpleMessage("Menge"),
     "shopping_cart_remove" : MessageLookupByLibrary.simpleMessage("Entfernen"),
     "shopping_cart_save_for_later" : MessageLookupByLibrary.simpleMessage("Für später speichern"),
-    "shopping_cart_save_for_later_item" : m9,
-    "shopping_cart_shopping_cart_item" : m10,
+    "shopping_cart_save_for_later_item" : m11,
+    "shopping_cart_shopping_cart_item" : m12,
     "shopping_cart_sold_out" : MessageLookupByLibrary.simpleMessage("Sold Out"),
     "shopping_cart_subtotal" : MessageLookupByLibrary.simpleMessage("Zwischensumme:"),
     "shopping_cart_was_applied" : MessageLookupByLibrary.simpleMessage("wurde angewendet."),
