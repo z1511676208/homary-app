@@ -76,7 +76,7 @@ class _ShoppingCartViewState extends State<ShoppingCartView> {
         ),
         preferredSize: Size.fromHeight(44.h),
       ),
-      bottomNavigationBar: ShoppingCartBottom(parentContext: context),
+      bottomSheet: ShoppingCartBottom(parentContext: context),
       body: Stack(
         children: [
           PullToRefresh(
@@ -95,7 +95,7 @@ class _ShoppingCartViewState extends State<ShoppingCartView> {
                 ShoppingCartJustForYou(),
                 SliverToBoxAdapter(
                   child: SizedBox(
-                    height: MediaQuery.of(context).padding.bottom,
+                    height: 117.w + MediaQuery.of(context).padding.bottom,
                   ),
                 ),
               ],
@@ -235,7 +235,7 @@ class _ShoppingCartViewState extends State<ShoppingCartView> {
       return Container();
     }
     return Positioned(
-      bottom: 100.w,
+      bottom: 150.w,
       right: 20.w,
       child: GoTopMenu(
         scrollController: _scrollController,

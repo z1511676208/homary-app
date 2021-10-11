@@ -202,5 +202,21 @@
   "shopping_cart_was_applied": "wurde angewendet.",
   "shopping_cart_no_results": "Keine Ergebnisse",
   "shopping_cart_login_tips": "Melden Sie sich an, um Ihren exklusiven Gutschein anzuzeigen",
-  "eta_ship_to": "Versand nach"
+  "eta_ship_to": "Versand nach",
+  "product_detail": "Produktdetails",
+  "product_detail_full_detail": "Alle Details",
+  "product_detail_items": "{count,plural,=0{({count} Artikel)} =1{({count} Artikel)} other{({count} Artikels)}}",
+  "product_detail_cart_checkout": "Warenkorb Kasse",
+  "product_detail_reviews": "{count} Bewertungen",
+  "product_detail_free_shipping": "Kostenloser Versand",
+  "product_detail_product_overview": "Produktübersicht",
+  "product_detail_description": "Beschreibung",
+  "product_detail_weights_dimensions": "Gewichte & Maße",
+  "product_detail_specification": "Merkmale",
+  "product_detail_additional_document": "Zusätzliche Dokumente",
+  "product_detail_features": "Artikelmerkmal",
+  "product_detail_flash_sale": "Blitzangebote",
+  "product_detail_starts_in": "beginnt in",
+  "product_detail_ends_in": "Endet in",
+  "product_detail_clearance": "Ausverkauf"
 }

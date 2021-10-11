@@ -29,8 +29,8 @@ class ProductEtaInfoRes {
   factory ProductEtaInfoRes.fromJson(Map<String, dynamic> json) =>
       ProductEtaInfoRes(
         code: json["code"],
-        data: Map.from(json["data"])
-            .map((k, v) => MapEntry<String, Datum>(k, Datum.fromJson(v))),
+        data: json["data"] is Map?Map.from(json["data"])
+            .map((k, v) => MapEntry<String, Datum>(k, Datum.fromJson(v))): {},
         message: json["message"],
       );
 

@@ -31,19 +31,19 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m5(amount) => "You have received all new user coupons，up to ${amount} OFF for all items.";
 
-  static m11(count) => "${Intl.plural(count, zero: '(${count} ITEM)', one: '(${count} ITEM)', other: '(${count} ITEMS)')}";
+  static m6(count) => "${Intl.plural(count, zero: '(${count} ITEM)', one: '(${count} ITEM)', other: '(${count} ITEMS)')}";
 
-  static m12(count) => "${count} Reviews";
+  static m7(count) => "${count} Reviews";
 
-  static m6(minValue, maxValue) => "Value must be between ${minValue} and ${maxValue}";
+  static m8(minValue, maxValue) => "Value must be between ${minValue} and ${maxValue}";
 
-  static m7(result) => "Showing results for \"${result}\"";
+  static m9(result) => "Showing results for \"${result}\"";
 
-  static m8(count) => "${Intl.plural(count, zero: 'Order Summary (${count} Item)', one: 'Order Summary (${count} Item)', other: 'Order Summary (${count} Items)')}";
+  static m10(count) => "${Intl.plural(count, zero: 'Order Summary (${count} Item)', one: 'Order Summary (${count} Item)', other: 'Order Summary (${count} Items)')}";
 
-  static m9(count) => "${Intl.plural(count, zero: 'Save For Later (${count} Item)', one: 'Save For Later (${count} Item)', other: 'Save For Later (${count} Items)')}";
+  static m11(count) => "${Intl.plural(count, zero: 'Save For Later (${count} Item)', one: 'Save For Later (${count} Item)', other: 'Save For Later (${count} Items)')}";
 
-  static m10(count) => "${Intl.plural(count, zero: 'Shopping Cart (${count} Item)', one: 'Shopping Cart (${count} Item)', other: 'Shopping Cart (${count} Items)')}";
+  static m12(count) => "${Intl.plural(count, zero: 'Shopping Cart (${count} Item)', one: 'Shopping Cart (${count} Item)', other: 'Shopping Cart (${count} Items)')}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
@@ -172,13 +172,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "product_detail_flash_sale" : MessageLookupByLibrary.simpleMessage("Flash Sale"),
     "product_detail_free_shipping" : MessageLookupByLibrary.simpleMessage("Free Shipping"),
     "product_detail_full_detail" : MessageLookupByLibrary.simpleMessage("Full Details"),
-    "product_detail_items" : m11,
+    "product_detail_items" : m6,
     "product_detail_product_overview" : MessageLookupByLibrary.simpleMessage("Product Overview"),
-    "product_detail_reviews" : m12,
+    "product_detail_reviews" : m7,
     "product_detail_specification" : MessageLookupByLibrary.simpleMessage("Specification"),
     "product_detail_starts_in" : MessageLookupByLibrary.simpleMessage("Starts in"),
     "product_detail_weights_dimensions" : MessageLookupByLibrary.simpleMessage("Weights & Dimensions"),
-    "rangeLimitError" : m6,
+    "rangeLimitError" : m8,
     "register_agreeTips" : MessageLookupByLibrary.simpleMessage("By registering, you agree to our "),
     "register_agreeTipsAnd" : MessageLookupByLibrary.simpleMessage(" and "),
     "register_btn" : MessageLookupByLibrary.simpleMessage("CREATE AN ACCOUNT"),
@@ -205,7 +205,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "search_popularSearches" : MessageLookupByLibrary.simpleMessage("Popular Searches"),
     "search_recentSearches" : MessageLookupByLibrary.simpleMessage("Recent Searches"),
     "search_see_also" : MessageLookupByLibrary.simpleMessage("See Also:"),
-    "search_showing_results" : m7,
+    "search_showing_results" : m9,
     "search_view_all" : MessageLookupByLibrary.simpleMessage("View All"),
     "setting_cleanCacheTip" : MessageLookupByLibrary.simpleMessage("Delete all temporary images to free up some space in your device?"),
     "setting_clearCache" : MessageLookupByLibrary.simpleMessage("Clear Cache"),
@@ -222,12 +222,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "shopping_cart_move_to_cart" : MessageLookupByLibrary.simpleMessage("Move To Cart"),
     "shopping_cart_no_results" : MessageLookupByLibrary.simpleMessage("No Results"),
     "shopping_cart_order_ships_free" : MessageLookupByLibrary.simpleMessage("This Order Ships Free!"),
-    "shopping_cart_order_summary" : m8,
+    "shopping_cart_order_summary" : m10,
     "shopping_cart_qty" : MessageLookupByLibrary.simpleMessage("Qty"),
     "shopping_cart_remove" : MessageLookupByLibrary.simpleMessage("Remove"),
     "shopping_cart_save_for_later" : MessageLookupByLibrary.simpleMessage("Save For Later"),
-    "shopping_cart_save_for_later_item" : m9,
-    "shopping_cart_shopping_cart_item" : m10,
+    "shopping_cart_save_for_later_item" : m11,
+    "shopping_cart_shopping_cart_item" : m12,
     "shopping_cart_sold_out" : MessageLookupByLibrary.simpleMessage("Sold Out"),
     "shopping_cart_subtotal" : MessageLookupByLibrary.simpleMessage("Subtotal:"),
     "shopping_cart_was_applied" : MessageLookupByLibrary.simpleMessage("was applied."),

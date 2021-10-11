@@ -252,45 +252,40 @@ class _ShoppingCartItemState extends State<ShoppingCartItem> {
                                 color: priceColor,
                               ),
                             ),
-                          SizedBox(height: 18.w),
+                          SizedBox(height: 30.w),
                           //功能区
                           Align(
                             alignment: Alignment.centerRight,
                             child: Wrap(
+                              spacing: 16.w,
                               alignment: WrapAlignment.end,
                               crossAxisAlignment: WrapCrossAlignment.end,
                               children: [
-                                SizedBox(
-                                  height: 30.w,
-                                  child: TextButton(
-                                    onPressed: saveOrMove,
-                                    child: Text(
-                                      widget.isFromCart
-                                          ? S
-                                              .of(context)
-                                              .shopping_cart_save_for_later
-                                          : S
-                                              .of(context)
-                                              .shopping_cart_move_to_cart,
-                                      style: TextStyle(
-                                        fontSize: 13.sp,
-                                        color: AppColor.primaryText,
-                                        decoration: TextDecoration.underline,
-                                      ),
+                                GestureDetector(
+                                  onTap: saveOrMove,
+                                  child: Text(
+                                    widget.isFromCart
+                                        ? S
+                                        .of(context)
+                                        .shopping_cart_save_for_later
+                                        : S
+                                        .of(context)
+                                        .shopping_cart_move_to_cart,
+                                    style: TextStyle(
+                                      fontSize: 13.sp,
+                                      color: AppColor.primaryText,
+                                      decoration: TextDecoration.underline,
                                     ),
                                   ),
                                 ),
-                                SizedBox(
-                                  height: 30.w,
-                                  child: TextButton(
-                                    onPressed: remove,
-                                    child: Text(
-                                      S.of(context).shopping_cart_remove,
-                                      style: TextStyle(
-                                        fontSize: 13.sp,
-                                        color: AppColor.primaryText,
-                                        decoration: TextDecoration.underline,
-                                      ),
+                                GestureDetector(
+                                  onTap: remove,
+                                  child: Text(
+                                    S.of(context).shopping_cart_remove,
+                                    style: TextStyle(
+                                      fontSize: 13.sp,
+                                      color: AppColor.primaryText,
+                                      decoration: TextDecoration.underline,
                                     ),
                                   ),
                                 ),
@@ -436,6 +431,9 @@ class _ShoppingCartItemState extends State<ShoppingCartItem> {
       },
     );
     int originQty = int.parse(data.qty);
+    setState(() {
+      qtyError = null;
+    });
     if (qty != null && qty != originQty) {
       CartChangeDatum datum =
           await context.read<ShoppingCartCtrl>().changeItem(params: {
