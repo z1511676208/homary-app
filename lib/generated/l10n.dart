@@ -2054,10 +2054,10 @@ class S {
     );
   }
 
-  /// `Keine Ergebnisse`
+  /// `No Results`
   String get shopping_cart_no_results {
     return Intl.message(
-      'Keine Ergebnisse',
+      'No Results',
       name: 'shopping_cart_no_results',
       desc: '',
       args: [],

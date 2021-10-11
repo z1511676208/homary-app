@@ -200,7 +200,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "shopping_cart_just_for_you" : MessageLookupByLibrary.simpleMessage("Nur Für Sie"),
     "shopping_cart_login_tips" : MessageLookupByLibrary.simpleMessage("Melden Sie sich an, um Ihren exklusiven Gutschein anzuzeigen"),
     "shopping_cart_move_to_cart" : MessageLookupByLibrary.simpleMessage("In den Warenkorb gehen"),
-    "shopping_cart_no_results" : MessageLookupByLibrary.simpleMessage("No Results"),
+    "shopping_cart_no_results" : MessageLookupByLibrary.simpleMessage("Keine Ergebnisse"),
     "shopping_cart_order_ships_free" : MessageLookupByLibrary.simpleMessage("Diese Bestellung ist versandkostenfrei!"),
     "shopping_cart_order_summary" : m8,
     "shopping_cart_qty" : MessageLookupByLibrary.simpleMessage("Menge"),

@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-09-26 16:46:49
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-30 14:08:49
+ * @LastEditTime : 2021-10-11 15:35:47
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:flutter/material.dart';
@@ -18,30 +18,19 @@ class CouponInput extends StatefulWidget {
   _CouponInputState createState() => _CouponInputState();
 }
 
-class _CouponInputState extends State<CouponInput> {
-  bool showCouponSearchResult = false;
+class _CouponInputState extends State<CouponInput>
+    with SingleTickerProviderStateMixin {
   GlobalKey _key = GlobalKey();
   FocusNode focusNode = new FocusNode();
+  AnimationController _couponSearchResultController;
 
   void focusEventListener() async {
-    setState(() {
-      showCouponSearchResult = focusNode.hasFocus;
-    });
-    if (showCouponSearchResult) {
-      DropMenuManager.instance.showDropDownMenu(
-        context,
-        isShowShadow: false,
-        marginTop:
-            DropMenuManager.instance.getWeightMarginTop(_key.currentContext) +
-                42.w,
-        menuBarHeight: 44.w,
-        onRemove: () {
-          FocusScope.of(context).requestFocus(FocusNode());
-        },
-        menu: CouponSearchResult(
-          ctrl: Provider.of<ShoppingCartCtrl>(context, listen: false),
-        ),
-      );
+    ShoppingCartCtrl ctrl =
+        Provider.of<ShoppingCartCtrl>(context, listen: false);
+    ctrl.hanldeShowCouponSearchResult(isShow: focusNode.hasFocus);
+
+    if (ctrl.showCouponSearchResult) {
+      _couponSearchResultController.forward();
     }
   }
 
@@ -60,12 +49,15 @@ class _CouponInputState extends State<CouponInput> {
   @override
   void initState() {
     focusNode.addListener(focusEventListener);
+    _couponSearchResultController = new AnimationController(
+        duration: const Duration(milliseconds: 200), vsync: this);
     super.initState();
   }
 
   @override
   void dispose() {
-    DropMenuManager.instance.hide();
+    _couponSearchResultController.dispose();
+
     focusNode.removeListener(focusEventListener);
     super.dispose();
   }
@@ -95,7 +87,7 @@ class _CouponInputState extends State<CouponInput> {
                 GestureDetector(
                   onTap: () async {
                     if (data.isGuest) {
-                      DropMenuManager.instance.hide();
+                      data.hanldeShowCouponSearchResult();
                       var result = await Routes.push(context, '/signIn',
                           params: {
                             'showGuestBtn': 'true',
@@ -229,11 +221,11 @@ class _CouponInputState extends State<CouponInput> {
                               if (!focusNode.hasFocus) {
                                 FocusScope.of(context).requestFocus(focusNode);
                               } else {
-                                DropMenuManager.instance.hide();
+                                data.hanldeShowCouponSearchResult();
                               }
                             },
                             icon: Icon(
-                              this.showCouponSearchResult
+                              data.showCouponSearchResult
                                   ? Iconfont.Less
                                   : Iconfont.More2,
                               color: AppColor.primaryText,
@@ -243,7 +235,8 @@ class _CouponInputState extends State<CouponInput> {
                     )),
                 ElevatedButton(
                   onPressed: () {
-                    DropMenuManager.instance.hide();
+                    data.hanldeShowCouponSearchResult();
+
                     data.isApply
                         ? data.handleApplyCoupon()
                         : data.resetCouponInput();
@@ -276,6 +269,14 @@ class _CouponInputState extends State<CouponInput> {
             SizedBox(
               height: 6.w,
             ),
+            data.showCouponSearchResult
+                ? SizeTransition(
+                    sizeFactor: _couponSearchResultController,
+                    child: CouponSearchResult(
+                      ctrl: data,
+                    ),
+                  )
+                : SizedBox(),
             Offstage(
                 offstage: !(!data.isApply || data.drawCouponError != ''),
                 child: Row(

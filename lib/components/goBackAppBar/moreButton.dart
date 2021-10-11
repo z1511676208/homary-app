@@ -66,7 +66,7 @@ class ListItems extends StatelessWidget {
     ];
     return Container(
       width: 180.w,
-      margin: EdgeInsets.only(left: 185.w,bottom: 10.w),
+      margin: EdgeInsets.only(left: 185.w, bottom: 20.w),
       child: CustomPaint(
         painter: BubbleShape(),
         child: ListView(
@@ -75,49 +75,49 @@ class ListItems extends StatelessWidget {
           children: list
               .map(
                 (e) => InkWell(
-              onTap: () {
-                DropMenuManager.instance.hide();
-                String url = e['url'];
-                if (url.startsWith('https://')) {
-                  bool isLogin =
-                  Localstorage().getBool(StorageKey.IS_LOGIN);
-                  if (e['isNeedLogin'] && !isLogin) {
-                    Routes.push(context, '/signIn');
-                  } else {
-                    Routes.push(context, '/webview', params: {
-                      "showAppLoading": '0',
-                      "content": '{"url":"$url"}'
-                    });
-                  }
-                } else {
-                  if (url == '/') {
-                    Routes.goHome();
-                  } else {
-                    Routes.push(context, url);
-                  }
-                }
-              },
-              child: Container(
-                padding: EdgeInsets.only(
-                    left: 13.5.w, top: 10.w, bottom: 10.w),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    e['icon'],
-                    SizedBox(
-                      width: 12.5.w,
-                    ),
-                    Expanded(
-                        child: Text(
+                  onTap: () {
+                    DropMenuManager.instance.hide();
+                    String url = e['url'];
+                    if (url.startsWith('https://')) {
+                      bool isLogin =
+                          Localstorage().getBool(StorageKey.IS_LOGIN);
+                      if (e['isNeedLogin'] && !isLogin) {
+                        Routes.push(context, '/signIn');
+                      } else {
+                        Routes.push(context, '/webview', params: {
+                          "showAppLoading": '0',
+                          "content": '{"url":"$url"}'
+                        });
+                      }
+                    } else {
+                      if (url == '/') {
+                        Routes.goHome();
+                      } else {
+                        Routes.push(context, url);
+                      }
+                    }
+                  },
+                  child: Container(
+                    padding:
+                        EdgeInsets.only(left: 13.5.w, top: 10.w, bottom: 10.w),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        e['icon'],
+                        SizedBox(
+                          width: 12.5.w,
+                        ),
+                        Expanded(
+                            child: Text(
                           e['title'],
                           style: TextStyle(
                               fontSize: 15.sp, color: AppColor.primaryText),
                         ))
-                  ],
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          )
+              )
               .toList(),
         ),
       ),

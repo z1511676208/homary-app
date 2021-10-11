@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-09-27 10:14:48
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-28 09:57:39
+ * @LastEditTime : 2021-10-11 15:37:46
  */
 // To parse this JSON data, do
 //
@@ -106,7 +106,7 @@ class ListElement {
   String threshold;
   int isNewUserCoupon;
   int isSelected;
-  int couponDiscountAmount;
+  dynamic couponDiscountAmount;
 
   factory ListElement.fromRawJson(String str) =>
       ListElement.fromJson(json.decode(str));

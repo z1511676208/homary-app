@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-09-26 14:56:55
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-30 14:47:23
+ * @LastEditTime : 2021-10-11 16:08:40
  */
 
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -57,6 +57,10 @@ class ShoppingCartCtrl with ChangeNotifier {
   RefreshController refreshController =
       RefreshController(initialRefresh: false);
 
+  // 优惠券搜索弹窗相关
+  bool couponSearchLoading = false;
+  bool showCouponSearchResult = false;
+
   // 优惠券相关
   TextEditingController inputCtrl = new TextEditingController();
   CouponList couponList;
@@ -65,7 +69,7 @@ class ShoppingCartCtrl with ChangeNotifier {
   bool showCoupons = false;
   bool isApply = true; //输入框是否是待申请状态  为false已经用了券
   String drawCouponError = ''; //领取优惠券的错误
-  dynamic couponUserId = 0; //空字符串代表匹配最佳优惠券，数字0代表不用优惠券
+  dynamic couponUserId = ''; //空字符串代表匹配最佳优惠券，数字0代表不用优惠券
   List skuIdQtyList = [];
   List<ListElement> bestCouponList = []; // 实时搜索的最优优惠券列表
   bool isGuest = false;
@@ -134,6 +138,8 @@ class ShoppingCartCtrl with ChangeNotifier {
     String token = getToken();
     Cookie isGuest = await getCookie('isGuest');
     this.isGuest = isGuest != null;
+
+    _safeNotifyListeners();
     //已经设置过token的返回
     if ((isLogin && token != "") || (isGuest != null && token != "")) {
       return;
@@ -142,11 +148,17 @@ class ShoppingCartCtrl with ChangeNotifier {
       setGuest("true");
       setToken(this.cartData.token);
       setTokenCookie();
+      this.isGuest = true;
+      _safeNotifyListeners();
     }
   }
 
   Future<void> handleSearchCoupon({params}) async {
+    couponSearchLoading = true;
+    _safeNotifyListeners();
+
     DioResult res = await CartApi.searchCoupon(params: params);
+    couponSearchLoading = false;
     if (res.error == null) {
       SearchCouponRes result = SearchCouponRes.fromJson(res.result);
       this.bestCouponList = result.data?.list ?? [];
@@ -155,19 +167,24 @@ class ShoppingCartCtrl with ChangeNotifier {
   }
 
   // 领取优惠券
-  Future<void> applyCoupon(String code) async {
+  Future<bool> applyCoupon(String code) async {
+    Toast.loading();
     DioResult result = await UserCenterApi.drawCoupons(params: {
       'draw_type': CouponStatusEnum.drawTypeByCouponAlias,
       'coupon_alias': code
     });
+    Toast.clear();
     if (result.error == null) {
       this.couponUserId = result.result['data'] != null
           ? result.result['data']['coupon_user_id']
           : '';
+      _safeNotifyListeners();
+      return true;
     } else {
       this.drawCouponError = result.error['message'] ?? 'Error';
+      _safeNotifyListeners();
+      return false;
     }
-    _safeNotifyListeners();
   }
 
   // 点击Apple按钮兑换优惠券
@@ -194,9 +211,11 @@ class ShoppingCartCtrl with ChangeNotifier {
           "This coupon cannot be used for the current product, please select the coupon again";
       return;
     }
-    await this.applyCoupon(inputCtrl.text);
-    Localstorage().setGaTicketList(TicketList.beginCheckout);
-    this.getShoppingCartData(couponUserId: this.couponUserId);
+    bool isApply = await this.applyCoupon(inputCtrl.text);
+    if (isApply) {
+      Localstorage().setGaTicketList(TicketList.beginCheckout);
+      this.getShoppingCartData(couponUserId: this.couponUserId);
+    }
   }
 
   // 获取购物车内所有商品的skuId-qty数组
@@ -227,7 +246,7 @@ class ShoppingCartCtrl with ChangeNotifier {
     } else {
       this.isApply = true; //输入框变成可申请状态
       this.useCode = '';
-      this.couponUserId = 0;
+      this.couponUserId = '';
       inputCtrl.text = "";
     }
   }
@@ -475,5 +494,10 @@ class ShoppingCartCtrl with ChangeNotifier {
         _safeNotifyListeners();
       }
     }
+  }
+
+  hanldeShowCouponSearchResult({bool isShow = false}) {
+    this.showCouponSearchResult = isShow;
+    _safeNotifyListeners();
   }
 }
