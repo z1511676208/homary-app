@@ -2,12 +2,15 @@
  * @Author       : JHao
  * @Date         : 2021-07-21 10:31:45
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-02 20:35:51
+ * @LastEditTime : 2021-10-25 17:11:50
  */
 import 'package:homary/api/category.dart';
 import 'package:homary/common/request/request.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/entity/category.dart';
+import 'package:homary/entity/topChannelCategory.dart';
+import 'package:homary/main.dart';
+import 'package:homary/pages/home/contorller.dart';
 
 class CategoryCtrl extends ChangeNotifier {
   String activeCategoryId = "";
@@ -17,6 +20,17 @@ class CategoryCtrl extends ChangeNotifier {
     "app_category_banner": ""
   };
   List<Data> subList = [];
+  List<TopChannelDatum> topChannelList = [];
+
+  // 获取一级分类列表
+  Future<void> getTopChannelCategory({params}) async {
+    DioResult res = await CategoryApi.getTopChannelCategory(params: params);
+    if (res.error == null) {
+      TopChannelCategoryRes result = TopChannelCategoryRes.fromJson(res.result);
+      topChannelList = result.data;
+      notifyListeners();
+    }
+  }
 
   // 获取二/三级分类列表
   Future<void> getCategoryList({params}) async {
@@ -29,6 +43,11 @@ class CategoryCtrl extends ChangeNotifier {
       subList = result.data.subList;
       notifyListeners();
     }
+  }
+
+  resetData() {
+    subList = [];
+    notifyListeners();
   }
 
   setActiveCategoryId(String id) {

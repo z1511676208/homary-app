@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-09-06 14:23:41
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-06 19:15:53
+ * @LastEditTime : 2021-10-15 17:14:50
  */
 import 'package:flutter/material.dart';
 import 'package:homary/common/utils/dialog.dart';
@@ -11,7 +11,6 @@ import 'package:homary/common/utils/toast.dart';
 import 'package:homary/components/GoodsCard/goods_cart_grid.dart';
 import 'package:homary/components/goBackAppBar/main.dart';
 import 'package:homary/components/pullToRefresh/pull_to_refresh.dart';
-import 'package:homary/entity/home.dart';
 import 'package:homary/generated/l10n.dart';
 import 'package:homary/pages/user/controller.dart';
 import 'package:homary/router/routes.dart';

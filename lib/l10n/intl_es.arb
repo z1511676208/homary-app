@@ -6,7 +6,7 @@
   "HomePage_ServiceIcon1": "Obtener",
   "HomePage_ServiceIcon2": "Envío Gratis",
   "HomePage_ServiceIcon3": "Devolución y Cambio",
-  "HomePage_recommendTitle": "Recomendar para ti",
+  "HomePage_recommendTitle": "Sabemos lo que te gustará",
   "bottom_information_title": "Información",
   "bottom_information_list": "Acerca de Homary,Comentarios,Programa de Recompensas,Política de Privacidad,Términos y Condiciones",
   "bottom_customer_title": "Servicio al Cliente",
@@ -241,5 +241,10 @@
   "account_setting_forget_password": "¿Se te olvidó tu contraseña?",
   "account_setting_reason_error": "Ingrese un motivo detallado",
   "account_setting_reason_empty": "Se requiere la razón",
-  "account_setting_manage_email": "Administrar preferencias de correo electrónico"
+  "account_setting_manage_email": "Administrar preferencias de correo electrónico",
+  "home_cart_checkout": "Pagar Ahora",
+  "home_your_cart": "Carrito de Compra({cartNum})",
+  "home_view_cart": "Ver Carrito",
+  "more": "Más",
+  "trendingSearch": "A Menudo Buscado"
 }

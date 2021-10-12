@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-19 16:50:14
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-19 16:50:42
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-10-14 16:24:30
  */
 // To parse this JSON data, do
 //
@@ -108,11 +108,13 @@ class HotKeyword {
     this.hotWord,
     this.type,
     this.activityUrl,
+    this.eventLabel,
   });
 
   String sort;
   String hotWord;
   String type;
+  String eventLabel;
   String activityUrl;
 
   factory HotKeyword.fromRawJson(String str) =>
@@ -125,6 +127,7 @@ class HotKeyword {
         hotWord: json["hot_word"] == null ? null : json["hot_word"],
         type: json["type"] == null ? null : json["type"],
         activityUrl: json["activity_url"] == null ? null : json["activity_url"],
+        eventLabel: json["event_label"] == null ? null : json["event_label"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -132,5 +135,6 @@ class HotKeyword {
         "hot_word": hotWord == null ? null : hotWord,
         "type": type == null ? null : type,
         "activity_url": activityUrl == null ? null : activityUrl,
+        "event_label": eventLabel == null ? null : eventLabel,
       };
 }

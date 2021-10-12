@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-06 10:11:04
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-09-06 13:47:16
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-10-19 15:40:18
  */
 
 import 'package:flutter/material.dart';
@@ -127,7 +127,8 @@ class _GlobalDrawerViewState extends State<GlobalDrawerView> {
                       ),
                       SliverToBoxAdapter(
                         child: Offstage(
-                            offstage: !Localstorage().getBool(StorageKey.IS_LOGIN),
+                            offstage:
+                                !Localstorage().getBool(StorageKey.IS_LOGIN),
                             child: Container(
                               height: 40.w,
                               padding: EdgeInsets.only(left: 16.w, right: 16.w),

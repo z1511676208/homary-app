@@ -2,9 +2,8 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-14 18:20:33
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-19 17:26:56
+ * @LastEditTime : 2021-10-15 17:14:07
  */
-import 'package:flutter/gestures.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/generated/l10n.dart';
 

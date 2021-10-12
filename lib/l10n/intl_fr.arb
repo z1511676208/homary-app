@@ -6,7 +6,7 @@
   "HomePage_ServiceIcon1": "Bénéficiez de",
   "HomePage_ServiceIcon2": "Livraison Gratuite",
   "HomePage_ServiceIcon3": "Retour et Échange",
-  "HomePage_recommendTitle": "Recommander pour vous",
+  "HomePage_recommendTitle": "Choses Que Nous Savons Que Vous Allez Adorer",
   "bottom_information_title": "Information",
   "bottom_information_list": "À Propos d'Homary,Avis,Programme de Récompense,Politique de Confidentialité,Terms & Conditions",
   "bottom_customer_title": "Service Client Expert",
@@ -241,5 +241,10 @@
   "account_setting_forget_password": "Mot de passe oublié?",
   "account_setting_reason_error": "Veuillez saisir une raison détaillée",
   "account_setting_reason_empty": "La raison est requise",
-  "account_setting_manage_email": "Gérer les Préférences de Messagerie"
+  "account_setting_manage_email": "Gérer les Préférences de Messagerie",
+  "home_cart_checkout": "Payer Maintenant",
+  "home_your_cart": "Votre Panier({cartNum})",
+  "home_view_cart": "Voir Panier",
+  "more": "Suite",
+  "trendingSearch": "Souvent Recherchés"
 }

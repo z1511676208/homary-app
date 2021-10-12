@@ -2,12 +2,11 @@
  * @Author       : JHao
  * @Date         : 2021-09-26 16:46:49
  * @LastEditors  : JHao
- * @LastEditTime : 2021-10-11 18:13:00
+ * @LastEditTime : 2021-10-15 17:14:22
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:flutter/material.dart';
 import 'package:homary/common/utils/utils.dart';
-import 'package:homary/components/dropMenu/drop_menu.dart';
 import 'package:homary/pages/shoppingCart/components/CouponBottomSheet.dart';
 import 'package:homary/pages/shoppingCart/components/couponSearchResult.dart';
 import 'package:homary/pages/shoppingCart/controller.dart';

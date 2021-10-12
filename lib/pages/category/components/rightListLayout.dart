@@ -2,13 +2,16 @@
  * @Author       : JHao
  * @Date         : 2021-07-14 15:05:20
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-01 14:42:33
+ * @LastEditTime : 2021-10-25 16:50:15
  */
+import 'dart:convert';
+
 import 'package:flutter/rendering.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/schema2path.dart';
 import 'package:homary/components/empty/list_empty.dart';
 import 'package:homary/entity/category.dart';
+import 'package:homary/entity/commonConfig.dart' show CurrentConfig;
 import 'package:homary/pages/category/controller.dart';
 import 'package:homary/pages/category/watcher.dart';
 import 'package:homary/widget/networkImg.dart';
@@ -29,6 +32,7 @@ class _RightListLayoutState extends State<RightListLayout>
   TabController _topNavScrollCtrl;
   int _curTopNavItem = 0;
   String _lastActiveCategoryId;
+  String currentConfig;
 
   @override
   void initState() {
@@ -111,9 +115,20 @@ class _RightListLayoutState extends State<RightListLayout>
         return controller.subList;
       },
       shouldRebuild: (pre, next) {
+        if (pre != next) {
+          print("清空 Watcher");
+          Watcher.refreshParams();
+        }
         return pre != next;
       },
       builder: (context, List<Data> data, child) {
+        CurrentConfig curConfig =
+            Provider.of<GlobalConfig>(context, listen: false).currentConfig;
+        String currentToJson = jsonEncode(curConfig?.toJson());
+        if (this.currentConfig != currentToJson) {
+          this.currentConfig = currentToJson;
+          _curTopNavItem = 0;
+        }
         _topNavScrollCtrl = TabController(vsync: this, length: data.length);
         if (_curTopNavItem < data.length) {
           _topNavScrollCtrl.animateTo(_curTopNavItem);
@@ -122,15 +137,17 @@ class _RightListLayoutState extends State<RightListLayout>
         print("_curTopNavItem  $_curTopNavItem");
         String activeCategoryId =
             Provider.of<CategoryCtrl>(context, listen: false).activeCategoryId;
+
         if (activeCategoryId != _lastActiveCategoryId) {
           _topNavScrollCtrl.animateTo(0);
         }
         _lastActiveCategoryId = activeCategoryId;
+
         return Container(
           width: 254.5.w,
           color: Colors.white,
           child: CustomScrollView(
-            key: ValueKey(activeCategoryId),
+            key: ValueKey('${activeCategoryId}_$currentToJson'),
             physics: ClampingScrollPhysics(),
             // cacheExtent: 1000,
             controller: _scorllCtrl,
@@ -146,7 +163,7 @@ class _RightListLayoutState extends State<RightListLayout>
                 TopNav(
                   _scorllCtrl,
                   _topNavScrollCtrl,
-                  key: ValueKey(activeCategoryId),
+                  key: ValueKey('${activeCategoryId}_Nav_$currentToJson'),
                 ),
                 ProductList(
                   subList: data,

@@ -6,7 +6,7 @@
   "HomePage_ServiceIcon1": "Get",
   "HomePage_ServiceIcon2": "Free Shipping",
   "HomePage_ServiceIcon3": "30-Day Return",
-  "HomePage_recommendTitle": "Recommend For You",
+  "HomePage_recommendTitle": "Things We Know You Will Love",
   "bottom_information_title": "Information",
   "bottom_information_list": "About Homary,Reviews,Rewards Program,Privacy Policy,Terms & Conditions",
   "bottom_customer_title": "Customer Service",
@@ -241,5 +241,10 @@
   "account_setting_forget_password": "Forgot password?",
   "account_setting_reason_error": "Please enter a detailed reason",
   "account_setting_reason_empty": "Reason is required",
-  "account_setting_manage_email": "Manage Email Preferences"
+  "account_setting_manage_email": "Manage Email Preferences",
+  "home_cart_checkout": "Check Out Now",
+  "home_your_cart": "Your Cart({cartNum})",
+  "home_view_cart": "View Cart",
+  "more": "More",
+  "trendingSearch": "Trending Search"
 }

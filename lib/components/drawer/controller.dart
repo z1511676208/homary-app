@@ -2,13 +2,11 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-09 13:41:42
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-07 15:30:41
+ * @LastEditTime : 2021-10-15 17:12:53
  */
 import 'package:flutter/material.dart';
 import 'package:homary/common/storage/cookie.dart';
-import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
-import 'package:homary/entity/main.dart';
 
 class SlideNavCtrl with ChangeNotifier {
   List subNavList = []; //二级菜单

@@ -105,10 +105,10 @@ class S {
     );
   }
 
-  /// `Recommend For You`
+  /// `Things We Know You Will Love`
   String get HomePage_recommendTitle {
     return Intl.message(
-      'Recommend For You',
+      'Things We Know You Will Love',
       name: 'HomePage_recommendTitle',
       desc: '',
       args: [],
@@ -2472,6 +2472,56 @@ class S {
     return Intl.message(
       'Manage Email Preferences',
       name: 'account_setting_manage_email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Check Out Now`
+  String get home_cart_checkout {
+    return Intl.message(
+      'Check Out Now',
+      name: 'home_cart_checkout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your Cart({cartNum})`
+  String home_your_cart(Object cartNum) {
+    return Intl.message(
+      'Your Cart($cartNum)',
+      name: 'home_your_cart',
+      desc: '',
+      args: [cartNum],
+    );
+  }
+
+  /// `View Cart`
+  String get home_view_cart {
+    return Intl.message(
+      'View Cart',
+      name: 'home_view_cart',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `More`
+  String get more {
+    return Intl.message(
+      'More',
+      name: 'more',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Trending Search`
+  String get trendingSearch {
+    return Intl.message(
+      'Trending Search',
+      name: 'trendingSearch',
       desc: '',
       args: [],
     );

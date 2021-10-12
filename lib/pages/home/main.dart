@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-07 20:28:59
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-29 09:49:36
+ * @LastEditTime : 2021-10-15 16:41:41
  */
 import 'dart:async';
 import 'dart:convert';
@@ -59,12 +59,16 @@ class _HomePageViewState extends State<HomePageView>
       this.currentConfig = current;
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
         Provider.of<GlobalConfig>(context, listen: false).getServiceTime();
+        Provider.of<GlobalConfig>(context, listen: false)
+            .getTermsSingle(params: {"page_type": 1});
         Provider.of<HomeCtrl>(context, listen: false)
             .getAdvInfo(isShowLoading: isLoaded);
         Provider.of<HomeCtrl>(context, listen: false).getFlashSaleModule();
-        Provider.of<HomeCtrl>(context, listen: false).getProductModule();
+        // Provider.of<HomeCtrl>(context, listen: false).getProductModule();
         Provider.of<HomeCtrl>(context, listen: false).getReviewModule();
         Provider.of<HomeCtrl>(context, listen: false).getRecommendList();
+        Provider.of<HomeCtrl>(context, listen: false).getSearchHotKeywords();
+        Provider.of<HomeCtrl>(context, listen: false).getShoppingCartData();
         Map<String, dynamic> channelMap =
             await Provider.of<HomeCtrl>(context, listen: false)
                 .getTopChannelCategory();

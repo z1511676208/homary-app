@@ -2,11 +2,12 @@
  * @Author       : JHao
  * @Date         : 2021-07-19 18:31:26
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-06 10:05:52
+ * @LastEditTime : 2021-10-20 17:24:48
  */
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:homary/common/utils/analytics.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -23,12 +24,13 @@ class BannerList extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(6.w),
+        borderRadius: BorderRadius.circular(8.w),
         child: Container(
-          height: 216.w,
+          height: 180.w,
           child: Selector<HomeCtrl, AdvDatum>(
             builder: (BuildContext context, AdvDatum data, child) {
-              var config = Localstorage().getJSON(StorageKey.CURRENT_CONFIG) ?? {};
+              var config =
+                  Localstorage().getJSON(StorageKey.CURRENT_CONFIG) ?? {};
               return data?.moduleData != null && data?.moduleData?.length != 0
                   ? Swiper(
                       key: ValueKey(jsonEncode(config)),
@@ -43,8 +45,8 @@ class BannerList extends StatelessWidget {
                         builder: HomeSwiperPaginationBuilder(
                           color: Color(0x99FFFFFF),
                           activeColor: Colors.white,
-                          size: Size(17.w, 4.w),
-                          activeSize: Size(17.w, 4.w),
+                          size: Size(4.w, 4.w),
+                          activeSize: Size(12.w, 4.w),
                           space: 3.w,
                         ),
                       ),
@@ -52,6 +54,12 @@ class BannerList extends StatelessWidget {
                       autoplay: true,
                       autoplayDelay: 5000,
                       onTap: (index) {
+                        sendGTMData({
+                          "event": 'custom_click_ads',
+                          "ecommerce": {
+                            "event_label": data.moduleData[index]?.eventLabel
+                          }
+                        });
                         handleSchema(context, data.moduleData[index]?.jumpUrl);
                       },
                     )

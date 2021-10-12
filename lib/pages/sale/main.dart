@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-14 15:05:20
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-27 18:21:05
+ * @LastEditTime : 2021-10-15 17:14:18
  */
 
 // import 'package:homary/common/utils/main.dart';
@@ -43,7 +43,6 @@
 // }
 
 import 'package:flutter/material.dart';
-import 'package:homary/common/storage/cookie.dart';
 import 'package:homary/common/utils/sale_page_list.dart';
 import 'package:homary/webView/webviewController.dart';
 

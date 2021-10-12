@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-08 10:21:44
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-31 14:09:03
+ * @LastEditTime : 2021-10-21 17:22:27
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/toast.dart';
@@ -59,9 +59,9 @@ class LeftNav extends StatelessWidget {
     return Container(
       width: 103.w,
       color: AppColor.primaryNavBgColor,
-      child: Selector<HomeCtrl, List<TopChannelDatum>>(
-        selector: (context, HomeCtrl slideNavCtrl) {
-          return slideNavCtrl.topChannelList;
+      child: Selector<CategoryCtrl, List<TopChannelDatum>>(
+        selector: (context, CategoryCtrl ctrl) {
+          return ctrl.topChannelList;
         },
         shouldRebuild: (pre, next) {
           return pre != next;

@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-22 17:26:36
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-08 14:45:39
+ * @LastEditTime : 2021-10-20 18:39:33
  */
 import 'dart:async';
 import 'dart:io';
@@ -28,10 +28,14 @@ class GoodsCard extends StatefulWidget {
   final bool showFreeShipping; // 是否显示Free Shipping
   final bool showRating; // 是否显示评分
   final bool showDispatch; // 是否显示48小时配送
+  final bool showFlashSale; // 是否展示秒杀模块
+  final bool showTitle; // 是否展示商品标题
   final bool showDelete;
   final Function onDelete;
   final String itemListName;
-  final bool isShoppingCart;//是否来自购物车页
+  final bool isShoppingCart; //是否来自购物车页
+  final String customEventLabel; // 点击卡片自定义event_label
+  final Function onTap; // 自定义点击事件
   GoodsCard(
       {Key key,
       this.width,
@@ -44,9 +48,13 @@ class GoodsCard extends StatefulWidget {
       this.showRating = false,
       this.showDispatch = false,
       this.showDelete = false,
+      this.showFlashSale = true,
+      this.showTitle = true,
       this.onDelete,
       this.marginRight = 0,
       this.itemListName = "",
+      this.onTap,
+      this.customEventLabel,
       this.isShoppingCart = false})
       : super(key: key);
 
@@ -210,6 +218,11 @@ class _GoodsCardState extends State<GoodsCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
+          if (widget.onTap != null) {
+            widget.onTap();
+            return;
+          }
+
           if (widget.isShoppingCart) {
             sendGTMData({
               "event": 'click_item_from_justforyou',
@@ -219,11 +232,17 @@ class _GoodsCardState extends State<GoodsCard> {
               }
             });
           }
+
           sendProductItemGTM(
               data: [_currentData.toJson()],
               itemListName: widget.itemListName,
               eventName: 'select_item',
-              extraParms: {"event_label": _currentData.eventLabel});
+              extraParms: {
+                "event_label": widget.customEventLabel != null
+                    ? widget.customEventLabel
+                    : _currentData.eventLabel
+              });
+
           handleSchema(context, _currentData.jumpUrl);
         },
         child: Stack(
@@ -256,7 +275,8 @@ class _GoodsCardState extends State<GoodsCard> {
                             width: widget.width,
                             height: widget.width,
                           ),
-                          _currentData.activityStatus == 1
+                          _currentData.activityStatus == 1 &&
+                                  widget.showFlashSale
                               ? Positioned(
                                   bottom: 0,
                                   left: 0,
@@ -300,7 +320,8 @@ class _GoodsCardState extends State<GoodsCard> {
                                     ),
                                   ))
                               : Container(),
-                          _currentData.activityStatus == 2
+                          _currentData.activityStatus == 2 &&
+                                  widget.showFlashSale
                               ? Positioned(
                                   bottom: 0,
                                   left: 0,
@@ -509,19 +530,24 @@ class _GoodsCardState extends State<GoodsCard> {
                                         ),
                                       )
                                 : Container(),
-                            Container(
-                              height: 44.w,
-                              padding: EdgeInsets.symmetric(vertical: 6.w),
-                              alignment: Alignment.topLeft,
-                              child: Text(
-                                _currentData.title,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    color: AppColor.primaryText,
-                                    fontSize: 12.sp),
-                              ),
-                            ),
+                            widget.showTitle
+                                ? Container(
+                                    height: 44.w,
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: 6.w),
+                                    alignment: Alignment.topLeft,
+                                    child: Text(
+                                      _currentData.title,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                          color: AppColor.primaryText,
+                                          fontSize: 12.sp),
+                                    ),
+                                  )
+                                : SizedBox(
+                                    height: 8.w,
+                                  ),
                             Container(
                               // padding: EdgeInsets.only(bottom: 4.w),
                               alignment: Alignment.centerLeft,
@@ -597,7 +623,8 @@ class _GoodsCardState extends State<GoodsCard> {
                             Offstage(
                               offstage: !(widget.showRating &&
                                   _currentData.reviewScore != "" &&
-                                  _currentData.reviewScore != 0),
+                                  ![0, '0', '0.0']
+                                      .contains(_currentData.reviewScore)),
                               child: Padding(
                                   padding: EdgeInsets.only(top: 8.w),
                                   child: Row(

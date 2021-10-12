@@ -1,17 +1,7 @@
-/*
- * @Author       : JHao
- * @Date         : 2021-07-21 10:42:50
- * @LastEditors  : JHao
- * @LastEditTime : 2021-09-13 18:06:58
- */
-/*
- * @Author       : zhhjie
- * @Date         : 2021-07-14 10:59:39
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-15 19:28:40
- */
+import 'package:homary/api/cart.dart';
 import 'package:homary/api/category.dart';
 import 'package:homary/api/home.dart';
+import 'package:homary/api/search.dart';
 import 'package:homary/common/request/request.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
@@ -22,6 +12,8 @@ import 'package:homary/entity/homeAdvInfo.dart';
 import 'package:homary/entity/homeProductModule.dart';
 import 'package:homary/entity/homeReviewModule.dart';
 import 'package:homary/entity/recommend.dart';
+import 'package:homary/entity/search.dart';
+import 'package:homary/entity/shoppingCartData.dart';
 import 'package:homary/entity/topChannelCategory.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -31,6 +23,11 @@ class HomeCtrl with ChangeNotifier {
   AdvDatum leftAd;
   AdvDatum rightAd;
   AdvDatum kingKongList;
+  AdvDatum fisrtRoomAds;
+  AdvDatum secondRoomAds;
+  AdvDatum firstGridAds;
+  AdvDatum secondGridAds1;
+  AdvDatum secondGridAds2;
   // 首页热销商品区
   HotSaleActivity favoredList;
   HotSaleActivity deaksList;
@@ -40,13 +37,25 @@ class HomeCtrl with ChangeNotifier {
   List<ModuleDataProductList> recommendList = [];
   int hasMorePage = 0;
   bool recommendLoading = false;
-  Map<String, int> recommendParams = {"page": 1, "page_size": 20};
+  Map<String, int> recommendParams = {
+    "page": 1,
+    "page_size": 40,
+    'page_type': 1
+  };
   // 一级分类列表
   List<TopChannelDatum> topChannelList = [];
   List<String> topChannelNameList = [];
 
   // 秒杀模块
   FlashData flashData;
+
+  // 热搜词
+  List<HotKeyword> hotKeywordList = [];
+
+  // 首页购物车
+  List<ShoppingCart> shoppingCartData = [];
+  int shoppingCartNum;
+  Summary shoppingCartSummary;
 
   RefreshController refreshController =
       RefreshController(initialRefresh: false);
@@ -64,7 +73,7 @@ class HomeCtrl with ChangeNotifier {
   Future<void> getRecommendList({params}) async {
     recommendLoading = true;
     if (params == null) {
-      recommendParams = {"page": 1, "page_size": 20};
+      recommendParams = {"page": 1, "page_size": 40, "page_type": 1};
     }
     notifyListeners();
     DioResult res =
@@ -113,7 +122,7 @@ class HomeCtrl with ChangeNotifier {
     if (isShowLoading || homeAdvInfoMap == null) {
       Toast.loading();
     }
-    DioResult res = await HomeApi.getAdvInfo(params: params);
+    DioResult res = await HomeApi.getAdvertInfo(params: {"page_type": 1});
     Toast.clear();
     if (res.error == null) {
       AppAdvInfoRes result = AppAdvInfoRes.fromJson(res.result);
@@ -125,19 +134,30 @@ class HomeCtrl with ChangeNotifier {
   }
 
   setHomeAdvInfo(AppAdvInfoRes result) {
-    var moduleType1 =
-        result.data.where((item) => item.moduleType == 1).toList();
-    bannerList = moduleType1.length > 0 ? moduleType1[0] : new AdvDatum();
-    var moduleType2 =
-        result.data.where((item) => item.moduleType == 2).toList();
-    leftAd = moduleType2.length > 0 ? moduleType2[0] : new AdvDatum();
-    var moduleType3 =
-        result.data.where((item) => item.moduleType == 3).toList();
-    rightAd = moduleType3.length > 0 ? moduleType3[0] : new AdvDatum();
-    var moduleType4 =
-        result.data.where((item) => item.moduleType == 4).toList();
-    kingKongList = moduleType4.length > 0 ? moduleType4[0] : new AdvDatum();
+    //首页Banner
+    this.bannerList = filterAdvInfo(result, 'index_home_banner');
+    //首页固定频道位-1
+    this.leftAd = filterAdvInfo(result, 'index_regular_ads_1');
+    //首页固定频道位-2
+    this.rightAd = filterAdvInfo(result, 'index_regular_ads_2');
+    //首页金刚区
+    this.kingKongList = filterAdvInfo(result, 'index_shop_by_department');
+    //首页页中showroom-1
+    this.fisrtRoomAds = filterAdvInfo(result, 'index_showroom_1');
+    //首页页中showroom-2
+    this.secondRoomAds = filterAdvInfo(result, 'index_showroom_2');
+    //首页页中格栅广告位
+    this.firstGridAds = filterAdvInfo(result, 'index_middle_special_ads');
+    //首页页尾格栅广告位
+    this.secondGridAds1 = filterAdvInfo(result, 'index_bottom_special_ads');
+    //首页页中尾格栅广告位-1
+    this.secondGridAds2 = filterAdvInfo(result, 'index_bottom_special_ads_1');
     notifyListeners();
+  }
+
+  AdvDatum filterAdvInfo(AppAdvInfoRes result, String moduleKey) {
+    return result.data.firstWhere((item) => item.moduleKey == moduleKey,
+        orElse: () => new AdvDatum());
   }
 
   // 获取商品模块
@@ -153,7 +173,7 @@ class HomeCtrl with ChangeNotifier {
 
   // 获取首页评论模块
   Future<void> getReviewModule({params}) async {
-    DioResult res = await HomeApi.getReviewModule(params: params);
+    DioResult res = await HomeApi.getReviewModule(params: {'page_size': 6});
     if (res.error == null) {
       HomeReviewModuleRes result = HomeReviewModuleRes.fromJson(res.result);
       reviewList = result.data;
@@ -163,10 +183,39 @@ class HomeCtrl with ChangeNotifier {
 
   // 获取秒杀商品模块
   Future<void> getFlashSaleModule({params}) async {
-    DioResult res = await HomeApi.getFlashSaleModule(params: params);
+    DioResult res = await HomeApi.getFlashSaleModule(params: {"page_type": 1});
     if (res.error == null) {
       FlashModuleRes result = FlashModuleRes.fromJson(res.result);
       flashData = result.data;
+      notifyListeners();
+    }
+  }
+
+  // 获取热搜词
+  Future getSearchHotKeywords() async {
+    DioResult res = await SearchApi.getSearchHotKeywords();
+    if (res.error == null) {
+      HotKeywordRes result = HotKeywordRes.fromJson(res.result);
+      this.hotKeywordList = result.data.hotKeywords.isNotEmpty
+          ? result.data.hotKeywords.length >= 12
+              ? result.data.hotKeywords.sublist(0, 12)
+              : result.data.hotKeywords
+          : [];
+      notifyListeners();
+    }
+  }
+
+  Future<void> getShoppingCartData() async {
+    DioResult res =
+        await CartApi.getShoppingCart(params: {"source": 1, "method": 2});
+    if (res.error == null) {
+      Toast.clear();
+      ShoppingCartRes result = ShoppingCartRes.fromJson(res.result);
+      shoppingCartData = result.data.shoppingCart.length > 3
+          ? result.data.shoppingCart.sublist(0, 3)
+          : result.data.shoppingCart;
+      shoppingCartNum = result.data.shoppingItemsNum;
+      shoppingCartSummary = result.data.summary;
       notifyListeners();
     }
   }

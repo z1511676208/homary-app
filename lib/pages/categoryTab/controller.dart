@@ -1,10 +1,12 @@
 import 'dart:convert';
 
+import 'package:homary/api/home.dart';
 import 'package:homary/api/product.dart';
 import 'package:homary/common/request/request.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/toast.dart';
 import 'package:homary/entity/home.dart';
+import 'package:homary/entity/homeAdvInfo.dart';
 import 'package:homary/entity/product_attr_res.dart';
 import 'package:homary/entity/product_res.dart';
 import 'package:homary/entity/slideNav.dart';
@@ -78,6 +80,11 @@ class CategoryTabCtrl extends ChangeNotifier {
 
   /// banner图片
   String bannerImage;
+
+  // 广告区
+  AdvDatum categoryTopBanner;
+  AdvDatum categoryKingKong;
+  AdvDatum categorySpecialAds;
 
   CategoryTabCtrl(
       {this.selectedCategoryId,
@@ -401,10 +408,38 @@ class CategoryTabCtrl extends ChangeNotifier {
     _resetAttr();
     getProductAttrList(selectedCategoryId);
     getProductList();
+    getAdvInfo();
   }
 
   Future<void> onRefresh() async {
     _resetAttr(isNeedClear: false);
     await getProductList(isOnRefresh: true);
+  }
+
+  // 获取首页广告
+  Future<void> getAdvInfo() async {
+    DioResult res = await HomeApi.getAdvertInfo(
+        params: {"page_type": 2, "category_id": selectedCategoryId});
+    Toast.clear();
+    if (res.error == null) {
+      AppAdvInfoRes result = AppAdvInfoRes.fromJson(res.result);
+      setCategoryAdvInfo(result);
+    }
+  }
+
+  setCategoryAdvInfo(AppAdvInfoRes result) {
+    //分类页顶部广告
+    this.categoryTopBanner = filterAdvInfo(result, 'category_top_ads');
+    //分类页金刚区
+    this.categoryKingKong =
+        filterAdvInfo(result, 'category_shop_by_department');
+    //分类页格栅
+    this.categorySpecialAds = filterAdvInfo(result, 'category_special_ads');
+    notifyListeners();
+  }
+
+  AdvDatum filterAdvInfo(AppAdvInfoRes result, String moduleKey) {
+    return result.data.firstWhere((item) => item.moduleKey == moduleKey,
+        orElse: () => new AdvDatum());
   }
 }

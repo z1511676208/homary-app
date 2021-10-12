@@ -25,25 +25,27 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m2(total) => "Seulement ${total} en vente!";
 
-  static m3(orderNo) => "No de commande: ${orderNo}";
+  static m3(cartNum) => "Votre Panier(${cartNum})";
 
-  static m4(total) => "Total: ${total}";
+  static m4(orderNo) => "No de commande: ${orderNo}";
 
-  static m5(amount) => "Vous avez reçu les coupons pour les nouveaux utilisateurs, jusqu\'à ${amount} de rabais sur tous les articles.";
+  static m5(total) => "Total: ${total}";
 
-  static m6(count) => "${Intl.plural(count, zero: '(${count} Article)', one: '(${count} Article)', other: '(${count} Articles)')}";
+  static m6(amount) => "Vous avez reçu les coupons pour les nouveaux utilisateurs, jusqu\'à ${amount} de rabais sur tous les articles.";
 
-  static m7(count) => "${count} Commentaires";
+  static m7(count) => "${Intl.plural(count, zero: '(${count} Article)', one: '(${count} Article)', other: '(${count} Articles)')}";
 
-  static m8(minValue, maxValue) => "La valeur doit être comprise entre ${minValue} et ${maxValue}";
+  static m8(count) => "${count} Commentaires";
 
-  static m9(result) => "Résultats pour \"${result}\"";
+  static m9(minValue, maxValue) => "La valeur doit être comprise entre ${minValue} et ${maxValue}";
 
-  static m10(count) => "${Intl.plural(count, zero: 'Récapitulatif de la commande (${count} Article)', one: 'Récapitulatif de la commande (${count} Article)', other: 'Récapitulatif de la commande (${count} Articles)')}";
+  static m10(result) => "Résultats pour \"${result}\"";
 
-  static m11(count) => "${Intl.plural(count, zero: 'Sauvegarder pour Plus Tard (${count} Article)', one: 'Sauvegarder pour Plus Tard (${count} Article)', other: 'Sauvegarder pour Plus Tard (${count} Articles)')}";
+  static m11(count) => "${Intl.plural(count, zero: 'Récapitulatif de la commande (${count} Article)', one: 'Récapitulatif de la commande (${count} Article)', other: 'Récapitulatif de la commande (${count} Articles)')}";
 
-  static m12(count) => "${Intl.plural(count, zero: 'Panier (${count} Article)', one: 'Panier (${count} Article)', other: 'Panier (${count} Articles)')}";
+  static m12(count) => "${Intl.plural(count, zero: 'Sauvegarder pour Plus Tard (${count} Article)', one: 'Sauvegarder pour Plus Tard (${count} Article)', other: 'Sauvegarder pour Plus Tard (${count} Articles)')}";
+
+  static m13(count) => "${Intl.plural(count, zero: 'Panier (${count} Article)', one: 'Panier (${count} Article)', other: 'Panier (${count} Articles)')}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
@@ -51,7 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "HomePage_ServiceIcon1" : MessageLookupByLibrary.simpleMessage("Bénéficiez de"),
     "HomePage_ServiceIcon2" : MessageLookupByLibrary.simpleMessage("Livraison Gratuite"),
     "HomePage_ServiceIcon3" : MessageLookupByLibrary.simpleMessage("Retour et Échange"),
-    "HomePage_recommendTitle" : MessageLookupByLibrary.simpleMessage("Recommander pour vous"),
+    "HomePage_recommendTitle" : MessageLookupByLibrary.simpleMessage("Choses Que Nous Savons Que Vous Allez Adorer"),
     "Me" : MessageLookupByLibrary.simpleMessage("Moi"),
     "Sale" : MessageLookupByLibrary.simpleMessage("Vente"),
     "account_setting" : MessageLookupByLibrary.simpleMessage("Paramètre du Compte"),
@@ -125,8 +127,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "home_StartsAt" : MessageLookupByLibrary.simpleMessage("Commence à"),
     "home_Startsin" : MessageLookupByLibrary.simpleMessage("Commence dans"),
     "home_Upcoming" : MessageLookupByLibrary.simpleMessage("À Venir"),
+    "home_cart_checkout" : MessageLookupByLibrary.simpleMessage("Payer Maintenant"),
     "home_freeShipping" : MessageLookupByLibrary.simpleMessage("Livraison Gratuite"),
     "home_viewMore" : MessageLookupByLibrary.simpleMessage("Voir Plus"),
+    "home_view_cart" : MessageLookupByLibrary.simpleMessage("Voir Panier"),
+    "home_your_cart" : m3,
     "info" : MessageLookupByLibrary.simpleMessage("Info"),
     "login_email" : MessageLookupByLibrary.simpleMessage("Adresse E-mail"),
     "login_emailError" : MessageLookupByLibrary.simpleMessage("S\'il vous plaît, mettez une adresse email valide."),
@@ -137,6 +142,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "login_signIn" : MessageLookupByLibrary.simpleMessage("CONNEXION"),
     "login_successful" : MessageLookupByLibrary.simpleMessage("Connectez-vous avec succès !"),
     "logout_successful" : MessageLookupByLibrary.simpleMessage("Déconnectez-vous avec succès !"),
+    "more" : MessageLookupByLibrary.simpleMessage("Suite"),
     "my_coupon" : MessageLookupByLibrary.simpleMessage("Mes Coupons"),
     "my_orders_after_sales" : MessageLookupByLibrary.simpleMessage("Après les ventes"),
     "my_orders_all_orders" : MessageLookupByLibrary.simpleMessage("Tous les ordres"),
@@ -158,7 +164,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "my_orders_order_cancel_success" : MessageLookupByLibrary.simpleMessage("Commande annulée avec succès"),
     "my_orders_order_cancel_title" : MessageLookupByLibrary.simpleMessage("Choisissez la raison de l\'annulation"),
     "my_orders_order_details" : MessageLookupByLibrary.simpleMessage("Informations sur la commande"),
-    "my_orders_order_no" : m3,
+    "my_orders_order_no" : m4,
     "my_orders_paid" : MessageLookupByLibrary.simpleMessage("Payé"),
     "my_orders_partially_shipped" : MessageLookupByLibrary.simpleMessage("Partiellement expédié"),
     "my_orders_payment_review" : MessageLookupByLibrary.simpleMessage("Récapitulatif Du Paiement"),
@@ -169,7 +175,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "my_orders_reorder" : MessageLookupByLibrary.simpleMessage("Réordonner"),
     "my_orders_return" : MessageLookupByLibrary.simpleMessage("Revenir"),
     "my_orders_shipped" : MessageLookupByLibrary.simpleMessage("Expédié"),
-    "my_orders_total" : m4,
+    "my_orders_total" : m5,
     "my_orders_view_detail" : MessageLookupByLibrary.simpleMessage("Voir les détails"),
     "newUserCouponModal_forUser" : MessageLookupByLibrary.simpleMessage("de Rabais"),
     "newUserCouponModal_upto" : MessageLookupByLibrary.simpleMessage("Jusqu\'à"),
@@ -179,7 +185,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "new_user_get_all" : MessageLookupByLibrary.simpleMessage("AVOIR TOUT"),
     "new_user_no_hassle_returns" : MessageLookupByLibrary.simpleMessage("Retour Sans Tracas"),
     "new_user_orders_over" : MessageLookupByLibrary.simpleMessage("Commandes de"),
-    "new_user_received_all" : m5,
+    "new_user_received_all" : m6,
     "new_user_sign_get_all" : MessageLookupByLibrary.simpleMessage("SE CONNECTER"),
     "new_user_use_now" : MessageLookupByLibrary.simpleMessage("APPLIQUER"),
     "new_user_view_my_coupons" : MessageLookupByLibrary.simpleMessage("Voir Mes Coupons"),
@@ -194,13 +200,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "product_detail_flash_sale" : MessageLookupByLibrary.simpleMessage("Ventes Flash"),
     "product_detail_free_shipping" : MessageLookupByLibrary.simpleMessage("Livraison gratuite"),
     "product_detail_full_detail" : MessageLookupByLibrary.simpleMessage("Plus de Détails"),
-    "product_detail_items" : m6,
+    "product_detail_items" : m7,
     "product_detail_product_overview" : MessageLookupByLibrary.simpleMessage("Aperçu du Produit"),
-    "product_detail_reviews" : m7,
+    "product_detail_reviews" : m8,
     "product_detail_specification" : MessageLookupByLibrary.simpleMessage("Spécification"),
     "product_detail_starts_in" : MessageLookupByLibrary.simpleMessage("Commence dans"),
     "product_detail_weights_dimensions" : MessageLookupByLibrary.simpleMessage("Poids et dimensions"),
-    "rangeLimitError" : m8,
+    "rangeLimitError" : m9,
     "register_agreeTips" : MessageLookupByLibrary.simpleMessage("En vous inscrivant, vous acceptez notre "),
     "register_agreeTipsAnd" : MessageLookupByLibrary.simpleMessage(" et "),
     "register_btn" : MessageLookupByLibrary.simpleMessage("CRÉER UN COMPTE"),
@@ -227,7 +233,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "search_popularSearches" : MessageLookupByLibrary.simpleMessage("Souvent Recherchés"),
     "search_recentSearches" : MessageLookupByLibrary.simpleMessage("Recherches Récentes"),
     "search_see_also" : MessageLookupByLibrary.simpleMessage("Voir Aussi:"),
-    "search_showing_results" : m9,
+    "search_showing_results" : m10,
     "search_view_all" : MessageLookupByLibrary.simpleMessage("Voir tout"),
     "setting_cleanCacheTip" : MessageLookupByLibrary.simpleMessage("Supprimer toutes les images temporaires pour libérer de l\'espace sur votre appareil ?"),
     "setting_clearCache" : MessageLookupByLibrary.simpleMessage("Vider le cache"),
@@ -244,12 +250,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "shopping_cart_move_to_cart" : MessageLookupByLibrary.simpleMessage("Passer au Panier"),
     "shopping_cart_no_results" : MessageLookupByLibrary.simpleMessage("Sans Résultat"),
     "shopping_cart_order_ships_free" : MessageLookupByLibrary.simpleMessage("La livraison est gratuite!"),
-    "shopping_cart_order_summary" : m10,
+    "shopping_cart_order_summary" : m11,
     "shopping_cart_qty" : MessageLookupByLibrary.simpleMessage("Qté"),
     "shopping_cart_remove" : MessageLookupByLibrary.simpleMessage("Supprimer"),
     "shopping_cart_save_for_later" : MessageLookupByLibrary.simpleMessage("Sauvegarder pour Plus Tard"),
-    "shopping_cart_save_for_later_item" : m11,
-    "shopping_cart_shopping_cart_item" : m12,
+    "shopping_cart_save_for_later_item" : m12,
+    "shopping_cart_shopping_cart_item" : m13,
     "shopping_cart_sold_out" : MessageLookupByLibrary.simpleMessage("Vendu"),
     "shopping_cart_subtotal" : MessageLookupByLibrary.simpleMessage("Total:"),
     "shopping_cart_was_applied" : MessageLookupByLibrary.simpleMessage("a été appliqué."),
@@ -260,6 +266,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "submit" : MessageLookupByLibrary.simpleMessage("Soumettre"),
     "success" : MessageLookupByLibrary.simpleMessage("Succès"),
     "title" : MessageLookupByLibrary.simpleMessage("Localization Demo"),
+    "trendingSearch" : MessageLookupByLibrary.simpleMessage("Souvent Recherchés"),
     "user_viewed" : MessageLookupByLibrary.simpleMessage("Mes vues"),
     "user_viewed_del_tips" : MessageLookupByLibrary.simpleMessage("Êtes-vous sûr de vouloir supprimer ces éléments?"),
     "user_viewed_explore_btn" : MessageLookupByLibrary.simpleMessage("Explorer maintenant"),

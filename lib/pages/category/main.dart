@@ -2,12 +2,13 @@
  * @Author       : JHao
  * @Date         : 2021-07-12 17:38:02
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-06 18:16:42
+ * @LastEditTime : 2021-10-25 17:09:18
  */
 import 'dart:convert';
 
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/toast.dart';
+import 'package:homary/entity/main.dart';
 import 'package:homary/entity/topChannelCategory.dart';
 import 'package:homary/pages/category/watcher.dart';
 import 'package:homary/pages/home/contorller.dart';
@@ -49,27 +50,27 @@ class ProductListView extends StatefulWidget {
 }
 
 class _ProductListViewState extends State<ProductListView> {
-  var currentConfig;
+  String currentConfig;
 
   @override
   void didChangeDependencies() async {
-    var current =
-        jsonEncode(Provider.of<GlobalConfig>(context).currentConfig?.toJson());
+    CurrentConfig config = Provider.of<GlobalConfig>(context).currentConfig;
+    var current = jsonEncode(config?.toJson());
     if (this.currentConfig != current) {
       Toast.loading();
+      CategoryCtrl ctrl = Provider.of<CategoryCtrl>(context, listen: false);
       this.currentConfig = current;
-      Map<String, dynamic> channelMap =
-          await Provider.of<HomeCtrl>(context, listen: false)
-              .getTopChannelCategory(params: {"category_type": 1});
       Watcher.refreshParams();
+      await ctrl.getTopChannelCategory(params: {"category_type": 1});
       if (!mounted) {
         return;
       }
-      List<TopChannelDatum> topChannelList = channelMap['topChannelList'];
-      Provider.of<CategoryCtrl>(context, listen: false)
-          .setActiveCategoryId(topChannelList[0]?.categoryId);
-      await Provider.of<CategoryCtrl>(context, listen: false).getCategoryList(
+      ctrl.resetData(); // 切换语言或者币种 productItem不重新执行initState
+      List<TopChannelDatum> topChannelList = ctrl.topChannelList;
+      ctrl.setActiveCategoryId(topChannelList[0]?.categoryId);
+      await ctrl.getCategoryList(
           params: {"category_id": topChannelList[0]?.categoryId ?? ""});
+
       Toast.clear();
     }
     super.didChangeDependencies();
@@ -80,22 +81,7 @@ class _ProductListViewState extends State<ProductListView> {
     return Container(
       color: Colors.white,
       child: Row(
-        children: [
-          LeftNav(),
-          SizedBox(width: 12.w),
-          // Selector<CategoryCtrl, String>(
-          //   builder: (BuildContext context, String data, child) {
-          //     return RightListLayout();
-          //   },
-          //   selector: (BuildContext context, CategoryCtrl categoryCtrl) {
-          //     return categoryCtrl.activeCategoryId;
-          //   },
-          //   shouldRebuild: (pre, next) {
-          //     return pre != next;
-          //   },
-          // ),
-          RightListLayout()
-        ],
+        children: [LeftNav(), SizedBox(width: 12.w), RightListLayout()],
       ),
     );
   }
