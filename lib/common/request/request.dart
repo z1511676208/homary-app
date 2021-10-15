@@ -9,12 +9,12 @@ import 'package:dio/dio.dart';
 // import 'package:homary/common/utils/main.dart';
 // import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:homary/common/config/proxyConfig.dart';
-import 'package:homary/common/storage/webview-cookie.dart';
 import 'package:homary/common/utils/analytics.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/toast.dart';
 import 'package:homary/main.dart';
+import 'package:homary/provider/auth_ctrl.dart';
 
 class Request {
   static Request _instance = Request._internal();
@@ -82,12 +82,10 @@ class Request {
               DioError(requestOptions: res.requestOptions, error: res.data);
           return handler.reject(errData);
         } else if ([401, 4001].contains(res.data['code'])) {
+          // 401 Token失效
+          // 4001 用户已注销账户并审核通过
           BuildContext context = navigatorKey.currentState.overlay.context;
-          Localstorage().remove(StorageKey.TOKEN);
-          Localstorage().setBool(StorageKey.IS_LOGIN, false);
-          setWebviewCookies();
-          context.read<GlobalConfig>().setIsLogin(false);
-          context.read<GlobalConfig>().getShoppingCartNumber();
+          context.read<AuthCtrl>().logOut();
 
           DioError errData =
               DioError(requestOptions: res.requestOptions, error: res.data);
@@ -109,6 +107,15 @@ class Request {
                 params: {'redirect_url': Uri.encodeComponent(redirectUrl)});
           }
           return handler.reject(errData);
+        } else if (res.data['code'] == 400112) {
+          // 下单流程的时候，账号已被注销，弹出提示框
+          BuildContext context = navigatorKey.currentState.overlay.context;
+          context.read<AuthCtrl>().logOut();
+          // 弹出提示框
+          context.read<AuthCtrl>().showCloseAccountDialog();
+
+          return handler.reject(
+              DioError(requestOptions: res.requestOptions, error: res.data));
         } else {
           print(res.data['message']);
           Toast.error(res.data['message'] ?? '');

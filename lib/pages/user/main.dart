@@ -5,6 +5,7 @@ import 'package:homary/common/utils/toast.dart';
 import 'package:homary/components/GoodsCard/goods_cart_grid.dart';
 import 'package:homary/components/pullToRefresh/pull_to_refresh.dart';
 import 'package:homary/generated/l10n.dart';
+import 'package:homary/provider/auth_ctrl.dart';
 import 'package:homary/widget/cartAndNumber.dart';
 import 'package:homary/widget/wishIconButton.dart';
 import 'components/FlexItem.dart';
@@ -26,7 +27,7 @@ class _UserPageViewState extends State<UserPageView> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    var isLoginConfig = Provider.of<GlobalConfig>(context).isLogin;
+    var isLoginConfig = Provider.of<AuthCtrl>(context).isLogin;
     if (isLoginConfig != null && this.isLogin != isLoginConfig) {
       this.isLogin = isLoginConfig;
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
@@ -159,6 +160,7 @@ class _UserPageViewState extends State<UserPageView> {
               ),
               Flex(
                 direction: Axis.horizontal,
+                crossAxisAlignment:CrossAxisAlignment.start,
                 children: [
                   FlexItem(
                     S.of(context).usercenter_unpaid,
@@ -223,6 +225,7 @@ class _UserPageViewState extends State<UserPageView> {
               ),
               Flex(
                 direction: Axis.horizontal,
+                crossAxisAlignment:CrossAxisAlignment.start,
                 children: [
                   FlexItem(
                     S.of(context).usercenter_customer,

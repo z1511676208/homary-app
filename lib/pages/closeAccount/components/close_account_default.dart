@@ -1,12 +1,9 @@
-import 'dart:convert';
-
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
-import 'package:homary/common/storage/cookie.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/components/bottomSheet/keep_alive_bottom_sheet.dart';
 import 'package:homary/components/button/button.dart';
-import 'package:homary/entity/user.dart';
 import 'package:homary/pages/closeAccount/controller.dart';
+import 'package:homary/provider/auth_ctrl.dart';
 
 class CloseAccountDefault extends StatelessWidget {
   const CloseAccountDefault({Key key}) : super(key: key);
@@ -18,8 +15,11 @@ class CloseAccountDefault extends StatelessWidget {
       return;
     }
 
-    Data data = Data.fromJson(jsonDecode(getUserInfo() ?? '{}'));
-    if (data.authInfo == null) {
+    final userInfo = context.read<AuthCtrl>().userInfo;
+    if (userInfo != null &&
+        userInfo.isAuth != null &&
+        userInfo.isAuth is String &&
+        userInfo.isAuth == 'AUTH_YES') {
       // 三方登录，不用输入密码
       await ctrl.getApplyList(showLoading: true);
       ctrl.showReason();

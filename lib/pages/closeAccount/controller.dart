@@ -32,6 +32,7 @@ class CloseAccountCtrl extends ChangeNotifier {
       Toast.loading();
     }
     final result = await AccountSettingApi.getCloseAccountInfo();
+
     if (result.error == null) {
       Toast.clear();
       CloseAccountInfoRes res = CloseAccountInfoRes.fromJson(result.result);

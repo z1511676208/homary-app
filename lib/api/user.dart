@@ -52,4 +52,12 @@ class UserApi {
         params: params);
     return res;
   }
+
+  // 用户信息
+  static Future<DioResult> userInfo() async {
+    DioResult res = await Request().get(
+        requestUrl['userInfo'] ?? baseRequestUrl['userInfo'],
+        isRequire: true);
+    return res;
+  }
 }

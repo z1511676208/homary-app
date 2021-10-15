@@ -10,6 +10,7 @@ import 'package:homary/common/utils/firebaseMessageHandler.dart';
 import 'package:homary/components/behavior/app_scroll_behavior.dart';
 import 'package:homary/pages/home/contorller.dart';
 import 'package:homary/pages/shoppingCart/controller.dart';
+import 'package:homary/provider/auth_ctrl.dart';
 import 'package:homary/provider/productEtaInfo.dart';
 
 import 'package:homary/router/routes.dart';
@@ -75,6 +76,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (context) => HomeCtrl()),
         ChangeNotifierProvider(create: (context) => ProductEtaInfo()),
         ChangeNotifierProvider(create: (context) => ShoppingCartCtrl()),
+        ChangeNotifierProvider(create: (context) => AuthCtrl()),
       ],
       child: Consumer<GlobalConfig>(
         builder: (context, GlobalConfig value, child) {
@@ -144,7 +146,6 @@ class _MainPageState extends State<MainPage> {
     initPlatformState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       Provider.of<GlobalConfig>(context, listen: false).getCommonConfig();
-      Provider.of<GlobalConfig>(context, listen: false).getShoppingCartNumber();
       Provider.of<GlobalConfig>(context, listen: false).getNavList();
       Provider.of<ProductEtaInfo>(context, listen: false).getAreaByIp();
       String firebaseMessageToken = "";

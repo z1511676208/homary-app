@@ -20,6 +20,7 @@ import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/toast.dart';
 import 'package:homary/components/dialog/new_user_success_dialog.dart';
+import 'package:homary/provider/auth_ctrl.dart';
 import 'package:twitter_login/twitter_login.dart';
 
 class SignInCtrl with ChangeNotifier {
@@ -270,9 +271,7 @@ class SignInCtrl with ChangeNotifier {
     var userInfo = res.data;
     setToken(userInfo.token);
     Localstorage().setBool(StorageKey.IS_LOGIN, true);
-    Provider.of<GlobalConfig>(context, listen: false).setIsLogin(true);
-    userInfo.token = null;
-    setUserInfo(userInfo);
+    Provider.of<AuthCtrl>(context, listen: false).userSignIn(userInfo);
     setWebviewCookies();
     //登录发送GA
     sendGTMData({
@@ -281,7 +280,7 @@ class SignInCtrl with ChangeNotifier {
       'data': {'method': method},
       'user_propertys': userInfo.toJson()
     });
-    Provider.of<GlobalConfig>(context, listen: false).getShoppingCartNumber();
+
     bool isGot = userInfo.drawNewUserCoupon != null &&
         double.parse(userInfo?.drawNewUserCoupon) != 0; //是否领过券
     if (goNewComerLanding(context)) return;
@@ -295,7 +294,7 @@ class SignInCtrl with ChangeNotifier {
     }
 
     if (this.redirect != null) {
-      Routes.pop(result: true);
+      Navigator.maybePop(context, true);
     } else {
       Routes.goHome();
     }
@@ -312,11 +311,5 @@ class SignInCtrl with ChangeNotifier {
       return true;
     }
     return false;
-  }
-
-  //第三方登出
-  void thirdLogout() {
-    _googleSignIn.signOut();
-    FacebookAuth.instance.logOut();
   }
 }

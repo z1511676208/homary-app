@@ -9,6 +9,7 @@ import 'dart:convert';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/toast.dart';
 import 'package:homary/entity/topChannelCategory.dart';
+import 'package:homary/pages/category/watcher.dart';
 import 'package:homary/pages/home/contorller.dart';
 import 'controller.dart';
 import 'components/leftNav.dart';
@@ -60,6 +61,7 @@ class _ProductListViewState extends State<ProductListView> {
       Map<String, dynamic> channelMap =
           await Provider.of<HomeCtrl>(context, listen: false)
               .getTopChannelCategory(params: {"category_type": 1});
+      Watcher.refreshParams();
       if (!mounted) {
         return;
       }

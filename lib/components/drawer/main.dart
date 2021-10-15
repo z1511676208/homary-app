@@ -10,7 +10,7 @@ import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/generated/l10n.dart';
 import 'package:homary/pages/signIn/controller.dart';
-import 'package:homary/pages/user/controller.dart';
+import 'package:homary/provider/auth_ctrl.dart';
 import 'package:tuple/tuple.dart';
 import 'components/contactUs.dart';
 import 'components/slideNav/main.dart';
@@ -134,12 +134,9 @@ class _GlobalDrawerViewState extends State<GlobalDrawerView> {
                               margin: EdgeInsets.only(top: 16.w, bottom: 16.w),
                               child: OutlinedButton(
                                 onPressed: () async {
-                                  await Provider.of<GlobalConfig>(context,
+                                  await Provider.of<AuthCtrl>(context,
                                           listen: false)
-                                      .signOut(context);
-                                  Provider.of<SignInCtrl>(context,
-                                          listen: false)
-                                      .thirdLogout();
+                                      .userSignOut();
                                   Navigator.of(context).pop();
                                 },
                                 child: Text(

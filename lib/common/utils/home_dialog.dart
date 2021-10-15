@@ -179,7 +179,7 @@ class HomeDialog {
     if (_isLogin) {
       // 如果已登陆，判断是否符合新人条件
       final userInfoStr = Localstorage().getJSON(StorageKey.USER_INFO);
-      Data userInfo = Data.fromJson(userInfoStr);
+      UserInfo userInfo = UserInfo.fromJson(userInfoStr);
       if (userInfo.isOldUser != '0' || userInfo.drawNewUserCoupon != '0') {
         //如果非新人 或者 已领取了新人券，则不予显示
         return false;

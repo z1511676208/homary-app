@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/schema2path.dart';
 import 'package:homary/entity/category.dart';
-import 'package:homary/pages/category/Watcher.dart';
+import 'package:homary/pages/category/watcher.dart';
 import 'package:homary/pages/category/controller.dart';
 import 'package:homary/widget/networkImg.dart';
 
