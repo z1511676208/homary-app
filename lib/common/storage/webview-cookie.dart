@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-05 14:56:41
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-28 18:54:20
+ * @LastEditTime : 2021-10-15 19:52:14
  * webview cookie设置
  */
 import 'dart:convert';
@@ -28,7 +28,12 @@ setCurrentConfigCookie() {
 setTokenCookie() {
   String token = getToken();
   if (token == '' || token == null) {
-    deleteCookie('token');
+    try {
+      // 不存在cookie时进行delete会发生错误，所以此处用try-catch包围
+      deleteCookie('token');
+    } catch (e) {
+      print(e.toString());
+    }
   } else {
     setCookie('token', token);
   }
