@@ -16,7 +16,7 @@ Future initUniLinks(context) async {
     // get initial link when app start
     initialLink = await getInitialLink();
     // print("initialLink  $initialLink");
-    if (initialLink != null) {
+    if (initialLink != null && !initialLink.startsWith('twittersdk://')) {
       // push to target page
       handleSchema(context, initialLink);
     }
@@ -28,7 +28,7 @@ Future initUniLinks(context) async {
   // Attach a listener to the links stream
   sub = linkStream.listen((String link) {
     // print('link $link');
-    if (link == null) return;
+    if (link == null || link.startsWith('twittersdk://')) return;
     //  跳转到指定页面
     handleSchema(context, link);
   }, onError: (err) {});

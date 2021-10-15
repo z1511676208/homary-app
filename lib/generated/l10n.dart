@@ -705,6 +705,16 @@ class S {
     );
   }
 
+  /// `Account\nSetting`
+  String get usercenter_account_setting {
+    return Intl.message(
+      'Account\nSetting',
+      name: 'usercenter_account_setting',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Category`
   String get category {
     return Intl.message(
@@ -2242,6 +2252,226 @@ class S {
     return Intl.message(
       'Clearance',
       name: 'product_detail_clearance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Info`
+  String get info {
+    return Intl.message(
+      'Info',
+      name: 'info',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Account Setting`
+  String get account_setting {
+    return Intl.message(
+      'Account Setting',
+      name: 'account_setting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My Info`
+  String get account_setting_my_info {
+    return Intl.message(
+      'My Info',
+      name: 'account_setting_my_info',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change Password`
+  String get account_setting_change_password {
+    return Intl.message(
+      'Change Password',
+      name: 'account_setting_change_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Close Account`
+  String get account_setting_close_account {
+    return Intl.message(
+      'Close Account',
+      name: 'account_setting_close_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Leave Homary`
+  String get account_setting_leave_homary {
+    return Intl.message(
+      'Leave Homary',
+      name: 'account_setting_leave_homary',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I want to stay`
+  String get account_setting_want_stay {
+    return Intl.message(
+      'I want to stay',
+      name: 'account_setting_want_stay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel closed account`
+  String get account_setting_cancel_closed_account {
+    return Intl.message(
+      'Cancel closed account',
+      name: 'account_setting_cancel_closed_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unable to complete account`
+  String get account_setting_cancel_unable {
+    return Intl.message(
+      'Unable to complete account',
+      name: 'account_setting_cancel_unable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Due to the following reasons, the account cannot be closed.`
+  String get account_setting_cancel_unable_msg {
+    return Intl.message(
+      'Due to the following reasons, the account cannot be closed.',
+      name: 'account_setting_cancel_unable_msg',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please make sure that all the orders and after-sales orders have been completed before applying again.`
+  String get account_setting_cancel_unable_tips {
+    return Intl.message(
+      'Please make sure that all the orders and after-sales orders have been completed before applying again.',
+      name: 'account_setting_cancel_unable_tips',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `There are orders in progress`
+  String get account_setting_order_progress {
+    return Intl.message(
+      'There are orders in progress',
+      name: 'account_setting_order_progress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `There are after-sale orders in progress`
+  String get account_setting_after_sale_progress {
+    return Intl.message(
+      'There are after-sale orders in progress',
+      name: 'account_setting_after_sale_progress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please re-enter your password`
+  String get account_setting_re_enter_password {
+    return Intl.message(
+      'Please re-enter your password',
+      name: 'account_setting_re_enter_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `For your security, you need to re-enter your password to continue.`
+  String get account_setting_re_enter_password_msg {
+    return Intl.message(
+      'For your security, you need to re-enter your password to continue.',
+      name: 'account_setting_re_enter_password_msg',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `*My password:`
+  String get account_setting_my_password {
+    return Intl.message(
+      '*My password:',
+      name: 'account_setting_my_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get account_setting_cancel {
+    return Intl.message(
+      'Cancel',
+      name: 'account_setting_cancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Continue`
+  String get account_setting_continue {
+    return Intl.message(
+      'Continue',
+      name: 'account_setting_continue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Forgot password?`
+  String get account_setting_forget_password {
+    return Intl.message(
+      'Forgot password?',
+      name: 'account_setting_forget_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter a detailed reason`
+  String get account_setting_reason_error {
+    return Intl.message(
+      'Please enter a detailed reason',
+      name: 'account_setting_reason_error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reason is required`
+  String get account_setting_reason_empty {
+    return Intl.message(
+      'Reason is required',
+      name: 'account_setting_reason_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Manage Email Preferences`
+  String get account_setting_manage_email {
+    return Intl.message(
+      'Manage Email Preferences',
+      name: 'account_setting_manage_email',
       desc: '',
       args: [],
     );

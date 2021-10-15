@@ -64,8 +64,17 @@ class Routes {
   /// 用户订单页
   static String myOrders = '/usercenter/order';
 
-  // 购物车
+  /// 购物车
   static String shoppingCart = '/shoppingcart';
+
+  /// 账户设置
+  static String accountSetting = '/usercenter/account-setting';
+
+  /// 关闭账户
+  static String closeAccount = '/usercenter/close-account';
+
+  /// 管理邮件订阅
+  static String manageEmail = '/usercenter/email-manage';
 
   // 配置route
   static void configureRoutes(FluroRouter router) {
@@ -90,6 +99,9 @@ class Routes {
     router.define(coupons, handler: couponsHandler);
     router.define(myOrders, handler: myOrdersHandler);
     router.define(shoppingCart, handler: shoppingCartHandler);
+    router.define(accountSetting, handler: accountSettingHandler);
+    router.define(closeAccount, handler: closeAccountHandler);
+    router.define(manageEmail, handler: manageEmailHandler);
   }
 
   static String formatQueryParams(Map<String, dynamic> params) {

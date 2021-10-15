@@ -89,7 +89,7 @@ class _UserPageViewState extends State<UserPageView> {
               Container(
                   alignment: Alignment.centerLeft,
                   padding: EdgeInsets.only(left: 16.w),
-                  child: isLogin && isLogin != null
+                  child: isLogin ?? false
                       ? Text(
                           "Hi, ${data.userCenterInfo?.userIdentification ?? ''}",
                           style: TextStyle(
@@ -168,7 +168,7 @@ class _UserPageViewState extends State<UserPageView> {
                       height: 34.w,
                     ),
                     count: data.userCenterInfo?.unpaidOrderCount,
-                    url: 'unpaid',
+                    url: '/usercenter/order?active=unpaid',
                     title: S.of(context).usercenter_myOrder,
                   ),
                   FlexItem(
@@ -179,7 +179,7 @@ class _UserPageViewState extends State<UserPageView> {
                       height: 34.w,
                     ),
                     count: data.userCenterInfo?.processingOrderCount,
-                    url: 'undelivery',
+                    url: '/usercenter/order?active=undelivery',
                     title: S.of(context).usercenter_myOrder,
                   ),
                   FlexItem(
@@ -190,7 +190,7 @@ class _UserPageViewState extends State<UserPageView> {
                       height: 34.w,
                     ),
                     count: data.userCenterInfo?.shippedOrderCount,
-                    url: 'shipped',
+                    url: '/usercenter/order?active=shipped',
                     title: S.of(context).usercenter_myOrder,
                   ),
                   FlexItem(
@@ -201,7 +201,7 @@ class _UserPageViewState extends State<UserPageView> {
                       height: 34.w,
                     ),
                     count: data.userCenterInfo?.returnOrderCount,
-                    url: 'returns',
+                    url: '/usercenter/order?active=returns',
                     title: S.of(context).usercenter_myOrder,
                   ),
                 ],
@@ -244,10 +244,10 @@ class _UserPageViewState extends State<UserPageView> {
                     title: S.of(context).address_book,
                   ),
                   FlexItem(
-                    S.of(context).usercenter_personal,
+                    S.of(context).usercenter_account_setting,
                     Icon(Iconfont.Personal, size: 34.w),
-                    url: 'https://m.homary.com/usercenter/personal',
-                    title: 'Info',
+                    url: '/usercenter/account-setting',
+                    title: '',
                   ),
                 ],
               ),

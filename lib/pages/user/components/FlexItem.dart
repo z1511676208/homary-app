@@ -34,9 +34,7 @@ class FlexItem extends StatelessWidget {
                 "content": '{"url":"${this.url}"}'
               });
             } else {
-              Routes.push(context, Routes.myOrders, params: {
-                'active': url,
-              });
+              Routes.push(context, url);
             }
           } else {
             Routes.push(context, '/signIn');
@@ -76,7 +74,7 @@ class FlexItem extends StatelessWidget {
             ),
             Container(
               height: 30.w,
-              margin: EdgeInsets.only(top: 8.w),
+              margin: EdgeInsets.only(top: 8.w,bottom: 8.w,),
               alignment: Alignment.topCenter,
               child: Text(
                 this.text,

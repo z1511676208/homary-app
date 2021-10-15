@@ -27,7 +27,7 @@ class GobackIconBtn extends StatelessWidget {
           if (this.handleGoBackFn != null) {
             this.handleGoBackFn();
           } else {
-            Routes.pop();
+            Navigator.maybePop(context);
           }
         },
         icon: Icon(Icons.chevron_left, color: this.color, size: this.size.sp));

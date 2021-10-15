@@ -69,6 +69,7 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
   Map<String, dynamic> content;
   String url;
   bool isInitUrl = true; //记录当前是否是第一次进来的URL,用于shouldOverrideUrlLoading拦截判断
+  bool isCallAccountClose = false; // 是否已经执行过AppAccountClose回调函数
 
   // 是否可返回上页
   bool isCanGoBack = false;
@@ -86,6 +87,7 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
     bool isShowAppBar = true;
     bool showBorder = true;
     String appBarTitle = '';
+
     if (url.path.contains('/item')) {
       showMore = true;
     } else if (url.path.contains('/place') ||
@@ -182,7 +184,7 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
   void checkCanGoBack() async {
     await Future.delayed(Duration(milliseconds: 500));
     bool isCanGoBack = await controller?.canGoBack();
-    if(this.isCanGoBack != isCanGoBack){
+    if (this.isCanGoBack != isCanGoBack) {
       this.isCanGoBack = isCanGoBack;
       setState(() {});
     }
@@ -351,6 +353,31 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
                   // affirm 弹窗会使页面滚回顶部 故延迟1s再设置isAtTop
                   Future.delayed(Duration(milliseconds: 1000))
                       .then((value) => verticalRecognizer.isAtTop = false);
+                });
+            // M站账号注销4001事件，通知app退出登录
+            controller.addJavaScriptHandler(
+                handlerName: "AppAccountClose",
+                callback: (args) async {
+                  if (!isCallAccountClose) {
+                    isCallAccountClose = true;
+                    Localstorage().remove(StorageKey.TOKEN);
+                    Localstorage().setBool(StorageKey.IS_LOGIN, false);
+                    setWebviewCookies();
+                    isInitUrl = true;
+                    controller?.reload();
+
+                    context.read<GlobalConfig>().setIsLogin(false);
+                    context.read<GlobalConfig>().getShoppingCartNumber();
+                    String msg = args[0] ?? '';
+                    if (msg.isNotEmpty) {
+                      Toast.error(msg);
+                    }
+                    final result = await Routes.push(context, Routes.signIn);
+                    if (result ?? false) {
+                      isInitUrl = true;
+                      controller?.reload();
+                    }
+                  }
                 });
           },
           onLoadStart: (InAppWebViewController controller, Uri url) {

@@ -6,6 +6,12 @@ enum AppRoundedButtonType {
 
   /// 白底带边框
   Stroke,
+
+  /// 默认黄底
+  DefaultBlack,
+
+  /// 白底带边框
+  StrokeBlack,
 }
 
 class AppRoundedButton extends StatelessWidget {
@@ -25,18 +31,31 @@ class AppRoundedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isDefault = type == AppRoundedButtonType.Default;
+    bool isDefault = [
+      AppRoundedButtonType.Default,
+      AppRoundedButtonType.DefaultBlack,
+    ].contains(type);
+    bool isBlack = [
+      AppRoundedButtonType.DefaultBlack,
+      AppRoundedButtonType.StrokeBlack,
+    ].contains(type);
     return SizedBox(
       width: width,
       height: height,
       child: ElevatedButton(
         onPressed: onTap,
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(
-              isDefault ? AppColor.primaryColor : Colors.white),
+          backgroundColor: MaterialStateProperty.all(isDefault
+              ? isBlack
+                  ? AppColor.primaryText
+                  : AppColor.primaryColor
+              : Colors.white),
           elevation: MaterialStateProperty.all(0),
-          overlayColor: MaterialStateProperty.all(
-              isDefault ? AppColor.primaryPressed : AppColor.whiteBtnPressed),
+          overlayColor: MaterialStateProperty.all(isDefault
+              ? isBlack
+                  ? AppColor.whiteBtnPressed
+                  : AppColor.primaryPressed
+              : AppColor.whiteBtnPressed),
           foregroundColor: MaterialStateProperty.all(Colors.white),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
@@ -45,7 +64,9 @@ class AppRoundedButton extends StatelessWidget {
                   ? BorderSide.none
                   : BorderSide(
                       width: 1.w,
-                      color: AppColor.primaryColor,
+                      color: isBlack
+                          ? AppColor.primaryText
+                          : AppColor.primaryColor,
                     ),
             ),
           ),

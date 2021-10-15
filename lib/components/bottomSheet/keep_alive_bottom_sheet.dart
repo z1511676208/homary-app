@@ -41,9 +41,7 @@ class KeepAliveBottomSheet extends StatefulWidget {
     Key key,
     @required this.child,
     @required this.bottomSheet,
-    this.borderRadius = const BorderRadius.vertical(
-      top: Radius.circular(30),
-    ),
+    this.borderRadius,
   }) : super(key: key);
   final Widget child;
   final List<Widget> bottomSheet;
@@ -122,13 +120,12 @@ class _KeepAliveBottomSheetState extends State<KeepAliveBottomSheet>
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async {
-        if (isShowBottomSheet) {
-          hide();
-          return Future.value(false);
-        }
-        return Future.value(true);
-      },
+      onWillPop: isShowBottomSheet
+          ? () {
+              hide();
+              return Future.value(false);
+            }
+          : null,
       child: KeepAliveBottomSheetManager(
         state: this,
         child: Stack(
@@ -174,7 +171,10 @@ class _KeepAliveBottomSheetState extends State<KeepAliveBottomSheet>
             onDragEnd: _handleDragEnd,
             backgroundColor: Colors.white,
             shape: RoundedRectangleBorder(
-              borderRadius: widget.borderRadius,
+              borderRadius: widget.borderRadius ??
+                  BorderRadius.vertical(
+                    top: Radius.circular(8.w),
+                  ),
             ),
             builder: (_) {
               return child;
