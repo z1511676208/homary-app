@@ -7,6 +7,7 @@
 import 'package:homary/common/utils/analytics.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
+import 'package:homary/provider/auth_ctrl.dart';
 
 class CartAndNumber extends StatelessWidget {
   const CartAndNumber({Key key}) : super(key: key);
@@ -49,8 +50,8 @@ class CartAndNumber extends StatelessWidget {
                                 fontWeight: FontWeight.bold),
                           ),
                         )))),
-            selector: (BuildContext context, GlobalConfig globalConfig) {
-              return globalConfig.shopCartNumber;
+            selector: (BuildContext context, AuthCtrl authCtrl) {
+              return authCtrl.shopCartNumber;
             })
       ],
     );

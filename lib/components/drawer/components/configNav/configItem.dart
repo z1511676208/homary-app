@@ -5,6 +5,7 @@
  * @LastEditTime : 2021-08-25 18:31:51
  */
 import 'package:homary/common/utils/main.dart';
+import 'package:homary/provider/auth_ctrl.dart';
 import 'package:homary/provider/productEtaInfo.dart';
 
 class ConfigItem extends StatelessWidget {
@@ -22,7 +23,7 @@ class ConfigItem extends StatelessWidget {
       onTap: () {
         Provider.of<GlobalConfig>(context, listen: false)
             .updateCurrentConfig(configData, configType);
-        Provider.of<GlobalConfig>(context, listen: false)
+        Provider.of<AuthCtrl>(context, listen: false)
             .getShoppingCartNumber();
         Provider.of<ProductEtaInfo>(context,listen: false).resetProductEtaList();
         Navigator.of(context).maybePop();

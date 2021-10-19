@@ -73,8 +73,7 @@ class FlexItem extends StatelessWidget {
               ],
             ),
             Container(
-              height: 30.w,
-              margin: EdgeInsets.only(top: 8.w,bottom: 8.w,),
+              margin: EdgeInsets.only(top: 8.w,bottom: 12.w,),
               alignment: Alignment.topCenter,
               child: Text(
                 this.text,

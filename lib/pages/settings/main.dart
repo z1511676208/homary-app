@@ -18,6 +18,7 @@ import 'package:homary/components/drawer/components/slideNav/main.dart';
 import 'package:homary/components/drawer/controller.dart';
 import 'package:homary/components/goBackAppBar/main.dart';
 import 'package:homary/pages/signIn/controller.dart';
+import 'package:homary/provider/auth_ctrl.dart';
 import 'package:homary/widget/listTileItem.dart';
 
 class SettingView extends StatefulWidget {
@@ -31,7 +32,7 @@ class SettingView extends StatefulWidget {
 class _SettingViewState extends State<SettingView> {
   bool subListToggle = false;
   String title = 'Setting';
-  bool isLogin = Localstorage().getBool(StorageKey.IS_LOGIN);
+  bool isLogin = Localstorage().getBool(StorageKey.IS_LOGIN) ?? false;
   String user;
   String cacheSize = '';
   @override
@@ -197,7 +198,7 @@ class _SettingViewState extends State<SettingView> {
                     bool result = await AppDialog.showMessage(
                         context: context,
                         message: S.of(context).setting_cleanCacheTip);
-                    if (result) {
+                    if (result ?? false) {
                       await CacheCleanUtil.cleanCache();
                       String size = await CacheCleanUtil.getCacheSize();
                       setState(() {
@@ -231,10 +232,8 @@ class _SettingViewState extends State<SettingView> {
                   margin: EdgeInsets.fromLTRB(60.w, 12.w, 60.w, 12.w),
                   child: OutlinedButton(
                       onPressed: () async {
-                        await Provider.of<GlobalConfig>(context, listen: false)
-                            .signOut(context);
-                        Provider.of<SignInCtrl>(context, listen: false)
-                            .thirdLogout();
+                        await Provider.of<AuthCtrl>(context, listen: false)
+                            .userSignOut();
                         setState(() {
                           this.isLogin = false;
                           this.user = 'Login in/Sign up';

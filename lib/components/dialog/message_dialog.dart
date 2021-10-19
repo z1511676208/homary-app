@@ -67,11 +67,13 @@ class MessageDialog extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                buildNo(context),
-                SizedBox(
-                  width: 16.w,
-                ),
-                buildYes(context),
+                if (noStr != null) ...[
+                  Expanded(child: buildNo(context)),
+                  SizedBox(
+                    width: 16.w,
+                  ),
+                ],
+                Expanded(child: buildYes(context)),
               ],
             ),
           ),

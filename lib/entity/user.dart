@@ -95,13 +95,13 @@ class UserEmailLoginRes {
   });
 
   dynamic code;
-  Data data;
+  UserInfo data;
   String message;
 
   factory UserEmailLoginRes.fromJson(Map<String, dynamic> json) =>
       UserEmailLoginRes(
         code: json["code"],
-        data: Data.fromJson(json["data"]),
+        data: UserInfo.fromJson(json["data"]),
         message: json["message"],
       );
 
@@ -112,8 +112,8 @@ class UserEmailLoginRes {
       };
 }
 
-class Data {
-  Data({
+class UserInfo {
+  UserInfo({
     this.email,
     this.account,
     this.firstName,
@@ -132,6 +132,7 @@ class Data {
     this.authInfo,
     this.isCreateOrder,
     this.token,
+    this.isAuth,
   });
 
   String email;
@@ -152,8 +153,9 @@ class Data {
   dynamic authInfo;
   String isCreateOrder;
   String token;
+  String isAuth;
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory UserInfo.fromJson(Map<String, dynamic> json) => UserInfo(
         email: json["email"],
         account: json["account"],
         firstName: json["first_name"],
@@ -172,6 +174,7 @@ class Data {
         authInfo: json["subscribe"],
         isCreateOrder: json["is_create_order"],
         token: json["token"],
+        isAuth: json["is_auth"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -193,6 +196,7 @@ class Data {
         "auth_info": subscribe,
         "is_create_order": isCreateOrder,
         "token": token,
+        "is_auth": isAuth,
       };
 }
 

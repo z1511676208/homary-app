@@ -2,7 +2,6 @@
 // import 'package:localization_demo/i18n/app_localizations.dart';
 
 import 'package:flutter/material.dart';
-import 'package:homary/api/cart.dart';
 import 'package:homary/api/common.dart';
 import 'package:homary/api/main.dart';
 import 'package:homary/common/request/request.dart';
@@ -11,31 +10,21 @@ import 'package:homary/common/storage/webview-cookie.dart';
 import 'package:homary/common/utils/bus.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
-import 'package:homary/entity/cartNumber.dart';
 import 'package:homary/entity/serviceTimeRes.dart';
-
-import 'package:homary/common/utils/toast.dart';
 import 'package:homary/entity/slideNav.dart';
 
 var busEvent = BusProvider();
 
 class GlobalConfig with ChangeNotifier {
-  var currentConfig; //当前公共配置信息
+  CurrentConfig currentConfig; //当前公共配置信息
   List currentConfigList = []; //配置信息列表
   List<Datum> navList = []; //侧边栏菜单列表
   Locale _locale = Locale(
       getCurrentConfig() != null ? getCurrentConfig()['language'] : 'en', '');
   CommonAmountList commonAmountList = new CommonAmountList();
-  int shopCartNumber = 0; //购物车有效商品数量
   int serviceTime; // 服务器时间
-  bool isLogin = Localstorage().getBool(StorageKey.IS_LOGIN) ?? false;
 
   get curLocale => _locale;
-
-  setIsLogin(bool isLogin) {
-    this.isLogin = isLogin;
-    notifyListeners();
-  }
 
   //获取公共配置
   Future getCommonConfig() async {
@@ -137,22 +126,6 @@ class GlobalConfig with ChangeNotifier {
     busEvent.pubWebViewCtrl('switchSite'); // 通知webview刷新页面
   }
 
-  //登出
-  Future signOut(context) async {
-    Toast.loading();
-    DioResult res = await UserApi.signOut();
-    Toast.clear();
-    if (res.error == null) {
-      Localstorage().remove(StorageKey.TOKEN);
-      Localstorage().setBool(StorageKey.IS_LOGIN, false);
-      Toast.message(S.of(context).logout_successful,
-          duration: const Duration(milliseconds: 1000));
-      setWebviewCookies();
-      this.getShoppingCartNumber();
-      this.setIsLogin(false);
-    }
-  }
-
   Future<void> getServiceTime() async {
     DioResult res = await CommonApi.getServiceTime();
     if (res.error == null) {
@@ -170,15 +143,6 @@ class GlobalConfig with ChangeNotifier {
       if (res.error == null) {
         Localstorage().setBool(StorageKey.IS_PUSH_DEVICE_ID, true);
       }
-    }
-  }
-
-  //获取购物车有效商品数量
-  Future<void> getShoppingCartNumber() async {
-    DioResult res = await CartApi.getShoppingCartNumber();
-    if (res.error == null) {
-      this.shopCartNumber = CartNumberRes.fromJson(res.result).data.num;
-      notifyListeners();
     }
   }
 }

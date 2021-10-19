@@ -28,7 +28,7 @@ class _NewUserSuccessDialogState extends State<NewUserSuccessDialog> {
       setState(() {
         --second;
         if (second == 0) {
-          Navigator.pop(context);
+          Navigator.maybePop(context, true);
         }
       });
     });

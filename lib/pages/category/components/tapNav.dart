@@ -1,7 +1,7 @@
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/entity/category.dart';
 import 'package:homary/pages/category/controller.dart';
-import 'package:homary/pages/category/Watcher.dart';
+import 'package:homary/pages/category/watcher.dart';
 
 class TopNav extends StatefulWidget {
   final ScrollController _scrollCtrl;

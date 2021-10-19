@@ -8,6 +8,7 @@ import 'package:homary/entity/shoppingCartData.dart';
 import 'package:homary/pages/shoppingCart/components/count_select.dart';
 import 'package:homary/pages/shoppingCart/components/product/product_detail_sheet.dart';
 import 'package:homary/pages/shoppingCart/controller.dart';
+import 'package:homary/provider/auth_ctrl.dart';
 import 'package:homary/widget/networkImg.dart';
 
 class ShoppingCartItem extends StatefulWidget {
@@ -403,7 +404,7 @@ class _ShoppingCartItemState extends State<ShoppingCartItem> {
       'is_shopping': widget.isFromCart ? 0 : 1,
       'type': 'selected_change',
     });
-    Provider.of<GlobalConfig>(context, listen: false).getShoppingCartNumber();
+    Provider.of<AuthCtrl>(context, listen: false).getShoppingCartNumber();
   }
 
   /// 移除商品
@@ -412,7 +413,7 @@ class _ShoppingCartItemState extends State<ShoppingCartItem> {
       'cart_id': data.cartId,
       'type': 'delete',
     });
-    Provider.of<GlobalConfig>(context, listen: false).getShoppingCartNumber();
+    Provider.of<AuthCtrl>(context, listen: false).getShoppingCartNumber();
   }
 
   void showSelectQty() async {

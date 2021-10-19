@@ -8,7 +8,7 @@ import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/toast.dart';
 import 'package:homary/entity/topChannelCategory.dart';
 import 'package:homary/pages/category/controller.dart';
-import 'package:homary/pages/category/Watcher.dart';
+import 'package:homary/pages/category/watcher.dart';
 import 'package:homary/pages/home/contorller.dart';
 
 class LeftNav extends StatelessWidget {

@@ -18,6 +18,7 @@ import 'package:homary/common/utils/toast.dart';
 import 'package:homary/components/pullToRefresh/pull_to_refresh.dart';
 import 'package:homary/pages/webview/controller.dart';
 import 'package:flutter_braintree/flutter_braintree.dart';
+import 'package:homary/provider/auth_ctrl.dart';
 import 'package:homary/webView/web_recognizer.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -319,7 +320,7 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
             controller.addJavaScriptHandler(
                 handlerName: "AppUpdateShopCartNumber",
                 callback: (args) {
-                  Provider.of<GlobalConfig>(context, listen: false)
+                  Provider.of<AuthCtrl>(context, listen: false)
                       .getShoppingCartNumber();
                 });
 
@@ -337,7 +338,7 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
             controller.addJavaScriptHandler(
                 handlerName: "AppUpdateShopCartNumber",
                 callback: (args) {
-                  Provider.of<GlobalConfig>(context, listen: false)
+                  Provider.of<AuthCtrl>(context, listen: false)
                       .getShoppingCartNumber();
                 });
             // M站GTM上报
@@ -360,14 +361,8 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
                 callback: (args) async {
                   if (!isCallAccountClose) {
                     isCallAccountClose = true;
-                    Localstorage().remove(StorageKey.TOKEN);
-                    Localstorage().setBool(StorageKey.IS_LOGIN, false);
-                    setWebviewCookies();
-                    isInitUrl = true;
-                    controller?.reload();
+                    context.read<AuthCtrl>().logOut();
 
-                    context.read<GlobalConfig>().setIsLogin(false);
-                    context.read<GlobalConfig>().getShoppingCartNumber();
                     String msg = args[0] ?? '';
                     if (msg.isNotEmpty) {
                       Toast.error(msg);
