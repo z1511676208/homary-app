@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-08-13 10:44:42
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-29 18:16:48
+ * @LastEditTime : 2021-10-14 16:51:47
  */
 import 'package:homary/common/utils/analytics.dart';
 import 'package:homary/common/utils/localstorage.dart';
@@ -10,7 +10,9 @@ import 'package:homary/common/utils/main.dart';
 import 'package:homary/provider/auth_ctrl.dart';
 
 class CartAndNumber extends StatelessWidget {
-  const CartAndNumber({Key key}) : super(key: key);
+  final Color backgroundColor;
+  const CartAndNumber({Key key, this.backgroundColor = Colors.red})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class CartAndNumber extends StatelessWidget {
       clipBehavior: Clip.none,
       children: [
         IconButton(
-            color: Colors.black,
+            color: AppColor.primaryText,
             icon: Icon(
               Iconfont.Cart,
             ),
@@ -34,10 +36,11 @@ class CartAndNumber extends StatelessWidget {
                 child: Offstage(
                     offstage: cartNum == 0,
                     child: Container(
-                        padding: EdgeInsets.all(4.w),
+                        padding: EdgeInsets.all(5.w),
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                            shape: BoxShape.circle, color: Colors.red),
+                            shape: BoxShape.circle,
+                            color: this.backgroundColor),
                         child: GestureDetector(
                           onTap: () {
                             Localstorage().setGaTicketList(TicketList.cart);

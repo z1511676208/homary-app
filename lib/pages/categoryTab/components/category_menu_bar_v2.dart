@@ -4,7 +4,8 @@ import 'package:homary/pages/categoryTab/components/drop_menu_sort.dart';
 import 'package:homary/pages/categoryTab/controller.dart';
 
 class CategoryMenuBarV2 extends StatefulWidget {
-  const CategoryMenuBarV2({Key key}) : super(key: key);
+  final bool showTitle;
+  const CategoryMenuBarV2({Key key, this.showTitle = false}) : super(key: key);
 
   @override
   _CategoryMenuBarV2State createState() => _CategoryMenuBarV2State();
@@ -24,36 +25,38 @@ class _CategoryMenuBarV2State extends State<CategoryMenuBarV2> {
       ),
       child: Column(
         children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Text(
-                  ctrl.selectedCategoryId != null
-                      ? '${ctrl.selectedCategoryName}'
-                      : ctrl.keyword.isEmpty
-                          ? S.of(context).search_view_all
-                          : '${S.of(context).search_showing_results(ctrl.keyword)}',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16.sp,
-                  ),
-                ),
-              ),
-              SizedBox(width: 4.w),
-              Padding(
-                padding: EdgeInsets.only(top: 2.w),
-                child: Text(
-                  '${ctrl.productTotal}${S.of(context).category_items}',
-                  style: TextStyle(
-                    fontSize: 13.sp,
-                    color: AppColor.primarySubTitle,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 12.w),
+          widget.showTitle
+              ? Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        ctrl.selectedCategoryId != null
+                            ? '${ctrl.selectedCategoryName}'
+                            : ctrl.keyword.isEmpty
+                                ? S.of(context).search_view_all
+                                : '${S.of(context).search_showing_results(ctrl.keyword)}',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16.sp,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 4.w),
+                    Padding(
+                      padding: EdgeInsets.only(top: 2.w),
+                      child: Text(
+                        '${ctrl.productTotal} ${S.of(context).category_items}',
+                        style: TextStyle(
+                          fontSize: 13.sp,
+                          color: AppColor.primarySubTitle,
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              : SizedBox(),
+          SizedBox(height: widget.showTitle ? 12.w : 0),
           Row(
             children: [
               Expanded(

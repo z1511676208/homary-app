@@ -2,9 +2,8 @@
  * @Author       : JHao
  * @Date         : 2021-07-09 19:31:26
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-09 17:45:38
+ * @LastEditTime : 2021-10-15 17:14:04
  */
-import 'package:flutter/gestures.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/entity/topChannelCategory.dart';
 import 'package:homary/pages/home/components/CategoryItem/main.dart';

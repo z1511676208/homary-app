@@ -2,16 +2,15 @@
  * @Author       : JHao
  * @Date         : 2021-07-21 10:31:45
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-02 11:34:13
+ * @LastEditTime : 2021-10-19 15:40:24
  */
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/entity/category.dart';
 import 'package:homary/pages/category/components/productItem.dart';
-import 'package:homary/pages/category/controller.dart';
 
 class ProductList extends StatelessWidget {
   final List<Data> subList;
-  const ProductList({Key key, this.subList}) : super(key: key);
+  ProductList({Key key, this.subList}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return SliverList(

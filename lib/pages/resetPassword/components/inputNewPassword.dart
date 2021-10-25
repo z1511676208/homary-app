@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-14 18:32:36
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-07-28 11:21:36
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-10-15 17:14:11
  */
 /*
  * @Author       : zhhjie
@@ -11,7 +11,6 @@
  * @LastEditTime : 2021-07-14 18:23:36
  */
 import 'package:homary/common/utils/main.dart';
-import 'package:homary/common/utils/validator.dart';
 import 'package:homary/components/formInput/main.dart';
 
 class InputNewPassword extends StatelessWidget {

@@ -1,7 +1,5 @@
 import 'package:flutter/rendering.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:homary/common/utils/analytics.dart';
-import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/components/button/button.dart';
 import 'package:homary/pages/shoppingCart/components/EtaInput.dart';

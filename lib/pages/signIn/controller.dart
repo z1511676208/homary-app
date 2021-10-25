@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-13 11:36:43
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-07 17:01:58
+ * @LastEditTime : 2021-10-19 15:45:07
  */
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -21,6 +21,7 @@ import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/toast.dart';
 import 'package:homary/components/dialog/new_user_success_dialog.dart';
 import 'package:homary/provider/auth_ctrl.dart';
+import 'package:homary/pages/home/contorller.dart';
 import 'package:twitter_login/twitter_login.dart';
 
 class SignInCtrl with ChangeNotifier {
@@ -185,11 +186,10 @@ class SignInCtrl with ChangeNotifier {
         // you are logged
         final AccessToken accessToken = result.accessToken;
         final AuthCredential credential =
-        FacebookAuthProvider.credential(accessToken.token);
+            FacebookAuthProvider.credential(accessToken.token);
         Toast.loading();
         try {
-          final User user =
-              (await _auth.signInWithCredential(credential)).user;
+          final User user = (await _auth.signInWithCredential(credential)).user;
           String idTokenResult = await user.getIdToken(true);
           this.thridLogin(context, idTokenResult, 'facebook');
         } catch (e) {
@@ -223,7 +223,7 @@ class SignInCtrl with ChangeNotifier {
         Toast.loading();
         try {
           UserCredential userCredential =
-          await _auth.signInWithCredential(credential);
+              await _auth.signInWithCredential(credential);
           final User user = userCredential.user;
           String idTokenResult = await user.getIdToken(true);
           this.thridLogin(context, idTokenResult, 'twitter');
@@ -280,6 +280,7 @@ class SignInCtrl with ChangeNotifier {
       'data': {'method': method},
       'user_propertys': userInfo.toJson()
     });
+    Provider.of<HomeCtrl>(context, listen: false).getShoppingCartData();
 
     bool isGot = userInfo.drawNewUserCoupon != null &&
         double.parse(userInfo?.drawNewUserCoupon) != 0; //是否领过券

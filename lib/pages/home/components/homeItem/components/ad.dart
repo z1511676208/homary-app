@@ -2,64 +2,28 @@
  * @Author       : JHao
  * @Date         : 2021-07-20 15:12:17
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-31 10:19:04
+ * @LastEditTime : 2021-10-15 17:13:40
  */
 import 'package:flutter/material.dart';
 import 'package:homary/common/utils/main.dart';
-import 'package:homary/common/utils/schema2path.dart';
 import 'package:homary/entity/homeAdvInfo.dart';
+import 'package:homary/pages/home/components/homeItem/components/AdCard.dart';
 import 'package:homary/pages/home/contorller.dart';
-import 'package:homary/widget/networkImg.dart';
 import 'package:tuple/tuple.dart';
 
 class AD extends StatelessWidget {
   const AD({Key key}) : super(key: key);
 
   Widget _item(BuildContext context, ModuleAdvDatum item) {
-    return GestureDetector(
-        child: Container(
-          child: ClipRRect(
-            child: Container(
-                width: (1.sw - 24.w - 12.w) / 2,
-                height: 100.w,
-                child: Column(children: [
-                  Container(
-                      width: double.infinity,
-                      height: 66.w,
-                      color: AppColor.primaryBackground,
-                      child: CustomNetworkImage(
-                        item.imgUrl,
-                      )),
-                  Container(
-                      width: double.infinity,
-                      height: 34.w,
-                      color: Colors.white,
-                      alignment: Alignment.centerLeft,
-                      padding: EdgeInsets.symmetric(horizontal: 8.w),
-                      child: Text(
-                        item.title,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 12.sp, color: AppColor.primaryText),
-                      ))
-                ])),
-            borderRadius: BorderRadius.circular(6.w),
-          ),
-          decoration: BoxDecoration(boxShadow: [
-            BoxShadow(
-              color: AppColor.primaryBorderShadow,
-              blurRadius: 6.w,
-              spreadRadius: 2.w,
-              offset: Offset(1.w, 1.w),
-            )
-          ]),
-        ),
-        onTap: () {
-          // print(item);
-          handleSchema(context, item.jumpUrl);
-        });
+    return AdCard(
+        width: (1.sw - 24.w - 12.w) / 2,
+        imageHeight: 84.w,
+        textHeight: 36.w,
+        adImageUrl: item.imgUrl,
+        adText: item.title,
+        jumpUrl: item.jumpUrl,
+        eventLabel: item.eventLabel,
+        isLastCard: true);
   }
 
   @override

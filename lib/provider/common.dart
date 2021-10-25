@@ -10,8 +10,11 @@ import 'package:homary/common/storage/webview-cookie.dart';
 import 'package:homary/common/utils/bus.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
+import 'package:homary/common/utils/toast.dart';
 import 'package:homary/entity/serviceTimeRes.dart';
 import 'package:homary/entity/slideNav.dart';
+import 'package:homary/entity/terms_of_service.dart';
+import 'package:homary/entity/terms_of_service_detail.dart';
 
 var busEvent = BusProvider();
 
@@ -23,6 +26,9 @@ class GlobalConfig with ChangeNotifier {
       getCurrentConfig() != null ? getCurrentConfig()['language'] : 'en', '');
   CommonAmountList commonAmountList = new CommonAmountList();
   int serviceTime; // 服务器时间
+
+  List<TermsOfService> termsOfService = [];
+  TermsOfServiceDetail termsServiceDetail;
 
   get curLocale => _locale;
 
@@ -143,6 +149,32 @@ class GlobalConfig with ChangeNotifier {
       if (res.error == null) {
         Localstorage().setBool(StorageKey.IS_PUSH_DEVICE_ID, true);
       }
+    }
+  }
+
+  // 获取服务条款
+  Future<void> getTermsSingle({Map<String, dynamic> params}) async {
+    DioResult res = await CommonApi.getTermsSingle(params: params);
+    if (res.error == null) {
+      TermsOfServiceRes result = TermsOfServiceRes.fromJson(res.result);
+      termsOfService = result.data?.termsOfService ?? [];
+      notifyListeners();
+    }
+  }
+
+  // 获取服务条款详情
+  Future<void> getTermsDetail() async {
+    if (termsServiceDetail != null) {
+      return;
+    }
+    Toast.loading();
+    DioResult res = await CommonApi.getTermsDetail();
+    if (res.error == null) {
+      Toast.clear();
+      TermsOfServiceDetailRes result =
+          TermsOfServiceDetailRes.fromJson(res.result);
+      termsServiceDetail = result.data;
+      notifyListeners();
     }
   }
 }

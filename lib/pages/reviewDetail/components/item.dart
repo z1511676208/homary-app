@@ -2,9 +2,10 @@
  * @Author       : JHao
  * @Date         : 2021-07-26 15:28:09
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-02 20:21:23
+ * @LastEditTime : 2021-10-20 11:05:13
  */
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:homary/common/utils/schema2path.dart';
 import 'package:homary/entity/homeReviewModule.dart';
@@ -139,27 +140,45 @@ class ReviewItem extends StatelessWidget {
         Padding(
             padding: EdgeInsets.all(12.w),
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ClipOval(
-                  child: Container(
-                    width: 24.w,
-                    height: 24.w,
-                    color: AppColor.primaryText,
-                    alignment: Alignment.center,
-                    child: Text(
-                      this.data.username.substring(0, 1),
-                      style: TextStyle(color: Colors.white, fontSize: 14.sp),
-                    ),
-                  ),
+                  child: this.data.headImg != ""
+                      ? CustomNetworkImage(this.data.headImg,
+                          width: 24.w, height: 24.w)
+                      : Container(
+                          width: 24.w,
+                          height: 24.w,
+                          color: AppColor.primaryText,
+                          alignment: Alignment.center,
+                          child: Text(
+                            this.data.username.substring(0, 1),
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 14.sp),
+                          ),
+                        ),
                 ),
                 SizedBox(
                   width: 8.w,
                 ),
-                Text(
-                  this.data.username,
-                  style:
-                      TextStyle(color: AppColor.primaryText, fontSize: 14.sp),
-                )
+                Expanded(
+                    child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      this.data.username,
+                      style: TextStyle(
+                          color: AppColor.primaryText,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    Text(
+                      this.data.job,
+                      style: TextStyle(
+                          color: AppColor.primaryText, fontSize: 12.sp),
+                    )
+                  ],
+                ))
               ],
             )),
       ],

@@ -77,7 +77,7 @@ class ModuleDataProductList {
   String mergeSkuDesc;
   String totalSkuNum;
   String spuSaleQuantityDesc;
-  String activityStockTotal;
+  dynamic activityStockTotal;
   String eventLabel;
 
   factory ModuleDataProductList.fromRawJson(String str) =>

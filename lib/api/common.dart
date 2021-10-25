@@ -1,8 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-21 10:46:35
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-09-01 17:32:46
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-10-15 16:00:28
  */
 import 'package:homary/common/config/baseRequestUrl.dart';
 import 'package:homary/common/config/storage.dart';
@@ -45,6 +45,20 @@ class CommonApi {
     DioResult res = await Request().post(
         requestUrl['getAreaByIp'] ?? baseRequestUrl['getAreaByIp'],
         params: params);
+    return res;
+  }
+
+  // 获取服务条款
+  static Future<DioResult> getTermsSingle({dynamic params}) async {
+    DioResult res = await Request()
+        .post('/product/product/get-product-terms-simple', params: params);
+    return res;
+  }
+
+  // 获取服务条款详情
+  static Future<DioResult> getTermsDetail({dynamic params}) async {
+    DioResult res = await Request()
+        .post('/product/product/get-product-terms-of-service', params: params);
     return res;
   }
 }

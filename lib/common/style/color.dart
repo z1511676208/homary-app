@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-07 20:04:36
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-26 18:11:48
+ * @LastEditTime : 2021-10-13 18:08:19
  */
 import 'dart:ui';
 
@@ -102,4 +102,14 @@ class AppColor {
 
   // 商详表格背景色
   static const Color sheetBgColor = Color(0xFFF5F5F5);
+
+  static const Color serviceItemColor = Color(0xFF434343);
+  // 首页热词背景色
+  static const Color hotKeywordBgColor = Color(0xFFF8F8F8);
+
+  // 滚动条背景色
+  static const Color scrollBarBgColor = Color(0xFFE9E9E9);
+
+  // 滚动条颜色
+  static const Color scrollBarColor = Color(0xFFDADADA);
 }

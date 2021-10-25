@@ -207,12 +207,12 @@ class _FlashSaleState extends State<FlashSale> {
                             key: Key(
                                 '${_isOnSaleNow}_${_isOnSaleNow ? data.onSaleProduct.productList[index].skuId : data.upComingProduct.productList[index].skuId}'),
                             child: GoodsCard(
-                                key: UniqueKey(),
-                                width: 140.w,
-                                marginRight: 8.w,
-                                data: _isOnSaleNow
-                                    ? data.onSaleProduct.productList[index]
-                                    : data.upComingProduct.productList[index],
+                              key: UniqueKey(),
+                              width: 140.w,
+                              marginRight: 8.w,
+                              data: _isOnSaleNow
+                                  ? data.onSaleProduct.productList[index]
+                                  : data.upComingProduct.productList[index],
                             ),
                             onExposure: (visibilityInfo) {
                               AnalyticsUtil.instance.sendProductItemGTM(

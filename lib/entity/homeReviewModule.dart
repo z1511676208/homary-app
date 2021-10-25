@@ -1,13 +1,3 @@
-/*
- * @Author       : JHao
- * @Date         : 2021-08-02 18:45:03
- * @LastEditors  : JHao
- * @LastEditTime : 2021-08-02 20:02:53
- */
-// To parse this JSON data, do
-//
-//     final homeReviewModuleRes = homeReviewModuleResFromJson(jsonString);
-
 import 'dart:convert';
 
 class HomeReviewModuleRes {
@@ -41,15 +31,18 @@ class HomeReviewModuleRes {
 }
 
 class ReviewData {
-  ReviewData({
-    this.title,
-    this.moreJumpUrl,
-    this.reviewList,
-  });
+  ReviewData(
+      {this.title,
+      this.moreJumpUrl,
+      this.avgScore,
+      this.reviewList,
+      this.eventLabel});
 
   String title;
   String moreJumpUrl;
+  String eventLabel;
   List<ReviewList> reviewList;
+  dynamic avgScore;
 
   factory ReviewData.fromRawJson(String str) =>
       ReviewData.fromJson(json.decode(str));
@@ -58,6 +51,8 @@ class ReviewData {
 
   factory ReviewData.fromJson(Map<String, dynamic> json) => ReviewData(
         title: json["title"],
+        avgScore: json["avg_score"],
+        eventLabel: json["event_label"],
         moreJumpUrl: json["more_jump_url"],
         reviewList: List<ReviewList>.from(
             json["review_list"].map((x) => ReviewList.fromJson(x))),
@@ -65,21 +60,25 @@ class ReviewData {
 
   Map<String, dynamic> toJson() => {
         "title": title,
+        "avg_score": avgScore,
         "more_jump_url": moreJumpUrl,
+        "event_label": eventLabel,
         "review_list": List<dynamic>.from(reviewList.map((x) => x.toJson())),
       };
 }
 
 class ReviewList {
-  ReviewList({
-    this.productImage,
-    this.imgUrl,
-    this.jumpUrl,
-    this.username,
-    this.score,
-    this.title,
-    this.content,
-  });
+  ReviewList(
+      {this.productImage,
+      this.imgUrl,
+      this.jumpUrl,
+      this.username,
+      this.score,
+      this.title,
+      this.content,
+      this.job,
+      this.headImg,
+      this.eventLabel});
 
   String productImage;
   String imgUrl;
@@ -88,6 +87,9 @@ class ReviewList {
   dynamic score;
   String title;
   String content;
+  String eventLabel;
+  String job;
+  String headImg;
 
   factory ReviewList.fromRawJson(String str) =>
       ReviewList.fromJson(json.decode(str));
@@ -102,6 +104,9 @@ class ReviewList {
         score: json["score"],
         title: json["title"],
         content: json["content"],
+        job: json["job"],
+        headImg: json["head_img"],
+        eventLabel: json["event_label"] == null ? null : json["event_label"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -112,5 +117,8 @@ class ReviewList {
         "score": score,
         "title": title,
         "content": content,
+        "job": job,
+        "head_img": headImg,
+        "event_label": eventLabel == null ? null : eventLabel,
       };
 }

@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-13 10:15:30
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-15 19:49:54
+ * @LastEditTime : 2021-10-15 17:13:02
  */
 
 import 'package:homary/common/style/main.dart';
@@ -93,7 +93,6 @@ class _InputState extends State<Input> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     focusNode.removeListener(focusEventListener);
     textEditingController.removeListener(textIsEmptyListener);

@@ -1,18 +1,24 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:homary/common/utils/analytics.dart';
 import 'package:homary/common/utils/analytics_util.dart';
 import 'package:homary/common/utils/main.dart';
+import 'package:homary/common/utils/schema2path.dart';
 import 'package:homary/components/GoodsCard/goods_cart_grid.dart';
 import 'package:homary/components/appBar/search/main.dart';
 import 'package:homary/components/goBackAppBar/main.dart';
 import 'package:homary/components/goTopMenu/main.dart';
 import 'package:homary/components/pullToRefresh/pull_to_refresh.dart';
+import 'package:homary/entity/homeAdvInfo.dart';
 import 'package:homary/pages/categoryTab/components/category_menu_bar_v2.dart';
 import 'package:homary/pages/categoryTab/components/filter_drawer.dart';
 import 'package:homary/pages/categoryTab/components/product_empty.dart';
 import 'package:homary/pages/categoryTab/components/see_also.dart';
 import 'package:homary/pages/categoryTab/components/view_more_button.dart';
 import 'package:homary/pages/categoryTab/controller.dart';
+import 'package:homary/pages/home/components/homeItem/components/AdBlock.dart';
+import 'package:homary/pages/home/components/homeItem/components/kingkong.dart';
 import 'package:homary/widget/networkImg.dart';
 import 'package:tuple/tuple.dart';
 
@@ -62,8 +68,10 @@ class _CategoryTabState extends State<CategoryTab> {
     if (widget.isSearchPage) {
       sendGTMData({
         'event': 'view_search_results',
-        'event_label': 'search_result',
-        'search_term': widget.keyword ?? ''
+        "ecommerce": {
+          'event_label': 'search_result',
+          'search_term': widget.keyword ?? ''
+        },
       });
     }
     _scrollController.addListener(_handleScroll);
@@ -143,7 +151,15 @@ class _CategoryTabState extends State<CategoryTab> {
             controller: _scrollController,
             slivers: [
               if (!widget.isSearchPage)
-                SliverToBoxAdapter(child: buildBanner()),
+                SliverToBoxAdapter(
+                    child: Column(
+                  children: [
+                    buildTitle(ctrl),
+                    buildBanner(),
+                    buildKingKong(),
+                    buildGridAds()
+                  ],
+                )),
               if (widget.isSearchPage) SliverToBoxAdapter(child: SeeAlso()),
               // SliverPersistentHeader(
               //   pinned: true,
@@ -154,8 +170,11 @@ class _CategoryTabState extends State<CategoryTab> {
               //     ),
               //   ),
               // ),
+
               SliverToBoxAdapter(
-                child: CategoryMenuBarV2(),
+                child: CategoryMenuBarV2(
+                  showTitle: widget.isSearchPage,
+                ),
               ),
               ctrl.isShowEmpty
                   ? SliverToBoxAdapter(
@@ -170,6 +189,44 @@ class _CategoryTabState extends State<CategoryTab> {
         );
       },
     );
+  }
+
+  Widget buildTitle(CategoryTabCtrl ctrl) {
+    return Padding(
+        padding: EdgeInsets.only(
+            left: 12.w,
+            right: 12.w,
+            top: 8.w,
+            bottom: widget.isSearchPage ? 12.w : 4.w),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Text(
+                ctrl.selectedCategoryId != null
+                    ? '${ctrl.selectedCategoryName}'
+                    : ctrl.keyword.isEmpty
+                        ? S.of(context).search_view_all
+                        : '${S.of(context).search_showing_results(ctrl.keyword)}',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16.sp,
+                ),
+              ),
+            ),
+            SizedBox(width: 4.w),
+            Padding(
+              padding: EdgeInsets.only(top: 2.w),
+              child: Text(
+                '${ctrl.productTotal} ${S.of(context).category_items}',
+                style: TextStyle(
+                  fontSize: 13.sp,
+                  color: AppColor.primarySubTitle,
+                ),
+              ),
+            ),
+          ],
+        ));
   }
 
   Widget buildGridView(CategoryTabCtrl ctrl) {
@@ -230,10 +287,12 @@ class _CategoryTabState extends State<CategoryTab> {
   }
 
   Widget buildBanner() {
-    return Selector<CategoryTabCtrl, String>(
-      selector: (context, ctrl) => ctrl.bannerImage,
+    return Selector<CategoryTabCtrl, AdvDatum>(
+      selector: (context, ctrl) => ctrl.categoryTopBanner,
       builder: (context, value, _) {
-        if (value == null || value.isEmpty) {
+        if (value == null ||
+            value.moduleData == null ||
+            value.moduleData.length == 0) {
           return Container();
         }
         return Padding(
@@ -242,15 +301,62 @@ class _CategoryTabState extends State<CategoryTab> {
           ),
           child: Center(
             child: ClipRRect(
-              borderRadius: AppStyle.primaryBorderRaduis,
-              child: CustomNetworkImage(
-                value,
-                width: 351.w,
-                height: 119.w,
-              ),
-            ),
+                borderRadius: AppStyle.primaryBorderRaduis,
+                child: GestureDetector(
+                  onTap: () {
+                    sendGTMData({
+                      "event": 'custom_click_ads',
+                      "ecommerce": {
+                        "event_label": value.moduleData[0].eventLabel ?? ''
+                      }
+                    });
+                    handleSchema(context, value.moduleData[0].jumpUrl);
+                  },
+                  child: CustomNetworkImage(
+                    value.moduleData[0].imgUrl,
+                    width: 351.w,
+                    height: 119.w,
+                  ),
+                )),
           ),
         );
+      },
+    );
+  }
+
+  Widget buildKingKong() {
+    return Selector<CategoryTabCtrl, AdvDatum>(
+      selector: (context, ctrl) => ctrl.categoryKingKong,
+      builder: (context, value, _) {
+        if (value == null ||
+            value.moduleData == null ||
+            value.moduleData.length == 0) {
+          return Container();
+        }
+        return KingKong(
+          data: value,
+          showTitle: false,
+          paddingTop: 0,
+        );
+      },
+    );
+  }
+
+  Widget buildGridAds() {
+    return Selector<CategoryTabCtrl, AdvDatum>(
+      selector: (context, ctrl) => ctrl.categorySpecialAds,
+      builder: (context, value, _) {
+        if (value == null ||
+            value.moduleData == null ||
+            value.moduleData.length == 0) {
+          return Container();
+        }
+        return Padding(
+            padding: EdgeInsets.only(bottom: 16.w),
+            child: AdBlock(
+              data: value,
+              showTitle: false,
+            ));
       },
     );
   }

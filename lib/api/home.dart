@@ -69,4 +69,10 @@ class HomeApi {
     );
     return res;
   }
+
+  static Future<DioResult> getAdvertInfo({Map<String, dynamic> params}) async {
+    DioResult res =
+        await Request().get("/market/advert/advert-info", params: params);
+    return res;
+  }
 }

@@ -63,10 +63,12 @@ class _MyAppState extends State<MyApp> {
     Routes.configureRoutes(router);
     Routes.router = router;
   }
-  // @override
-  // void didUpdateWidget(covariant MyApp oldWidget) {
-  //   super.didUpdateWidget(oldWidget);
-  // }
+  final ThemeData theme = ThemeData(
+      scaffoldBackgroundColor: Colors.white,
+      primarySwatch: AppColor.primaryMaterialColor,
+      primaryColor: AppColor.primaryColor,
+      unselectedWidgetColor: AppColor.primaryBorderOutline,
+      fontFamily: 'Urbanist');
 
   @override
   Widget build(BuildContext context) {
@@ -96,13 +98,10 @@ class _MyAppState extends State<MyApp> {
               const Locale('fr', 'FR'),
               const Locale('es', 'ES'),
             ],
-            theme: ThemeData(
-                scaffoldBackgroundColor: Colors.white,
-                primarySwatch: AppColor.primaryMaterialColor,
-                primaryColor: AppColor.primaryColor,
-                accentColor: AppColor.primaryColor,
-                unselectedWidgetColor: AppColor.primaryBorderOutline,
-                fontFamily: 'Urbanist'),
+            theme: theme.copyWith(
+              colorScheme:
+                  theme.colorScheme.copyWith(secondary: AppColor.primaryColor),
+            ),
             // 配置路由
             onGenerateRoute: Routes.router.generator,
             navigatorKey: navigatorKey,

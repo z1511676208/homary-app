@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-09-26 14:56:55
  * @LastEditors  : JHao
- * @LastEditTime : 2021-10-11 18:24:45
+ * @LastEditTime : 2021-10-14 10:40:53
  */
 
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -30,6 +30,7 @@ import 'package:homary/entity/areaByIp.dart';
 import 'package:homary/entity/searchCoupon.dart';
 import 'package:homary/entity/shoppingCartData.dart';
 import 'package:homary/main.dart';
+import 'package:homary/pages/home/contorller.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class CouponStatusEnum {
@@ -399,6 +400,8 @@ class ShoppingCartCtrl with ChangeNotifier {
     if (result.error == null) {
       CartChangeRes res = CartChangeRes.fromJson(result.result);
       if (res.data == null || res.data.isEmpty) {
+        BuildContext context = navigatorKey.currentState.overlay.context;
+        Provider.of<HomeCtrl>(context, listen: false).getShoppingCartData();
         this.getShoppingCartData();
         return null;
       }

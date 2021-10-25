@@ -99,7 +99,7 @@ class Iconfont {
     matchTextDirection: true,
   );
   static const ArrowRight = IconData(
-    0xe637,
+    0xe717,
     fontFamily: 'Iconfont',
     matchTextDirection: true,
   );
@@ -198,12 +198,12 @@ class Iconfont {
     matchTextDirection: true,
   );
   static const More = IconData(
-    0xe632,
+    0xe713,
     fontFamily: 'Iconfont',
     matchTextDirection: true,
   );
   static const Cart =
-      IconData(0xe6fd, fontFamily: 'Iconfont', matchTextDirection: true);
+      IconData(0xe714, fontFamily: 'Iconfont', matchTextDirection: true);
 
   static const ArrowUp = IconData(
     0xe63b,
@@ -294,7 +294,7 @@ class Iconfont {
   );
 
   static const wishIcon =
-      IconData(0xe6fc, fontFamily: 'Iconfont', matchTextDirection: true);
+      IconData(0xe716, fontFamily: 'Iconfont', matchTextDirection: true);
 
   static const flashIcon =
       IconData(0xe6fe, fontFamily: 'Iconfont', matchTextDirection: true);
@@ -324,6 +324,18 @@ class Iconfont {
 
   static const LockSharp2 = IconData(
     0xe697,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
+
+  static const flashSale = IconData(
+    0xe6bc,
+    fontFamily: 'Iconfont',
+    matchTextDirection: true,
+  );
+
+  static const yotpo = IconData(
+    0xe718,
     fontFamily: 'Iconfont',
     matchTextDirection: true,
   );

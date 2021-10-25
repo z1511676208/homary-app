@@ -1,13 +1,8 @@
 /*
  * @Author       : JHao
  * @Date         : 2021-07-07 20:28:59
-<<<<<<< HEAD
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-26 14:58:30
-=======
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-09-06 15:08:42
->>>>>>> 2981602 (feat: 收藏页面)
+ * @LastEditTime : 2021-10-14 10:40:37
  */
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';

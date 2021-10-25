@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-07-08 09:53:28
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-08-26 17:48:43
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-10-15 17:12:46
  */
 // Copyright 2014 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
@@ -321,7 +321,7 @@ class _NoBorderExpansionTileState extends State<NoBorderExpansionTile>
   @override
   void didChangeDependencies() {
     final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
+    // final ColorScheme colorScheme = theme.colorScheme;
     _borderColorTween.end = theme.dividerColor;
     _headerColorTween
       ..begin = widget.collapsedTextColor ?? theme.textTheme.subtitle1.color;

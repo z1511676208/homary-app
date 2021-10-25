@@ -2,17 +2,14 @@
  * @Author       : JHao
  * @Date         : 2021-09-27 13:49:12
  * @LastEditors  : JHao
- * @LastEditTime : 2021-10-11 18:06:09
+ * @LastEditTime : 2021-10-15 17:14:31
  */
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:homary/common/storage/cookie-manager.dart';
 import 'package:homary/common/utils/analytics.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/utils.dart';
-import 'package:homary/components/dropMenu/drop_menu.dart';
 import 'package:homary/pages/shoppingCart/controller.dart';
 
 class CouponSearchResult extends StatefulWidget {

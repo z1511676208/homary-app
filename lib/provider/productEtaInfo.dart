@@ -2,9 +2,8 @@
  * @Author       : JHao
  * @Date         : 2021-08-26 15:09:27
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-28 14:07:11
+ * @LastEditTime : 2021-10-15 17:14:53
  */
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:homary/api/common.dart';
 import 'package:homary/api/product.dart';
 import 'package:homary/common/request/request.dart';
