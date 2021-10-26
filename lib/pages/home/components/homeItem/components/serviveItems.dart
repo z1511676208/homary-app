@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-20 13:44:02
  * @LastEditors  : JHao
- * @LastEditTime : 2021-10-20 17:10:34
+ * @LastEditTime : 2021-10-26 10:06:11
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +36,7 @@ class ServiceItems extends StatelessWidget {
               child: Text(
                 text,
                 maxLines: 2,
+                overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                     fontSize: 12.sp, color: AppColor.serviceItemColor),
               ))

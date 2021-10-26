@@ -55,7 +55,9 @@ class ReviewsList extends StatelessWidget {
                           width: 8.w,
                         ),
                         Text(
-                          data.avgScore == "" ? '0' : data.avgScore,
+                          data.avgScore == "" || data.avgScore == null
+                              ? '0'
+                              : data.avgScore.toString(),
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 14.sp,
@@ -80,7 +82,7 @@ class ReviewsList extends StatelessWidget {
                       ],
                     ),
                     Container(
-                      height: 360.w,
+                      height: 361.w,
                       margin: EdgeInsets.fromLTRB(0, 16.w, 0, 0),
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
