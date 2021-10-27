@@ -15,7 +15,6 @@ class Iconfont {
 
   static const Heart = IconData(
     0xe66d,
-    fontFamily: 'Iconfont',
     matchTextDirection: true,
   );
   static const Google = IconData(

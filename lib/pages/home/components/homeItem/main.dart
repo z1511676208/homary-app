@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-19 16:50:47
  * @LastEditors  : JHao
- * @LastEditTime : 2021-10-15 17:13:56
+ * @LastEditTime : 2021-10-26 14:47:26
  */
 import 'package:flutter/material.dart';
 import 'package:homary/common/event/refresh_tab.dart';
@@ -155,6 +155,7 @@ class _HomeItemState extends State<HomeItem>
                   builder: (BuildContext context, AdvDatum data, child) {
                     return SliverToBoxAdapter(
                         child: AdBlock(
+                      showMore: false,
                       data: data,
                     ));
                   },
@@ -169,6 +170,7 @@ class _HomeItemState extends State<HomeItem>
                   builder: (BuildContext context, AdvDatum data, child) {
                     return SliverToBoxAdapter(
                         child: AdBlock(
+                      showMore: false,
                       data: data,
                     ));
                   },
@@ -207,11 +209,13 @@ class _HomeItemState extends State<HomeItem>
             onRefresh: () async {
               Provider.of<GlobalConfig>(context, listen: false)
                   .getServiceTime();
+              Provider.of<GlobalConfig>(context, listen: false)
+                  .getTermsSingle();
               ctrl.getFlashSaleModule();
               ctrl.getShoppingCartData();
-              // ctrl.getProductModule();
               ctrl.getReviewModule();
               ctrl.getRecommendList();
+              ctrl.getSearchHotKeywords();
               await ctrl.getAdvInfo(isShowLoading: false);
               final channelMap = await ctrl.getTopChannelCategory();
               EventBus.instance.emit(RefreshTabEvent(channelMap));

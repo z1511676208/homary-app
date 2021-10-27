@@ -2,11 +2,12 @@
  * @Author       : JHao
  * @Date         : 2021-07-07 20:28:59
  * @LastEditors  : JHao
- * @LastEditTime : 2021-10-15 16:41:41
+ * @LastEditTime : 2021-10-26 16:34:33
  */
 import 'dart:async';
 import 'dart:convert';
 import 'package:homary/common/event/go_home.dart';
+import 'package:homary/common/event/refreshFlashSale.dart';
 import 'package:homary/common/event/refresh_tab.dart';
 import 'package:homary/common/utils/event_bus.dart';
 import 'package:homary/common/utils/home_dialog.dart';

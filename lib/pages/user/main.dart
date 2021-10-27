@@ -83,7 +83,8 @@ class _UserPageViewState extends State<UserPageView> {
                       },
                       icon: Icon(
                         Iconfont.Setting,
-                        size: 20.w,
+                        size: 21.w,
+                        color: AppColor.primaryText,
                       ))
                 ],
               ),
@@ -144,7 +145,7 @@ class _UserPageViewState extends State<UserPageView> {
                           bool isLogin =
                               Localstorage().getBool(StorageKey.IS_LOGIN);
                           if (isLogin) {
-                            Routes.push(context,Routes.myOrders);
+                            Routes.push(context, Routes.myOrders);
                           } else {
                             Routes.push(context, '/signIn');
                           }
@@ -160,7 +161,7 @@ class _UserPageViewState extends State<UserPageView> {
               ),
               Flex(
                 direction: Axis.horizontal,
-                crossAxisAlignment:CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   FlexItem(
                     S.of(context).usercenter_unpaid,
@@ -225,7 +226,7 @@ class _UserPageViewState extends State<UserPageView> {
               ),
               Flex(
                 direction: Axis.horizontal,
-                crossAxisAlignment:CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   FlexItem(
                     S.of(context).usercenter_customer,

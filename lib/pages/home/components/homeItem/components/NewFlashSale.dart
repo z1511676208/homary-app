@@ -2,13 +2,15 @@
  * @Author       : JHao
  * @Date         : 2021-10-13 11:26:17
  * @LastEditors  : JHao
- * @LastEditTime : 2021-10-15 16:29:48
+ * @LastEditTime : 2021-10-26 16:42:40
  */
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:homary/common/event/refreshFlashSale.dart';
 import 'package:homary/common/utils/analytics.dart';
+import 'package:homary/common/utils/event_bus.dart';
 import 'package:homary/common/utils/formatDate.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/components/GoodsCard/main.dart';
@@ -53,6 +55,7 @@ class Product extends StatefulWidget {
 }
 
 class _ProductState extends State<Product> {
+  StreamSubscription _subscription;
   Timer _timer;
   String _upComingTime = "";
   int _serviceTime;
@@ -80,9 +83,7 @@ class _ProductState extends State<Product> {
         ctrl.flashData.upComingProduct.productList.length > 0;
   }
 
-  @override
-  void didChangeDependencies() async {
-    super.didChangeDependencies();
+  getCountDownTime() {
     _activityTime = S.of(context).endsSoon;
     GlobalConfig globalCtrl = Provider.of<GlobalConfig>(context, listen: false);
     int serviceTime = globalCtrl.serviceTime;
@@ -126,6 +127,28 @@ class _ProductState extends State<Product> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _subscription =
+        EventBus.instance.on<RefreshFlashSaleEvent>().listen((event) {
+      if (_timer != null) {
+        // 页面销毁时触发定时器销毁
+        if (_timer.isActive) {
+          // 判断定时器是否是激活状态
+          _timer.cancel();
+        }
+      }
+      getCountDownTime();
+    });
+  }
+
+  @override
+  void didChangeDependencies() async {
+    super.didChangeDependencies();
+    getCountDownTime();
+  }
+
+  @override
   void dispose() {
     if (_timer != null) {
       // 页面销毁时触发定时器销毁
@@ -134,6 +157,7 @@ class _ProductState extends State<Product> {
         _timer.cancel();
       }
     }
+    _subscription?.cancel();
     super.dispose();
   }
 
@@ -198,7 +222,7 @@ class _ProductState extends State<Product> {
                               .data.upComingProduct.activityStartTimeStamp)
                           ? '${S.of(context).home_Startsin} $_upComingTime'
                           : '${S.of(context).home_StartsAt}} ${widget.data.upComingProduct.activityStartTime}'
-                      : _activityTime,
+                      : '${_activityTime != S.of(context).endsSoon ? '${S.of(context).product_detail_ends_in} ' : ''}$_activityTime',
                   style:
                       TextStyle(fontSize: 15.sp, color: AppColor.primaryText),
                 )

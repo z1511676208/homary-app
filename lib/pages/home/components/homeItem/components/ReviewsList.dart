@@ -82,7 +82,7 @@ class ReviewsList extends StatelessWidget {
                       ],
                     ),
                     Container(
-                      height: 361.w,
+                      height: 327.w,
                       margin: EdgeInsets.fromLTRB(0, 16.w, 0, 0),
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
@@ -186,14 +186,14 @@ class ReviewsList extends StatelessWidget {
                                         padding: EdgeInsets.all(8.w),
                                         color: Colors.white,
                                         child: Container(
-                                          height: 65.w,
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 8.w),
+                                          padding: EdgeInsets.only(bottom: 4.w),
                                           child: Text(
-                                            data.reviewList[index].content,
-                                            maxLines: 3,
+                                            data.reviewList[index].content
+                                                .replaceAll("\n", " "),
+                                            maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                             style: TextStyle(
+                                                height: 1.2,
                                                 fontSize: 12.sp,
                                                 color: AppColor.primaryText),
                                           ),

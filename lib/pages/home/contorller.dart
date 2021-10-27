@@ -2,7 +2,9 @@ import 'package:homary/api/cart.dart';
 import 'package:homary/api/category.dart';
 import 'package:homary/api/home.dart';
 import 'package:homary/api/search.dart';
+import 'package:homary/common/event/refreshFlashSale.dart';
 import 'package:homary/common/request/request.dart';
+import 'package:homary/common/utils/event_bus.dart';
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/toast.dart';
@@ -187,6 +189,7 @@ class HomeCtrl with ChangeNotifier {
     if (res.error == null) {
       FlashModuleRes result = FlashModuleRes.fromJson(res.result);
       flashData = result.data;
+      EventBus.instance.emit(RefreshFlashSaleEvent());
       notifyListeners();
     }
   }

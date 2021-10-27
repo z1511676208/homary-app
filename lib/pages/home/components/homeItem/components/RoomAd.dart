@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:homary/common/utils/analytics.dart';
+import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
 import 'package:homary/common/utils/schema2path.dart';
 import 'package:homary/entity/homeAdvInfo.dart';
@@ -20,30 +24,31 @@ class _RoomAdState extends State<RoomAd> {
   double width = 330.w;
   int scrollIndex = 1;
 
-  _handleScroll() {
-    int currentIndex = (_scrollController.offset / width).ceil();
-    if (currentIndex == scrollIndex) {
-      return;
-    }
-    setState(() {
-      scrollIndex = currentIndex == 0 ? 1 : currentIndex;
-    });
-  }
+  // _handleScroll() {
+  //   int currentIndex = (_scrollController.offset / width).ceil();
+  //   if (currentIndex == scrollIndex) {
+  //     return;
+  //   }
+  //   setState(() {
+  //     scrollIndex = currentIndex == 0 ? 1 : currentIndex;
+  //   });
+  // }
 
   @override
   void initState() {
     super.initState();
-    _scrollController.addListener(_handleScroll);
+    // _scrollController.addListener(_handleScroll);
   }
 
   @override
   void dispose() {
     super.dispose();
-    _scrollController.removeListener(_handleScroll);
+    // _scrollController.removeListener(_handleScroll);
   }
 
   @override
   Widget build(BuildContext context) {
+    var config = Localstorage().getJSON(StorageKey.CURRENT_CONFIG) ?? {};
     return SliverToBoxAdapter(
         child: widget.data != null &&
                 widget.data.moduleData != null &&
@@ -124,30 +129,64 @@ class _RoomAdState extends State<RoomAd> {
                       ],
                     ),
                     Container(
-                      height: 216.w,
-                      margin: EdgeInsets.fromLTRB(0, 16.w, 0, 0),
-                      child: ListView.builder(
-                        controller: _scrollController,
-                        scrollDirection: Axis.horizontal,
-                        clipBehavior: Clip.none,
-                        physics: ClampingScrollPhysics(),
-                        itemBuilder: (BuildContext ctx, int index) {
-                          return AdCard(
-                            width: 330.w,
-                            imageHeight: 180.w,
-                            textHeight: 36.w,
-                            adImageUrl: widget.data.moduleData[index].imgUrl,
-                            adText: widget.data.moduleData[index].title,
-                            jumpUrl: widget.data.moduleData[index].jumpUrl,
-                            eventLabel:
-                                widget.data.moduleData[index].eventLabel,
-                            isLastCard:
-                                index == widget.data.moduleData.length - 1,
-                          );
-                        },
-                        itemCount: widget.data.moduleData.length,
-                      ),
-                    ),
+                        height: 224.w,
+                        margin: EdgeInsets.fromLTRB(0, 16.w, 0, 0),
+                        child: Swiper(
+                          key: ValueKey(jsonEncode(config)),
+                          itemBuilder: (BuildContext context, int index) {
+                            return Container(
+                                margin: EdgeInsets.only(bottom: 8.w),
+                                child: AdCard(
+                                  width: this.width,
+                                  imageHeight: 180.w,
+                                  textHeight: 36.w,
+                                  adImageUrl:
+                                      widget.data.moduleData[index].imgUrl,
+                                  adText: widget.data.moduleData[index].title,
+                                  jumpUrl:
+                                      widget.data.moduleData[index].jumpUrl,
+                                  eventLabel:
+                                      widget.data.moduleData[index].eventLabel,
+                                  isLastCard: true,
+                                ));
+                          },
+                          itemCount: widget.data.moduleData.length,
+                          scrollDirection: Axis.horizontal,
+                          viewportFraction: 0.88,
+                          scale: 0.92,
+                          autoplay: true,
+                          autoplayDelay: 5000,
+                          onIndexChanged: (index) {
+                            setState(() {
+                              scrollIndex = index + 1;
+                            });
+                          },
+                        )),
+                    // Container(
+                    //   height: 216.w,
+                    //   margin: EdgeInsets.fromLTRB(0, 16.w, 0, 0),
+                    //   child: ListView.builder(
+                    //     controller: _scrollController,
+                    //     scrollDirection: Axis.horizontal,
+                    //     clipBehavior: Clip.none,
+                    //     physics: ClampingScrollPhysics(),
+                    //     itemBuilder: (BuildContext ctx, int index) {
+                    //       return AdCard(
+                    //         width: 330.w,
+                    //         imageHeight: 180.w,
+                    //         textHeight: 36.w,
+                    //         adImageUrl: widget.data.moduleData[index].imgUrl,
+                    //         adText: widget.data.moduleData[index].title,
+                    //         jumpUrl: widget.data.moduleData[index].jumpUrl,
+                    //         eventLabel:
+                    //             widget.data.moduleData[index].eventLabel,
+                    //         isLastCard:
+                    //             index == widget.data.moduleData.length - 1,
+                    //       );
+                    //     },
+                    //     itemCount: widget.data.moduleData.length,
+                    //   ),
+                    // ),
                   ],
                 ))
             : Container());

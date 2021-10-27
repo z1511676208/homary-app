@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-20 15:12:17
  * @LastEditors  : JHao
- * @LastEditTime : 2021-10-22 14:24:05
+ * @LastEditTime : 2021-10-26 14:47:02
  */
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -15,7 +15,12 @@ import 'package:homary/pages/home/components/homeItem/components/title.dart';
 class AdBlock extends StatelessWidget {
   final AdvDatum data;
   final bool showTitle;
-  const AdBlock({Key key, @required this.data, this.showTitle = true})
+  final bool showMore;
+  const AdBlock(
+      {Key key,
+      @required this.data,
+      this.showTitle = true,
+      this.showMore = true})
       : super(key: key);
 
   Widget adGridColumn2(AdvDatum data) {
@@ -123,6 +128,7 @@ class AdBlock extends StatelessWidget {
                       padding: EdgeInsets.only(bottom: 16.w),
                       child: ContentTitle(
                         title: data.title,
+                        showViewAll: this.showMore,
                         eventLabel: data.positionJumpUrlEventLabel,
                         moreJumpUrl: data.positionJumpUrl,
                       ),

@@ -1,8 +1,8 @@
 /*
  * @Author       : zhhjie
  * @Date         : 2021-08-19 10:27:07
- * @LastEditors  : zhhjie
- * @LastEditTime : 2021-09-06 15:20:32
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-10-26 13:49:52
  */
 import 'package:homary/common/utils/localstorage.dart';
 import 'package:homary/common/utils/main.dart';
@@ -16,7 +16,7 @@ class WishIconButton extends StatelessWidget {
         color: Colors.black,
         icon: Icon(
           Iconfont.wishIcon,
-          size: 20.sp,
+          size: 21.sp,
         ),
         onPressed: () {
           bool isLogin = Localstorage().getBool(StorageKey.IS_LOGIN);

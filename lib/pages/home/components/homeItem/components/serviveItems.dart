@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-20 13:44:02
  * @LastEditors  : JHao
- * @LastEditTime : 2021-10-26 10:06:11
+ * @LastEditTime : 2021-10-26 13:50:56
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +19,7 @@ class ServiceItems extends StatelessWidget {
   const ServiceItems({Key key}) : super(key: key);
 
   Widget _item(String imgLink, String text, int index) {
-    List<double> itemWidthList = [50.w, 55.w, 75.w, 75.w];
+    List<double> itemWidthList = [50.w, 55.w, 80.w, 80.w];
     return Container(
       margin: EdgeInsets.only(right: 12.w),
       child: Row(
