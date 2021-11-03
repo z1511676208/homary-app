@@ -357,20 +357,28 @@ class _SignInViewState extends State<SignInView> {
                                     SizedBox(
                                       height: 16.5.w,
                                     ),
-                                    Wrap(
-                                      spacing: 21.5.w,
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Offstage(
                                             offstage: !Platform.isIOS,
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                controller
-                                                    .signInWidthApple(context);
-                                              },
-                                              child: Image.asset(
-                                                'assets/images/signIn/apple.png',
-                                                width: 38.w,
-                                              ),
+                                            child: Row(
+                                              children: [
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    controller.signInWidthApple(
+                                                        context);
+                                                  },
+                                                  child: Image.asset(
+                                                    'assets/images/signIn/apple.png',
+                                                    width: 38.w,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: 21.5.w,
+                                                ),
+                                              ],
                                             )),
                                         GestureDetector(
                                           onTap: () {
@@ -382,6 +390,9 @@ class _SignInViewState extends State<SignInView> {
                                             width: 38.w,
                                           ),
                                         ),
+                                        SizedBox(
+                                          width: 21.5.w,
+                                        ),
                                         GestureDetector(
                                           onTap: () {
                                             controller.signInFacebook(context);
@@ -390,6 +401,9 @@ class _SignInViewState extends State<SignInView> {
                                             'assets/images/signIn/fb.png',
                                             width: 38.w,
                                           ),
+                                        ),
+                                        SizedBox(
+                                          width: 21.5.w,
                                         ),
                                         GestureDetector(
                                           onTap: () {
