@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/gestures.dart';
 import 'package:homary/common/utils/analytics.dart';
 import 'package:homary/common/utils/main.dart';
@@ -359,6 +360,18 @@ class _SignInViewState extends State<SignInView> {
                                     Wrap(
                                       spacing: 21.5.w,
                                       children: [
+                                        Offstage(
+                                            offstage: !Platform.isIOS,
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                controller
+                                                    .signInWidthApple(context);
+                                              },
+                                              child: Image.asset(
+                                                'assets/images/signIn/apple.png',
+                                                width: 38.w,
+                                              ),
+                                            )),
                                         GestureDetector(
                                           onTap: () {
                                             controller

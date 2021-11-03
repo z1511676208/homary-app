@@ -75,6 +75,7 @@ dependencies:
   video_player: ^2.2.5
   chewie: ^1.2.2
   skeletons: ^0.0.3
+  sign_in_with_apple: ^3.2.0
 
 dev_dependencies:
   flutter_test:

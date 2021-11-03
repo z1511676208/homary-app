@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-13 11:36:43
  * @LastEditors  : JHao
- * @LastEditTime : 2021-10-19 15:45:07
+ * @LastEditTime : 2021-11-03 15:25:18
  */
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -22,6 +22,7 @@ import 'package:homary/common/utils/toast.dart';
 import 'package:homary/components/dialog/new_user_success_dialog.dart';
 import 'package:homary/provider/auth_ctrl.dart';
 import 'package:homary/pages/home/contorller.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:twitter_login/twitter_login.dart';
 
 class SignInCtrl with ChangeNotifier {
@@ -147,6 +148,30 @@ class SignInCtrl with ChangeNotifier {
         Toast.error(res.error['message']);
       }
       notifyListeners();
+    }
+  }
+
+  // Apple 登录
+  void signInWidthApple(context) async {
+    try {
+      AuthorizationCredentialAppleID credential =
+          await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+      );
+      final oauthCredential = OAuthProvider("apple.com").credential(
+        idToken: credential.identityToken,
+      );
+      Toast.loading();
+      UserCredential authResult =
+          await _auth.signInWithCredential(oauthCredential);
+      String idTokenResult = await authResult.user.getIdToken();
+      this.thridLogin(context, idTokenResult, 'apple');
+    } catch (e) {
+      Toast.clear();
+      print("Apple SignIn Error $e");
     }
   }
 
