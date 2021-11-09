@@ -1,3 +1,9 @@
+/*
+ * @Author       : JHao
+ * @Date         : 2021-09-07 16:54:49
+ * @LastEditors  : JHao
+ * @LastEditTime : 2021-11-09 16:11:29
+ */
 import 'dart:io';
 
 import 'package:device_apps/device_apps.dart';
@@ -35,5 +41,11 @@ class AppUpdateUtil {
     }
   }
 
-  static void _appleStore() {}
+  static void _appleStore() async {
+    final url = 'https://apps.apple.com/us/app/homary/id1593188932';
+    if (await canLaunch(url)) {
+      launch(url);
+      return;
+    }
+  }
 }

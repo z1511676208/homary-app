@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-22 17:26:36
  * @LastEditors  : JHao
- * @LastEditTime : 2021-10-20 18:39:33
+ * @LastEditTime : 2021-11-09 10:44:29
  */
 import 'dart:async';
 import 'dart:io';
@@ -212,6 +212,13 @@ class _GoodsCardState extends State<GoodsCard> {
     int serviceTime =
         Provider.of<GlobalConfig>(context, listen: false).serviceTime;
     return timestamp - serviceTime <= 24 * 60 * 60;
+  }
+
+  double _reviewScoreToDobule(value) {
+    double score;
+    score = value is int || value is double ? value.toDouble() : 0;
+    score = value is String ? double.parse(value) : score;
+    return score;
   }
 
   @override
@@ -634,13 +641,8 @@ class _GoodsCardState extends State<GoodsCard> {
                                       Row(
                                         children: [
                                           RatingBarIndicator(
-                                            rating: _currentData.reviewScore
-                                                        is int ||
-                                                    _currentData.reviewScore
-                                                        is double
-                                                ? _currentData.reviewScore
-                                                    .toDouble()
-                                                : 0,
+                                            rating: _reviewScoreToDobule(
+                                                _currentData.reviewScore),
                                             itemBuilder: (context, index) =>
                                                 Icon(
                                               Icons.star,

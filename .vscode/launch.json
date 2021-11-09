@@ -8,7 +8,7 @@
       "name": "homary",
       "request": "launch",
       "type": "dart",
-      "args": ["--flavor", "dev"]
+      "args": ["--flavor", "product"]
     },
     {
       "name": "homary (profile mode)",

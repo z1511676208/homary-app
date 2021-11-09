@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:homary/common/config/appConfig.dart';
@@ -26,16 +27,40 @@ import 'common/utils/device.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 
+final Connectivity _connectivity = Connectivity();
+StreamSubscription<ConnectivityResult> _connectivitySubscription;
+
 void main() async {
   if (isRelease) {
     await SentryFlutter.init(
       (options) {
         options.dsn = AppConfig.SENTRY_DSN;
       },
-      appRunner: () => Global.init().then((e) => runApp(MyApp())),
+      appRunner: () =>
+          Global.init().then((e) => runApp(MyApp())).catchError((error) {
+        print('ConnectivityResult  $error');
+        _connectivitySubscription = _connectivity.onConnectivityChanged
+            .listen((ConnectivityResult result) {
+          if (result != ConnectivityResult.none) {
+            print("网络连接正常 重新初始化APP");
+            _connectivitySubscription.cancel();
+            Global.init().then((e) => runApp(MyApp()));
+          }
+        });
+      }),
     );
   } else {
-    Global.init().then((e) => runApp(MyApp()));
+    Global.init().then((e) => runApp(MyApp())).catchError((error) {
+      print('ConnectivityResult  $error');
+      _connectivitySubscription = _connectivity.onConnectivityChanged
+          .listen((ConnectivityResult result) {
+        if (result != ConnectivityResult.none) {
+          print("网络连接正常 重新初始化APP");
+          _connectivitySubscription.cancel();
+          Global.init().then((e) => runApp(MyApp()));
+        }
+      });
+    });
   }
 
   EasyLoading.instance

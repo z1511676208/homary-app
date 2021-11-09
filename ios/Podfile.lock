@@ -31,6 +31,9 @@ PODS:
     - Braintree/ThreeDSecure (>= 5.3.2, ~> 5.3)
     - Braintree/UnionPay (>= 5.3.2, ~> 5.3)
     - Braintree/Venmo (>= 5.3.2, ~> 5.3)
+  - connectivity_plus (0.0.1):
+    - Flutter
+    - Reachability
   - device_info_plus (0.0.1):
     - Flutter
   - FBAEMKit (11.2.1):
@@ -170,24 +173,12 @@ PODS:
     - AppAuth (~> 1.2)
     - GTMAppAuth (~> 1.0)
     - GTMSessionFetcher/Core (~> 1.1)
-  - GoogleUtilities (7.6.0):
-    - GoogleUtilities/AppDelegateSwizzler (= 7.6.0)
-    - GoogleUtilities/Environment (= 7.6.0)
-    - GoogleUtilities/ISASwizzler (= 7.6.0)
-    - GoogleUtilities/Logger (= 7.6.0)
-    - GoogleUtilities/MethodSwizzler (= 7.6.0)
-    - GoogleUtilities/Network (= 7.6.0)
-    - "GoogleUtilities/NSData+zlib (= 7.6.0)"
-    - GoogleUtilities/Reachability (= 7.6.0)
-    - GoogleUtilities/SwizzlerTestHelpers (= 7.6.0)
-    - GoogleUtilities/UserDefaults (= 7.6.0)
   - GoogleUtilities/AppDelegateSwizzler (7.6.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
   - GoogleUtilities/Environment (7.6.0):
     - PromisesObjC (< 3.0, >= 1.2)
-  - GoogleUtilities/ISASwizzler (7.6.0)
   - GoogleUtilities/Logger (7.6.0):
     - GoogleUtilities/Environment
   - GoogleUtilities/MethodSwizzler (7.6.0):
@@ -199,8 +190,6 @@ PODS:
   - "GoogleUtilities/NSData+zlib (7.6.0)"
   - GoogleUtilities/Reachability (7.6.0):
     - GoogleUtilities/Logger
-  - GoogleUtilities/SwizzlerTestHelpers (7.6.0):
-    - GoogleUtilities/MethodSwizzler
   - GoogleUtilities/UserDefaults (7.6.0):
     - GoogleUtilities/Logger
   - GTMAppAuth (1.2.2):
@@ -220,6 +209,7 @@ PODS:
   - path_provider (0.0.1):
     - Flutter
   - PromisesObjC (2.0.0)
+  - Reachability (3.2)
   - Sentry (7.1.4):
     - Sentry/Core (= 7.1.4)
   - Sentry/Core (7.1.4)
@@ -248,8 +238,8 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
+  - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
-  - Firebase/Messaging
   - firebase_analytics (from `.symlinks/plugins/firebase_analytics/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
@@ -260,7 +250,6 @@ DEPENDENCIES:
   - flutter_inappwebview (from `.symlinks/plugins/flutter_inappwebview/ios`)
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - google_sign_in (from `.symlinks/plugins/google_sign_in/ios`)
-  - GoogleUtilities
   - hexcolor (from `.symlinks/plugins/hexcolor/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
@@ -301,9 +290,12 @@ SPEC REPOS:
     - nanopb
     - OrderedSet
     - PromisesObjC
+    - Reachability
     - Sentry
 
 EXTERNAL SOURCES:
+  connectivity_plus:
+    :path: ".symlinks/plugins/connectivity_plus/ios"
   device_info_plus:
     :path: ".symlinks/plugins/device_info_plus/ios"
   firebase_analytics:
@@ -357,6 +349,7 @@ SPEC CHECKSUMS:
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
   Braintree: d9314d1a97acda74b77e40be5db6aa3e655c6539
   BraintreeDropIn: 3e666d341e34efb0b5e18221eacd76db469bdab8
+  connectivity_plus: 5f0eb61093bec56935f21a1699dd2758bc895587
   device_info_plus: e5c5da33f982a436e103237c0c85f9031142abed
   FBAEMKit: 5de0a7aaa854eec69bb5be20795952a63d38a5f6
   FBSDKCoreKit: bf655f808b040ed66a72b9922911b39d703e64f4
@@ -392,6 +385,7 @@ SPEC CHECKSUMS:
   package_info_plus: 6c92f08e1f853dc01228d6f553146438dafcd14e
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   Sentry: 1d3eb1a25f8c5333c88dd5603904a6d461cd9fcf
   sentry_flutter: f20d4f199442900fbdab2b8496f1d2091d8b94d9
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
@@ -404,6 +398,6 @@ SPEC CHECKSUMS:
   video_player: ecd305f42e9044793efd34846e1ce64c31ea6fcb
   wakelock: d0fc7c864128eac40eba1617cb5264d9c940b46f
 
-PODFILE CHECKSUM: fad2e28ddad749873bfc92aecae0b32135ca23e1
+PODFILE CHECKSUM: 9758856a7f9b7d31d178e52b875750362ff0ccf0
 
 COCOAPODS: 1.10.2

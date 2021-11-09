@@ -2,9 +2,10 @@
  * @Author       : JHao
  * @Date         : 2021-06-21 18:40:47
  * @LastEditors  : JHao
- * @LastEditTime : 2021-09-13 15:49:35
+ * @LastEditTime : 2021-11-09 17:45:29
  */
 import 'dart:io';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -104,6 +105,11 @@ class Global {
     await Localstorage.init();
 
     // 请求 init 接口，获取基础配置
+
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.none) {
+      return Future.error('Network Error...');
+    }
     InitConfigRes result;
     final commonResult = await CommonApi.getInitConfig();
     await Localstorage().setJSON(StorageKey.REQUEST_URL, {});
