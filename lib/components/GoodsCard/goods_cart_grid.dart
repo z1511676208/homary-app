@@ -14,6 +14,7 @@ class GoodsCartSliverGrid extends StatelessWidget {
     this.showRating = false,
     this.showDispatch = false,
     this.showDelete = false,
+    this.showClearance = true,
     this.itemListName = '',
     this.onDelete,
     this.isShoppingCart = false,
@@ -29,9 +30,10 @@ class GoodsCartSliverGrid extends StatelessWidget {
   final bool showRating; // 是否显示评分
   final bool showDispatch; // 是否显示48小时配送
   final bool showDelete; //是否显示删除图标
+  final bool showClearance; //是否显示Clearance
   final Function onDelete;
   final String itemListName;
-  final bool isShoppingCart;//是否来自购物车页
+  final bool isShoppingCart; //是否来自购物车页
 
   @override
   Widget build(BuildContext context) {
@@ -54,26 +56,23 @@ class GoodsCartSliverGrid extends StatelessWidget {
             double width = (1.sw - 24.w - 8.w) / 2;
 
             double leftHeight = GoodsCard.getHeight(
-              context,
-              productList[leftIndex],
-              width: width,
-              showCorner: showCorner,
-              showSkuList: showSkuList,
-              showFreeShipping: showFreeShipping,
-              showRating: showRating,
-              showDispatch: showDispatch,
-            );
+                context, productList[leftIndex],
+                width: width,
+                showCorner: showCorner,
+                showSkuList: showSkuList,
+                showFreeShipping: showFreeShipping,
+                showRating: showRating,
+                showDispatch: showDispatch,
+                showClearance: showClearance);
             double rightHeight = hasRight
-                ? GoodsCard.getHeight(
-                    context,
-                    productList[rightIndex],
+                ? GoodsCard.getHeight(context, productList[rightIndex],
                     width: width,
                     showCorner: showCorner,
                     showSkuList: showSkuList,
                     showFreeShipping: showFreeShipping,
                     showRating: showRating,
                     showDispatch: showDispatch,
-                  )
+                    showClearance: showClearance)
                 : 0;
             double height = leftHeight > rightHeight ? leftHeight : rightHeight;
 
@@ -92,6 +91,7 @@ class GoodsCartSliverGrid extends StatelessWidget {
                         showDelete: showDelete,
                         showCorner: showCorner,
                         showSkuList: showSkuList,
+                        showClearance: showClearance,
                         showFreeShipping: showFreeShipping,
                         showRating: showRating,
                         showDispatch: showDispatch,

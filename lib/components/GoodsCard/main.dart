@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-22 17:26:36
  * @LastEditors  : JHao
- * @LastEditTime : 2021-11-09 10:44:29
+ * @LastEditTime : 2021-11-12 16:28:42
  */
 import 'dart:async';
 import 'dart:io';
@@ -17,6 +17,18 @@ import 'package:homary/entity/home.dart';
 import 'package:homary/provider/productEtaInfo.dart';
 import 'package:homary/widget/networkImg.dart';
 
+// 活动状态，0=没有活动，1=加入了活动 2=活动未开始
+const ACTIVITY_STATUS = {
+  'NORMAL': '0', // 0=没有活动
+  'JOIN_ACTIVITY': '1', // 1=加入了活动
+  'ACTIVITY_UNOPENED': '2' // 2=活动未开始
+};
+// 活动类型， 1=秒杀，2=清仓
+const ACTIVITY_TYPE = {
+  'SPIKE': '1', // 1=秒杀
+  'CLEARANCE': '2' // 2=清仓
+};
+
 class GoodsCard extends StatefulWidget {
   final double width;
   final double height;
@@ -30,6 +42,7 @@ class GoodsCard extends StatefulWidget {
   final bool showDispatch; // 是否显示48小时配送
   final bool showFlashSale; // 是否展示秒杀模块
   final bool showTitle; // 是否展示商品标题
+  final bool showClearance; // 是否展示clearance
   final bool showDelete;
   final Function onDelete;
   final String itemListName;
@@ -48,6 +61,7 @@ class GoodsCard extends StatefulWidget {
       this.showRating = false,
       this.showDispatch = false,
       this.showDelete = false,
+      this.showClearance = false,
       this.showFlashSale = true,
       this.showTitle = true,
       this.onDelete,
@@ -71,6 +85,7 @@ class GoodsCard extends StatefulWidget {
     bool showFreeShipping,
     bool showRating,
     bool showDispatch,
+    bool showClearance,
   }) {
     bool isShowDispatch = false;
 
@@ -103,9 +118,14 @@ class GoodsCard extends StatefulWidget {
             : 0;
     double freeShippingHeight = showFreeShipping ? 22.w : 0;
     double dispatchHeight = showDispatch && isShowDispatch ? 22.w : 0;
+    double clearanceHeight =
+        showClearance && data.activityType == ACTIVITY_TYPE['CLEARANCE']
+            ? 20.w
+            : 0;
     return width +
         skuListHeight +
         44.w +
+        clearanceHeight +
         17.w +
         priceOffDesc +
         ratingHeight +
@@ -133,7 +153,9 @@ class _GoodsCardState extends State<GoodsCard> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     _activityTime = S.of(context).endsSoon;
-    if (_currentData.activityStatus == 1) {
+    if (_currentData.activityStatus?.toString() ==
+            ACTIVITY_STATUS['JOIN_ACTIVITY'] &&
+        _currentData.activityType?.toString() == ACTIVITY_TYPE['SPIKE']) {
       int serviceTime =
           Provider.of<GlobalConfig>(context, listen: false).serviceTime;
       if (serviceTime != this._serviceTime) {
@@ -152,7 +174,8 @@ class _GoodsCardState extends State<GoodsCard> {
         }
       }
     }
-    if (_currentData.activityStatus == 2) {
+    if (_currentData.activityStatus?.toString() ==
+        ACTIVITY_STATUS['ACTIVITY_UNOPENED']) {
       int serviceTime =
           Provider.of<GlobalConfig>(context, listen: false).serviceTime;
       if (serviceTime != this._serviceTime) {
@@ -250,7 +273,7 @@ class _GoodsCardState extends State<GoodsCard> {
                     : _currentData.eventLabel
               });
 
-          handleSchema(context, _currentData.jumpUrl);
+          // handleSchema(context, _currentData.jumpUrl);
         },
         child: Stack(
           children: [
@@ -282,7 +305,10 @@ class _GoodsCardState extends State<GoodsCard> {
                             width: widget.width,
                             height: widget.width,
                           ),
-                          _currentData.activityStatus == 1 &&
+                          _currentData.activityStatus?.toString() ==
+                                      ACTIVITY_STATUS['JOIN_ACTIVITY'] &&
+                                  _currentData.activityType?.toString() ==
+                                      ACTIVITY_TYPE['SPIKE'] &&
                                   widget.showFlashSale
                               ? Positioned(
                                   bottom: 0,
@@ -327,7 +353,8 @@ class _GoodsCardState extends State<GoodsCard> {
                                     ),
                                   ))
                               : Container(),
-                          _currentData.activityStatus == 2 &&
+                          _currentData.activityStatus?.toString() ==
+                                      ACTIVITY_STATUS['ACTIVITY_UNOPENED'] &&
                                   widget.showFlashSale
                               ? Positioned(
                                   bottom: 0,
@@ -548,6 +575,7 @@ class _GoodsCardState extends State<GoodsCard> {
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
+                                          height: 1.2,
                                           color: AppColor.primaryText,
                                           fontSize: 12.sp),
                                     ),
@@ -555,6 +583,22 @@ class _GoodsCardState extends State<GoodsCard> {
                                 : SizedBox(
                                     height: 8.w,
                                   ),
+                            Offstage(
+                                offstage: !(widget.showClearance &&
+                                    _currentData.activityType ==
+                                        ACTIVITY_TYPE['CLEARANCE']),
+                                child: Container(
+                                  height: 20.w,
+                                  padding: EdgeInsets.only(bottom: 6.w),
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    S.of(context).clearance,
+                                    style: TextStyle(
+                                        color: AppColor.offPriceColor,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14.sp),
+                                  ),
+                                )),
                             Container(
                               // padding: EdgeInsets.only(bottom: 4.w),
                               alignment: Alignment.centerLeft,
@@ -566,7 +610,11 @@ class _GoodsCardState extends State<GoodsCard> {
                                     text: _currentData.priceSymbol ??
                                         _currentData.price,
                                     style: TextStyle(
-                                        color: _currentData.tagPriceSymbol != ''
+                                        color: _currentData.tagPriceSymbol !=
+                                                    '' ||
+                                                _currentData.activityType
+                                                        ?.toString() ==
+                                                    ACTIVITY_TYPE['CLEARANCE']
                                             ? AppColor.offPriceColor
                                             : AppColor.primaryText,
                                         fontSize: 14.sp,
@@ -613,7 +661,9 @@ class _GoodsCardState extends State<GoodsCard> {
                               ),
                             ),
                             Offstage(
-                                offstage: _currentData.activityStatus != 2,
+                                offstage:
+                                    _currentData.activityStatus?.toString() !=
+                                        ACTIVITY_STATUS['ACTIVITY_UNOPENED'],
                                 child: Container(
                                   alignment: Alignment.centerLeft,
                                   padding: EdgeInsets.only(top: 5.w),
@@ -659,7 +709,7 @@ class _GoodsCardState extends State<GoodsCard> {
                                           Text(
                                             _currentData.reviewNum != null
                                                 ? _currentData.reviewNum
-                                                    .toString()
+                                                    ?.toString()
                                                 : '0',
                                             style: TextStyle(
                                                 color: AppColor.primarySubTitle,
@@ -727,7 +777,8 @@ class _GoodsCardState extends State<GoodsCard> {
                                     ))
                                 : Container(),
                             widget.showDispatch &&
-                                    _isShowDispatch(_currentData.skuCode)
+                                    _isShowDispatch(_currentData.skuCode) &&
+                                    _currentEtaInfo['dispatchLabel'] != ""
                                 ? Container(
                                     padding: EdgeInsets.only(top: 8.w),
                                     alignment: Alignment.centerLeft,

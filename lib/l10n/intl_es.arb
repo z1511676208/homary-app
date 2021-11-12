@@ -246,5 +246,6 @@
   "home_your_cart": "Carrito de Compra({cartNum})",
   "home_view_cart": "Ver Carrito",
   "more": "Más",
-  "trendingSearch": "A Menudo Buscado"
+  "trendingSearch": "A Menudo Buscado",
+  "clearance": "Rebaja"
 }

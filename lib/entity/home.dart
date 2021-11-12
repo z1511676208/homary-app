@@ -19,6 +19,7 @@ class ModuleDataProductList {
       this.jumpUrl,
       this.status,
       this.activityStatus,
+      this.activityType,
       this.statusDesc,
       this.spuCategoryNameFirst,
       this.spuCategoryNameSecond,
@@ -79,6 +80,7 @@ class ModuleDataProductList {
   String spuSaleQuantityDesc;
   dynamic activityStockTotal;
   String eventLabel;
+  String activityType;
 
   factory ModuleDataProductList.fromRawJson(String str) =>
       ModuleDataProductList.fromJson(json.decode(str));
@@ -101,6 +103,7 @@ class ModuleDataProductList {
           jumpUrl: json["jump_url"],
           status: json["status"],
           activityStatus: json["activity_status"],
+          activityType: json["activity_type"],
           statusDesc: json["status_desc"],
           spuCategoryNameFirst: json["spu_category_name_first"],
           spuCategoryNameSecond: json["spu_category_name_second"],
@@ -162,7 +165,8 @@ class ModuleDataProductList {
             List<dynamic>.from(mergeSkuList.map((x) => x.toJson())),
         "merge_sku_desc": mergeSkuDesc,
         "total_sku_num": totalSkuNum,
-        "spu_sale_quantity_desc": spuSaleQuantityDesc
+        "spu_sale_quantity_desc": spuSaleQuantityDesc,
+        "activity_type": activityType
       };
 }
 

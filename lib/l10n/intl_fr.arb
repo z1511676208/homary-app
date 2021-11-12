@@ -246,5 +246,6 @@
   "home_your_cart": "Votre Panier({cartNum})",
   "home_view_cart": "Voir Panier",
   "more": "Suite",
-  "trendingSearch": "Souvent Recherchés"
+  "trendingSearch": "Souvent Recherchés",
+  "clearance": "Déstockage"
 }

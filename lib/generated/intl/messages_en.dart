@@ -106,6 +106,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "channel_emptyList" : MessageLookupByLibrary.simpleMessage("Your List Is Empty"),
     "channel_returnHome" : MessageLookupByLibrary.simpleMessage("Return Home"),
     "channel_shopByDepartment" : MessageLookupByLibrary.simpleMessage("Shop by department"),
+    "clearance" : MessageLookupByLibrary.simpleMessage("Clearance"),
     "close_drawer" : MessageLookupByLibrary.simpleMessage("Close Drawer 123"),
     "confirm" : MessageLookupByLibrary.simpleMessage("Confirm"),
     "coupon_code" : MessageLookupByLibrary.simpleMessage("Coupon Code"),

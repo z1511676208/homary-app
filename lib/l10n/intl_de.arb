@@ -246,5 +246,6 @@
   "home_your_cart": "Ihr Warenkorb({cartNum})",
   "home_view_cart": "Warenkorb Ansehen",
   "more": "Mehr",
-  "trendingSearch": "Trendsuche"
+  "trendingSearch": "Trendsuche",
+  "clearance": "Ausverkauf"
 }

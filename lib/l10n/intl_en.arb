@@ -246,5 +246,6 @@
   "home_your_cart": "Your Cart({cartNum})",
   "home_view_cart": "View Cart",
   "more": "More",
-  "trendingSearch": "Trending Search"
+  "trendingSearch": "Trending Search",
+  "clearance": "Clearance"
 }

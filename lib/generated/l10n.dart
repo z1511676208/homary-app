@@ -2526,6 +2526,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Clearance`
+  String get clearance {
+    return Intl.message(
+      'Clearance',
+      name: 'clearance',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
