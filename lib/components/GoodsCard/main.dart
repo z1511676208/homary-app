@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-22 17:26:36
  * @LastEditors  : JHao
- * @LastEditTime : 2021-11-12 16:28:42
+ * @LastEditTime : 2021-11-12 17:15:24
  */
 import 'dart:async';
 import 'dart:io';
@@ -273,7 +273,7 @@ class _GoodsCardState extends State<GoodsCard> {
                     : _currentData.eventLabel
               });
 
-          // handleSchema(context, _currentData.jumpUrl);
+          handleSchema(context, _currentData.jumpUrl);
         },
         child: Stack(
           children: [
