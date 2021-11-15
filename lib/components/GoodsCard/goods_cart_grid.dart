@@ -117,6 +117,7 @@ class GoodsCartSliverGrid extends StatelessWidget {
                           showFreeShipping: showFreeShipping,
                           showRating: showRating,
                           showDispatch: showDispatch,
+                          showClearance: showClearance,
                           itemListName: itemListName,
                           isShoppingCart: isShoppingCart,
                           onDelete: () {

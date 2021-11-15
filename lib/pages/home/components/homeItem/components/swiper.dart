@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-19 18:31:26
  * @LastEditors  : JHao
- * @LastEditTime : 2021-10-20 17:24:48
+ * @LastEditTime : 2021-11-15 11:12:21
  */
 import 'dart:convert';
 
@@ -60,7 +60,8 @@ class BannerList extends StatelessWidget {
                             "event_label": data.moduleData[index]?.eventLabel
                           }
                         });
-                        handleSchema(context, data.moduleData[index]?.jumpUrl);
+                        handleSchema(context, data.moduleData[index]?.jumpUrl,
+                            appBarTitle: data.moduleData[index]?.title);
                       },
                     )
                   : Image.asset(
