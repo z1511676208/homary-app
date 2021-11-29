@@ -2,10 +2,11 @@
  * @Author       : JHao
  * @Date         : 2021-06-21 18:40:47
  * @LastEditors  : JHao
- * @LastEditTime : 2021-11-09 17:45:29
+ * @LastEditTime : 2021-11-29 10:57:44
  */
 import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -58,6 +59,8 @@ class Global {
     await Firebase.initializeApp();
     print(Firebase.apps[0].options);
     // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
 
     if (!kIsWeb) {
       channel = const AndroidNotificationChannel(
