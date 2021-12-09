@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-19 16:50:47
  * @LastEditors  : JHao
- * @LastEditTime : 2021-10-26 14:47:26
+ * @LastEditTime : 2021-12-09 18:36:36
  */
 import 'package:flutter/material.dart';
 import 'package:homary/common/event/refresh_tab.dart';
@@ -97,6 +97,7 @@ class _HomeItemState extends State<HomeItem>
                     return SliverToBoxAdapter(
                       child: KingKong(
                         data: data,
+                        isVerticalItem: false,
                       ),
                     );
                   },
@@ -204,8 +205,8 @@ class _HomeItemState extends State<HomeItem>
               ],
             ),
             controller: ctrl.refreshController,
-            enablePullUp: false,
-            // onLoading: ctrl.handleGetMoreProduct,
+            // enablePullUp: false,
+            onLoading: ctrl.handleGetMoreProduct,
             onRefresh: () async {
               Provider.of<GlobalConfig>(context, listen: false)
                   .getServiceTime();
