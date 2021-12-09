@@ -77,7 +77,6 @@ dependencies:
   skeletons: ^0.0.3
   sign_in_with_apple: ^3.2.0
   connectivity_plus: ^2.0.2
-  firebase_crashlytics: ^2.3.0
 
 dev_dependencies:
   flutter_test:
