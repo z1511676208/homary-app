@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-07-19 16:50:47
  * @LastEditors  : JHao
- * @LastEditTime : 2021-12-09 18:36:36
+ * @LastEditTime : 2021-12-16 11:09:25
  */
 import 'package:flutter/material.dart';
 import 'package:homary/common/event/refresh_tab.dart';
@@ -12,6 +12,7 @@ import 'package:homary/components/goTopMenu/main.dart';
 import 'package:homary/components/pullToRefresh/pull_to_refresh.dart';
 import 'package:homary/entity/homeAdvInfo.dart';
 import 'package:homary/generated/l10n.dart';
+import 'package:homary/pages/home/components/homeItem/components/ActivityEntrance.dart';
 import 'package:homary/pages/home/components/homeItem/components/AdBlock.dart';
 import 'package:homary/pages/home/components/homeItem/components/MiniShoppingCart.dart';
 import 'package:homary/pages/home/components/homeItem/components/RecommendList.dart';
@@ -222,6 +223,10 @@ class _HomeItemState extends State<HomeItem>
               EventBus.instance.emit(RefreshTabEvent(channelMap));
             },
           ),
+          Positioned(
+              bottom: showBackTopButton ? 210.w : 100.w,
+              right: 0,
+              child: ActivityEntrance()),
           showBackTopButton
               ? Positioned(
                   bottom: 100.w,

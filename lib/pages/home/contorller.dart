@@ -30,6 +30,7 @@ class HomeCtrl with ChangeNotifier {
   AdvDatum firstGridAds;
   AdvDatum secondGridAds1;
   AdvDatum secondGridAds2;
+  AdvDatum activityEntrance;
   // 首页热销商品区
   HotSaleActivity favoredList;
   HotSaleActivity deaksList;
@@ -154,6 +155,8 @@ class HomeCtrl with ChangeNotifier {
     this.secondGridAds1 = filterAdvInfo(result, 'index_bottom_special_ads');
     //首页页中尾格栅广告位-1
     this.secondGridAds2 = filterAdvInfo(result, 'index_bottom_special_ads_1');
+    //首页浮窗活动入口
+    this.activityEntrance = filterAdvInfo(result, 'site_floating_window');
     notifyListeners();
   }
 
