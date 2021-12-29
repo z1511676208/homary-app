@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:homary/common/config/appConfig.dart';
@@ -8,6 +9,8 @@ import 'package:homary/common/utils/entrance.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:fluro/fluro.dart';
 import 'package:homary/common/utils/firebaseMessageHandler.dart';
+import 'package:homary/common/utils/schema2path.dart';
+import 'package:homary/common/utils/toast.dart';
 import 'package:homary/components/behavior/app_scroll_behavior.dart';
 import 'package:homary/pages/home/contorller.dart';
 import 'package:homary/pages/shoppingCart/controller.dart';
@@ -164,6 +167,8 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   StreamSubscription _sub;
 
+  FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
+
   @override
   void initState() {
     super.initState();
@@ -195,10 +200,39 @@ class _MainPageState extends State<MainPage> {
 
     // APP在后台运行时 點通知訊息后要做的事情
     FirebaseMessageHandler.onMessageOpenedApp();
+
+    initDynamicLinks();
   }
 
   Future<void> initPlatformState() async {
     _sub = await initUniLinks(context);
+  }
+
+  Future<void> initDynamicLinks() async {
+    // Get any initial links
+    try {
+      final PendingDynamicLinkData initialLink =
+          await FirebaseDynamicLinks.instance.getInitialLink();
+      Map initParams = initialLink?.link?.queryParameters;
+      if (initParams != null && initParams['itemId'] != null) {
+        String itemLink =
+            'homary://webview?needLogin=0&source=&content={"url":"https:\/\/m.homary.com\/item\/modern-${initParams['itemId']}.html"}';
+        handleSchema(context, itemLink);
+      }
+      dynamicLinks.onLink.listen((PendingDynamicLinkData dynamicLinkData) {
+        Map params = dynamicLinkData?.link?.queryParameters;
+        if (params != null && params['itemId'] != null) {
+          String itemLink =
+              'homary://webview?needLogin=0&source=&content={"url":"https:\/\/m.homary.com\/item\/modern-${params['itemId']}.html"}';
+          handleSchema(context, itemLink);
+        }
+      }).onError((error) {
+        print('onLink error');
+        print(error.message);
+      });
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override

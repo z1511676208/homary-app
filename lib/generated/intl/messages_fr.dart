@@ -230,7 +230,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "resetpassword_tip" : MessageLookupByLibrary.simpleMessage("Enter your email address and we will send you a link."),
     "resetpassword_title" : MessageLookupByLibrary.simpleMessage("Reset Password"),
     "search_clearAll" : MessageLookupByLibrary.simpleMessage("Tout Effacer"),
-    "search_findAnything" : MessageLookupByLibrary.simpleMessage("Découvrez tous les styles de meubles et déco..."),
+    "search_findAnything" : MessageLookupByLibrary.simpleMessage("Recherchez des Produits"),
     "search_popularSearches" : MessageLookupByLibrary.simpleMessage("Souvent Recherchés"),
     "search_recentSearches" : MessageLookupByLibrary.simpleMessage("Recherches Récentes"),
     "search_see_also" : MessageLookupByLibrary.simpleMessage("Voir Aussi:"),

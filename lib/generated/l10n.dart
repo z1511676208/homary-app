@@ -1175,10 +1175,10 @@ class S {
     );
   }
 
-  /// `Find anything home...`
+  /// `Search for products`
   String get search_findAnything {
     return Intl.message(
-      'Find anything home...',
+      'Search for products',
       name: 'search_findAnything',
       desc: '',
       args: [],
