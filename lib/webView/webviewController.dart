@@ -230,6 +230,8 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
               Toast.loading();
             }
             setPlatform(); // 设置公参 pf 到 webview cookie
+            setWebviewCookies();
+
             // 切换站点 语言 币种时，刷新webview
             busEvent.subWebViewCtrl('switchSite', ctrlName, () {
               setWebviewCookies();
