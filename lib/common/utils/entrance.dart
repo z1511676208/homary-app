@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-13 10:15:30
  * @LastEditors  : JHao
- * @LastEditTime : 2021-12-30 14:35:35
+ * @LastEditTime : 2021-12-30 18:04:31
  */
 import 'dart:async';
 import 'package:uni_links/uni_links.dart';
@@ -16,7 +16,9 @@ Future initUniLinks(context) async {
     // get initial link when app start
     initialLink = await getInitialLink();
     // print("initialLink  $initialLink");
-    if (initialLink != null && !initialLink.startsWith('twittersdk://')) {
+    if (initialLink != null &&
+        !initialLink.startsWith('twittersdk://') &&
+        initialLink.startsWith('homary://')) {
       // push to target page
       handleSchema(context, initialLink);
     }

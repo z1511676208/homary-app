@@ -26,6 +26,7 @@ import 'package:homary/common/utils/navigateWatcher.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
+import 'common/storage/webview-cookie.dart';
 import 'common/utils/device.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
@@ -211,6 +212,7 @@ class _MainPageState extends State<MainPage> {
   Future<void> initDynamicLinks() async {
     // Get any initial links
     try {
+      setWebviewCookies();
       final PendingDynamicLinkData initialLink =
           await FirebaseDynamicLinks.instance.getInitialLink();
       Map initParams = initialLink?.link?.queryParameters;
