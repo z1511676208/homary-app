@@ -2,7 +2,7 @@
  * @Author       : zhhjie
  * @Date         : 2021-07-13 10:15:30
  * @LastEditors  : JHao
- * @LastEditTime : 2021-08-20 13:54:55
+ * @LastEditTime : 2021-12-30 14:35:35
  */
 import 'dart:async';
 import 'package:uni_links/uni_links.dart';
@@ -27,8 +27,9 @@ Future initUniLinks(context) async {
   }
   // Attach a listener to the links stream
   sub = linkStream.listen((String link) {
-    // print('link $link');
-    if (link == null || link.startsWith('twittersdk://')) return;
+    if (link == null ||
+        link.startsWith('twittersdk://') ||
+        !link.startsWith('homary://')) return;
     //  跳转到指定页面
     handleSchema(context, link);
   }, onError: (err) {});
