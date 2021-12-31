@@ -272,14 +272,14 @@ class _WebviewCtrlState extends State<WebviewCtrl> {
                   String path = url.split('?')[0];
                   Uri _paramsUri = Uri.parse(url);
                   Map<String, String> params = _paramsUri.queryParameters;
-                  if (url != null && path != '/index') {
+                  if (url != null && !['/index', '/'].contains(path)) {
                     final result =
                         await Routes.push(context, path, params: params);
                     if (result ?? false) {
                       isInitUrl = true;
                       controller?.reload();
                     }
-                  } else if (path == '/index') {
+                  } else if (['/index', '/'].contains(path)) {
                     Routes.goHome();
                   }
                 });
