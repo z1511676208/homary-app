@@ -2,7 +2,7 @@
  * @Author       : JHao
  * @Date         : 2021-06-28 14:41:10
  * @LastEditors  : JHao
- * @LastEditTime : 2021-10-14 16:43:36
+ * @LastEditTime : 2022-01-04 14:25:25
  */
 
 import 'dart:convert';
@@ -113,6 +113,20 @@ Future<void> sendGTMData(Map<String, dynamic> data,
   }
 
   sendData.addAll(eventData);
+  // Firebase purchase 事件要求 quantity price 为 Number类型
+  if (sendData['event'] == 'purchase') {
+    if (sendData['items'] != null && sendData['items'] is List) {
+      (sendData['items'] as List).forEach((element) {
+        try {
+          element['quantity'] = double.parse(element['quantity'].toString());
+          element['price'] = double.parse(element['price'].toString());
+        } catch (e) {
+          element['quantity'] = element['quantity'];
+          element['price'] = element['price'];
+        }
+      });
+    }
+  }
   if (ticketList.contains(data["event"])) {
     Cookie webviewTicketList = await getCookie(StorageKey.GA_TICKET_LIST);
     if (webviewTicketList != null) {
