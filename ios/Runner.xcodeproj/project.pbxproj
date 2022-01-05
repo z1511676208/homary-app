@@ -197,6 +197,7 @@
 				FE36396FCD1B1C3A42D83259 /* [CP] Copy Pods Resources */,
 				EE5CE2D426EF00B400E14D1D /* Firebase Run Script */,
 				EE4409B42735402F00CCEFD3 /* Embed App Extensions */,
+				EE4304D3278587FD001F69A7 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -322,6 +323,23 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		EE4304D3278587FD001F69A7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n$PODS_ROOT/FirebaseCrashlytics/upload-symbols --build-phase --validate -ai 1:1053109877152:ios:91416335001c86def68cc5\n$PODS_ROOT/FirebaseCrashlytics/upload-symbols --build-phase -ai 1:1053109877152:ios:91416335001c86def68cc5\n";
 		};
 		EE5CE2D426EF00B400E14D1D /* Firebase Run Script */ = {
 			isa = PBXShellScriptBuildPhase;

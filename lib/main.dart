@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -35,13 +36,28 @@ final Connectivity _connectivity = Connectivity();
 StreamSubscription<ConnectivityResult> _connectivitySubscription;
 
 void main() async {
-  if (isRelease) {
-    await SentryFlutter.init(
-      (options) {
-        options.dsn = AppConfig.SENTRY_DSN;
-      },
-      appRunner: () =>
-          Global.init().then((e) => runApp(MyApp())).catchError((error) {
+  runZonedGuarded<Future<void>>(() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    if (isRelease) {
+      await SentryFlutter.init(
+        (options) {
+          options.dsn = AppConfig.SENTRY_DSN;
+        },
+        appRunner: () =>
+            Global.init().then((e) => runApp(MyApp())).catchError((error) {
+          print('ConnectivityResult  $error');
+          _connectivitySubscription = _connectivity.onConnectivityChanged
+              .listen((ConnectivityResult result) {
+            if (result != ConnectivityResult.none) {
+              print("网络连接正常 重新初始化APP");
+              _connectivitySubscription.cancel();
+              Global.init().then((e) => runApp(MyApp()));
+            }
+          });
+        }),
+      );
+    } else {
+      Global.init().then((e) => runApp(MyApp())).catchError((error) {
         print('ConnectivityResult  $error');
         _connectivitySubscription = _connectivity.onConnectivityChanged
             .listen((ConnectivityResult result) {
@@ -51,32 +67,20 @@ void main() async {
             Global.init().then((e) => runApp(MyApp()));
           }
         });
-      }),
-    );
-  } else {
-    Global.init().then((e) => runApp(MyApp())).catchError((error) {
-      print('ConnectivityResult  $error');
-      _connectivitySubscription = _connectivity.onConnectivityChanged
-          .listen((ConnectivityResult result) {
-        if (result != ConnectivityResult.none) {
-          print("网络连接正常 重新初始化APP");
-          _connectivitySubscription.cancel();
-          Global.init().then((e) => runApp(MyApp()));
-        }
       });
-    });
-  }
+    }
 
-  EasyLoading.instance
-    ..displayDuration = const Duration(milliseconds: 3000)
-    ..indicatorType = EasyLoadingIndicatorType.ring
-    ..loadingStyle = EasyLoadingStyle.dark
-    ..indicatorSize = 40.0
-    ..radius = 10.0
-    ..maskType = EasyLoadingMaskType.none
-    ..maskColor = Colors.blue.withOpacity(0.3)
-    ..userInteractions = false
-    ..dismissOnTap = false;
+    EasyLoading.instance
+      ..displayDuration = const Duration(milliseconds: 3000)
+      ..indicatorType = EasyLoadingIndicatorType.ring
+      ..loadingStyle = EasyLoadingStyle.dark
+      ..indicatorSize = 40.0
+      ..radius = 10.0
+      ..maskType = EasyLoadingMaskType.none
+      ..maskColor = Colors.blue.withOpacity(0.3)
+      ..userInteractions = false
+      ..dismissOnTap = false;
+  }, (error, stack) => FirebaseCrashlytics.instance.recordError(error, stack));
 }
 
 class MyApp extends StatefulWidget {

@@ -2,10 +2,11 @@
  * @Author       : JHao
  * @Date         : 2021-06-21 18:40:47
  * @LastEditors  : JHao
- * @LastEditTime : 2021-11-09 17:45:29
+ * @LastEditTime : 2022-01-05 17:03:26
  */
 import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +45,7 @@ class Global {
   static Future init() async {
     // 运行初始
 
-    WidgetsFlutterBinding.ensureInitialized();
+    // WidgetsFlutterBinding.ensureInitialized();
 
     /// android 初始化
     if (Platform.isAndroid) {
@@ -58,6 +59,11 @@ class Global {
     await Firebase.initializeApp();
     print(Firebase.apps[0].options);
     // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+    if (kDebugMode) {
+      // 本地调试阶段禁用Crashlytics
+      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
+    }
 
     if (!kIsWeb) {
       channel = const AndroidNotificationChannel(
